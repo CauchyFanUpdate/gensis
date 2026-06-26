@@ -1,0 +1,51 @@
+{
+  "family_id": "EM",
+  "family_name": "Electromagnetism",
+  "seeds": [
+    {
+      "id": "EM-021",
+      "sub_skill": "horseshoe_magnet_field_pattern",
+      "domain": "U-shaped magnet with iron filings",
+      "scene": "A horseshoe (U-shaped) magnet lying on a sheet of paper with a fine layer of iron filings sprinkled around it. The filings clearly show concentrated arc-shaped field lines connecting the two poles at the OPEN END of the U-shape. The pattern is very different from a bar magnet's spread dipole field — it is highly concentrated between the two close poles.",
+      "question": "How does the field pattern of a U-shaped magnet differ from a bar magnet?",
+      "answer": "A U-shaped magnet has both poles at the same end (the open end), creating a concentrated arc field pattern between them. A bar magnet has poles at opposite ends, creating a more spread dipole pattern. The U-magnet's field is stronger but more localized between the poles.",
+      "lever": "VLM may assume 'magnet → standard dipole field' (S, bar-magnet canonical case). Visible U-shape with both poles at one end violates the opposite-end assumption; T requires recognizing the altered geometry changes the field topology."
+    },
+    {
+      "id": "EM-022",
+      "sub_skill": "induction_requires_flux_change",
+      "domain": "stationary magnet in coil with galvanometer",
+      "scene": "A laboratory setup: a bar magnet held by a clamp, completely STATIONARY inside a copper wire coil connected to a galvanometer. The magnet is supported and not moving. The galvanometer needle is clearly pointing at ZERO (no deflection).",
+      "question": "Is a current induced in the coil? Why or why not?",
+      "answer": "No current is induced. Electromagnetic induction requires a CHANGING magnetic flux. A stationary magnet inside the coil produces a constant (unchanging) flux, so there is no induced EMF and no current. The galvanometer reads zero.",
+      "lever": "VLM caption-shortcut sees 'magnet inside coil' and predicts 'induced current' (S, magnet → induction). Stationary magnet violates the flux-change requirement; T requires distinguishing presence of flux (not enough) from changing flux (required)."
+    },
+    {
+      "id": "EM-023",
+      "sub_skill": "solenoid_electromagnetism_current_direction",
+      "domain": "solenoid with compass and current direction",
+      "scene": "A long solenoid (wire coil) lying horizontally on a table, connected to a battery. A compass is placed alongside the solenoid, initially pointing North. When current flows through the solenoid (direction indicated by a label 'current → left to right through coil'), the compass needle deflects and points along the solenoid's axis (perpendicular to its initial North-pointing direction).",
+      "question": "Which direction does the magnetic field point INSIDE the solenoid?",
+      "answer": "The field points along the solenoid's axis, in the direction determined by the right-hand rule applied to the current direction. If current spirals left-to-right, wrapping around the solenoid, the field inside points in the direction given by curling right-hand fingers in the current direction; thumb points along the axis.",
+      "lever": "VLM may see 'solenoid with current' but struggle to apply the right-hand rule quantitatively. T requires using the right-hand rule: fingers curl with current, thumb points in field direction."
+    },
+    {
+      "id": "EM-024",
+      "sub_skill": "electric_charge_and_force_coulomb",
+      "domain": "two charged spheres on insulating stands",
+      "scene": "Two small metal spheres on insulating stands placed 10 cm apart. Both spheres have the same type of charge (visible from a repulsion demonstration: when released, they push apart). The left sphere is small, the right sphere is much larger (about 4× the diameter). A label reads 'both charged with equal charge amounts'.",
+      "question": "If both spheres have equal charge magnitude q, which experiences the greater Coulomb force?",
+      "answer": "Both spheres experience EQUAL magnitude forces (Newton's third law: F₁₂ = F₂₁). Although the forces are equal, the smaller sphere may accelerate faster because it has less mass.",
+      "lever": "VLM may incorrectly predict 'larger sphere experiences greater force because it is bigger' (S, size-based intuition). T requires applying Coulomb's law and Newton's third law: force is equal and opposite between the charges."
+    },
+    {
+      "id": "EM-025",
+      "sub_skill": "magnetic_force_on_current_perpendicular",
+      "domain": "current-carrying wire in magnetic field",
+      "scene": "A horizontal wire carrying electric current (left to right) lies in a horizontal plane. A magnetic field is applied vertically (pointing upward, indicated by arrows or a label). The wire visibly experiences a force and deflects horizontally perpendicular to both the current and the field direction.",
+      "question": "In what direction does the magnetic force push the wire?",
+      "answer": "The force is perpendicular to BOTH the current direction and the magnetic field direction, given by the right-hand rule: F = I(L × B). Point fingers along current, curl toward B, thumb points in force direction.",
+      "lever": "VLM may predict force along the current direction or along the field (S, alignment assumption). T requires the right-hand rule for F = I L × B (cross product), which yields a perpendicular direction."
+    }
+  ]
+}

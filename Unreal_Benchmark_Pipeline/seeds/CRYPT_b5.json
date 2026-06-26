@@ -1,0 +1,276 @@
+{
+  "family_id": "CRYPT",
+  "family_name": "Anti-Prior Creature Counting",
+  "seeds": [
+    {
+      "id": "CRYPT-001",
+      "sub_skill": "tentacle_count_anti_prior",
+      "domain": "ukiyo_e_octopus",
+      "scene": "A Japanese ukiyo-e woodblock print of a giant octopus rising from a moonlit sea. The composition is centered on the octopus body and head, and ALL of the octopus's tentacles fan outward in clear separation against the night sky and waves — exactly 7 tentacles, no more no less, none crossing or hiding behind another. The single eye is large and the parrot-like beak is visible.",
+      "question": "Based strictly on what is visible in the image, count the tentacles of this octopus. Do not rely on what you know about real octopuses.",
+      "answer": "7",
+      "lever": "Real octopuses have 8 arms; the VLM's prior pulls strongly toward 8. The image deliberately shows 7 with no occlusion. Tests image-grounded counting over biological prior."
+    },
+    {
+      "id": "CRYPT-002",
+      "sub_skill": "spider_leg_count_anti_prior",
+      "domain": "woodcut_spider",
+      "scene": "A black-and-white woodcut illustration of a giant spider hanging from a single thread of web. The spider's bulbous body is centered. From its body radiate exactly 10 segmented legs (5 on each side of the body), each leg fully extended and clearly separated from the others.",
+      "question": "Based on the image alone (not on what spiders normally have), how many legs does this spider have?",
+      "answer": "10",
+      "lever": "Spider prior = 8 legs; image shows 10. Pure observation."
+    },
+    {
+      "id": "CRYPT-003",
+      "sub_skill": "centaur_leg_count",
+      "domain": "watercolor_centaur",
+      "scene": "A loose watercolor of a centaur standing in a forest clearing, side view. The human upper body holds a longbow. The horse-half body has 5 legs visible: 4 in normal quadruped positions (two front, two rear) and an additional 5th leg sprouting from the lower belly between the front and rear pairs.",
+      "question": "Looking only at what is shown in the image, how many legs does this centaur have in total (counting only the equine portion)?",
+      "answer": "5",
+      "lever": "Centaur prior = 4 horse-legs."
+    },
+    {
+      "id": "CRYPT-004",
+      "sub_skill": "unicorn_horn_count",
+      "domain": "oil_painting_unicorn",
+      "scene": "A baroque oil painting of a unicorn galloping across a sunlit meadow. Its head is turned slightly toward the viewer. On its forehead are clearly 2 spiral ivory horns growing parallel, both unmistakable and similar in length.",
+      "question": "Based strictly on the image, how many horns does this 'unicorn' have?",
+      "answer": "2",
+      "lever": "Unicorn prior = 1 horn; image shows 2."
+    },
+    {
+      "id": "CRYPT-005",
+      "sub_skill": "hydra_head_count",
+      "domain": "tapestry_hydra",
+      "scene": "A medieval tapestry-style hydra coiled around a tree. From a single muscular trunk emerge multiple snake-like necks. There are exactly 6 fully-formed heads, each with two open eyes and a forked tongue. No stumps, no half-heads.",
+      "question": "Based on the image, how many fully formed heads does this hydra have?",
+      "answer": "6",
+      "lever": "Hydra prior is variable (often 7 or 9 in mythology); image-grounded count required."
+    },
+    {
+      "id": "CRYPT-006",
+      "sub_skill": "cyclops_eye_count",
+      "domain": "cave_cyclops",
+      "scene": "A digital painting of a cyclops sitting on a rock at the mouth of a cave. The face is clearly visible: in the center of the forehead is one large eye, AND a smaller second eye is set on the upper-left cheekbone. Both eyes are open.",
+      "question": "Looking only at the image, how many eyes does this cyclops have?",
+      "answer": "2",
+      "lever": "Cyclops prior = 1 eye; image shows 2."
+    },
+    {
+      "id": "CRYPT-007",
+      "sub_skill": "demon_finger_count",
+      "domain": "demon_hand",
+      "scene": "An ink illustration close-up of a demon's outstretched right hand against a dark background. Each finger is elongated with a long talon. Counting from one side of the hand to the other, there are 6 distinct digits — and there is NO thumb (no opposable digit), just 6 finger-like digits in a fan.",
+      "question": "Based strictly on the image, how many digits does this demon's hand have?",
+      "answer": "6",
+      "lever": "Human-hand prior = 5 (4 fingers + thumb); image shows 6 with no thumb."
+    },
+    {
+      "id": "CRYPT-008",
+      "sub_skill": "pegasus_wing_count",
+      "domain": "art_nouveau_pegasus",
+      "scene": "An art nouveau illustration of a pegasus rearing on its hind legs. Sprouting from its back are 4 wings clearly arranged as two pairs: an upper pair (large, fully extended) and a lower pair (smaller, slightly behind). All 4 wings are unambiguously feathered and connected to the body.",
+      "question": "Based on the image, how many wings does this pegasus have?",
+      "answer": "4",
+      "lever": "Pegasus prior = 2 wings; image shows 4."
+    },
+    {
+      "id": "CRYPT-009",
+      "sub_skill": "cerberus_tail_count",
+      "domain": "stylized_cerberus",
+      "scene": "A flat-color illustration of a Cerberus (three-headed dog) standing guard. The three heads are clearly separated and each snarls. Behind the body, 3 distinct tails curl upward, each independently visible — none merged.",
+      "question": "Based on what is shown in the image, how many tails does this Cerberus have?",
+      "answer": "3",
+      "lever": "Cerberus prior = 1 tail; image shows 3."
+    },
+    {
+      "id": "CRYPT-010",
+      "sub_skill": "mermaid_arm_count",
+      "domain": "stained_glass_mermaid",
+      "scene": "A stained-glass-window depiction of a mermaid sitting on a coral throne, facing the viewer. From the human torso emerge 4 arms in total: a top pair raised holding a trident and a comb, and a lower pair with hands resting on the lap. All 4 arms attach distinctly to the shoulder and chest area.",
+      "question": "Based on the image, how many arms does this mermaid have?",
+      "answer": "4",
+      "lever": "Mermaid prior = 2 arms."
+    },
+    {
+      "id": "CRYPT-011",
+      "sub_skill": "phoenix_tail_count",
+      "domain": "phoenix_in_flight",
+      "scene": "A stylized phoenix in mid-flight against a sunset, viewed from the side. Behind its body trail 3 distinct flame-tail streamers, each emerging from a different point at the rear of the body and clearly separated by gaps of empty sky.",
+      "question": "According to the image, how many separate tail streamers does this phoenix have?",
+      "answer": "3",
+      "lever": "Phoenix prior is single dramatic tail; image shows 3."
+    },
+    {
+      "id": "CRYPT-012",
+      "sub_skill": "fairy_wing_count",
+      "domain": "fairy_garden",
+      "scene": "A whimsical fairy hovering over a flower. The fairy has translucent insect-like wings arranged as 3 distinct pairs (upper, middle, lower), totaling 6 wings. Each pair is symmetrical and clearly attached to a different point along her back.",
+      "question": "Based on the image, how many wings does this fairy have?",
+      "answer": "6",
+      "lever": "Fairy prior = 4 wings (2 pairs); image shows 6."
+    },
+    {
+      "id": "CRYPT-013",
+      "sub_skill": "naga_arm_count",
+      "domain": "temple_naga",
+      "scene": "A bas-relief carving of a naga deity (human upper, snake lower) at a temple wall. The torso has 3 arms: two normal arms (left holding a lotus, right open in blessing) and a third arm growing from the upper back over the right shoulder, holding a small dagger.",
+      "question": "Based strictly on the image, how many arms does this naga have?",
+      "answer": "3",
+      "lever": "Generic humanoid prior = 2 arms."
+    },
+    {
+      "id": "CRYPT-014",
+      "sub_skill": "wolf_open_eye_count",
+      "domain": "six_eyed_wolf",
+      "scene": "A digital painting of a six-eyed dire wolf, head-on view. Of the 6 eye-sockets, 5 are wide open with glowing yellow pupils, and 1 (top-right socket) is sealed shut by an old scar with no visible pupil.",
+      "question": "Based on the image, how many of this wolf's eyes are OPEN (showing a visible pupil)?",
+      "answer": "5",
+      "lever": "Anti-prior plus selective counting (open vs closed)."
+    },
+    {
+      "id": "CRYPT-015",
+      "sub_skill": "skeleton_rib_count",
+      "domain": "skeletal_warrior",
+      "scene": "An illustration of a skeletal warrior facing the viewer with arms raised, exposing the entire rib cage. The rib cage is rendered cleanly. Counting only the visible left side (from viewer's perspective), exactly 13 ribs are stacked from the top of the chest to the lowest one before the pelvis.",
+      "question": "Based on the image, count the ribs on the visible left-side (viewer's perspective) of this skeleton's rib cage.",
+      "answer": "13",
+      "lever": "Human prior = 12 ribs per side; image shows 13."
+    },
+    {
+      "id": "CRYPT-016",
+      "sub_skill": "golem_finger_total",
+      "domain": "stone_golem",
+      "scene": "A massive stone golem standing with both arms outstretched, palms facing the viewer. The LEFT hand has 6 chunky stone fingers; the RIGHT hand has 4 fingers. Both hands are fully spread and unobstructed.",
+      "question": "Based on the image, what is the TOTAL number of fingers across both of this golem's hands?",
+      "answer": "10",
+      "lever": "Asymmetric body parts; humanoid prior strongly biases 10 (5+5), which happens to be the correct total here but for the wrong reason — only careful counting of each hand reveals 6+4=10."
+    },
+    {
+      "id": "CRYPT-017",
+      "sub_skill": "beholder_eyestalk_count",
+      "domain": "dnd_beholder",
+      "scene": "A dungeon-crawler-style beholder: a large floating spherical body with one big central eye on the front. From the top of the sphere protrude wriggling eyestalks, each ending in a small eye. There are exactly 7 eyestalks visible (plus the central main eye, which is NOT a stalk).",
+      "question": "Based on the image, how many EYESTALKS (excluding the central main eye) does this beholder have?",
+      "answer": "7",
+      "lever": "D&D beholder canonical = 10 eyestalks; image shows 7."
+    },
+    {
+      "id": "CRYPT-018",
+      "sub_skill": "manticore_tail_count",
+      "domain": "desert_manticore",
+      "scene": "A manticore (lion body, human-like face, scorpion tail) standing on a desert rock. From its rear haunches grow 2 distinct scorpion-like tails, each ending in a poisonous stinger, each clearly separated from the other.",
+      "question": "Based on the image, how many tails does this manticore have?",
+      "answer": "2",
+      "lever": "Manticore prior = 1 scorpion tail; image shows 2."
+    },
+    {
+      "id": "CRYPT-019",
+      "sub_skill": "dragon_wing_count",
+      "domain": "western_dragon",
+      "scene": "A western dragon mid-flight, wings outstretched. From its body extend 5 distinct wings: a primary pair on the shoulders (largest), a secondary pair on the lower back/rump (medium), and one additional vestigial wing growing from near the base of the tail (smallest, but unambiguous).",
+      "question": "Based strictly on the image, how many wings (large or small) does this dragon have?",
+      "answer": "5",
+      "lever": "Western dragon prior = 2 wings; image shows 5."
+    },
+    {
+      "id": "CRYPT-020",
+      "sub_skill": "cthulhu_facial_tentacle_count",
+      "domain": "cthulhu_face",
+      "scene": "A close-up of a Cthulhu-like creature's face. The lower half of the face is dominated by facial tentacles hanging down like a beard. Counting each distinct tentacle from one side to the other: there are exactly 7 facial tentacles.",
+      "question": "Based on the image, how many facial tentacles does this creature have?",
+      "answer": "7",
+      "lever": "Cthulhu canonical depictions vary (often 6 or many), no fixed prior — forces actual counting."
+    },
+    {
+      "id": "CRYPT-021",
+      "sub_skill": "mechcentipede_segment_diff",
+      "domain": "mechanical_centipede",
+      "scene": "A clockwork mechanical centipede in side view. Each body segment has one leg-like piston extending DOWN from its underside. On the visible left side of the body, count 11 piston-legs evenly spaced. On the visible right side (the far side of the body, partially angled into view), 9 piston-legs are visible; the difference is real, not occlusion (segments are clearly asymmetric).",
+      "question": "Based on the image, by how many leg-pistons does the LEFT side exceed the RIGHT side?",
+      "answer": "2",
+      "lever": "Asymmetric body — forces counting both sides separately."
+    },
+    {
+      "id": "CRYPT-022",
+      "sub_skill": "faun_hooftip_count",
+      "domain": "forest_faun",
+      "scene": "A faun (human upper body, goat-like lower body) standing on a forest path facing the viewer. The faun has 2 legs total, but each lower leg ends in a deeply cloven hoof split into 2 pronounced hoof-tips on the ground (not the typical small cleft of a real goat — these are 2 separate hoof-points each).",
+      "question": "Based strictly on the image, how many distinct hoof-tips touch the ground?",
+      "answer": "4",
+      "lever": "Goat-hoof prior is 'one cloven hoof per leg' which counts as 1 footprint; image shows 2 distinct tips per leg = 4 total."
+    },
+    {
+      "id": "CRYPT-023",
+      "sub_skill": "spider_eye_count",
+      "domain": "spider_face_macro",
+      "scene": "An extreme close-up of a stylized spider's face. The eyes are arranged in a hexagonal cluster pattern: a center eye plus 11 surrounding eyes (in two concentric rings), totaling 12 eyes, all with clearly defined dark pupils on a paler background.",
+      "question": "Based on what you can see in the image, how many eyes does this spider have?",
+      "answer": "12",
+      "lever": "Spider eye prior is 8 (or 6 for some species); image shows 12."
+    },
+    {
+      "id": "CRYPT-024",
+      "sub_skill": "werewolf_claw_count",
+      "domain": "werewolf_paw",
+      "scene": "A close-up of a werewolf raising one front paw, palm/pad facing the viewer. The paw clearly shows 7 claws fanning out from the pad — 4 main forward-facing claws and 3 additional claws (one on each side and one rear-pointing dewclaw).",
+      "question": "Based strictly on the image, how many claws are visible on this paw?",
+      "answer": "7",
+      "lever": "Wolf paw prior = 4 or 5 (with dewclaw) claws; image shows 7."
+    },
+    {
+      "id": "CRYPT-025",
+      "sub_skill": "sphinx_leg_count",
+      "domain": "egyptian_sphinx",
+      "scene": "A sphinx (human head, lion body) seated in profile. Below the body, 5 lion legs are visible: the front pair, the rear pair, and one additional middle leg under the belly between the front and rear pairs.",
+      "question": "Based on the image, how many legs does this sphinx have?",
+      "answer": "5",
+      "lever": "Sphinx prior = 4 legs."
+    },
+    {
+      "id": "CRYPT-026",
+      "sub_skill": "hydra_alive_head_count",
+      "domain": "hydra_in_battle",
+      "scene": "A hydra in mid-battle, viewed in three-quarter angle. The body has 6 necks emerging from the trunk. 5 of the necks end in a fully alive head with open eyes and bared fangs; the 6th neck terminates in a charred stump (clearly recently severed, no head, scarred).",
+      "question": "Based on the image, how many heads of this hydra are still ALIVE (i.e., have an actual head, not a stump)?",
+      "answer": "5",
+      "lever": "Combines necks vs heads distinction; requires careful inspection."
+    },
+    {
+      "id": "CRYPT-027",
+      "sub_skill": "dragon_eye_count",
+      "domain": "dragon_face_closeup",
+      "scene": "A close-up of a dragon's face, head-on view. The dragon has 4 eyes arranged as 2 vertically stacked pairs: an upper pair on the forehead and a lower pair on the cheeks. All 4 eyes are open with reptilian slit pupils.",
+      "question": "Based strictly on the image, how many eyes does this dragon have?",
+      "answer": "4",
+      "lever": "Dragon prior = 2 eyes; image shows 4."
+    },
+    {
+      "id": "CRYPT-028",
+      "sub_skill": "goblin_three_eared_count",
+      "domain": "goblin_warband",
+      "scene": "A pack of 8 goblins lined up shoulder-to-shoulder facing the viewer. Each goblin's head is fully visible. Of the 8 goblins, 3 have 3 ears (the third ear is on top of the head between the two normal ears); the other 5 have only 2 ears.",
+      "question": "Based on the image, how many goblins have exactly 3 ears?",
+      "answer": "3",
+      "lever": "Selective counting under a specific anti-prior attribute."
+    },
+    {
+      "id": "CRYPT-029",
+      "sub_skill": "demon_tail_fork_count",
+      "domain": "demon_tail",
+      "scene": "A demon viewed from behind, focusing on the tail. The tail extends downward and at the very tip splits into 3 separate sharp barbs (a 'trifurcated' end), each barb of similar length and clearly distinguishable from the others.",
+      "question": "Based on the image, into how many points does this demon's tail end split?",
+      "answer": "3",
+      "lever": "Demon tail prior = 1 spade or 2 forks; image shows 3."
+    },
+    {
+      "id": "CRYPT-030",
+      "sub_skill": "octopus_top_view_arm_count",
+      "domain": "octopus_top_down",
+      "scene": "A top-down (bird's-eye) flat illustration of an octopus, body in the center. 9 arms radiate symmetrically outward like a star pattern, all visible end-to-end with no overlap.",
+      "question": "Based on the image, how many arms does this octopus have?",
+      "answer": "9",
+      "lever": "Octopus prior = 8 arms; image shows 9."
+    }
+  ]
+}

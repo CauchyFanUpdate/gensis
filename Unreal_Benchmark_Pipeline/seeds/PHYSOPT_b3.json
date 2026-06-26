@@ -1,0 +1,96 @@
+{
+  "family_id": "PHYSOPT",
+  "family_name": "Concept-Drift Optics",
+  "seeds": [
+    {
+      "id": "PHYSOPT-021",
+      "sub_skill": "convex_lens_real_image_inversion",
+      "domain": "optics bench demo",
+      "scene": "An optics bench with a candle (object) on the left, a convex lens (focal length 10 cm) in the middle, and a translucent screen on the right. Object distance d_o = 30 cm (clearly labeled). The image on the screen shows the candle clearly INVERTED (flame pointing DOWN) and shrunken — slightly smaller than the original.",
+      "question": "What is the image distance from the lens?",
+      "answer": "15 cm",
+      "lever": "VLM caption-shortcut sees 'image of candle' → 'looks similar / upright' (S, common pinhole/mirror confusion). Convex-lens thin-lens equation: 1/d_o + 1/d_i = 1/f → 1/30 + 1/d_i = 1/10 → 1/d_i = 1/10 − 1/30 = 2/30 → d_i = 15 cm. Magnification = -15/30 = -0.5 (inverted, half-size, consistent with image)."
+    },
+    {
+      "id": "PHYSOPT-022",
+      "sub_skill": "concave_mirror_magnified_inverted",
+      "domain": "shaving mirror with flame",
+      "scene": "A concave (converging) shaving mirror of focal length f = 20 cm. A small candle is placed 30 cm in front. The image visible to a viewer behind the candle shows: candle is INVERTED (flame down), and ABOUT 2× LARGER than the real candle.",
+      "question": "Where is the image formed (distance from mirror, in front or behind)?",
+      "answer": "60 cm IN FRONT of the mirror (real image, since object is between f and 2f the image is beyond 2f, magnified, inverted).",
+      "lever": "VLM sees 'image in mirror' → 'upright virtual behind mirror' (S, plain flat-mirror intuition). Concave-mirror equation: 1/d_o + 1/d_i = 1/f → 1/30 + 1/d_i = 1/20 → 1/d_i = 1/60 → d_i = 60 cm. Magnification = -60/30 = -2 (inverted, 2× — matches description)."
+    },
+    {
+      "id": "PHYSOPT-023",
+      "sub_skill": "double_slit_fringe_spacing_color",
+      "domain": "double-slit interference photo",
+      "scene": "A double-slit interference pattern photographed on a screen. Two side-by-side photos: LEFT shows fringes from RED laser (λ = 700 nm), wide spacing; RIGHT shows fringes from BLUE laser (λ = 450 nm), narrower spacing. Slit separation d and slit-screen distance L are identical in both setups.",
+      "question": "Approximately what is the ratio of red fringe spacing to blue fringe spacing?",
+      "answer": "About 1.56 (700/450)",
+      "lever": "VLM sees 'two interference patterns' → 'they look different' without quantifying. Fringe spacing Δy = λL/d, scales linearly with λ: ratio = 700/450 ≈ 1.56."
+    },
+    {
+      "id": "PHYSOPT-024",
+      "sub_skill": "total_internal_reflection_critical_angle",
+      "domain": "fiber optic cable diagram",
+      "scene": "A schematic of a glass fiber (n=1.5) surrounded by air (n=1.0). A light ray enters the fiber's flat end, then strikes the side wall at an internal angle θ from the normal. Three rays are drawn: ray A at θ=30° (refracts and exits), ray B at θ=42° (just refracts at near-grazing, mostly reflects), ray C at θ=60° (totally internally reflected).",
+      "question": "What is the critical angle for this glass-air interface (degrees)?",
+      "answer": "About 41.8°",
+      "lever": "VLM sees 'light in fiber' → 'all reflects' (S, generic 'fiber optic guides light'). Critical angle: sin θ_c = n_2/n_1 = 1.0/1.5 → θ_c = arcsin(0.667) ≈ 41.8°; explains why ray B is at the boundary."
+    },
+    {
+      "id": "PHYSOPT-025",
+      "sub_skill": "polarizer_pair_intensity",
+      "domain": "two polarizers laboratory",
+      "scene": "Unpolarized light of intensity I₀ passes through Polarizer 1 (axis vertical), then through Polarizer 2 (axis at 60° from vertical). The transmitted intensity is measured at the back.",
+      "question": "What is the final transmitted intensity in terms of I₀?",
+      "answer": "I₀/8 (= 0.125 I₀)",
+      "lever": "VLM sees 'two polarizers crossed at 60°' → 'no light gets through' (S, perpendicular-only intuition). Malus + initial unpolarized halving: I₀ → I₀/2 (after P1) → (I₀/2)·cos²60° = (I₀/2)·(1/4) = I₀/8."
+    },
+    {
+      "id": "PHYSOPT-026",
+      "sub_skill": "primary_rainbow_color_order",
+      "domain": "primary rainbow photograph",
+      "scene": "A primary rainbow photograph (single bow). Color bands clearly visible. The annotation labels each band by an arrow from outside (top of the arc) to inside (bottom of the arc): RED on the OUTSIDE/top, then orange, yellow, green, blue, indigo, VIOLET on the INSIDE/bottom. A second arc (faint secondary bow) above it has REVERSED order.",
+      "question": "In a PRIMARY rainbow, which color is on the OUTER edge?",
+      "answer": "Red",
+      "lever": "VLM sees 'rainbow' → may default to 'violet outer / red inner' (commonly confused). Primary: red outer; secondary: red inner. Image labels confirm primary configuration."
+    },
+    {
+      "id": "PHYSOPT-027",
+      "sub_skill": "prism_dispersion_red_least",
+      "domain": "prism dispersion of white light",
+      "scene": "A glass triangular prism dispersing white sunlight into a spectrum on a screen. The screen shows the spectrum running from RED (deviated LEAST, top of the spectrum strip) down through the colors to VIOLET (deviated MOST, bottom of the strip). Beam directions are clearly marked with arrows.",
+      "question": "Which color is deviated the LEAST by the prism?",
+      "answer": "Red",
+      "lever": "VLM sees 'prism rainbow' → may answer violet (most-bent) or red (least-bent) — depends on whether they confuse 'deviation' with 'visible position'. n is largest for violet → violet bends most; red has smallest n → bends least. Image confirms."
+    },
+    {
+      "id": "PHYSOPT-028",
+      "sub_skill": "magnifier_simple_eye_relief",
+      "domain": "handheld magnifying glass over text",
+      "scene": "A handheld convex magnifier (f = 5 cm) held just above a printed page of text. The eye is at a comfortable distance ~25 cm above the lens. The lens-to-text distance is 4 cm (less than f). The image of the text seen through the lens is upright and larger than the original text (about 5× larger).",
+      "question": "Approximately what is the magnification of the text seen through the lens?",
+      "answer": "About 5×",
+      "lever": "VLM sees 'magnifying glass' → may default to '2x' or random. For a magnifier with object inside focal length, M ≈ 1 + D/f when image at near point (25 cm) → M = 1 + 25/5 = 6× (close to 5×, consistent with photo description). Alternative quick estimate: text appears 5× larger as drawn."
+    },
+    {
+      "id": "PHYSOPT-029",
+      "sub_skill": "snell_apparent_depth",
+      "domain": "swimming pool side view",
+      "scene": "A swimming pool with a coin lying flat on the bottom. The water depth is 2.0 m (clearly labeled). A side-view diagram shows light rays from the coin refracting as they exit the water surface. n_water = 1.33. An observer looks from directly above.",
+      "question": "What is the APPARENT depth of the coin to the observer?",
+      "answer": "About 1.5 m",
+      "lever": "VLM sees 'coin in water' → 'depth = 2 m as labeled' (S, ignores refraction). Apparent depth = real depth / n = 2.0 / 1.33 ≈ 1.50 m for near-normal viewing."
+    },
+    {
+      "id": "PHYSOPT-030",
+      "sub_skill": "thin_film_anti_reflection",
+      "domain": "anti-reflection coating diagram",
+      "scene": "A glass surface (n=1.5) with a thin transparent magnesium-fluoride coating (n=1.38) on top, viewed perpendicular by light of wavelength λ = 550 nm in vacuum. A schematic shows two reflected rays: one off the top of the coating, one off the coating-glass interface. The film thickness is set so the two reflections destructively interfere.",
+      "question": "What is the minimum film thickness (in nm) for destructive interference of 550 nm light at normal incidence?",
+      "answer": "About 100 nm",
+      "lever": "VLM sees 'anti-reflection film' → may guess random or 'a few hundred nm'. Both reflections undergo phase change (low → high index at each interface), so destructive condition is 2·n_film·t = λ/2 → t = λ/(4·n_film) = 550/(4·1.38) ≈ 99.6 nm."
+    }
+  ]
+}

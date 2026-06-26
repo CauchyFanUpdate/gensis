@@ -1,0 +1,186 @@
+{
+  "family_id": "OCRX",
+  "family_name": "Noisy & Ambiguous OCR",
+  "seeds": [
+    {
+      "id": "OCRX-031",
+      "sub_skill": "handwritten_digit_disambiguation",
+      "domain": "shopping list",
+      "scene": "A handwritten shopping list with quantities; one entry reads either '7' or '1' depending on cross-bar interpretation: '_ apples'. Other entries unambiguous: 3 oranges, 2 milks.",
+      "question": "What is the most likely apple count, and how confident?",
+      "answer": "the digit reading interpretation with note on confidence",
+      "lever": "Disambiguate handwritten 7 vs 1 using cross-bar presence; report uncertainty."
+    },
+    {
+      "id": "OCRX-032",
+      "sub_skill": "low_contrast_thermal_receipt",
+      "domain": "fading thermal receipt",
+      "scene": "A faded thermal printer receipt where most text is barely legible; the total field shows '$_4.25' with one digit unclear; subtotal $13.50 + tax $0.75 = $14.25 if computable.",
+      "question": "Most likely total amount?",
+      "answer": "$14.25 (inferred from subtotal+tax)",
+      "lever": "Use arithmetic context to disambiguate hard-to-read digit."
+    },
+    {
+      "id": "OCRX-033",
+      "sub_skill": "rotated_text_orientation",
+      "domain": "warehouse box label",
+      "scene": "A photo of a box label rotated 90° clockwise; visible text 'Inspector #427' and 'Address: 1532 Elm St'.",
+      "question": "What is the inspector number?",
+      "answer": "427",
+      "lever": "Mentally rotate text and parse correctly."
+    },
+    {
+      "id": "OCRX-034",
+      "sub_skill": "smudged_zip_code",
+      "domain": "envelope address",
+      "scene": "An envelope with hand-written address; the 5-digit ZIP code is smudged in the middle digit, visible '90_24'.",
+      "question": "What ZIP code is most likely if the envelope is for Beverly Hills?",
+      "answer": "90210 (or context-derived)",
+      "lever": "Use address context (city) to fill in smudged digit."
+    },
+    {
+      "id": "OCRX-035",
+      "sub_skill": "stylized_logo_letter",
+      "domain": "vintage signage",
+      "scene": "A weathered vintage shop sign with stylized lettering reading either 'SOUP' or 'SOAP' depending on letter interpretation.",
+      "question": "Most likely word?",
+      "answer": "the contextually-supported reading (e.g., based on remaining storefront cues)",
+      "lever": "Use context to disambiguate stylized character."
+    },
+    {
+      "id": "OCRX-036",
+      "sub_skill": "distorted_funhouse_mirror_text",
+      "domain": "carnival mirror text",
+      "scene": "Text reflected in a curved funhouse mirror, severely distorted but readable as 'EXIT'.",
+      "question": "What word does the mirror show?",
+      "answer": "EXIT",
+      "lever": "Read text through severe geometric distortion."
+    },
+    {
+      "id": "OCRX-037",
+      "sub_skill": "overlapping_text_layers",
+      "domain": "graffiti stack",
+      "scene": "A wall with two graffiti tags overlapping; bottom layer reads 'PEACE' in red, top layer 'LOVE' in black; some letters overlap.",
+      "question": "What is the bottom layer's word?",
+      "answer": "PEACE",
+      "lever": "Decode bottom text under overlapping foreground letters."
+    },
+    {
+      "id": "OCRX-038",
+      "sub_skill": "small_serial_under_glare",
+      "domain": "metal nameplate",
+      "scene": "A metal equipment nameplate with a small serial number partly obscured by camera flash glare; visible parts: 'SN: AB__89-XY'.",
+      "question": "How confidently can you read the full serial?",
+      "answer": "report partial reading and uncertainty",
+      "lever": "Acknowledge unreadable section and avoid hallucinating digits."
+    },
+    {
+      "id": "OCRX-039",
+      "sub_skill": "scale_units_misread",
+      "domain": "kitchen scale display",
+      "scene": "A kitchen scale digital display reading '125' with units '_z' partially obscured (could be 'oz' or 'gz' typo).",
+      "question": "What is the most likely units reading?",
+      "answer": "oz (only valid kitchen-scale unit)",
+      "lever": "Apply domain plausibility to disambiguate units."
+    },
+    {
+      "id": "OCRX-040",
+      "sub_skill": "torn_currency_amount",
+      "domain": "torn check stub",
+      "scene": "A check stub torn through the amount field; visible '$1,2_5.00' (one digit torn). Remaining context: payee 'Internet Co.', monthly subscription typically $1,265.00 in nearby stubs.",
+      "question": "Most likely amount?",
+      "answer": "$1,265.00",
+      "lever": "Use contextual prior (recurring amount) to fill missing digit."
+    },
+    {
+      "id": "OCRX-041",
+      "sub_skill": "double_exposure_text",
+      "domain": "long-exposure street photo",
+      "scene": "A long-exposure street photo where a moving sign appears doubled, ghosted text 'OPEN/OPEN' overlapping.",
+      "question": "What word does the sign show?",
+      "answer": "OPEN",
+      "lever": "Recognize motion-doubling artifact and report single word."
+    },
+    {
+      "id": "OCRX-042",
+      "sub_skill": "perspective_distorted_billboard",
+      "domain": "highway billboard",
+      "scene": "A highway billboard photographed at an extreme oblique angle; text severely foreshortened but legible reading 'SALE 50% OFF'.",
+      "question": "What does the billboard advertise?",
+      "answer": "SALE 50% OFF",
+      "lever": "Mentally rectify perspective to read foreshortened text."
+    },
+    {
+      "id": "OCRX-043",
+      "sub_skill": "language_script_mix",
+      "domain": "international menu",
+      "scene": "A bilingual menu with English and Chinese (中文); the price appears next to the English name. One Chinese-only item has price '¥45'.",
+      "question": "What is the price of the Chinese-only item?",
+      "answer": "¥45",
+      "lever": "Locate price field for an item even when its name is in another script."
+    },
+    {
+      "id": "OCRX-044",
+      "sub_skill": "barcode_vs_text_count",
+      "domain": "library shelf book spine",
+      "scene": "A library book spine with the call number partly readable; the barcode below contains the same number machine-encoded. The visible text shows 'Q_75.5 .M_2' (two characters obscured).",
+      "question": "Can you reliably extract the call number from the spine alone?",
+      "answer": "no — need barcode lookup",
+      "lever": "Acknowledge incomplete information and identify alternative reliable source."
+    },
+    {
+      "id": "OCRX-045",
+      "sub_skill": "math_vs_text_ambiguity",
+      "domain": "license plate",
+      "scene": "A license plate showing 'B0NJ0UR' where 0 (zero) and O (letter) are visually similar in the font used.",
+      "question": "Read the plate as a word vs as a code: which is intended?",
+      "answer": "word reading 'BONJOUR' is more likely intended",
+      "lever": "Use linguistic plausibility (word vs random code) to disambiguate 0/O."
+    },
+    {
+      "id": "OCRX-046",
+      "sub_skill": "carbon_copy_faint_text",
+      "domain": "carbonless duplicate form",
+      "scene": "A carbonless duplicate form with a faint pressure-imprint of writing; text barely visible reading either 'Robert' or 'Roberts'.",
+      "question": "Which name appears, with confidence?",
+      "answer": "the more visually-supported reading; report uncertainty",
+      "lever": "Read low-contrast embossing; acknowledge ambiguity."
+    },
+    {
+      "id": "OCRX-047",
+      "sub_skill": "torn_label_partial",
+      "domain": "wine bottle label",
+      "scene": "A wine bottle with a label partially torn off; visible portion reads 'Cha___nay 2018, _____rdsville Vineyard'.",
+      "question": "Read out the visible parts; do not guess the missing letters.",
+      "answer": "transcribe visible chars only, mark gaps",
+      "lever": "Faithfully transcribe partial text without hallucinating."
+    },
+    {
+      "id": "OCRX-048",
+      "sub_skill": "cluttered_chalkboard_sale_price",
+      "domain": "cafe chalkboard",
+      "scene": "A cafe chalkboard with prices in various stylized chalk; one item has been crossed out and rewritten beneath with new price '$4.50'.",
+      "question": "What is the CURRENT price of the rewritten item?",
+      "answer": "$4.50",
+      "lever": "Recognize strikethrough means deprecated; use fresh price."
+    },
+    {
+      "id": "OCRX-049",
+      "sub_skill": "fish_eye_lens_distorted_address",
+      "domain": "fisheye street photo",
+      "scene": "A fisheye-lens street photo with a building number '1247' visibly distorted by the lens; the digits are warped at the edges.",
+      "question": "What is the building number?",
+      "answer": "1247",
+      "lever": "Read text through fisheye distortion."
+    },
+    {
+      "id": "OCRX-050",
+      "sub_skill": "redacted_partial_doc",
+      "domain": "redacted government form",
+      "scene": "A government form with several fields blacked out by redaction; one field 'Date of Application' shows partial visibility through redaction marker: '__/__/2025'.",
+      "question": "What date can be confidently read?",
+      "answer": "only the year 2025; month and day are redacted",
+      "lever": "Distinguish redacted from visible portions; do not invent."
+    }
+  ]
+}

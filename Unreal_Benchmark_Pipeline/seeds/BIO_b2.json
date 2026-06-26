@@ -1,0 +1,186 @@
+{
+  "family_id": "BIO",
+  "family_name": "Biology & Anatomy (concept-drift)",
+  "seeds": [
+    {
+      "id": "BIO-001",
+      "sub_skill": "six_limb_mammal",
+      "domain": "veterinary diagram",
+      "scene": "A veterinary anatomy poster of an unfamiliar mammal labeled 'newly described species'. The mammal clearly has SIX legs (three pairs), all clearly visible and labeled L1, L2, L3 on each side. Body plan is otherwise dog-like.",
+      "question": "How many legs does this mammal have, and is it consistent with standard mammalian anatomy?",
+      "answer": "Six legs as drawn. This is INCONSISTENT with real mammals — all mammals have at most four legs (tetrapod body plan). The depicted creature is fictional / impossible by mammal anatomy.",
+      "lever": "VLM caption-shortcut sees 'mammal' / 'dog-like' and answers 'four legs' (textbook S, mammal = tetrapod). Visible six labeled legs violate the tetrapod assumption; T is 'six (and biologically impossible for a real mammal)'."
+    },
+    {
+      "id": "BIO-002",
+      "sub_skill": "centaur_with_tiny_wings",
+      "domain": "fantasy zoology illustration",
+      "scene": "A creature drawn as a horse-bodied centaur (human upper torso on horse lower body) with two tiny butterfly-sized wings on the human-torso shoulders. A label asks 'classify this animal'.",
+      "question": "Is this a real biological taxonomic group, and could those wings actually fly such a body?",
+      "answer": "No — centaurs are not a real taxonomic group; furthermore, wings of butterfly scale could not generate enough lift for a horse-sized body. The figure is fictional.",
+      "lever": "VLM sees 'centaur' → maps to mythological creature, answers as if real (S, given prominence in training data). Visible mismatch (wing scale vs body mass) plus the fictional body plan itself violate biological-realism assumption; T is 'fictional, not a real species'."
+    },
+    {
+      "id": "BIO-003",
+      "sub_skill": "red_leaf_plant_dark_room",
+      "domain": "houseplant in dark room",
+      "scene": "A potted leafy plant clearly visible in a dim, sealed room. A label states 'this room has been sealed without sunlight for 30 days'. The plant's leaves are bright RED, not green; no other light source visible.",
+      "question": "Is this plant photosynthesizing, and how can it have red leaves after 30 days of darkness?",
+      "answer": "It cannot be performing photosynthesis — no light. After 30 days in darkness most leaves of a normal plant would yellow/brown and the plant would be near death; surviving with vivid red leaves is biologically impossible without light or stored reserves. The depicted scene violates plant-physiology constraints.",
+      "lever": "VLM sees 'red-leaf plant' → 'just a red-leafed houseplant like Coleus' (S). Sealed-30-days-no-light label violates the always-photosynthesizing assumption; T is 'biologically inconsistent — plant should be near death'."
+    },
+    {
+      "id": "BIO-004",
+      "sub_skill": "asymmetric_creature_body_plan",
+      "domain": "zoology illustration",
+      "scene": "An illustrated quadruped with strikingly asymmetric features: left side has 2 eyes, right side has 1 eye; left forelimb is much longer than right; tail curls only to the left.",
+      "question": "Is this creature consistent with bilaterally symmetric vertebrate anatomy?",
+      "answer": "No — vertebrates are bilaterally symmetric (with minor internal asymmetries). The drastic external asymmetry shown is biologically impossible for a normal vertebrate.",
+      "lever": "VLM sees 'animal' → assumes bilateral symmetry and may not even register asymmetry (S). Visible drastic asymmetry violates bilaterality; T is 'biologically inconsistent'."
+    },
+    {
+      "id": "BIO-005",
+      "sub_skill": "spider_six_legs",
+      "domain": "arachnid identification",
+      "scene": "A close-up photo-realistic illustration of a spider clearly showing only SIX legs (3 on each side), with all leg attachment points visible.",
+      "question": "Is this a spider as drawn?",
+      "answer": "No — true spiders (and all arachnids) have 8 legs. With 6 legs, this would be an insect or a fictional creature, not a spider.",
+      "lever": "VLM sees 'spider' → 'eight legs' (S, taxonomic shortcut). Visible six legs violate 8-leg-arachnid assumption; T is 'not a real spider — only 6 legs shown'."
+    },
+    {
+      "id": "BIO-006",
+      "sub_skill": "insect_eight_legs",
+      "domain": "entomology poster",
+      "scene": "A clearly labeled 'beetle' specimen drawing showing 8 distinct legs with labeled segments.",
+      "question": "Is this a real beetle?",
+      "answer": "No — insects (including beetles) have exactly 6 legs. 8 legs would make it an arachnid or a fictional figure, not a beetle.",
+      "lever": "VLM sees 'beetle' → '6 legs' (S). Visible 8 legs violate insect-leg-count; T is 'not a real beetle'."
+    },
+    {
+      "id": "BIO-007",
+      "sub_skill": "fish_with_lungs",
+      "domain": "aquarium cutaway",
+      "scene": "An aquarium with a fish clearly drawn with internal anatomy visible: a pair of pink lung-like sacs labeled 'lungs', no gills shown, no operculum on the head. Fish is fully submerged in water.",
+      "question": "Can this fish breathe in this configuration underwater?",
+      "answer": "No — fish breathe via gills extracting dissolved oxygen; lungs cannot extract oxygen from water. A fully aquatic fish with only lungs and no gills would suffocate (lungfish are an exception but they surface to breathe air). As drawn (no surface access shown), it cannot survive.",
+      "lever": "VLM sees 'fish in aquarium' → 'breathes via gills' (S). Visible lungs + no gills violate the gill-bearing assumption; T is 'cannot breathe; biologically impossible without surface air'."
+    },
+    {
+      "id": "BIO-008",
+      "sub_skill": "bird_with_teeth",
+      "domain": "bird beak anatomy",
+      "scene": "A bird (clearly labeled robin) with an open beak showing rows of mammalian-style TEETH inside.",
+      "question": "Do real robins have teeth like this?",
+      "answer": "No — modern birds are toothless; their beaks lack teeth (they have a horny rhamphotheca). Only some extinct ancestors had teeth.",
+      "lever": "VLM sees 'robin' → 'beak, no teeth' (S). Visible teeth violate the toothless-modern-bird assumption; T is 'no, modern birds lack teeth'."
+    },
+    {
+      "id": "BIO-009",
+      "sub_skill": "tree_blue_leaves",
+      "domain": "outdoor tree photo",
+      "scene": "A healthy oak tree in summer sunlight with BRIGHT BLUE leaves (not green). No labels indicating an artistic tint; the photo looks otherwise realistic.",
+      "question": "Can this be a normal oak tree, and would it photosynthesize efficiently?",
+      "answer": "No — chlorophyll absorbs primarily red and blue light and reflects green, making leaves green. A blue leaf would mean it reflects blue and absorbs red+green; chlorophyll-based photosynthesis is highly inefficient with such pigmentation. Real oaks are green; the depicted tree is unnatural.",
+      "lever": "VLM sees 'oak tree' → 'green leaves, photosynthesizes normally' (S). Visible blue leaves violate the chlorophyll-green assumption; T is 'unnatural; would not photosynthesize like normal oak'."
+    },
+    {
+      "id": "BIO-010",
+      "sub_skill": "reverse_human_skeleton",
+      "domain": "anatomical illustration",
+      "scene": "An anatomical drawing of a human skeleton with the knee joints clearly bending the WRONG way (knees flex forward instead of backward).",
+      "question": "Is this anatomically correct?",
+      "answer": "No — human knees flex backward (the lower leg moves backward when bent). Forward-flexing 'knees' shown here are anatomically incorrect.",
+      "lever": "VLM sees 'human skeleton' → 'bones in normal positions' (S). Visible reversed knee flexion violates standard joint orientation; T is 'incorrect — knees flex the wrong way'."
+    },
+    {
+      "id": "BIO-011",
+      "sub_skill": "snake_with_legs",
+      "domain": "reptile illustration",
+      "scene": "A long slender snake clearly drawn with FOUR small but distinct legs along its body, labeled as a 'common garter snake'.",
+      "question": "Do garter snakes have legs?",
+      "answer": "No — modern snakes are limbless. Garter snakes have no external legs. The drawing is biologically inconsistent for a real snake.",
+      "lever": "VLM sees 'snake' → 'no legs' (S). Visible 4 legs violate limbless-snake assumption; T is 'no, snakes are limbless'."
+    },
+    {
+      "id": "BIO-012",
+      "sub_skill": "mushroom_chlorophyll",
+      "domain": "forest mushroom",
+      "scene": "A photo of a typical brown-capped mushroom on the forest floor labeled 'this mushroom photosynthesizes, generating its own food via sunlight'.",
+      "question": "Can mushrooms photosynthesize?",
+      "answer": "No — fungi do not have chlorophyll and do not photosynthesize. They are heterotrophic, obtaining nutrients by decomposing organic matter or via mycorrhizal partnerships.",
+      "lever": "VLM sees 'mushroom' but reads label and may agree 'photosynthesizes' (S, label override). The implicit fungi-don't-photosynthesize fact violates the label; T is 'no, fungi lack chlorophyll'."
+    },
+    {
+      "id": "BIO-013",
+      "sub_skill": "human_three_kidneys",
+      "domain": "medical scan illustration",
+      "scene": "An MRI-style cross-section of a human torso clearly showing THREE kidney-shaped organs labeled 'kidney', positioned at the standard left, right, AND a third in the center.",
+      "question": "Is this human anatomically typical?",
+      "answer": "No — humans normally have two kidneys (left and right). A central third kidney is not a typical anatomical configuration; it would be a rare anomaly or the figure is fictional.",
+      "lever": "VLM sees 'human anatomy with kidneys' → 'two kidneys, normal' (S). Visible three kidneys violate the two-kidney standard; T is 'not typical, only 2 kidneys normally'."
+    },
+    {
+      "id": "BIO-014",
+      "sub_skill": "octopus_three_arms",
+      "domain": "marine biology illustration",
+      "scene": "A clearly labeled octopus with only THREE arms visible (no obstruction; full top-down view).",
+      "question": "Is this a normal octopus?",
+      "answer": "No — octopuses have eight arms by definition (octo = eight). Three arms is anatomically impossible for a normal octopus (could only result from injury).",
+      "lever": "VLM sees 'octopus' → 'eight arms' (S, etymological). Visible 3 arms violate eight-arm definition; T is 'no, octopuses have 8 arms'."
+    },
+    {
+      "id": "BIO-015",
+      "sub_skill": "pregnant_male_mammal",
+      "domain": "veterinary scan",
+      "scene": "An ultrasound illustration labeled 'male dog (visibly castrated)' showing a developing fetus inside the abdomen.",
+      "question": "Is this biologically plausible for a dog?",
+      "answer": "No — male mammals do not gestate offspring; they lack a uterus. A male dog cannot be pregnant.",
+      "lever": "VLM sees 'pregnancy ultrasound' → 'expecting puppies' (S). Male-label violates female-gestation assumption; T is 'biologically impossible for a male mammal'."
+    },
+    {
+      "id": "BIO-016",
+      "sub_skill": "tree_growing_underwater",
+      "domain": "underwater scene",
+      "scene": "A scuba-diver photo deep underwater (label '20 m depth, ocean') showing a fully formed terrestrial oak tree with green leaves growing from the seabed.",
+      "question": "Can a normal oak tree grow underwater like this?",
+      "answer": "No — oaks are terrestrial, require air around their leaves and aerobic soil around roots. Submerged at 20 m, an oak would die from oxygen lack to roots and inability to do gas exchange via leaves.",
+      "lever": "VLM sees 'oak tree' → 'normal land tree' (S). Underwater context violates terrestrial-habitat assumption; T is 'cannot survive submerged'."
+    },
+    {
+      "id": "BIO-017",
+      "sub_skill": "warm_blooded_lizard",
+      "domain": "reptile thermal panel",
+      "scene": "An infrared image of a lizard sitting on a cold rock at 5°C ambient. The lizard glows BRIGHT (warm), reading 37°C body temperature on the IR scale, while its surroundings read 5°C.",
+      "question": "Is this consistent with normal lizard physiology?",
+      "answer": "No — lizards are ectothermic (cold-blooded); their body temperature should be near ambient (5°C here), not 37°C. Maintaining 37°C in a 5°C environment is mammalian/avian, not reptilian.",
+      "lever": "VLM sees 'animal IR scan, 37°C' → 'normal warm-blooded animal' (S). Lizard-label violates ectothermy; T is 'inconsistent — lizards don't self-warm to 37°C'."
+    },
+    {
+      "id": "BIO-018",
+      "sub_skill": "human_eye_position_back_of_head",
+      "domain": "human anatomy illustration",
+      "scene": "A side-view human anatomy diagram with the eyes drawn on the BACK of the skull instead of the face. Mouth and nose on the front are normal.",
+      "question": "Is this a normal human anatomical layout?",
+      "answer": "No — human eyes are anteriorly placed on the face. Posteriorly placed eyes are anatomically impossible for humans; the figure depicts an impossible configuration.",
+      "lever": "VLM sees 'human head with eyes' → 'eyes on face' (S). Visible back-of-head eyes violate anterior-eye assumption; T is 'anatomically impossible'."
+    },
+    {
+      "id": "BIO-019",
+      "sub_skill": "single_chamber_human_heart",
+      "domain": "cardiac diagram",
+      "scene": "A medical drawing labeled 'human heart' showing only ONE chamber (a single hollow blob) with arrows for blood entering and exiting, no septum or valves.",
+      "question": "Is this a correct human heart layout?",
+      "answer": "No — human hearts have FOUR chambers (2 atria + 2 ventricles) with valves. A single-chamber heart corresponds to fish, not humans.",
+      "lever": "VLM sees 'human heart' → 'four chambers' (S). Visible single chamber violates 4-chamber human heart anatomy; T is 'not a human heart layout'."
+    },
+    {
+      "id": "BIO-020",
+      "sub_skill": "tomato_growing_on_oak",
+      "domain": "garden scene",
+      "scene": "An oak tree in a garden visibly growing red ripe tomatoes hanging from its branches alongside its acorns.",
+      "question": "Is this botanically possible for an unmodified oak?",
+      "answer": "No — tomatoes (Solanum lycopersicum) and oaks (Quercus) are entirely different plants; an oak does not produce tomatoes. The depiction is botanically impossible without grafting beyond what is known feasible (tomatoes cannot be grafted onto an oak — they are not even compatible families).",
+      "lever": "VLM sees 'tree with red round fruits' → 'fruit tree' (S, generic). Visible mismatch (acorns + tomatoes on the same tree, oak labeled) violates species-specific-fruit assumption; T is 'botanically impossible'."
+    }
+  ]
+}

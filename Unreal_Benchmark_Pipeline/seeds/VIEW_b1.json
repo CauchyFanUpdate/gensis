@@ -1,0 +1,186 @@
+{
+  "family_id": "VIEW",
+  "family_name": "Multi-view Consistency",
+  "seeds": [
+    {
+      "id": "VIEW-011",
+      "sub_skill": "orthographic_top_front_side_match",
+      "domain": "engineering drawing",
+      "scene": "An engineering drawing shows three orthographic projections of an unknown object: top view (a circle inside a square), front view (a rectangle with a notch on top), side view (a triangular profile). Choose the matching 3D shape from 4 candidates.",
+      "question": "Which solid corresponds to all three views: a cylinder on a cube, a cone on a cube, a square pyramid on a cylinder, or a hemisphere on a cube?",
+      "answer": "Cone on a cube",
+      "lever": "Top: circle in square = circular thing on square base. Front: rectangle with notched top = side profile of cone+cube? Triangular side view = cone profile. Match: cone on cube."
+    },
+    {
+      "id": "VIEW-012",
+      "sub_skill": "stereo_pair_depth",
+      "domain": "stereo image pair",
+      "scene": "A stereo pair (left and right photos) of three balls on a table. Ball 1 has horizontal disparity 20 px between L and R views. Ball 2 has disparity 8 px. Ball 3 has disparity 14 px. Larger disparity = closer to camera.",
+      "question": "Which ball is FARTHEST from the camera?",
+      "answer": "Ball 2",
+      "lever": "Smallest disparity = farthest depth in stereo geometry."
+    },
+    {
+      "id": "VIEW-013",
+      "sub_skill": "rotated_object_match_among_distractors",
+      "domain": "shape rotation puzzle",
+      "scene": "A reference object: a plastic letter 'P' standing upright. Below: 4 candidate images showing the letter rotated and reflected: candidate A is 'P' rotated 90° CW, candidate B is mirror image of P (looks like a backwards P), candidate C is 'P' rotated 180° (looks like a 'd' or upside down 'P'), candidate D is 'P' rotated 90° CCW.",
+      "question": "Which candidate is a TRUE rotation (no reflection) of the reference?",
+      "answer": "A, C, D (B is a reflection)",
+      "lever": "Distinguish rotation from reflection; mirror P cannot be obtained by rotation."
+    },
+    {
+      "id": "VIEW-014",
+      "sub_skill": "cube_unfold_face_color_match",
+      "domain": "cube net coloring",
+      "scene": "A cube net with 6 faces, each colored: top=red, front=blue, right=green, back=yellow, left=white, bottom=black. The cube is folded then placed with red face down.",
+      "question": "Which color is on the TOP face after folding?",
+      "answer": "Black",
+      "lever": "Identify opposite-face pairing on the net (top↔bottom = red↔black). Placing red face-down puts black on top."
+    },
+    {
+      "id": "VIEW-015",
+      "sub_skill": "panorama_overlap_seam",
+      "domain": "panorama photo",
+      "scene": "A panorama composed of 3 stitched photos. The seams between photos are visible as faint vertical lines. In photo 1 (left), 2 people stand. In photo 2 (middle), 4 people. In photo 3 (right), 2 people. Across the seams: 1 person spans seam 1 (counted in both photos), 1 person spans seam 2.",
+      "question": "How many UNIQUE people are in the entire panorama?",
+      "answer": "6",
+      "lever": "Total = 2+4+2 = 8; subtract double-counted at 2 seams = 8-2 = 6."
+    },
+    {
+      "id": "VIEW-016",
+      "sub_skill": "above_below_view_object_id",
+      "domain": "table from above and below",
+      "scene": "A table photographed from two views: from ABOVE shows 5 objects on the surface (a book, mug, plate, phone, pen). From BELOW (looking up at the table from underneath, transparent table), the same 5 objects are seen from underneath; the mug shows its bottom (round circular base), the book shows its back cover (red), the plate shows its underside, the phone shows its back, the pen looks the same.",
+      "question": "Which object's top view is most DIFFERENT from its bottom view?",
+      "answer": "The mug (top shows opening with handle, bottom shows flat circular base)",
+      "lever": "Reason about object asymmetry top-vs-bottom; mug is most asymmetric."
+    },
+    {
+      "id": "VIEW-017",
+      "sub_skill": "multiview_count_disambiguate",
+      "domain": "construction site equipment",
+      "scene": "A construction site shown in 4 panels: aerial, front, left, right views. From aerial: 6 cranes visible. Front view: 4 cranes lined up. Left view: 3 cranes. Right view: 4 cranes. Some cranes overlap from each ground angle.",
+      "question": "What is the TRUE number of cranes (using aerial as authoritative)?",
+      "answer": "6",
+      "lever": "Aerial view gives unobstructed count; ground views suffer from occlusion."
+    },
+    {
+      "id": "VIEW-018",
+      "sub_skill": "selfie_mirror_view",
+      "domain": "selfie with watch",
+      "scene": "A selfie taken in a bathroom mirror. The person wears a wristwatch on their LEFT wrist (in real life). In the mirrored selfie, the watch APPEARS to be on the person's RIGHT wrist (because mirrors flip).",
+      "question": "Which wrist is the watch ACTUALLY on?",
+      "answer": "Left wrist",
+      "lever": "Reverse mirror flip: image of right wrist = actual left."
+    },
+    {
+      "id": "VIEW-019",
+      "sub_skill": "depth_via_overlap_layering",
+      "domain": "trees in forest",
+      "scene": "A photo of 4 trees A, B, C, D. Tree A's silhouette is partially behind C. C's silhouette is partially behind D. D's silhouette is fully visible (in front of all). B is fully visible (no overlap with others).",
+      "question": "Which tree is FARTHEST from the camera?",
+      "answer": "Tree A",
+      "lever": "Occlusion ordering: D in front, C behind D, A behind C → A farthest. B's depth indeterminate."
+    },
+    {
+      "id": "VIEW-020",
+      "sub_skill": "model_view_consistency_text",
+      "domain": "logo on box",
+      "scene": "A box with the logo 'BOX' printed clearly on the front. Three views: front (logo readable as 'BOX'), back (no logo), top (no logo). A reflected view in a mirror behind the box shows the back of the box (no logo) with 'XOB' visible (mirrored 'BOX' from the front via reflection).",
+      "question": "Is there a logo on the BACK of the box?",
+      "answer": "No",
+      "lever": "Mirror shows reverse-image of FRONT through transparency? No: mirror shows back-of-box which has no logo; the XOB seen is mirror image of front logo. Confirm: back has no logo."
+    },
+    {
+      "id": "VIEW-021",
+      "sub_skill": "viewpoint_change_object_disappears",
+      "domain": "outdoor sculpture from two angles",
+      "scene": "Two photos of a stone sculpture from different viewpoints. From angle A (south side), 3 small carved figures are visible on the front. From angle B (north side), 5 small carved figures are visible on the back. Side view shows the sculpture has 4 sides with carved figures: front 3, back 5, left 2, right 1. Total = 11.",
+      "question": "How many figures are TOTAL on the sculpture?",
+      "answer": "11",
+      "lever": "Multi-view aggregation; sum each face's count."
+    },
+    {
+      "id": "VIEW-022",
+      "sub_skill": "consistency_perspective_distortion",
+      "domain": "photo of train tracks",
+      "scene": "A photo of straight train tracks receding into the distance. The two parallel rails appear to converge at the horizon (vanishing point). A passenger on the train asks if the rails are actually converging.",
+      "question": "Are the rails actually converging?",
+      "answer": "No (parallel; convergence is a perspective illusion)",
+      "lever": "Recognize linear perspective and the constant gauge of train tracks."
+    },
+    {
+      "id": "VIEW-023",
+      "sub_skill": "fish_eye_distortion",
+      "domain": "fisheye lens photo",
+      "scene": "A fisheye-lens photo of a basketball court. Straight lines on the court appear curved due to lens distortion. The center of the court is in the center of the photo (no distortion at center).",
+      "question": "Are the actual court lines straight or curved?",
+      "answer": "Straight (curvature is lens distortion)",
+      "lever": "Recognize fisheye lens artifact."
+    },
+    {
+      "id": "VIEW-024",
+      "sub_skill": "transparent_object_dual_view",
+      "domain": "drinking glass top vs side",
+      "scene": "A drinking glass with water and a straw. Side view: straw appears to bend at the water surface (refraction). Top view: straw enters water at one point and exits at another, both visible from above without bending.",
+      "question": "Is the straw actually bent?",
+      "answer": "No (refraction makes it APPEAR bent)",
+      "lever": "Reconcile two views; top view shows straight straw."
+    },
+    {
+      "id": "VIEW-025",
+      "sub_skill": "isometric_match_with_perspective",
+      "domain": "isometric room",
+      "scene": "Two views of the same room: an isometric (parallel projection) view and a one-point perspective view. In the isometric, the room dimensions are 4×3×3. In the perspective view, the back wall looks smaller due to depth.",
+      "question": "What are the actual room dimensions?",
+      "answer": "4 × 3 × 3 (isometric is to-scale)",
+      "lever": "Trust the isometric/orthographic measurement; reject perspective foreshortening."
+    },
+    {
+      "id": "VIEW-026",
+      "sub_skill": "cross_section_to_3d",
+      "domain": "MRI brain slices",
+      "scene": "10 axial MRI slices of a brain showing a tumor visible in slices 4, 5, 6, 7. The slice spacing is 5mm. Each slice tumor cross-section is approximately circular: slice 4 = 5mm diameter, slice 5 = 12mm, slice 6 = 12mm, slice 7 = 5mm.",
+      "question": "Approximately what is the tumor's HEIGHT (along the slice axis)?",
+      "answer": "Approximately 20 mm (4 slices × 5mm spacing)",
+      "lever": "Aggregate slice count × spacing."
+    },
+    {
+      "id": "VIEW-027",
+      "sub_skill": "puzzle_assembly_view_match",
+      "domain": "ikea-style instruction",
+      "scene": "An IKEA assembly instruction step shows the underside of a desktop with screw holes labeled. Step 4 says 'attach left leg here'. The instruction has a small icon showing the assembled view from above. Looking from above, the leg labelled 'left' is on the user's left when sitting at the desk.",
+      "question": "When working with the desktop FACE-DOWN (underside up), the leg should be attached to the user's:",
+      "answer": "right (because flipped face-down inverts left/right)",
+      "lever": "Mental flip: face-down inverts horizontal orientation."
+    },
+    {
+      "id": "VIEW-028",
+      "sub_skill": "two_camera_intersection",
+      "domain": "two security cameras",
+      "scene": "Two security camera views of an indoor parking garage. Camera 1 covers the north half. Camera 2 covers the south half. There is a 3m overlap zone in the middle visible to both. Camera 1 sees 8 cars, Camera 2 sees 7 cars, the overlap shows 2 cars visible to both.",
+      "question": "What is the TOTAL number of unique cars in the garage?",
+      "answer": "13",
+      "lever": "Inclusion-exclusion: 8 + 7 - 2 = 13."
+    },
+    {
+      "id": "VIEW-029",
+      "sub_skill": "pose_consistency_check",
+      "domain": "ballet dancer poses",
+      "scene": "Two photos of a dancer claimed to be in the same pose. Photo A taken from the front: arms raised in a 'V', left leg extended forward. Photo B from the side: arms raised in 'V' visible, but BOTH legs appear straight down — no extended leg.",
+      "question": "Are the two photos showing the SAME pose?",
+      "answer": "No (the leg extension is missing in photo B)",
+      "lever": "Cross-view feature consistency check; identify the discrepancy."
+    },
+    {
+      "id": "VIEW-030",
+      "sub_skill": "shadow_consistency_across_views",
+      "domain": "outdoor scene with shadow",
+      "scene": "Two photos of an outdoor sculpture from different viewpoints, both taken at the same time. Photo 1: shadow of sculpture extends to the LEFT in the frame. Photo 2: shadow extends to the LEFT in the frame as well. The sun has not moved.",
+      "question": "Are the two photos plausibly taken at the same time from different positions?",
+      "answer": "No — shadows in photos from different viewpoints should appear in different directions in their respective frames if the sun is fixed",
+      "lever": "Reasoning about shadow/sun geometry across viewpoints; same shadow direction in both frames implies same camera orientation, contradicting 'different viewpoints'."
+    }
+  ]
+}

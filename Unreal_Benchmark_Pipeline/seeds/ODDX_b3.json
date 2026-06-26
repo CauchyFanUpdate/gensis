@@ -1,0 +1,96 @@
+{
+  "family_id": "ODDX",
+  "family_name": "Odd-One-Out in a Crowd",
+  "seeds": [
+    {
+      "id": "ODDX-051",
+      "sub_skill": "subtle_color_tinge_in_uniform_field",
+      "domain": "art-class color swatch grid",
+      "scene": "A 6×6 grid of 36 painted color squares all appearing 'pure red'. Visually 35 of them are exact RGB (220, 30, 30); ONE square at row 3 col 4 is RGB (215, 30, 35) — a barely-perceptible tinge toward magenta. A reference color-bar legend at the side calibrates the eye.",
+      "question": "Which row and column contains the odd-color square?",
+      "answer": "Row 3, Column 4",
+      "lever": "Single-pixel-magnitude color difference embedded in a uniform field; tests fine-grained color discrimination and grid coordinate reporting."
+    },
+    {
+      "id": "ODDX-052",
+      "sub_skill": "mirror_flipped_logo_in_grid",
+      "domain": "wall of identical company logos",
+      "scene": "A poster shows 24 copies of an asymmetric logo (a stylized lowercase 'p') arranged in a 4×6 grid. 23 of them face the same direction; the logo at (row 2, col 5) is HORIZONTALLY MIRRORED so it looks like a 'q'.",
+      "question": "Which (row, column) has the mirror-flipped logo?",
+      "answer": "Row 2, Column 5",
+      "lever": "Detecting handedness flip in a small asymmetric icon repeated many times; only one element is flipped, and the flip is visible only when the icon is asymmetric (p↔q)."
+    },
+    {
+      "id": "ODDX-053",
+      "sub_skill": "off_by_one_orientation_arrow",
+      "domain": "directional arrow display panel",
+      "scene": "A square panel of 100 black arrows (10×10), all pointing UP, EXCEPT one arrow at row 7, col 8 which is rotated by exactly 15° clockwise from vertical (still nearly upward, but visibly off).",
+      "question": "Which arrow has a different orientation, and what is its (row, col)?",
+      "answer": "Row 7, Column 8",
+      "lever": "Tests fine angular discrimination (15° off in a sea of perfectly vertical arrows); requires localized scanning of grid."
+    },
+    {
+      "id": "ODDX-054",
+      "sub_skill": "fake_currency_in_stack",
+      "domain": "stack of $20 bills photographed close-up",
+      "scene": "Eight $20 bills are spread out, slightly fanned. Seven are genuine; one (top-right of fan) is a clearly poor counterfeit: misspelled 'TWNETY DOLLARS', no security strip, faded ink, and a watermark missing. All others have correct 'TWENTY DOLLARS' spelling.",
+      "question": "Which bill (position in fan, e.g., top-right / center / bottom-left) is the counterfeit?",
+      "answer": "Top-right",
+      "lever": "Multi-cue deviation (typo + missing security features); the misspelled word is the primary clue but several disambiguating signals are present."
+    },
+    {
+      "id": "ODDX-055",
+      "sub_skill": "single_mammal_among_reptiles",
+      "domain": "vivarium glass tank",
+      "scene": "A glass terrarium clearly housing 11 small lizards (geckos and anoles, all scaly with visible scales/tongues) plus 1 small fluffy hamster sitting in the corner. The lighting and substrate are reptile-appropriate (heat lamp visible).",
+      "question": "How many MAMMALS are in the tank?",
+      "answer": "1",
+      "lever": "Class-level taxonomic odd-one-out among ~12 visually-similar small animals; tests recognizing fur+ears+behavior of mammal vs scales of reptiles."
+    },
+    {
+      "id": "ODDX-056",
+      "sub_skill": "subtle_typo_in_repeated_sign",
+      "domain": "row of identical store window decals",
+      "scene": "A long shop window with the word 'WELCOME' decaled 8 times in a row, all in the same font. The 5th decal subtly reads 'WLCOME' (missing one E). All others are correct.",
+      "question": "Which decal (counting from left, 1-8) has the typo?",
+      "answer": "5",
+      "lever": "Single-letter omission in repeated text; visual scanning + literacy required."
+    },
+    {
+      "id": "ODDX-057",
+      "sub_skill": "wrong_size_in_ordered_progression",
+      "domain": "russian-doll-size lineup of vases",
+      "scene": "Eight ceramic vases lined up left to right, supposed to be in MONOTONE INCREASING height (each ~3 cm taller than the previous). Seven follow that progression strictly; the 6th vase from the left is actually slightly SHORTER than the 5th.",
+      "question": "Which vase (1-8) breaks the monotone increasing pattern?",
+      "answer": "6",
+      "lever": "Detect a single violation of an otherwise strict ordering; subtle size-change against a clear monotonic context."
+    },
+    {
+      "id": "ODDX-058",
+      "sub_skill": "asymmetric_face_in_symmetric_grid",
+      "domain": "smiley face emoji grid",
+      "scene": "A 5×5 grid of 25 yellow smiley face emojis. 24 are perfectly symmetric (mouth and eyes balanced). The smiley at (row 4, col 2) has an asymmetric mouth (left side of smile drooping while right side curves up).",
+      "question": "Which (row, col) emoji has the asymmetric (drooping) face?",
+      "answer": "Row 4, Column 2",
+      "lever": "Tests detection of facial-symmetry violation in repeated cartoon icons; odd-one is small but consistent."
+    },
+    {
+      "id": "ODDX-059",
+      "sub_skill": "off_pattern_brick_in_wall",
+      "domain": "exposed brick wall close-up",
+      "scene": "A close-up of a brick wall in a running-bond pattern (alternating offset). 99 bricks are standard rectangular red bricks. ONE brick (visible roughly in the center of the photo) is rotated 90°, with its narrow face presenting outward (a 'header brick' inserted into a wall meant to be all 'stretchers').",
+      "question": "How many bricks in the visible wall section deviate from the running-bond stretcher pattern?",
+      "answer": "1",
+      "lever": "Bond-pattern recognition; 1 'header' is a structural/visual deviation that can be missed if the model isn't attending to brick orientation."
+    },
+    {
+      "id": "ODDX-060",
+      "sub_skill": "wrong_clock_among_synchronized_clocks",
+      "domain": "wall of analog wall clocks",
+      "scene": "A wall in an airport-style display: 12 analog clocks each labeled with a city name. All EXCEPT one show the same coordinated time corresponding to their city's UTC offset (i.e., they are correctly synchronized). The clock labeled 'Tokyo' (UTC+9) shows 03:00 local while the actual coordinated time should make Tokyo 17:00 (it's 14 hours off — clearly wrong).",
+      "question": "Which city's clock shows the WRONG (out-of-sync) time?",
+      "answer": "Tokyo",
+      "lever": "Cross-city time-zone consistency check; requires reading multiple clocks AND knowing their offsets, then identifying the mismatched one."
+    }
+  ]
+}

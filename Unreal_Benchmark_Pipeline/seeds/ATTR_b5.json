@@ -1,0 +1,276 @@
+{
+  "family_id": "ATTR",
+  "family_name": "Multi-Attribute Filtering on Fantasy Creatures",
+  "seeds": [
+    {
+      "id": "ATTR-031",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "fantasy_demon_court",
+      "scene": "A stylized oil-painting illustration of a demon court. Sixteen demons stand in two rows of eight. Each demon is clearly one of four body colors: crimson, violet, ash-grey, or gold. Each demon either has bat wings or no wings. Each demon either has a single horn or no horn. The attributes are distributed so that exactly 3 demons are simultaneously crimson + winged + horned.",
+      "question": "Based strictly on what is visible in the image, how many demons in this court are simultaneously crimson in body color, have bat wings, AND have a horn? Count only demons that satisfy all three conditions at once.",
+      "answer": "3",
+      "lever": "Requires joint filtering on three independent visual attributes across 16 figures; any single-attribute count (e.g., all crimson) gives a different and larger number."
+    },
+    {
+      "id": "ATTR-032",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "fantasy_fairy_garden",
+      "scene": "A watercolor illustration of a fairy garden with 18 fairies hovering among giant flowers. Each fairy has one of three wing shapes: round, pointed, or tattered. Each fairy wears either a blue dress or a green dress. Each fairy either carries a glowing lantern or does not. Exactly 4 fairies are simultaneously pointed-wing + blue dress + carrying a lantern.",
+      "question": "Based strictly on what is visible in the image, how many fairies have pointed wings, wear a blue dress, AND carry a glowing lantern? Count only those satisfying all three conditions.",
+      "answer": "4",
+      "lever": "Three simultaneous attribute filters on 18 small figures; wing shape, dress color, and lantern status must all be verified per figure."
+    },
+    {
+      "id": "ATTR-033",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "alien_market",
+      "scene": "A comic-book-style alien marketplace with 20 alien vendors. Each alien is one of three skin textures: scaly, smooth, or furry. Each alien has either two eyes or four eyes. Each alien either wears a hat or goes hatless. Exactly 5 aliens are simultaneously scaly + four-eyed + wearing a hat.",
+      "question": "Based strictly on what is visible in the image, how many alien vendors are scaly, have four eyes, AND wear a hat? Count only vendors satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Skin texture, eye count, and hat presence must all be checked; the large crowd (20 vendors) makes individual inspection error-prone."
+    },
+    {
+      "id": "ATTR-034",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "dragon_rookery",
+      "scene": "A digital-art illustration of a dragon rookery perch with 14 young dragons. Each dragon has either red, blue, or green scales. Each dragon either has tail spines or a smooth tail. Each dragon either breathes visible flame from its mouth or does not. Exactly 2 dragons are simultaneously blue-scaled + spined tail + breathing flame.",
+      "question": "Based strictly on what is visible in the image, how many young dragons have blue scales, a spined tail, AND are actively breathing flame? Count only dragons meeting all three criteria.",
+      "answer": "2",
+      "lever": "Low answer (2) amid 14 dragons demands careful triple-attribute verification; misidentifying scale color alone inflates the count."
+    },
+    {
+      "id": "ATTR-035",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "fantasy_soldier_parade",
+      "scene": "A medieval fantasy tapestry-style image showing a parade of 24 fantasy soldiers. Each soldier carries either a spear, a sword, or a bow. Each soldier wears either red armor or silver armor. Each soldier either has a shield or does not. Exactly 6 soldiers are simultaneously sword-carrying + red armor + shield-bearing.",
+      "question": "Based strictly on what is visible in the image, how many soldiers carry a sword, wear red armor, AND carry a shield? Count only soldiers satisfying all three conditions at once.",
+      "answer": "6",
+      "lever": "Weapon type, armor color, and shield presence are three independent attributes; large parade (24) forces systematic row-by-row tracking."
+    },
+    {
+      "id": "ATTR-036",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "mermaid_reef",
+      "scene": "An art-nouveau illustration of a coral reef populated by 15 merfolk. Each merfolk has either a silver, orange, or teal tail fin. Each merfolk either wears a crown of coral or no crown. Each merfolk either holds a trident or holds nothing. Exactly 3 merfolk are simultaneously orange-tailed + crowned + holding a trident.",
+      "question": "Based strictly on what is visible in the image, how many merfolk have an orange tail fin, wear a coral crown, AND hold a trident? Count only those satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Tail color, crown, and held object are three separate attributes; orange tails alone are more numerous, so conjunction filtering is essential."
+    },
+    {
+      "id": "ATTR-037",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "goblin_workshop",
+      "scene": "A steampunk-fantasy illustration of a goblin workshop with 20 goblins. Each goblin has either green, brown, or blue skin. Each goblin wears either goggles or no goggles. Each goblin either holds a wrench or holds some other tool. Exactly 4 goblins are simultaneously green-skinned + wearing goggles + holding a wrench.",
+      "question": "Based strictly on what is visible in the image, how many goblins are green-skinned, wear goggles, AND hold a wrench? Count only goblins meeting all three criteria.",
+      "answer": "4",
+      "lever": "Skin color, eyewear, and held tool must each be verified; the workshop clutter partially obscures hands, making tool identification harder."
+    },
+    {
+      "id": "ATTR-038",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "celestial_spirits",
+      "scene": "A luminous fantasy illustration of 16 celestial spirits floating in a cosmic sky. Each spirit glows either white, blue, or gold. Each spirit either has visible feathered wings or no wings. Each spirit either bears a glowing halo ring or does not. Exactly 5 spirits are simultaneously gold-glowing + feathered wings + halo.",
+      "question": "Based strictly on what is visible in the image, how many celestial spirits are gold in glow, have feathered wings, AND bear a halo ring? Count only spirits satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Glow color can shift under the cosmic lighting; wing presence and halo must also be separately verified against background glow artifacts."
+    },
+    {
+      "id": "ATTR-039",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "beast_arena",
+      "scene": "A colosseum-style fantasy arena illustration with 12 beast-riders. Each rider has either a lion-mount, a wolf-mount, or a bear-mount. Each rider wears either a helmet or no helmet. Each rider either carries a banner or does not. Exactly 2 riders are simultaneously wolf-mounted + helmeted + carrying a banner.",
+      "question": "Based strictly on what is visible in the image, how many beast-riders ride a wolf, wear a helmet, AND carry a banner? Count only riders satisfying all three conditions.",
+      "answer": "2",
+      "lever": "Mount type is the hardest attribute to read at arena scale; low answer (2) means a single misidentification doubles the apparent count."
+    },
+    {
+      "id": "ATTR-040",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "witches_coven",
+      "scene": "A Halloween-style stylized illustration of a witches coven with 18 witches seated in a circle. Each witch wears either a black, purple, or green robe. Each witch either has a cat familiar beside them or does not. Each witch either holds a potion bottle or holds a wand. Exactly 4 witches are simultaneously purple-robed + cat familiar + holding a potion.",
+      "question": "Based strictly on what is visible in the image, how many witches wear a purple robe, have a cat familiar beside them, AND hold a potion bottle? Count only witches satisfying all three conditions.",
+      "answer": "4",
+      "lever": "Robe color variation under candlelight, familiar presence, and held object type must all be confirmed; the circular arrangement puts some witches partially facing away."
+    },
+    {
+      "id": "ATTR-041",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "elemental_guardian_forest",
+      "scene": "A stylized fantasy illustration of an enchanted forest with 20 elemental guardians standing among ancient trees. Each guardian embodies one of four elements: fire (orange glow), water (blue shimmer), earth (brown-bark texture), or air (transparent white). Each guardian either has a visible weapon (axe, spear, or sword) or is unarmed. Each guardian either wears a leaf-pattern cloak or has no cloak. Exactly 5 guardians are simultaneously water-element + armed + wearing a leaf cloak.",
+      "question": "Based strictly on what is visible in the image, how many elemental guardians are water-type (blue shimmer), carry a weapon, AND wear a leaf-pattern cloak? Count only guardians satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Element identification (distinguishing blue shimmer from transparent white) is the primary challenge; weapon and cloak must then also both be confirmed."
+    },
+    {
+      "id": "ATTR-042",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "vampire_ballroom",
+      "scene": "A gothic oil-painting-style ballroom with 16 vampire guests. Each vampire has either pale white, olive, or dark brown skin. Each vampire either has visible fangs or does not (mouth closed). Each vampire wears either a red cravat or no cravat. Exactly 3 vampires are simultaneously dark-brown-skinned + visible fangs + red cravat.",
+      "question": "Based strictly on what is visible in the image, how many vampire guests have dark brown skin, display visible fangs, AND wear a red cravat? Count only guests satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Skin tone differentiation under gothic low-light is difficult; fang visibility depends on mouth pose; cravat color must also be confirmed."
+    },
+    {
+      "id": "ATTR-043",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "giant_insect_colony",
+      "scene": "A sci-fi illustration of a giant insect colony chamber with 22 insect-soldiers. Each soldier is one of three carapace colors: amber, black, or white. Each soldier either has mandible pincers or smooth mouthparts. Each soldier either carries an egg-pod or does not. Exactly 6 soldiers are simultaneously white-carapace + mandible pincers + carrying an egg-pod.",
+      "question": "Based strictly on what is visible in the image, how many insect-soldiers have a white carapace, mandible pincers, AND carry an egg-pod? Count only soldiers meeting all three conditions.",
+      "answer": "6",
+      "lever": "White and amber carapace can be confused; mandible pincer vs. smooth mouth requires close inspection; the colony's dense arrangement occludes some soldiers."
+    },
+    {
+      "id": "ATTR-044",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "sky_pirate_crew",
+      "scene": "A swashbuckling fantasy sky-ship illustration with 14 sky-pirate crew members on deck. Each pirate is either human, elf, or dwarf. Each pirate either wears an eye-patch or does not. Each pirate either carries a pistol or carries a cutlass. Exactly 4 pirates are simultaneously elf + eye-patch + carrying a pistol.",
+      "question": "Based strictly on what is visible in the image, how many crew members are elves, wear an eye-patch, AND carry a pistol? Count only those satisfying all three conditions.",
+      "answer": "4",
+      "lever": "Race identification (human vs. elf ear-shape) at deck-level distance is subtle; eye-patch and weapon type must also both be verified."
+    },
+    {
+      "id": "ATTR-045",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "chimera_menagerie",
+      "scene": "A fantasy bestiary illustration showing 12 chimera creatures in individual display panels. Each chimera has a head from one of three animals: lion, eagle, or serpent. Each chimera either has functional wings or vestigial (stub) wings or no wings. Each chimera's tail ends either in a scorpion stinger or a blade tip or a tuft. Exactly 3 chimeras are simultaneously eagle-headed + functional wings + scorpion-stinger tail.",
+      "question": "Based strictly on what is visible in the image, how many chimeras have an eagle head, functional (full-size) wings, AND a scorpion stinger at the tail tip? Count only chimeras meeting all three criteria.",
+      "answer": "3",
+      "lever": "Wing size (functional vs. vestigial) is an easy attribute to overlook; tail-tip type requires fine-grained inspection of each panel."
+    },
+    {
+      "id": "ATTR-046",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "troll_bridge_gathering",
+      "scene": "An illustrated children's-book-style scene of a bridge gathering with 15 trolls. Each troll has either mossy-green, rocky-grey, or muddy-brown skin. Each troll either wears boots or goes barefoot. Each troll either carries a club or carries a bag. Exactly 2 trolls are simultaneously mossy-green + wearing boots + carrying a club.",
+      "question": "Based strictly on what is visible in the image, how many trolls have mossy-green skin, wear boots, AND carry a club? Count only trolls satisfying all three conditions.",
+      "answer": "2",
+      "lever": "Three trolls share green skin but only 2 also combine boots with a club; the small answer (2) means missing a single attribute swap is decisive."
+    },
+    {
+      "id": "ATTR-047",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "spirit_fox_shrine",
+      "scene": "A Japanese woodblock-print-style illustration of a spirit-fox shrine with 18 kitsune (fox spirits). Each kitsune has either 1, 3, or 9 visible tails. Each kitsune is colored either white, red, or black. Each kitsune either wears a shrine maiden sash or does not. Exactly 4 kitsune are simultaneously 3-tailed + white + wearing a shrine sash.",
+      "question": "Based strictly on what is visible in the image, how many kitsune have exactly 3 tails, are white in color, AND wear a shrine maiden sash? Count only kitsune meeting all three conditions.",
+      "answer": "4",
+      "lever": "Tail count (1 vs. 3 vs. 9) is the primary discriminator; overlapping tails in the woodblock style make exact counting difficult; sash presence must also be confirmed."
+    },
+    {
+      "id": "ATTR-048",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "crystal_golem_cavern",
+      "scene": "A fantasy game-art illustration of a crystal cavern with 16 crystal golems. Each golem's crystal body is either sapphire-blue, emerald-green, or ruby-red. Each golem either has cracks (damaged) or is intact. Each golem either emits a glow from its chest-core or does not. Exactly 5 golems are simultaneously emerald-green + intact (no cracks) + chest-glow active.",
+      "question": "Based strictly on what is visible in the image, how many crystal golems are emerald-green, show no cracks (intact), AND emit a glow from their chest core? Count only golems satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Green vs. blue crystal color under cavern lighting is a common confusion; crack presence requires careful texture inspection; chest-glow can blend with ambient cave light."
+    },
+    {
+      "id": "ATTR-049",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "haunted_manor_ghosts",
+      "scene": "A Gothic cartoon illustration of a haunted manor with 20 ghost characters drifting through rooms. Each ghost is either translucent-white, ectoplasm-green, or shadow-black. Each ghost either wears a hat (top hat, bonnet, or cap) or is bareheaded. Each ghost either carries chains or floats freely. Exactly 5 ghosts are simultaneously ectoplasm-green + wearing a hat + carrying chains.",
+      "question": "Based strictly on what is visible in the image, how many ghosts are ectoplasm-green in color, wear a hat, AND carry chains? Count only ghosts satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Green translucency can look white-ish through walls; hat presence may be subtle on transparent figures; chain visibility varies with ghost pose."
+    },
+    {
+      "id": "ATTR-050",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "alien_diplomat_council",
+      "scene": "A sci-fi council chamber illustration showing 18 alien diplomats seated around a circular table. Each diplomat belongs to one of three alien species identifiable by head shape: dome-head, spike-head, or flat-head. Each diplomat is dressed in either gold robes or silver robes. Each diplomat either wears a translator earpiece or does not. Exactly 3 diplomats are simultaneously spike-headed + gold robes + translator earpiece.",
+      "question": "Based strictly on what is visible in the image, how many alien diplomats have a spike-head, wear gold robes, AND have a translator earpiece? Count only those satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Head-shape classification is the key discriminator; robe color (gold vs. silver) under chamber lighting and earpiece presence must both be confirmed per diplomat."
+    },
+    {
+      "id": "ATTR-051",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "dwarven_forge",
+      "scene": "A warm-toned fantasy illustration of a dwarven forge hall with 20 dwarf smiths. Each dwarf has either a black beard, a red beard, or a blonde beard. Each dwarf either wears a leather apron or does not. Each dwarf either holds a hammer or holds tongs. Exactly 6 dwarves are simultaneously red-bearded + leather apron + holding a hammer.",
+      "question": "Based strictly on what is visible in the image, how many dwarf smiths have a red beard, wear a leather apron, AND hold a hammer? Count only those satisfying all three conditions.",
+      "answer": "6",
+      "lever": "Beard color (red vs. blonde) in forge-light warmth can be ambiguous; apron and held tool must both be verified for each of the 20 figures."
+    },
+    {
+      "id": "ATTR-052",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "sea_monster_bay",
+      "scene": "An illustrated nautical chart style image of a bay with 14 sea monster heads emerging from the water. Each monster has a head shape: serpentine, crab-like, or fish-like. Each monster shows either open jaws or closed jaws. Each monster either has visible bioluminescent spots along its neck or does not. Exactly 4 monsters are simultaneously serpentine + open jaws + bioluminescent spots.",
+      "question": "Based strictly on what is visible in the image, how many sea monsters have a serpentine head, open jaws, AND visible bioluminescent spots on the neck? Count only monsters meeting all three conditions.",
+      "answer": "4",
+      "lever": "Bioluminescent spots can be confused with wave foam patterns; jaw state and head-type classification must also both be confirmed."
+    },
+    {
+      "id": "ATTR-053",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "enchanted_treant_grove",
+      "scene": "A lush fantasy illustration of a treant grove with 16 treants (living trees). Each treant has leaves of either autumn-orange, summer-green, or winter-bare (no leaves). Each treant either has a visible carved face or a blank trunk. Each treant either has glowing amber eyes or dark eyes. Exactly 3 treants are simultaneously winter-bare + carved face + glowing amber eyes.",
+      "question": "Based strictly on what is visible in the image, how many treants have bare (leafless) branches, a carved face, AND glowing amber eyes? Count only treants satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Winter-bare treants with amber eyes could be mistaken for autumn-orange in low light; blank trunk vs. carved face requires texture inspection."
+    },
+    {
+      "id": "ATTR-054",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "mechanical_familiar_bazaar",
+      "scene": "A steampunk fantasy illustration of a magical-mechanical familiar bazaar with 18 automatons on display stands. Each automaton is shaped like one of three animals: owl, fox, or cat. Each automaton is made of either brass, iron, or silver material (visible from surface sheen). Each automaton either has ruby-gem eyes or sapphire-gem eyes. Exactly 4 automatons are simultaneously fox-shaped + iron material + sapphire eyes.",
+      "question": "Based strictly on what is visible in the image, how many mechanical familiars are fox-shaped, made of iron (dull grey sheen), AND have sapphire (blue) gem eyes? Count only those satisfying all three conditions.",
+      "answer": "4",
+      "lever": "Brass vs. iron sheen distinction requires careful material reading; eye gem color (ruby red vs. sapphire blue) on small figures can be missed; shape classification adds a third filter."
+    },
+    {
+      "id": "ATTR-055",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "phoenix_aviary",
+      "scene": "A mythological art-style illustration of a celestial aviary holding 15 phoenix birds on perches. Each phoenix has primary plumage color: scarlet, golden, or azure. Each phoenix either has a fully spread tail fan or a folded tail. Each phoenix either emits visible sparks around it or does not. Exactly 4 phoenixes are simultaneously golden-plumage + spread tail fan + emitting sparks.",
+      "question": "Based strictly on what is visible in the image, how many phoenixes have golden plumage, a fully spread tail fan, AND emit visible sparks? Count only phoenixes meeting all three conditions.",
+      "answer": "4",
+      "lever": "Golden and scarlet plumage can blend in the warm aviary lighting; tail fan state (spread vs. folded) and spark emission must also both be confirmed."
+    },
+    {
+      "id": "ATTR-056",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "minotaur_labyrinth",
+      "scene": "A Greek-mythology-inspired illustration of a labyrinth arena with 12 minotaur guards stationed at corridor junctions. Each minotaur has either brown, black, or white bull-head fur. Each minotaur either carries a double-headed axe or a spear. Each minotaur wears either a bronze breastplate or leather armor. Exactly 2 minotaurs are simultaneously white-furred + carrying a double-headed axe + bronze breastplate.",
+      "question": "Based strictly on what is visible in the image, how many minotaur guards have white bull-head fur, carry a double-headed axe, AND wear a bronze breastplate? Count only guards satisfying all three conditions.",
+      "answer": "2",
+      "lever": "White vs. grey (shadow-darkened) fur distinction is the key difficulty; weapon type and armor material must both be confirmed for the low-answer result."
+    },
+    {
+      "id": "ATTR-057",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "necromancer_army",
+      "scene": "A dark fantasy illustration of a necromancer's undead army with 24 skeleton soldiers ranked in formation. Each skeleton wears armor of either rusted iron, bone-white, or black obsidian. Each skeleton either holds a sword or a bow. Each skeleton either has a glowing green eye socket or dark empty sockets. Exactly 7 skeletons are simultaneously bone-white armor + sword + glowing green eyes.",
+      "question": "Based strictly on what is visible in the image, how many skeleton soldiers wear bone-white armor, hold a sword, AND have glowing green eye sockets? Count only skeletons satisfying all three conditions.",
+      "answer": "7",
+      "lever": "Bone-white armor vs. rusted iron in formation lighting can be confused; green eye-glow vs. dark sockets must be checked per figure in a 24-skeleton formation."
+    },
+    {
+      "id": "ATTR-058",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "selkie_cove",
+      "scene": "A Celtic mythology-inspired watercolor illustration of a rocky cove with 15 selkies (seal-folk). Each selkie is in one of three states: fully seal form, half-transformed, or fully human form. Each selkie either wears a silver necklace or does not. Each selkie either holds a piece of sealskin cloak or does not. Exactly 3 selkies are simultaneously half-transformed + silver necklace + holding sealskin.",
+      "question": "Based strictly on what is visible in the image, how many selkies are in half-transformed state (partially seal, partially human), wear a silver necklace, AND hold a sealskin cloak? Count only selkies satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Transformation state (half vs. fully human) is the subtle discriminator; necklace and sealskin must also be verified; watercolor style softens edges and makes attributes harder to confirm."
+    },
+    {
+      "id": "ATTR-059",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "titan_colossus_field",
+      "scene": "A mythological epic illustration of a battlefield with 10 stone-flesh titan colossi. Each titan has a colossus type identifiable by what grows from its shoulders: tree-growths, crystal-growths, or metal-growths. Each titan either has a visible rune carved on its chest or a blank chest. Each titan either has one of its eyes cracked (damaged) or both eyes intact. Exactly 3 titans are simultaneously crystal-shoulder + chest rune + cracked eye.",
+      "question": "Based strictly on what is visible in the image, how many titans have crystal growths on their shoulders, a visible rune carved on their chest, AND at least one cracked eye? Count only titans satisfying all three conditions.",
+      "answer": "3",
+      "lever": "Crystal vs. metal growths on shoulders can look similar in battle-dust atmosphere; chest-rune requires close chest inspection; eye-crack on giant figures may be missed at battlefield scale."
+    },
+    {
+      "id": "ATTR-060",
+      "sub_skill": "multi_attr_filter_count",
+      "domain": "dream_weaver_court",
+      "scene": "A surrealist fantasy illustration of a dream-weaver court with 18 dream entities floating in a twilight sky. Each entity has a body shape: hourglass, spiral, or orb. Each entity is one of three hues: lavender, teal, or amber. Each entity either trails dream-thread ribbons or does not. Exactly 5 entities are simultaneously spiral-shaped + amber + trailing dream-thread ribbons.",
+      "question": "Based strictly on what is visible in the image, how many dream entities are spiral in body shape, amber in color, AND trail visible dream-thread ribbons? Count only entities satisfying all three conditions.",
+      "answer": "5",
+      "lever": "Spiral vs. orb shapes can be confused in the surrealist distortion; amber vs. teal hue under twilight lighting is subtle; ribbon presence must also be confirmed per entity."
+    }
+  ]
+}

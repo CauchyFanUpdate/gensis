@@ -1,0 +1,186 @@
+{
+  "family_id": "MAPS",
+  "family_name": "Maps & Topological Navigation",
+  "seeds": [
+    {
+      "id": "MAPS-011",
+      "sub_skill": "shortest_path_count_steps",
+      "domain": "subway map",
+      "scene": "A simplified subway map with stations A-J. Lines: Red line (A-B-C-D-E), Blue line (B-F-G-H), Green line (D-G-I-J). Transfer stations: B (red/blue), D (red/green), G (blue/green). Trip: A to J.",
+      "question": "What is the MINIMUM number of stations to travel through from A to J (inclusive of A and J)?",
+      "answer": "6",
+      "lever": "Shortest path uses Blue B-F-G then Green G-I-J: A-B-F-G-I-J = 6 stations. Alternative via Red D and Green is 7."
+    },
+    {
+      "id": "MAPS-012",
+      "sub_skill": "compass_orientation_after_turns",
+      "domain": "directional walking",
+      "scene": "A pedestrian starts at point P facing NORTH. They walk: 100m N, turn right 90°, walk 50m, turn right 90°, walk 100m, turn left 90°, walk 30m.",
+      "question": "What is the final cardinal direction they are facing?",
+      "answer": "East",
+      "lever": "Track facings: N → E (right) → S (right) → E (left)."
+    },
+    {
+      "id": "MAPS-013",
+      "sub_skill": "elevation_route_choice",
+      "domain": "topographic hiking map",
+      "scene": "A topo map shows two trails from valley to summit. Trail 1 (red) length 3 km, climbs through 6 contour lines (each 50m). Trail 2 (blue) length 5 km, climbs through 8 contour lines.",
+      "question": "Which trail is STEEPER on average (gradient = vertical / horizontal)?",
+      "answer": "Trail 1 (red); 300m/3km = 10% vs 400m/5km = 8%",
+      "lever": "Compute gradient = climb / horizontal; compare."
+    },
+    {
+      "id": "MAPS-014",
+      "sub_skill": "indoor_navigation_3floors",
+      "domain": "shopping mall directory",
+      "scene": "A 3-floor mall directory. Visitor at Floor 1 entrance wants to reach 'Toy Store' on Floor 3. Available vertical transports: escalator (1↔2 only), elevator (1↔2↔3), stairs (between any adjacent floors). Stairs are at the north end. Escalator at center. Elevator at south end. Toy Store is at north of Floor 3.",
+      "question": "What is the MINIMUM number of vertical transitions to reach Toy Store?",
+      "answer": "2 (e.g., elevator from F1 to F3 = 1 transition; or stairs F1→F2 then F2→F3 = 2 transitions)",
+      "lever": "Compare options; elevator is single transition (1) but elevator is at south, walk to north required. Stairs at north = 2 transitions but no horizontal walk on F3. Trade-off; minimum vertical transitions = 1 (elevator)."
+    },
+    {
+      "id": "MAPS-015",
+      "sub_skill": "scale_distance_compute",
+      "domain": "city map with scale bar",
+      "scene": "A city map with scale 1 cm = 200 m. The straight-line distance between school and library on the map is 4.5 cm.",
+      "question": "What is the actual distance?",
+      "answer": "900 m",
+      "lever": "4.5 × 200 = 900 m."
+    },
+    {
+      "id": "MAPS-016",
+      "sub_skill": "graph_connectivity_check",
+      "domain": "park trail network",
+      "scene": "A park trail network: nodes A, B, C, D, E. Edges: A-B, A-C, B-D, C-D. Node E has no connections drawn.",
+      "question": "Is node E reachable from node A by trail?",
+      "answer": "No",
+      "lever": "Verify graph reachability; E is isolated."
+    },
+    {
+      "id": "MAPS-017",
+      "sub_skill": "multi_constraint_routing",
+      "domain": "delivery routing",
+      "scene": "A grid map of a town with 5 delivery stops S1-S5 and a depot D. Stop S2 has time window 10:00-12:00. Stop S4 must be delivered before noon. Route plan: D → S1 → S2 → S3 → S4 → S5 → D, with arrival times: 09:30, 10:30, 11:30, 12:30, 13:30, 14:00.",
+      "question": "Which stop's constraint is VIOLATED?",
+      "answer": "S4 (arrives at 12:30, after noon deadline)",
+      "lever": "Constraint check: S2 arrives 10:30 (within window), S4 arrives 12:30 (violates 'before noon')."
+    },
+    {
+      "id": "MAPS-018",
+      "sub_skill": "indoor_zone_perimeter_walk",
+      "domain": "office floor zone",
+      "scene": "An office floor plan with three zones: Engineering (rectangular 20m × 15m), Marketing (rectangular 15m × 10m, sharing one 15m wall with Engineering), Reception (10m × 8m, attached to Marketing's east side). A visitor walks the entire perimeter of the combined office.",
+      "question": "What is the total perimeter walked?",
+      "answer": "Approximately 90 m",
+      "lever": "Outer perimeter of compound shape: Eng 2×(20+15)=70 minus shared internal wall, plus Mkt outer perimeter minus shared, plus Rec outer minus shared. Compute carefully — leaving as estimate ~90m."
+    },
+    {
+      "id": "MAPS-019",
+      "sub_skill": "transit_time_total",
+      "domain": "bus schedule",
+      "scene": "A bus schedule: Route 12 takes 30 min (departs every 15 min). Route 5 takes 22 min (departs every 10 min). Transfer requires 8 min walk. Total trip needs Route 12 then transfer to Route 5. Departing now at 09:00.",
+      "question": "What is the EARLIEST arrival time at the destination?",
+      "answer": "10:02",
+      "lever": "Bus 12 departs 09:00, 30 min ride → arrive 09:30. Walk 8 min → 09:38. Bus 5 next departure 09:40 (every 10 min). 22 min ride → 10:02 arrival."
+    },
+    {
+      "id": "MAPS-020",
+      "sub_skill": "compass_landmark_inference",
+      "domain": "tourist street map",
+      "scene": "A street map with cardinal compass arrow (N up). Landmarks: Cathedral at NE corner, Plaza at SW corner, Market at center, Train station at S edge, River runs E-W along the N edge. A tourist stands at the Market.",
+      "question": "Which direction should the tourist walk to reach the Cathedral?",
+      "answer": "Northeast",
+      "lever": "Read map orientation + identify direction from center to NE corner."
+    },
+    {
+      "id": "MAPS-021",
+      "sub_skill": "topology_dead_end_id",
+      "domain": "maze diagram",
+      "scene": "A simple maze with start S at top-left and goal G at bottom-right. Visible paths: from S goes 3 steps right then forks left (dead-end after 2 steps) and down. Down path forks again at midway: right (continues to G) and left (dead-end after 4 steps).",
+      "question": "How many dead-ends are in the maze?",
+      "answer": "2",
+      "lever": "Count terminal branches that don't reach G."
+    },
+    {
+      "id": "MAPS-022",
+      "sub_skill": "rotated_blueprint_alignment",
+      "domain": "floor plan rotation",
+      "scene": "A floor plan is shown with North at the top in the printed plan. The reader holds the plan rotated 90° clockwise (so the printed N now points right). The reader sees a room labeled 'BR1' at what appears to be the bottom-left of the rotated view.",
+      "question": "In actual building orientation (N up), where is BR1 located?",
+      "answer": "Top-left",
+      "lever": "Mental rotation: rotated 90° CW means undo by 90° CCW; bottom-left in rotated view → top-left in actual."
+    },
+    {
+      "id": "MAPS-023",
+      "sub_skill": "river_crossing_problem",
+      "domain": "geography puzzle",
+      "scene": "A region map: a town T sits west of a river. A village V sits east of the river. The only bridges are at points B1 (5 km north of T) and B2 (3 km south of T). Direct east of T is the river but no bridge.",
+      "question": "Minimum walking distance from T to V if V is directly east of T at 4 km river-crossing point?",
+      "answer": "Approximately 10 km via bridge B2",
+      "lever": "Compare bridge options: via B2 = 3 + 3 + 4 = 10 km; via B1 = 5 + 5 + 4 = 14 km; pick the shorter."
+    },
+    {
+      "id": "MAPS-024",
+      "sub_skill": "elevator_button_navigation",
+      "domain": "elevator panel",
+      "scene": "An elevator panel: floors B2, B1, G, M, 2, 3, 4, 5, 6, 7, R. The elevator is currently at G. The user wants to reach the 'Restaurant' which is on floor R.",
+      "question": "How many floor-presses (excluding G) does the elevator pass during the trip?",
+      "answer": "8 (passes M, 2, 3, 4, 5, 6, 7, R)",
+      "lever": "Count every floor between current floor and destination floor inclusive of arrival floor R."
+    },
+    {
+      "id": "MAPS-025",
+      "sub_skill": "metro_alternate_route_disruption",
+      "domain": "subway with closure",
+      "scene": "A subway map with disruption notice: 'Blue line section between B-F is closed'. Trip: A (red line) to F. Normal route: A-B (red) → B-F (blue, 1 stop). Alternative: A-B-C-D (red) → D-G (green) → G-F (blue) since G-F is still open.",
+      "question": "How many EXTRA stops are added by the disruption (vs normal route)?",
+      "answer": "3 (alternative: A-B-C-D-G-F = 5 stops vs normal A-B-F = 2 stops; extra = 3)",
+      "lever": "Compare route lengths under closure constraint."
+    },
+    {
+      "id": "MAPS-026",
+      "sub_skill": "address_grid_block_count",
+      "domain": "grid city navigation",
+      "scene": "A grid city with N-S avenues numbered 1-10 and E-W streets numbered 1-10. From corner of Ave 3 / St 4 to corner of Ave 7 / St 9, walking only along streets/avenues.",
+      "question": "What is the minimum NUMBER OF BLOCKS walked?",
+      "answer": "9",
+      "lever": "|7-3| + |9-4| = 4 + 5 = 9 blocks (Manhattan distance)."
+    },
+    {
+      "id": "MAPS-027",
+      "sub_skill": "land_use_zone_id",
+      "domain": "city zoning map",
+      "scene": "A zoning map with color codes: yellow=residential, blue=commercial, red=industrial, green=park, gray=transit. A specific block at position (5,7) is colored yellow with a small embedded blue patch.",
+      "question": "What is the PRIMARY zoning of block (5,7)?",
+      "answer": "Residential",
+      "lever": "Pick dominant color; ignore minor mixed-use embed."
+    },
+    {
+      "id": "MAPS-028",
+      "sub_skill": "isobath_water_depth",
+      "domain": "nautical chart",
+      "scene": "A nautical chart with depth contours (isobaths) at 5m, 10m, 20m, 50m. A boat is anchored at a point between the 10m and 20m contours, slightly closer to the 20m line.",
+      "question": "Estimate the water depth at the boat's location.",
+      "answer": "Approximately 17 m",
+      "lever": "Linear interpolation between contour lines."
+    },
+    {
+      "id": "MAPS-029",
+      "sub_skill": "indoor_room_neighbor_count",
+      "domain": "museum floor plan",
+      "scene": "A museum has 8 exhibit rooms arranged in a 4x2 grid. Each room has doorways to adjacent rooms. Room 1 (top-left) connects to room 2 (right) and room 5 (below). Room 2 connects to 1, 3, 6. Room 3 connects to 2, 4, 7. Room 4 connects to 3, 8.",
+      "question": "How many rooms are DIRECTLY accessible from room 6 (in the second row, second column)?",
+      "answer": "3 (rooms 2, 5, 7)",
+      "lever": "4-grid orthogonal adjacency: room 6 has neighbors above (2), left (5), right (7); no room below in a 4×2 grid."
+    },
+    {
+      "id": "MAPS-030",
+      "sub_skill": "polar_coordinate_lookup",
+      "domain": "radar display",
+      "scene": "A radar screen with concentric range rings at 5 km, 10 km, 15 km, 20 km. Bearing marks at every 30°. A blip appears at bearing 120° (clockwise from north) and range 12 km.",
+      "question": "In compass terms, in which direction and at what distance is the blip?",
+      "answer": "Southeast (specifically ESE direction), 12 km",
+      "lever": "Map polar (120°/12km) to cardinal direction; 120° from N = SE quadrant."
+    }
+  ]
+}

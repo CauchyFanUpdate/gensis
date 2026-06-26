@@ -1,0 +1,96 @@
+{
+  "family_id": "VIEW",
+  "family_name": "Multi-view Consistency",
+  "seeds": [
+    {
+      "id": "VIEW-031",
+      "sub_skill": "three_view_engineering_drawing",
+      "domain": "mechanical engineering drawing",
+      "scene": "A standard 3-view engineering drawing of a single solid object: TOP view (an L-shape, 6×4 with a 2×2 notch removed at the top-right corner), FRONT view (rectangle 6 wide × 3 tall), SIDE view (rectangle 4 wide × 3 tall, with a hidden-line indicating a hole partially through). All in 1st-angle projection, with dimensions labeled. The L-shape clearly has equal-thickness in the top view.",
+      "question": "What is the volume of the solid object?",
+      "answer": "60 cubic units",
+      "lever": "Cross-correlate top (L-shape area = 6×4 − 2×2 = 20) × height from front view (= 3) → 60; ignore the 'hidden-line hole' which is partial and not subtracted in this question."
+    },
+    {
+      "id": "VIEW-032",
+      "sub_skill": "two_mirrors_at_angle_image_count",
+      "domain": "mirror demonstration in physics class",
+      "scene": "Two flat mirrors stand vertically and meet along their common edge at a 60° angle (like an open book). A single small candle is placed exactly on the angle bisector, equidistant from both mirrors. The mirror system is photographed from above.",
+      "question": "How many TOTAL candle images (excluding the actual physical candle) are visible to a viewer?",
+      "answer": "5",
+      "lever": "Standard formula for two mirrors at angle θ: number of images = 360/θ − 1 = 360/60 − 1 = 5; not 6 (which would be common naive guess including the real candle)."
+    },
+    {
+      "id": "VIEW-033",
+      "sub_skill": "storefront_inside_vs_outside_text",
+      "domain": "glass storefront door with painted text",
+      "scene": "Two photographs of the SAME glass storefront door painted with the word 'CAFE' on the outside in solid red letters. Photo (a) is taken from the OUTSIDE looking in; the word reads correctly as 'CAFE'. Photo (b) is taken from INSIDE the cafe looking out; the word appears reversed (mirror-flipped horizontally).",
+      "question": "When viewed from the inside, what does the four-letter word visually appear to spell out (writing the letter shapes left-to-right as seen)?",
+      "answer": "EFAC",
+      "lever": "Mirror flip: read the letters in reverse order, recognize that C, A, F, E individually flip but only F is visibly asymmetric; many models will incorrectly answer CAFE. The reversed left-to-right order is EFAC; some letters will look mirrored in shape."
+    },
+    {
+      "id": "VIEW-034",
+      "sub_skill": "watch_face_mirror_inversion",
+      "domain": "watch reflected in mirror",
+      "scene": "A standard analog wristwatch is shown reflected in a flat vertical mirror. In the mirrored image, the watch face shows hour hand pointing to '8' and minute hand pointing to '2' (i.e., 8:10 as it appears in the mirror).",
+      "question": "What is the ACTUAL time on the watch?",
+      "answer": "3:50",
+      "lever": "Mirror inverts horizontally; clock-face mirror trick: actual time = 12:00 − mirrored time = 12:00 − 8:10 = 3:50 (or equivalently subtract from 11:60). Common confusion: some say 4:50 or 8:10."
+    },
+    {
+      "id": "VIEW-035",
+      "sub_skill": "back_view_inferred_from_front_and_side",
+      "domain": "asymmetric mug with handle and logo",
+      "scene": "A coffee mug is shown in two photos: FRONT view (a logo 'Z' is centered on the visible side, no handle visible — hidden behind), SIDE view from the right (logo edge visible, handle visible on the right side, exiting toward the viewer's right). Inferred from these two: mug is opaque white; logo is on one face only.",
+      "question": "If photographed from the BACK, would the logo be visible? Would the handle be on the viewer's LEFT or RIGHT?",
+      "answer": "No logo visible; handle on viewer's LEFT.",
+      "lever": "Spatial-rotation reasoning: front-view shows logo facing camera + handle behind; back-view rotates 180° → logo behind, handle now on viewer's left (mirror of front-view's right)."
+    },
+    {
+      "id": "VIEW-036",
+      "sub_skill": "panorama_wraparound_count",
+      "domain": "360-degree panorama unrolled",
+      "scene": "An unrolled 360° panorama of a circular plaza, displayed as a wide horizontal strip. A statue is visible at the LEFT edge of the strip, AND ALSO at the RIGHT edge of the strip (because the panorama wraps around). Three other distinct landmarks (a clock tower, a fountain, a church) are visible at intermediate positions.",
+      "question": "Counting unique physical landmarks (not duplicates from the panorama wraparound), how many landmarks are in the plaza?",
+      "answer": "4",
+      "lever": "Statue appears twice (wraparound) but is one physical object; total = statue + tower + fountain + church = 4. Naive count gives 5."
+    },
+    {
+      "id": "VIEW-037",
+      "sub_skill": "stereo_pair_disparity_depth",
+      "domain": "stereo image pair",
+      "scene": "Two photos labeled L (left-eye) and R (right-eye) of the same scene with three balls labeled A, B, C. In the L image: A is at x=200px, B at x=350px, C at x=500px. In the R image: A at x=160px, B at x=320px, C at x=485px. (Each ball is shifted leftward in R relative to L by different amounts: A shifts 40, B shifts 30, C shifts 15.)",
+      "question": "Which ball is FARTHEST from the camera?",
+      "answer": "C",
+      "lever": "Stereo disparity rule: larger disparity = closer. C has the smallest shift (15px) → farthest. Common error: ignore disparity and pick by visible size or position."
+    },
+    {
+      "id": "VIEW-038",
+      "sub_skill": "north_south_facade_rotation",
+      "domain": "asymmetric building photographed from two sides",
+      "scene": "A two-story asymmetric building. Photo A taken from the NORTH side: a large blue door is visible on the LEFT half of the facade, a circular window on the RIGHT. A signpost in front says 'NORTH FACADE'. Photo B taken from the SOUTH side: a wooden double-door is visible on the LEFT half of THAT facade, and a square window on the RIGHT. The building has no floors with openings on east/west sides.",
+      "question": "If you stand to the EAST of the building and look at it, the blue door (north facade) appears to which side of you: left or right?",
+      "answer": "Right",
+      "lever": "Mental rotation: looking east-to-west, north is on your right; the blue door (on the LEFT of the north facade as photographed) is on the side closer to the WEST end of the north wall. From an east-of-the-building viewer looking westward, the north wall is to your right; the door's left-of-north-facade position becomes the FAR end of the north wall. The door is on the right side (the north half of the building from your viewpoint)."
+    },
+    {
+      "id": "VIEW-039",
+      "sub_skill": "cube_unfolded_net_face_match",
+      "domain": "unfolded cube net diagram",
+      "scene": "An unfolded cube net (cross shape: 4-square row + 1 above + 1 below the center square) drawn on grid paper. Each of the 6 faces has a distinct symbol: ★ ♦ ♣ ♥ ▲ ●. The diagram clearly shows the symbols on each face: leftmost = ★, then ♦ (left-of-center), then ♣ (center), ♥ (right-of-center), ● (rightmost), ▲ (above center).",
+      "question": "When folded, which face is OPPOSITE to ♣?",
+      "answer": "● (the rightmost face)",
+      "lever": "Cube-net opposite-face rule: in a 'plus'-shaped cross net, ★ and ● (the two extremes of the long arm) are opposite to one of the middle faces. Walking the net: ★ is two steps from ♣ → ★ folds to opposite of ♥; ● is two steps from ♣ → ● folds to opposite of ♣? Actually: ♣ is the BOTTOM (center of cross); ▲ above it folds to the TOP (opposite of ♣). Wait — re-examine: in the standard cross net the center square is the FRONT, and the top arm folds up to become TOP, bottom arm folds down to become BOTTOM, and the row endpoints fold to opposite each other. With ♣ as center (FRONT), ▲ is the TOP, then opposite of ♣ (FRONT) is BACK = ● (the far-right end of the row, which folds twice to become BACK). So opposite of ♣ = ●."
+    },
+    {
+      "id": "VIEW-040",
+      "sub_skill": "shadow_direction_implies_camera_orientation",
+      "domain": "outdoor sunlit scene with compass",
+      "scene": "A photo of a sunny park. A long tree shadow lies on the grass pointing TOWARD the bottom-right of the frame. A small compass icon overlaid in the corner points 'N' toward the top of the frame. Sun position is consistent with mid-afternoon in the northern hemisphere.",
+      "question": "What time of day (approximately) was this photo taken?",
+      "answer": "Mid-afternoon (sun in the western sky, shadow points east-northeast from the tree base; bottom-right of frame = south-east).",
+      "lever": "Combine compass orientation (N up) + shadow direction (toward bottom-right = SE) → sun is in the NW; in the northern hemisphere this implies late morning or mid-afternoon depending on season — the most common answer matches mid-afternoon (sun west)."
+    }
+  ]
+}

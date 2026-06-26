@@ -1,0 +1,366 @@
+{
+  "family_id": "ANACHRO",
+  "family_name": "Anachronism in Stylized Historical/Fantasy Art (b6)",
+  "seeds": [
+    {
+      "id": "ANACHRO-031",
+      "sub_skill": "modern_object_in_medieval_scene",
+      "domain": "medieval_castle_courtyard",
+      "scene": "An oil-painting style medieval castle courtyard with knights, horses, market stalls, and barrels. About 25 distinct items lie around. Among them are 4 clearly anachronistic modern objects: a smartphone on a barrel, a pair of sunglasses on a knight's helmet, a plastic water bottle by the well, and a wristwatch on a peasant. All four are drawn in the same painted style as the rest of the scene.",
+      "question": "Based strictly on what is visible in the image, how many objects are anachronistic (i.e., do not belong to the medieval period depicted)?",
+      "answer": "4",
+      "lever": "Anachronism detection in stylistically uniform painting; modern objects are blended into period art."
+    },
+    {
+      "id": "ANACHRO-032",
+      "sub_skill": "modern_object_in_egyptian_tomb",
+      "domain": "ancient_egyptian_tomb",
+      "scene": "A stylized ancient Egyptian tomb mural with hieroglyphs, pharaoh figures, scarabs, and offering bowls. About 30 small items are depicted on the walls. Among the offerings are 3 anachronistic items: a soda can, a baseball cap, and a USB cable. All drawn in the flat hieroglyphic style of the rest of the mural.",
+      "question": "Based strictly on what is visible in the image, how many items in this tomb mural are anachronistic to ancient Egypt?",
+      "answer": "3",
+      "lever": "Modern items rendered in ancient art style; visual style is the camouflage."
+    },
+    {
+      "id": "ANACHRO-033",
+      "sub_skill": "modern_in_renaissance_painting",
+      "domain": "renaissance_banquet_painting",
+      "scene": "A Renaissance-style oil painting of a long banquet table with about 20 nobles dining. On the table: roast turkey, fruit bowls, goblets, candles. Among the items are 5 anachronistic objects: a laptop in front of one noble, a can of beer beside a goblet, an electric guitar leaning on the wall behind, a microwave oven on a side table, and a pair of headphones on a noble's head. Painted in the same Renaissance oil style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern objects appear in this Renaissance banquet painting?",
+      "answer": "5",
+      "lever": "Multiple modern objects camouflaged by uniform period painting style."
+    },
+    {
+      "id": "ANACHRO-034",
+      "sub_skill": "anachronism_in_caveman_scene",
+      "domain": "prehistoric_cave_dwelling",
+      "scene": "A stylized cave painting / prehistoric scene with cave-people gathered around a fire, mammoths in the distance, and stone tools scattered. About 15 items in total. Among them, 4 are anachronistic: a digital alarm clock on a stone, a soccer ball near the fire, a bicycle leaning on the cave wall, and a roll of toilet paper. All drawn in cave-painting style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic items are visible in this prehistoric scene?",
+      "answer": "4",
+      "lever": "Modern objects in primitive art style; counting forces per-item recognition."
+    },
+    {
+      "id": "ANACHRO-035",
+      "sub_skill": "modern_animal_in_dinosaur_scene",
+      "domain": "jurassic_landscape",
+      "scene": "A stylized prehistoric Jurassic landscape painting with about 12 large dinosaurs (T-rex, brontosaurus, triceratops, raptors). Among them, 3 are anachronistic modern animals painted in the same prehistoric-illustration style: a giraffe, a horse, and a chicken. All visible in the foreground.",
+      "question": "Based strictly on what is visible in the image, how many of the visible animals are anachronistic to the Jurassic period (i.e., are modern animals, not dinosaurs)?",
+      "answer": "3",
+      "lever": "Cross-era animal misplacement; requires distinguishing dinosaurs from modern fauna."
+    },
+    {
+      "id": "ANACHRO-036",
+      "sub_skill": "ancient_object_in_modern_scene",
+      "domain": "modern_office_painting",
+      "scene": "A photorealistic painting of a modern open-plan office with about 20 items: laptops, monitors, coffee cups, swivel chairs, plants, whiteboards. Among them, 4 are anachronistically ANCIENT: a stone-age club leaning on a desk, a Roman gladius sword in a cup-holder, a medieval shield mounted as wall decor, and a flint hand-axe used as a paperweight.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic ancient/historical objects appear in this modern office?",
+      "answer": "4",
+      "lever": "Reverse anachronism (old in modern); ancient items must be identified among modern equipment."
+    },
+    {
+      "id": "ANACHRO-037",
+      "sub_skill": "anachronism_in_samurai_scene",
+      "domain": "feudal_japan_village",
+      "scene": "A woodblock-print style feudal Japan village with samurai, market stalls, lanterns, kimono-clad villagers. About 30 items depicted. Among them, 3 are anachronistic: a vending machine outside a teahouse, a power-line pole with cables, and a parked motor scooter. All rendered in flat woodblock style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern objects are visible in this feudal Japan scene?",
+      "answer": "3",
+      "lever": "Modern infrastructure objects in traditional art style."
+    },
+    {
+      "id": "ANACHRO-038",
+      "sub_skill": "anachronism_in_viking_scene",
+      "domain": "viking_longship_deck",
+      "scene": "A painted Viking longship deck with about 15 Norse warriors, shields lining the rails, oars, barrels of mead. Among the items, 4 are anachronistic: a GPS device mounted on the steering oar, a life preserver ring marked 'SS Liberty', a pair of binoculars hanging from a hook, and an inflatable rubber dinghy stowed in the bow. All painted in Norse-fresco style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic items are present on this Viking ship?",
+      "answer": "4",
+      "lever": "Maritime modern objects on historical vessel; thematic but era-mismatched."
+    },
+    {
+      "id": "ANACHRO-039",
+      "sub_skill": "wrong_uniform_in_civil_war",
+      "domain": "civil_war_battlefield_painting",
+      "scene": "A 19th-century-style oil painting of an American Civil War battlefield with about 20 soldiers in period uniforms (blue and grey). Among them, 4 figures wear anachronistic modern soldier gear: full Kevlar body armor with NATO helmet, modern desert camouflage, a tactical headset, and a bulletproof vest with assault rifle. All painted in 19th-century portrait style.",
+      "question": "Based strictly on what is visible in the image, how many soldiers wear anachronistic modern military gear (not period Civil War uniform)?",
+      "answer": "4",
+      "lever": "Uniform-era mismatch; requires recognizing modern military gear among period uniforms."
+    },
+    {
+      "id": "ANACHRO-040",
+      "sub_skill": "modern_food_in_medieval_feast",
+      "domain": "medieval_feast_painting",
+      "scene": "A medieval feast scene with about 25 food items on a long table: roast pig, bread loaves, grapes, cheese wheels, wine pitchers. Among them, 4 are anachronistic modern foods: a pizza box (open), a sushi platter, a hamburger with fries, and a pack of instant ramen. Painted in Flemish-style oil.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern food items are on this medieval feast table?",
+      "answer": "4",
+      "lever": "Food category anachronism; modern globalized cuisine in medieval European feast."
+    },
+    {
+      "id": "ANACHRO-041",
+      "sub_skill": "wrong_animal_in_african_savanna_safari",
+      "domain": "victorian_safari_painting",
+      "scene": "A Victorian-era painted safari scene on the African savanna with about 12 animals: elephants, lions, zebras, giraffes, gazelles. Among them, 4 are NON-NATIVE anachronistic species: a kangaroo, a polar bear, a panda, and a penguin. All painted in Victorian naturalist illustration style.",
+      "question": "Based strictly on what is visible in the image, how many animals do NOT belong on the African savanna (i.e., are species native to other continents)?",
+      "answer": "4",
+      "lever": "Geographic species mismatch; requires zoological knowledge plus per-animal identification."
+    },
+    {
+      "id": "ANACHRO-042",
+      "sub_skill": "modern_in_pyramid_construction",
+      "domain": "pyramid_construction_painting",
+      "scene": "A stylized illustration of ancient Egyptian pyramid construction with about 30 workers hauling stone blocks, overseers with whips, ramps, and tools. Among the items, 5 are anachronistic modern construction items: a yellow hard hat on a worker, a steel I-beam on the ramp, a hydraulic crane in the background, a power drill on a tool pile, and a high-vis safety vest on a foreman.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern construction items appear in this pyramid-building scene?",
+      "answer": "5",
+      "lever": "Modern construction equipment in ancient construction setting."
+    },
+    {
+      "id": "ANACHRO-043",
+      "sub_skill": "anachronism_in_pirate_ship_scene",
+      "domain": "pirate_ship_deck",
+      "scene": "A painted 17th-century pirate ship deck with about 20 pirates, cannons, treasure chests, parrots, rum bottles. Among the items, 4 are anachronistic: a satellite radar dish on the mast, a portable speaker playing music, a pair of jet-skis tied to the side, and a digital weather station on the wheel. All painted in classic pirate-illustration style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items are on this pirate ship?",
+      "answer": "4",
+      "lever": "Tech-era mismatch on Age-of-Sail vessel."
+    },
+    {
+      "id": "ANACHRO-044",
+      "sub_skill": "wrong_era_clothing_at_wedding",
+      "domain": "victorian_wedding_painting",
+      "scene": "A Victorian-era oil painting of an outdoor wedding scene with about 18 guests. Most wear formal Victorian attire (top hats, bustled dresses). Among them, 5 guests wear anachronistic modern clothing: a t-shirt with jeans, a track suit with sneakers, a hi-vis construction vest, a wetsuit with flippers, and a futuristic spacesuit with helmet. All painted in Victorian portraiture style.",
+      "question": "Based strictly on what is visible in the image, how many wedding guests wear clothing anachronistic to the Victorian era?",
+      "answer": "5",
+      "lever": "Clothing-era mismatch; modern outfits depicted in period art."
+    },
+    {
+      "id": "ANACHRO-045",
+      "sub_skill": "anachronism_in_space_exploration_scene",
+      "domain": "lunar_landing_painting",
+      "scene": "A NASA-style illustration of an Apollo lunar landing on the moon with about 12 items: lunar module, astronaut, flag, rover, science equipment, footprints. Among them, 4 are anachronistic items inappropriate to a lunar mission: a wooden treasure chest (medieval-style), a barrel of beer, a horse-drawn carriage, and a knight's armor standing upright. All painted in NASA-illustration style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic items appear in this lunar landing scene?",
+      "answer": "4",
+      "lever": "Reverse anachronism; medieval items in space context."
+    },
+    {
+      "id": "ANACHRO-046",
+      "sub_skill": "modern_in_aztec_temple",
+      "domain": "aztec_temple_courtyard",
+      "scene": "A stylized Aztec temple courtyard scene with about 25 items: stone altars, jaguar statues, feathered headdresses, ceremonial bowls, priests. Among the items, 3 are anachronistic: a propane gas grill near the altar, a baby stroller in the courtyard, and a satellite TV dish on the temple roof. Painted in Aztec codex style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Aztec temple courtyard?",
+      "answer": "3",
+      "lever": "Domestic modern objects in pre-Columbian setting."
+    },
+    {
+      "id": "ANACHRO-047",
+      "sub_skill": "wrong_weapons_at_knight_tournament",
+      "domain": "medieval_jousting_tournament",
+      "scene": "A medieval jousting tournament painting with about 15 knights and squires, lances, swords, shields, banners. Among the weapons depicted, 4 are anachronistic: an assault rifle slung on a knight's back, a pump-action shotgun in a squire's hand, a hand grenade on a belt, and a rocket launcher on the ground. All painted in medieval illuminated-manuscript style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern weapons are present at this medieval tournament?",
+      "answer": "4",
+      "lever": "Weapon-era mismatch; firearms in medieval setting."
+    },
+    {
+      "id": "ANACHRO-048",
+      "sub_skill": "anachronism_in_wild_west_scene",
+      "domain": "wild_west_saloon",
+      "scene": "A Wild West saloon interior painting with about 20 items and 8 cowboys at the bar. Among the items, 4 are anachronistic: a flat-screen TV mounted above the bar, a credit card terminal next to the cash register, a red electric guitar on a stand, and an espresso machine behind the bar. Painted in Wild West illustration style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items are visible in this Wild West saloon?",
+      "answer": "4",
+      "lever": "Modern bar/electronics in Wild West setting."
+    },
+    {
+      "id": "ANACHRO-049",
+      "sub_skill": "fantasy_dragon_in_modern_city",
+      "domain": "modern_city_skyline_painting",
+      "scene": "A photorealistic painting of a modern city skyline with about 15 elements: skyscrapers, helicopter, billboards, taxis, traffic lights. Among them, 4 are FANTASY/MYTHICAL elements anachronistic to a modern setting: a dragon perched on a skyscraper, a unicorn standing in a plaza, a centaur crossing the street, and a flying carpet with rider. All painted in cityscape-realism style.",
+      "question": "Based strictly on what is visible in the image, how many fantasy/mythical creatures or items are out of place in this modern city scene?",
+      "answer": "4",
+      "lever": "Fantasy elements in mundane realistic setting; cross-genre anachronism."
+    },
+    {
+      "id": "ANACHRO-050",
+      "sub_skill": "anachronism_in_ww1_trench",
+      "domain": "ww1_trench_painting",
+      "scene": "A muted-tone WW1 trench scene with about 18 soldiers, sandbags, rifles, gas masks, periscopes, mud. Among the items, 4 are anachronistic: a smartphone in a soldier's hand, a drone hovering above the trench, a thermos of espresso, and a Bluetooth headset on an officer. All painted in WW1 propaganda-poster style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern objects are visible in this WW1 trench scene?",
+      "answer": "4",
+      "lever": "Modern personal tech in early-20th-century war setting."
+    },
+    {
+      "id": "ANACHRO-051",
+      "sub_skill": "modern_at_roman_forum",
+      "domain": "roman_forum_painting",
+      "scene": "A neoclassical painting of the ancient Roman Forum with about 25 figures and items: senators in togas, marble columns, statues, scrolls, oil lamps. Among them, 5 are anachronistic: a yellow taxi cab parked on the marble, a hot dog cart with vendor, a streetlight with traffic signals, a graffiti tag on a column reading 'SPQR 2024', and a tourist taking a selfie with a phone.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Roman Forum scene?",
+      "answer": "5",
+      "lever": "Modern urban infrastructure in classical setting."
+    },
+    {
+      "id": "ANACHRO-052",
+      "sub_skill": "anachronism_in_ancient_olympics",
+      "domain": "ancient_greek_olympics",
+      "scene": "A Greek-vase-style illustration of ancient Olympic games with about 15 athletes competing in running, discus, javelin, wrestling. Among them, 4 athletes use anachronistic modern equipment: a pair of running shoes, a starting block with electronic sensors, a high-tech aerodynamic helmet, and a stopwatch held by a judge. All rendered in Greek black-figure pottery style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern sports items appear at this ancient Olympics?",
+      "answer": "4",
+      "lever": "Modern sports tech in ancient athletic context."
+    },
+    {
+      "id": "ANACHRO-053",
+      "sub_skill": "wrong_geography_in_arctic_scene",
+      "domain": "arctic_explorer_painting",
+      "scene": "An early-20th-century arctic exploration painting with about 10 animals on snow and ice: polar bears, walruses, seals, arctic foxes, snowy owls. Among them, 4 are species not native to the Arctic: a flamingo standing on the ice, a tropical parrot perched on a sled, a kangaroo hopping past, and a camel standing on the snow. All painted in expedition-illustration style.",
+      "question": "Based strictly on what is visible in the image, how many animals do NOT belong in the Arctic environment?",
+      "answer": "4",
+      "lever": "Climate/geography mismatch for fauna."
+    },
+    {
+      "id": "ANACHRO-054",
+      "sub_skill": "modern_in_buddhist_temple",
+      "domain": "ancient_buddhist_temple_painting",
+      "scene": "A traditional thangka-style painting of an ancient Buddhist temple interior with about 20 items: monks meditating, prayer wheels, butter lamps, scroll paintings, statues. Among them, 3 are anachronistic: a wireless router blinking on a wall, a security camera in the corner, and a vending machine with snack packets. Painted in thangka style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this ancient Buddhist temple?",
+      "answer": "3",
+      "lever": "Modern infrastructure in traditional religious space."
+    },
+    {
+      "id": "ANACHRO-055",
+      "sub_skill": "anachronism_in_dinosaur_zoo",
+      "domain": "stylized_dinosaur_zoo_illustration",
+      "scene": "A children's-book-style illustration of a fictional dinosaur zoo with about 20 dinosaurs in enclosures: T-rex, stegosaurus, pterosaur, brachiosaurus, velociraptor, triceratops. Among the dinosaurs, 4 enclosure-dwellers are anachronistic NON-DINOSAUR creatures included by mistake: a saber-tooth tiger (Cenozoic), a mammoth (Pleistocene), a dodo bird (recently extinct), and a giant ground sloth (Pleistocene). All in dinosaur-zoo style.",
+      "question": "Based strictly on what is visible in the image, how many of the creatures in this dinosaur zoo are NOT actually dinosaurs (i.e., extinct from a different geological era)?",
+      "answer": "4",
+      "lever": "Cross-era extinct-species filter; requires paleo knowledge."
+    },
+    {
+      "id": "ANACHRO-056",
+      "sub_skill": "modern_in_silk_road_caravan",
+      "domain": "silk_road_caravan_painting",
+      "scene": "A medieval Persian-miniature-style painting of a Silk Road caravan with about 20 items: camels, merchants, silk bolts, spice sacks, prayer mats, tents. Among them, 4 are anachronistic: a portable solar panel on a camel, a smartphone GPS held by a merchant, a propane camp stove, and a thermal sleeping bag rolled up by a tent.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Silk Road caravan?",
+      "answer": "4",
+      "lever": "Modern travel gear in ancient trade-route context."
+    },
+    {
+      "id": "ANACHRO-057",
+      "sub_skill": "anachronism_in_ancient_battle",
+      "domain": "battle_of_thermopylae_painting",
+      "scene": "A neoclassical painting of an ancient Greek battle (in the style of the Battle of Thermopylae) with about 25 spartan warriors, spears, round shields, helmets, banners. Among them, 4 figures wield anachronistic items: a chainsaw, a flamethrower, a cattle prod, and a riot shield with 'POLICE' written on it. All painted in classical history-painting style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern weapons or equipment appear in this ancient battle scene?",
+      "answer": "4",
+      "lever": "Modern weapons/tools in classical battle painting."
+    },
+    {
+      "id": "ANACHRO-058",
+      "sub_skill": "modern_in_ancient_chinese_scroll",
+      "domain": "ancient_chinese_scroll_painting",
+      "scene": "A traditional Chinese ink-and-wash scroll painting depicting an ancient Chinese garden with about 25 elements: pavilion, scholars in robes, tea set, calligraphy brushes, koi pond, bamboo. Among them, 4 are anachronistic modern items: a flat-screen TV in the pavilion, a microwave oven on the stone bench, a karaoke machine with microphone, and a robotic vacuum cleaner on the path.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this ancient Chinese garden scroll?",
+      "answer": "4",
+      "lever": "Modern household electronics in traditional ink-painting setting."
+    },
+    {
+      "id": "ANACHRO-059",
+      "sub_skill": "fantasy_in_corporate_meeting",
+      "domain": "modern_boardroom_painting",
+      "scene": "A photorealistic painting of a modern corporate boardroom with about 15 items: long table, suited executives, laptops, projector screen, water bottles, leather chairs. Among the seated executives, 4 are anachronistic FANTASY creatures: a wizard in robes with a pointed hat, a knight in full plate armor, a cyclops with one eye, and a centaur with a horse-lower-body.",
+      "question": "Based strictly on what is visible in the image, how many of the figures at this boardroom table are fantasy/historical characters out of place in a modern corporate setting?",
+      "answer": "4",
+      "lever": "Fantasy creatures in mundane modern professional setting; cross-domain mismatch."
+    },
+    {
+      "id": "ANACHRO-060",
+      "sub_skill": "wrong_food_at_thanksgiving",
+      "domain": "puritan_thanksgiving_painting",
+      "scene": "A Norman-Rockwell-style painting of a Puritan-era American Thanksgiving table with about 20 food items: roast turkey, cranberry sauce, corn, pumpkin pie, bread, cider. Among them, 5 are anachronistic foods that did not exist in Puritan New England: a sushi platter, a kimchi jar, a pizza, a chocolate fudge cake with 'Happy Birthday' on it, and a bowl of ramen with chopsticks. All painted in Rockwell style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic foreign or modern foods appear on this Puritan Thanksgiving table?",
+      "answer": "5",
+      "lever": "Cross-cultural food anachronism in historical American scene."
+    },
+    {
+      "id": "ANACHRO-061",
+      "sub_skill": "modern_in_napoleonic_battle",
+      "domain": "napoleonic_battlefield_painting",
+      "scene": "A grand Napoleonic battle painting with about 20 mounted cavalry, infantry with muskets, cannons, regimental flags. Among the items, 4 are anachronistic: a tank with cannon turret in the rear, a fighter jet streaking overhead, a humvee with mounted machine gun, and a soldier with a modern radio backpack. Painted in 19th-century history-painting style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern military vehicles or equipment appear in this Napoleonic battlefield?",
+      "answer": "4",
+      "lever": "20th/21st century military tech in 19th century battle scene."
+    },
+    {
+      "id": "ANACHRO-062",
+      "sub_skill": "ancient_in_sci_fi_lab",
+      "domain": "futuristic_sci_fi_laboratory",
+      "scene": "A sci-fi illustration of a futuristic high-tech laboratory with about 18 items: holographic displays, robotic arms, glowing test tubes, sleek consoles, scientists in white suits. Among them, 4 are anachronistic ANCIENT items: a stone-age pottery jar on a console, a rusted iron sword leaning on the wall, a hand-written scroll on a desk, and a bronze-age oil lamp burning. All painted in sci-fi-concept-art style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic ancient items appear in this futuristic laboratory?",
+      "answer": "4",
+      "lever": "Reverse: ancient items in futuristic setting."
+    },
+    {
+      "id": "ANACHRO-063",
+      "sub_skill": "anachronism_in_underwater_atlantis",
+      "domain": "atlantis_underwater_painting",
+      "scene": "A fantasy painting of the lost city of Atlantis underwater, with about 25 items: marble columns, mermaid statues, conch-shell musical instruments, gold-plated chariots, kelp gardens. Among them, 4 are anachronistic modern items: a SCUBA tank on the sand, an underwater drone hovering, a plastic 'NO SWIMMING' sign, and a smartphone in a waterproof case.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Atlantis scene?",
+      "answer": "4",
+      "lever": "Modern diving/tech items in ancient mythical underwater city."
+    },
+    {
+      "id": "ANACHRO-064",
+      "sub_skill": "modern_at_da_vinci_workshop",
+      "domain": "da_vinci_workshop_painting",
+      "scene": "A Renaissance-style painting of Leonardo da Vinci's workshop with about 20 items: easels, parchment sketches, anatomical drawings, brass instruments, sculptures. Among them, 4 are anachronistic modern items: an iPad displaying a digital sketch, a 3D printer extruding plastic, a calculator on the desk, and a fluorescent desk lamp.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in da Vinci's workshop?",
+      "answer": "4",
+      "lever": "Modern art/design tools in Renaissance studio setting."
+    },
+    {
+      "id": "ANACHRO-065",
+      "sub_skill": "anachronism_in_mongol_camp",
+      "domain": "mongol_warrior_camp_painting",
+      "scene": "A Persian-style painting of a Mongol warrior encampment with about 18 items: yurts, horses, archers with bows, fur-clad warriors, cooking pots over fire. Among them, 4 are anachronistic: a satellite phone, a portable generator with cables, a rifle scope on a bow, and a digital wristwatch on a warrior. All in Persian-miniature style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Mongol camp?",
+      "answer": "4",
+      "lever": "Modern electronic gear in steppe-era nomadic setting."
+    },
+    {
+      "id": "ANACHRO-066",
+      "sub_skill": "wrong_country_in_olympic_team",
+      "domain": "1900_olympic_team_photo_painting",
+      "scene": "A sepia-tone painting of an early 1900s Olympic team photograph with about 15 athletes wearing matching national uniforms with a country flag patch (e.g., 'France 1900'). Among them, 4 athletes wear anachronistic uniforms with patches reading 'USSR' (didn't exist until 1922), 'East Germany' (1949), 'Czech Republic' (1993), and 'South Sudan' (2011). All painted in sepia portrait style.",
+      "question": "Based strictly on what is visible in the image, how many athletes wear country-uniform patches representing nations that did not exist in the year 1900?",
+      "answer": "4",
+      "lever": "Geo-political anachronism via country-name reading."
+    },
+    {
+      "id": "ANACHRO-067",
+      "sub_skill": "anachronism_in_alchemist_lab",
+      "domain": "medieval_alchemist_laboratory",
+      "scene": "A dimly lit medieval alchemist's laboratory painting with about 25 items: bubbling cauldrons, glass alembics, parchment grimoires, dried herbs, candles, mortar-and-pestle. Among them, 5 are anachronistic modern lab items: a digital pH meter, a Bunsen burner with gas tube, a centrifuge machine, a microscope with adjustable knobs, and a box of nitrile gloves.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern laboratory items appear in this medieval alchemist's lab?",
+      "answer": "5",
+      "lever": "Modern lab equipment in pre-scientific alchemy setting."
+    },
+    {
+      "id": "ANACHRO-068",
+      "sub_skill": "modern_at_ice_age_hunt",
+      "domain": "ice_age_mammoth_hunt_painting",
+      "scene": "A cave-painting-style Ice Age scene with about 12 fur-clad hunters surrounding a mammoth, throwing wooden spears. Among the items in the scene, 4 are anachronistic: a sniper rifle in a hunter's hand, a tranquilizer dart gun on the ground, a pickup truck parked behind a snowdrift, and a National Geographic photographer with a telephoto camera. All in cave-painting style.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern items appear in this Ice Age mammoth hunt?",
+      "answer": "4",
+      "lever": "Modern hunting/recording gear in prehistoric scene."
+    },
+    {
+      "id": "ANACHRO-069",
+      "sub_skill": "anachronism_in_haunted_castle",
+      "domain": "gothic_haunted_castle_painting",
+      "scene": "A Gothic-style painting of a haunted castle interior with about 20 items: ghosts floating, suit of armor, cobwebs, candelabras, a coffin, ravens. Among them, 4 are anachronistic modern items: a vacuum cleaner plugged into a wall socket, a refrigerator with a magnet on it, a stationary exercise bike, and a red 'EXIT' sign above a doorway.",
+      "question": "Based strictly on what is visible in the image, how many anachronistic modern household items appear in this haunted castle?",
+      "answer": "4",
+      "lever": "Modern domestic appliances in Gothic horror setting."
+    },
+    {
+      "id": "ANACHRO-070",
+      "sub_skill": "multi_period_in_one_scene",
+      "domain": "fantasy_time_traveler_market",
+      "scene": "A whimsical illustrated marketplace scene where 8 people from different historical eras shop together. The market has about 15 stalls. Among the shoppers: an Egyptian pharaoh, a Roman senator, a medieval knight, a samurai, an astronaut, a 1920s flapper, a Wild West cowboy, and a futuristic robot. The question concerns a specific filter: how many of these shoppers come from BEFORE the year 1500.",
+      "question": "Based strictly on what is visible in the image, how many of the shoppers in this market are from a historical period BEFORE the year 1500 CE?",
+      "answer": "4",
+      "lever": "Multi-period anachronism + historical knowledge filter (pharaoh, Roman, knight, samurai are pre-1500; flapper/cowboy/astronaut/robot are not). Requires per-character era identification."
+    }
+  ]
+}

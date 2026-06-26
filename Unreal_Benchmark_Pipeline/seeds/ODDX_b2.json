@@ -1,0 +1,186 @@
+{
+  "family_id": "ODDX",
+  "family_name": "Odd-One-Out in a Crowd",
+  "seeds": [
+    {
+      "id": "ODDX-031",
+      "sub_skill": "single_color_outlier_grid",
+      "domain": "marble grid",
+      "scene": "A 6×6 grid of red marbles; one cell at row 3 col 4 holds a slightly more orange marble. Lighting uniform.",
+      "question": "Which cell contains the odd-one-out, and how does it differ?",
+      "answer": "row 3 col 4; slightly orange tint",
+      "lever": "Detect a low-magnitude hue outlier in a uniform grid."
+    },
+    {
+      "id": "ODDX-032",
+      "sub_skill": "size_outlier_dot_grid",
+      "domain": "dot grid",
+      "scene": "A 5×5 dot grid; all dots 1 cm except one dot at row 4 col 1 measuring 1.2 cm.",
+      "question": "Which dot is the odd-one-out?",
+      "answer": "row 4 col 1",
+      "lever": "Detect a small size outlier among uniform-size repeats."
+    },
+    {
+      "id": "ODDX-033",
+      "sub_skill": "rotation_outlier_arrows",
+      "domain": "arrow array",
+      "scene": "A 6×6 grid of arrows all pointing east, except one arrow at row 2 col 5 pointing east-northeast (~15° rotated).",
+      "question": "Which arrow is rotated differently?",
+      "answer": "row 2 col 5",
+      "lever": "Detect small angular deviation in uniform-orientation array."
+    },
+    {
+      "id": "ODDX-034",
+      "sub_skill": "shape_outlier_among_circles",
+      "domain": "shape grid",
+      "scene": "A grid of 25 circles; one cell contains a slightly elliptical shape (aspect ratio 1.1) instead of a true circle.",
+      "question": "Which cell has the odd shape?",
+      "answer": "the cell with the ellipse",
+      "lever": "Detect mild ellipticity outlier."
+    },
+    {
+      "id": "ODDX-035",
+      "sub_skill": "spacing_outlier_in_row",
+      "domain": "domino row",
+      "scene": "A row of 12 dominoes evenly spaced 1 cm apart, except one gap between dominoes 7 and 8 is 1.4 cm.",
+      "question": "Between which two dominoes is the odd gap?",
+      "answer": "between 7 and 8",
+      "lever": "Detect spacing irregularity by careful measurement comparison."
+    },
+    {
+      "id": "ODDX-036",
+      "sub_skill": "outlier_text_font",
+      "domain": "menu list",
+      "scene": "A menu page with 12 dish names in serif font; one dish name is set in sans-serif.",
+      "question": "Which dish name has the wrong font?",
+      "answer": "the sans-serif name",
+      "lever": "Detect font-family outlier vs uniform layout."
+    },
+    {
+      "id": "ODDX-037",
+      "sub_skill": "outlier_brand_logo_color",
+      "domain": "store-shelf product wall",
+      "scene": "A grid of 24 cans of the same product brand; 23 cans show red logos, 1 can shows a slightly orange-red logo (different print run).",
+      "question": "Which can has the off-color logo?",
+      "answer": "the orange-red can",
+      "lever": "Detect subtle logo color outlier in product wall."
+    },
+    {
+      "id": "ODDX-038",
+      "sub_skill": "outlier_count_in_repeated_pattern",
+      "domain": "polka dot fabric",
+      "scene": "A polka-dot fabric tile with each polka cluster containing 5 dots, except one cluster containing 4.",
+      "question": "Which cluster has fewer dots?",
+      "answer": "the 4-dot cluster",
+      "lever": "Detect count outlier in repeated micro-pattern."
+    },
+    {
+      "id": "ODDX-039",
+      "sub_skill": "lighting_outlier_in_uniform_room",
+      "domain": "office cubicle row",
+      "scene": "A row of 8 cubicles all lit with white LED, except one with warm yellow tungsten bulb.",
+      "question": "Which cubicle has the odd lighting?",
+      "answer": "the warm-yellow-lit one",
+      "lever": "Detect color-temperature outlier in lighting."
+    },
+    {
+      "id": "ODDX-040",
+      "sub_skill": "tilt_outlier_among_books",
+      "domain": "bookshelf row",
+      "scene": "A bookshelf row of 30 books all standing perfectly vertical, except one tilted ~10°.",
+      "question": "Which book is tilted?",
+      "answer": "the slightly-tilted book",
+      "lever": "Detect angular outlier among uniform vertical alignment."
+    },
+    {
+      "id": "ODDX-041",
+      "sub_skill": "missing_element_in_pattern",
+      "domain": "tile floor",
+      "scene": "A repeating geometric tile floor pattern; one tile has a small chip missing, breaking the pattern.",
+      "question": "Which tile is damaged?",
+      "answer": "the chipped tile",
+      "lever": "Detect pattern break vs intact tiles."
+    },
+    {
+      "id": "ODDX-042",
+      "sub_skill": "outlier_letter_in_paragraph",
+      "domain": "printed paragraph",
+      "scene": "A paragraph of body text in 12pt; one letter (in a normal word) appears in bold by mistake.",
+      "question": "Which letter is in bold?",
+      "answer": "the bold letter",
+      "lever": "Detect single-character formatting outlier."
+    },
+    {
+      "id": "ODDX-043",
+      "sub_skill": "spectrum_color_outlier_close_hue",
+      "domain": "paint chip wall",
+      "scene": "A paint-chip wall with 30 chips of green; one chip is shifted very slightly toward yellow-green.",
+      "question": "Which chip is the odd hue?",
+      "answer": "the yellow-shifted chip",
+      "lever": "Detect minimal hue shift in dense color array."
+    },
+    {
+      "id": "ODDX-044",
+      "sub_skill": "uniform_count_grid_outlier",
+      "domain": "egg cartons",
+      "scene": "A row of 6 egg cartons each containing 12 eggs except one carton with 11.",
+      "question": "Which carton has fewer eggs?",
+      "answer": "the 11-egg carton",
+      "lever": "Detect count outlier across containers."
+    },
+    {
+      "id": "ODDX-045",
+      "sub_skill": "outlier_vehicle_color_parking",
+      "domain": "parking lot",
+      "scene": "A parking lot with 20 white sedans and 1 cream-colored sedan, all otherwise identical.",
+      "question": "Which car is the off-color one?",
+      "answer": "the cream sedan",
+      "lever": "Detect minor color outlier across uniform array."
+    },
+    {
+      "id": "ODDX-046",
+      "sub_skill": "outlier_handwriting_in_form",
+      "domain": "filled-form list",
+      "scene": "A long form list with 15 entries handwritten in blue pen; one entry written in black pen.",
+      "question": "Which entry is in the wrong ink color?",
+      "answer": "the black-pen entry",
+      "lever": "Detect ink color outlier in long handwritten list."
+    },
+    {
+      "id": "ODDX-047",
+      "sub_skill": "outlier_in_periodic_pattern",
+      "domain": "clock dial markings",
+      "scene": "A clock dial with 12 hour-marks all rectangular, except one (the 9-position mark) which is round.",
+      "question": "Which hour mark has the wrong shape?",
+      "answer": "9 o'clock",
+      "lever": "Detect shape outlier in hour-mark periodic pattern."
+    },
+    {
+      "id": "ODDX-048",
+      "sub_skill": "outlier_alignment_in_row",
+      "domain": "row of cups",
+      "scene": "A row of 14 cups on a shelf with handles all facing left, except one with handle facing right.",
+      "question": "Which cup is the orientation outlier?",
+      "answer": "the right-facing-handle cup",
+      "lever": "Detect orientation outlier across uniform array."
+    },
+    {
+      "id": "ODDX-049",
+      "sub_skill": "outlier_in_size_progression",
+      "domain": "Russian doll set",
+      "scene": "A row of 7 nested-doll dolls, each ~10% smaller than the previous, except one position breaks the gradient (too-small jump).",
+      "question": "Which position breaks the size pattern?",
+      "answer": "the doll position with anomalous jump",
+      "lever": "Detect deviation from monotone size progression."
+    },
+    {
+      "id": "ODDX-050",
+      "sub_skill": "outlier_in_uniform_label_set",
+      "domain": "warehouse box stack",
+      "scene": "A stack of 24 identical-looking boxes labeled 'BOX 001'…'BOX 024'; one box mistakenly labeled 'BOX 16' instead of 'BOX 016' (missing leading zero).",
+      "question": "Which box has a labeling format anomaly?",
+      "answer": "the 'BOX 16' box",
+      "lever": "Detect formatting outlier in serial-label set."
+    }
+  ]
+}

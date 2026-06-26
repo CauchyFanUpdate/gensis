@@ -1,0 +1,186 @@
+{
+  "family_id": "PHYS",
+  "family_name": "Physics Intuition",
+  "seeds": [
+    {
+      "id": "PHYS-011",
+      "sub_skill": "trajectory_under_gravity",
+      "domain": "ball thrown from cliff",
+      "scene": "A cliff edge 10 m high with a person throwing a ball horizontally outward at moderate speed. A grid of 1m squares is overlaid for reference. Beside the cliff, three target buckets sit at ground level: bucket A is 4m from cliff base, bucket B is 7m out, bucket C is 12m out. The ball's initial horizontal velocity is 5 m/s (printed on a velocity gauge), gravity 9.8 m/s².",
+      "question": "Into which bucket does the ball land?",
+      "answer": "Bucket B",
+      "lever": "Compute time to fall: t = √(2h/g) = √(20/9.8) ≈ 1.43 s. Horizontal distance = 5 × 1.43 ≈ 7.14 m → bucket B (at 7m)."
+    },
+    {
+      "id": "PHYS-012",
+      "sub_skill": "buoyancy_density",
+      "domain": "fluid layers in jar",
+      "scene": "A tall transparent jar holds three immiscible liquids in clear stratified layers (top to bottom): vegetable oil, water, honey. Five small objects float at various depths: a cork ball at the very top of oil; a plastic bead at the oil-water interface; a grape at the water-honey interface; a steel marble at the bottom of the honey; a wax cube floating between water and oil layers (interface).",
+      "question": "Order the 5 objects by DENSITY from least dense to most dense.",
+      "answer": "cork, wax, plastic bead, grape, steel marble",
+      "lever": "Read floating depth as density indicator; objects sit at the interface where their density matches local fluid. Cork floats on top → least dense; steel sinks to bottom → most dense."
+    },
+    {
+      "id": "PHYS-013",
+      "sub_skill": "torque_lever_arm",
+      "domain": "wrench and bolt",
+      "scene": "A side view of a wrench applied to a hex bolt. Three force-arrows are drawn at different positions along the wrench handle: F1 at 5 cm from the bolt, magnitude 50 N. F2 at 15 cm, magnitude 30 N. F3 at 25 cm, magnitude 15 N. All three forces are perpendicular to the handle.",
+      "question": "Which force produces the GREATEST torque on the bolt?",
+      "answer": "F2 (15 cm × 30 N = 450 N·cm)",
+      "lever": "Compute torque = r × F. F1: 5×50=250; F2: 15×30=450; F3: 25×15=375. F2 wins."
+    },
+    {
+      "id": "PHYS-014",
+      "sub_skill": "thermal_equilibrium",
+      "domain": "kitchen with two cups",
+      "scene": "Two ceramic cups sitting on a cool kitchen counter (room temp 20°C). Cup A held boiling water (98°C) and has been sitting for 30 minutes. Cup B held cold water (5°C) and has also been sitting for 30 minutes. The room is well-ventilated.",
+      "question": "After enough time, which cup will be HOTTER?",
+      "answer": "They will be the same temperature (room temp ~20°C)",
+      "lever": "Reject the trap of 'A still hotter'; thermal equilibrium dictates both reach room temp."
+    },
+    {
+      "id": "PHYS-015",
+      "sub_skill": "elastic_collision_energy",
+      "domain": "newton's cradle",
+      "scene": "A Newton's cradle with 5 identical steel balls. The leftmost 2 balls are pulled back together and released. Question: predict what happens at the right side.",
+      "question": "How many balls swing OUT on the right side after impact?",
+      "answer": "2",
+      "lever": "Conservation of momentum + energy in equal-mass elastic collision; n balls in → n balls out."
+    },
+    {
+      "id": "PHYS-016",
+      "sub_skill": "pulley_mechanical_advantage",
+      "domain": "rope and pulley system",
+      "scene": "A diagram of a single-block-and-tackle pulley system: a fixed pulley at the top, a movable pulley supporting a 100 kg load, with one end of the rope attached to the ceiling and the other end pulled down by a person. Two segments of rope support the movable pulley.",
+      "question": "How much force must the person apply to lift the load (ignoring friction)?",
+      "answer": "Half the load weight ≈ 500 N (or 50 kg-force)",
+      "lever": "Pulley mechanical advantage = number of supporting rope segments (2); force = weight / 2."
+    },
+    {
+      "id": "PHYS-017",
+      "sub_skill": "evaporation_rate_compare",
+      "domain": "wet floor in different rooms",
+      "scene": "Three identical 100mL water spills on the floor of three different rooms. Room A: warm (28°C), low humidity (30%), windy fan blowing. Room B: cool (18°C), high humidity (80%), still air. Room C: warm (28°C), high humidity (80%), still air. Surface area of each spill is the same.",
+      "question": "Which spill EVAPORATES FASTEST?",
+      "answer": "Room A",
+      "lever": "Evaporation favored by high temp + low humidity + airflow; A wins on all three."
+    },
+    {
+      "id": "PHYS-018",
+      "sub_skill": "static_friction_threshold",
+      "domain": "ramp with crate",
+      "scene": "A ramp with adjustable angle. A crate sits on the ramp. The coefficient of static friction is μ=0.3 (printed on the ramp). The ramp angle indicator reads 20°.",
+      "question": "Will the crate slide?",
+      "answer": "Yes",
+      "lever": "Compare tan(angle) with μ_s; tan 20° ≈ 0.364 > μ = 0.3, so static friction is exceeded → crate slides."
+    },
+    {
+      "id": "PHYS-019",
+      "sub_skill": "magnetic_attraction_polarity",
+      "domain": "tabletop magnets",
+      "scene": "Three bar magnets laid out on a table with their N (red) and S (blue) poles labeled. Magnet 1: N-left, S-right. Magnet 2: S-left, N-right. Magnet 3: N-left, S-right. Each pair shown side by side with a small gap. Pair (1,2) faces N-S, Pair (2,3) faces N-N, Pair (1,3) faces S-N.",
+      "question": "Which pairs ATTRACT each other?",
+      "answer": "Only pair (1,3)",
+      "lever": "Determine the facing-pole pair for each adjacency. Pair (1,2): S of 1 meets S of 2 → repel. Pair (2,3): N of 2 meets N of 3 → repel. Pair (1,3): S of 1 meets N of 3 → attract."
+    },
+    {
+      "id": "PHYS-020",
+      "sub_skill": "rolling_vs_sliding",
+      "domain": "incline race",
+      "scene": "A ramp with two objects placed at the top: a solid metal cylinder (free to roll) and a flat metal block (sliding only). Both have the same mass. The ramp has very low friction (effectively frictionless for sliding). They are released simultaneously.",
+      "question": "Which reaches the bottom FIRST?",
+      "answer": "The sliding block",
+      "lever": "Rolling cylinder has rotational kinetic energy + translational; sliding block has only translational → all PE → translational KE → faster (assuming low friction)."
+    },
+    {
+      "id": "PHYS-021",
+      "sub_skill": "circuit_brightness_compare",
+      "domain": "circuit diagram",
+      "scene": "Three identical light bulbs labeled A, B, C arranged in a circuit: bulb A is in series with the parallel combination of B and C. The circuit is powered by a 9V battery.",
+      "question": "Which bulb is the BRIGHTEST?",
+      "answer": "Bulb A",
+      "lever": "Bulb A carries the full current; bulbs B and C share current (each gets half). Brightness scales with power = I²R; A has higher current."
+    },
+    {
+      "id": "PHYS-022",
+      "sub_skill": "stable_equilibrium_check",
+      "domain": "stacked dominos",
+      "scene": "A row of 8 standing dominos. Domino 1 is leaning toward domino 2 by ~3°, the others are perfectly upright. Spacing between adjacent dominos is 4 cm; each domino is 5 cm tall and 2 cm wide. Domino 1 is given a slight push toward domino 2.",
+      "question": "How many dominos will fall?",
+      "answer": "8 (all of them — chain reaction)",
+      "lever": "Recognize the spacing (4cm) is less than domino height (5cm), so each falling domino reaches and topples the next."
+    },
+    {
+      "id": "PHYS-023",
+      "sub_skill": "siphon_flow_direction",
+      "domain": "two buckets siphon",
+      "scene": "Two buckets connected by a hose forming a siphon. Bucket A (left) has water surface at height 60 cm. Bucket B (right) has water surface at height 40 cm. Hose loops over the top edge of both buckets. The siphon is primed (full of water).",
+      "question": "Which direction does water flow?",
+      "answer": "From A to B (higher to lower)",
+      "lever": "Siphon flows toward lower water surface."
+    },
+    {
+      "id": "PHYS-024",
+      "sub_skill": "shadow_length_solar_angle",
+      "domain": "sunlit pole",
+      "scene": "A vertical pole 2 m tall casts a shadow on flat ground. The shadow length is 3.46 m. (For reference, tan 30° ≈ 0.577.)",
+      "question": "What is the sun's elevation angle above the horizon?",
+      "answer": "30°",
+      "lever": "tan(angle) = pole_height / shadow_length = 2 / 3.46 ≈ 0.577 → angle = 30°."
+    },
+    {
+      "id": "PHYS-025",
+      "sub_skill": "wave_interference_visual",
+      "domain": "ripple tank",
+      "scene": "Top-down view of a ripple tank with two point wave sources S1 and S2 separated by 6 cm, oscillating in phase. Wavelength is 2 cm. A detector point P sits at distance 7 cm from S1 and 5 cm from S2.",
+      "question": "Is the detector at a CONSTRUCTIVE or DESTRUCTIVE interference point?",
+      "answer": "Constructive",
+      "lever": "Path difference = 7-5 = 2 cm = 1λ → integer multiple of wavelength → constructive."
+    },
+    {
+      "id": "PHYS-026",
+      "sub_skill": "thermal_expansion",
+      "domain": "iron rail expansion",
+      "scene": "A railway track has a 6 mm gap between two rail segments at 10°C ambient temperature. The rail is steel (linear expansion coefficient α = 1.2 × 10⁻⁵ /°C). One rail segment is 25 m long. Summer can reach 40°C.",
+      "question": "By how much will one rail segment expand by summer? Will the gap close?",
+      "answer": "Expansion ≈ 9 mm; gap will close (and rails would press)",
+      "lever": "ΔL = α × L × ΔT = 1.2e-5 × 25000 mm × 30°C = 9 mm; 9 mm > 6 mm gap → closes."
+    },
+    {
+      "id": "PHYS-027",
+      "sub_skill": "moment_arm_balance_three_weights",
+      "domain": "balance beam",
+      "scene": "A balance beam pivoted at center. Left side: a 2 kg weight at 30 cm from pivot, AND a 1 kg weight at 50 cm from pivot. Right side: a 4 kg weight at unknown distance d.",
+      "question": "What distance d on the right side balances the beam?",
+      "answer": "27.5 cm",
+      "lever": "Sum left moments: 2×30 + 1×50 = 110 kg·cm. Set equal to right: 4 × d = 110 → d = 27.5 cm."
+    },
+    {
+      "id": "PHYS-028",
+      "sub_skill": "fluid_pressure_at_depth",
+      "domain": "deep water tank",
+      "scene": "A tall water tank 5 m deep, with a small valve at the bottom. Pressure gauge at depth 2 m reads 20 kPa above atmospheric. Tank is open to air.",
+      "question": "What does the pressure gauge at the BOTTOM (5 m depth) read above atmospheric?",
+      "answer": "50 kPa",
+      "lever": "Pressure scales linearly with depth; 20 kPa at 2 m → 10 kPa per meter; at 5 m → 50 kPa."
+    },
+    {
+      "id": "PHYS-029",
+      "sub_skill": "object_rotational_inertia",
+      "domain": "spinning ice skater",
+      "scene": "A figure skater spins on ice with arms extended outward, holding two heavy water bottles. The skater pulls arms inward (bottles brought close to body).",
+      "question": "What happens to the spin RATE?",
+      "answer": "It increases (speeds up)",
+      "lever": "Conservation of angular momentum L = Iω; reducing I (arms in) increases ω."
+    },
+    {
+      "id": "PHYS-030",
+      "sub_skill": "domino_topple_height_constraint",
+      "domain": "domino chain with ramp",
+      "scene": "A row of 5 dominos stands upright. Each domino is 5 cm tall, 2 cm wide. Spacing between consecutive dominos increases linearly: 3, 5, 7, 9 cm gaps. Domino 1 is pushed.",
+      "question": "How many dominos fall in the chain?",
+      "answer": "3",
+      "lever": "Each falling domino reaches the next only if gap < height. Gaps: 3<5 ✓ falls 2; 5=5 borderline could fall 3; 7>5 ✗. So D1→D2→D3→? ; D3 falls and arc reaches at most 5cm forward, gap to D4 is 7cm, fails. Total = 3 fall."
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "family_id": "SPAT",
+  "family_name": "Spatial Reasoning",
+  "seeds": [
+    {
+      "id": "SPAT-031",
+      "sub_skill": "compass_via_shadow_at_dawn",
+      "domain": "outdoor flagpole",
+      "scene": "A flagpole at dawn casting a long shadow westward; a watch sitting at the base reads 6:30 AM.",
+      "question": "Which cardinal direction is the SUN in?",
+      "answer": "East",
+      "lever": "Shadow points opposite the sun; westward shadow at dawn → sun is east."
+    },
+    {
+      "id": "SPAT-032",
+      "sub_skill": "second_order_reflection_order",
+      "domain": "store counter via mirror",
+      "scene": "A customer sees three items on a counter only via a wall mirror behind the counter; mirror shows from viewer's left to right: cup, plate, spoon. The viewer is facing the counter, mirror behind it.",
+      "question": "What is the actual left-to-right order of the items as the customer would see directly facing the counter?",
+      "answer": "spoon, plate, cup (mirror reverses left-right)",
+      "lever": "Apply mirror parity: actual order is reverse of mirror order from same viewpoint."
+    },
+    {
+      "id": "SPAT-033",
+      "sub_skill": "z_order_through_glass_table",
+      "domain": "glass tabletop with stacked items",
+      "scene": "A glass-top table viewed from above; 4 items rest at different layers — A on the table surface (top), B beneath the glass on a shelf below, C on the table surface beside A, D directly on top of A.",
+      "question": "Which object is in DIRECT contact with the upper glass surface from below?",
+      "answer": "B (the item resting on the lower shelf is not on glass; A and C are on top; only items resting from below would touch — none in this scene → none)",
+      "lever": "Disambiguate spatial layers (above glass, glass surface, below glass)."
+    },
+    {
+      "id": "SPAT-034",
+      "sub_skill": "perspective_size_inference",
+      "domain": "long hallway",
+      "scene": "A long hallway photo with two people: A near the camera, B far down the hallway. They appear nearly equal-sized in the image.",
+      "question": "Which person is taller in reality?",
+      "answer": "Person B (since B is farther but appears the same size, B must be larger)",
+      "lever": "Apply perspective foreshortening: equal apparent size at unequal distance → distant is larger."
+    },
+    {
+      "id": "SPAT-035",
+      "sub_skill": "object_left_or_right_of_facing",
+      "domain": "two facing people",
+      "scene": "Two people sitting across a table from each other; an apple sits on the table to the LEFT side of person A. Person A and B face each other.",
+      "question": "Is the apple on person B's left or right?",
+      "answer": "right",
+      "lever": "Mirror perspective when facing: A's left is B's right."
+    },
+    {
+      "id": "SPAT-036",
+      "sub_skill": "stack_layer_count",
+      "domain": "stacked plates",
+      "scene": "A stack of plates on a shelf; partial visible due to shelf overhang. Edge marks of plates visible: 8 distinct rims along the side.",
+      "question": "How many plates are in the stack?",
+      "answer": "8",
+      "lever": "Count layers via visible side edges."
+    },
+    {
+      "id": "SPAT-037",
+      "sub_skill": "object_orientation_in_3d",
+      "domain": "tilted box",
+      "scene": "A photo of a box tilted at an angle; visible faces: top, front, and right side. Stickers on the box: 'TOP' on the top face, 'FRONT' on the front, 'RIGHT' on the right side.",
+      "question": "If the box were placed flat with TOP face up, which sticker would face the camera (which was originally photographed)?",
+      "answer": "FRONT",
+      "lever": "Mentally derotate the box and identify which face the camera now sees."
+    },
+    {
+      "id": "SPAT-038",
+      "sub_skill": "behind_vs_in_front",
+      "domain": "people in queue",
+      "scene": "A queue with 5 people viewed from the side; person 1 closest to camera, person 5 farthest.",
+      "question": "Who is DIRECTLY behind person 3?",
+      "answer": "person 4",
+      "lever": "Resolve 'behind' relative to queue direction (away from front)."
+    },
+    {
+      "id": "SPAT-039",
+      "sub_skill": "between_three_objects",
+      "domain": "shelf with bottles",
+      "scene": "A shelf with three bottles in a row: red bottle on left, blue in middle, green on right.",
+      "question": "Which bottle is BETWEEN red and green?",
+      "answer": "blue",
+      "lever": "Resolve 'between' on a 1D arrangement."
+    },
+    {
+      "id": "SPAT-040",
+      "sub_skill": "rotation_inference_from_shadow",
+      "domain": "rotating sundial",
+      "scene": "A sundial with shadow pointing northwest; another image of the same sundial 4 hours later shows shadow pointing northeast.",
+      "question": "How did the sun's position change?",
+      "answer": "moved from northeast to northwest (sun is opposite shadow)",
+      "lever": "Sun moves opposite shadow; track shadow rotation to infer sun motion."
+    },
+    {
+      "id": "SPAT-041",
+      "sub_skill": "above_or_below_through_transparent_floor",
+      "domain": "glass-floor museum",
+      "scene": "A glass-floor museum walkway; visible through the floor are exhibits one level below. Someone standing on the glass appears with feet at the same image-position as an exhibit case below them.",
+      "question": "Is the person ABOVE or BELOW the exhibit?",
+      "answer": "above (on the glass walkway, with the case visible through it below)",
+      "lever": "Disambiguate apparent overlap as vertical separation, not coplanar."
+    },
+    {
+      "id": "SPAT-042",
+      "sub_skill": "object_count_from_two_views",
+      "domain": "tabletop two-shot",
+      "scene": "Two photos of a tabletop from different angles; 5 objects visible from view 1, 6 from view 2 (one object hidden in view 1 by another).",
+      "question": "How many objects are actually on the table?",
+      "answer": "6",
+      "lever": "Combine views; count union, not single view."
+    },
+    {
+      "id": "SPAT-043",
+      "sub_skill": "diagonal_distance_estimation",
+      "domain": "warehouse forklift route",
+      "scene": "A warehouse aisle grid; rectangular grid with cells 2m × 3m. A forklift must travel from cell A1 to cell D4 along grid axes.",
+      "question": "What is the minimum total grid-distance traveled?",
+      "answer": "3 cells right (2m) + 3 cells down (3m) total: 6m + 9m = 15m",
+      "lever": "Compute Manhattan distance with non-unit cell sizes."
+    },
+    {
+      "id": "SPAT-044",
+      "sub_skill": "rotation_view_match",
+      "domain": "object rotation pair",
+      "scene": "Top: an object viewed from front (showing complex shape). Bottom: 4 candidate side views; only one is a 90° rotation of the front view.",
+      "question": "Which side view matches the front view rotated 90°?",
+      "answer": "the candidate corresponding to the rotated geometry",
+      "lever": "Mentally rotate 3D shape and match to candidate."
+    },
+    {
+      "id": "SPAT-045",
+      "sub_skill": "stair_step_count",
+      "domain": "staircase",
+      "scene": "A staircase with steps photographed in oblique perspective; visible step edges: 13.",
+      "question": "How many steps are in the staircase?",
+      "answer": "13",
+      "lever": "Count step edges accurately under perspective foreshortening."
+    },
+    {
+      "id": "SPAT-046",
+      "sub_skill": "container_volume_partial_fill",
+      "domain": "water bottle marked",
+      "scene": "A 1-liter water bottle with cylindrical body; visible water level reaches 7/10 of the way up the body. Bottle has a thinner neck above the cylinder.",
+      "question": "Approximately how much water is in the bottle?",
+      "answer": "about 0.7 liters (cylindrical fill ratio)",
+      "lever": "Apply linear fill ratio to cylindrical body volume."
+    },
+    {
+      "id": "SPAT-047",
+      "sub_skill": "facing_direction_via_furniture",
+      "domain": "office layout overhead",
+      "scene": "An overhead floor-plan view of an office; a desk with chair pushed in, monitor on the desk facing east (window) side.",
+      "question": "Which way does the seated person face?",
+      "answer": "east (toward the monitor)",
+      "lever": "Infer person's facing from chair-monitor geometry."
+    },
+    {
+      "id": "SPAT-048",
+      "sub_skill": "object_inside_container",
+      "domain": "transparent jar with marbles",
+      "scene": "A clear glass jar containing several layered marbles: bottom layer 5 red, middle 4 blue, top 3 green.",
+      "question": "How many marbles are at the BOTTOM of the jar?",
+      "answer": "5",
+      "lever": "Distinguish layers vertically and count specific layer."
+    },
+    {
+      "id": "SPAT-049",
+      "sub_skill": "rotation_about_vertical",
+      "domain": "spinning toy display",
+      "scene": "A toy on a rotating display platform; in image 1 the toy faces camera, in image 2 (rotated 90° CCW from above) the toy's left side faces camera.",
+      "question": "After another 90° CCW rotation, which side faces the camera?",
+      "answer": "the toy's back",
+      "lever": "Sequentially apply rotation steps to track which face is forward."
+    },
+    {
+      "id": "SPAT-050",
+      "sub_skill": "object_in_room_corner",
+      "domain": "room corner placement",
+      "scene": "A room with 4 corners labeled NE, NW, SE, SW from above. A floor lamp stands in the corner where N and W walls meet.",
+      "question": "Which corner is the floor lamp in?",
+      "answer": "NW",
+      "lever": "Resolve cardinal corner from intersecting wall identifiers."
+    }
+  ]
+}

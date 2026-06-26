@@ -1,0 +1,47 @@
+Model: doubao-seed-1-8
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_doubao_seed_1_8.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (doubao-seed-1-8): 52 pending, 548 done
+    20/52
+    40/52
+  Done: 52 processed
+
+[Phase 2] Extract & judge: 0 empty, 10 MC + 42 OE
+  MC done: 10
+    OE 20/42
+    OE 40/42
+  OE done: 42
+
+============================================================
+  Overall: 33.3% (200/600)  errors=0
+============================================================
+
+  By Domain:
+    Mathematics                          21.2% (55/259) ████
+    Physics & Engineering                39.6% (38/96) ███████
+    Reasoning & Logic                    45.7% (42/92) █████████
+    Perception                           40.7% (37/91) ████████
+    Natural Science                      45.2% (28/62) █████████
+
+  By Subdomain:
+    combinatorial_geometry               19.0% (12/63) ███
+    Biology & Chemistry                  45.2% (28/62) █████████
+    Spatial Reasoning                    42.9% (21/49) ████████
+    Mechanics                            36.7% (18/49) ███████
+    Logic & Document Knowledge           45.8% (22/48) █████████
+    Counting & Numeracy                  45.5% (20/44) █████████
+    Visual Perception                    38.1% (16/42) ███████
+    metric_geometry                      25.0% (10/40) █████
+    combinatorics_counting               28.9% (11/38) █████
+    descriptive_geometry                 28.1% (9/32) █████
+    solid_geometry                       20.0% (5/25) ████
+    Electromagnetism & Optics            56.0% (14/25) ███████████
+    transformation_geometry               8.7% (2/23) █
+    graph_theory                         21.7% (5/23) ████
+    Fluids & Thermodynamics              27.3% (6/22) █████
+    logic_constraints                     6.7% (1/15) █
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_doubao_seed_1_8.jsonl

@@ -1,0 +1,366 @@
+{
+  "family_id": "MAGIC",
+  "family_name": "Multi-step Rule Deduction in Fantasy Scenes (b6)",
+  "seeds": [
+    {
+      "id": "MAGIC-031",
+      "sub_skill": "rule_chain_potion_color",
+      "domain": "wizard_potion_brewery",
+      "scene": "A wizard's brewing room with 12 cauldrons in a 3x4 grid, each bubbling with a colored potion: 4 cauldrons are red, 4 are blue, 4 are green. Above each cauldron floats a small wooden tag showing one of three rune symbols: triangle, circle, or square. Distribution: red cauldrons have 2 with triangle, 1 with circle, 1 with square; blue cauldrons have 1 triangle, 2 circle, 1 square; green cauldrons have 1 triangle, 1 circle, 2 square. A rule scroll on the wall reads: 'Only RED + TRIANGLE potions cure dragonfire burns.'",
+      "question": "Based strictly on what is visible in the image, how many cauldrons in this brewery contain potions that cure dragonfire burns according to the posted rule?",
+      "answer": "2",
+      "lever": "Read posted rule, then apply two-attribute filter (color × rune) to count matching cauldrons."
+    },
+    {
+      "id": "MAGIC-032",
+      "sub_skill": "spell_strength_calculation",
+      "domain": "magic_school_classroom",
+      "scene": "A magic school classroom with 8 students at desks, each with a glowing wand. Above each desk floats a number tile showing the wand's base power (between 1 and 9). The numbers visible are 3, 5, 2, 8, 4, 6, 1, 7. A rule chalkboard reads: 'A spell SUCCEEDS only if the student's wand power is STRICTLY GREATER THAN 4 AND the student wears a red robe.' Robe colors: 4 students wear red robes (corresponding to power tiles 5, 8, 4, 6), the other 4 wear blue robes (3, 2, 1, 7).",
+      "question": "Based strictly on what is visible in the image, how many students in this classroom can cast a successful spell according to the posted rule?",
+      "answer": "3",
+      "lever": "Multi-step: read rule (>4 AND red robe), per-student check. Red robes have powers 5,8,4,6. >4: 5,8,6 = 3."
+    },
+    {
+      "id": "MAGIC-033",
+      "sub_skill": "elemental_pairing_rule",
+      "domain": "elemental_summoning_circle",
+      "scene": "A stone summoning chamber with 10 elemental sprites floating in a row, each glowing one of four elements: 3 fire (red glow), 3 water (blue glow), 2 earth (brown glow), 2 air (white glow). Each sprite is paired with a colored gem held above its head: 5 gems are red, 3 are blue, 2 are green. A rule plaque reads: 'A sprite is BOUND when its element matches its gem (FIRE-red, WATER-blue, EARTH-green, AIR-white).' Specifically: 2 fire sprites have red gems, 1 fire has blue gem; 2 water sprites have blue gems, 1 water has red gem; 1 earth sprite has green gem, 1 earth has red gem; 0 air sprites have white gem (1 has red, 1 has blue).",
+      "question": "Based strictly on what is visible in the image, how many sprites are BOUND according to the posted matching rule?",
+      "answer": "5",
+      "lever": "Element-gem matching across 4 element types; per-sprite check; sum over matches: fire-red 2 + water-blue 2 + earth-green 1 + air-white 0 = 5."
+    },
+    {
+      "id": "MAGIC-034",
+      "sub_skill": "rune_activation_chain",
+      "domain": "ancient_rune_floor_puzzle",
+      "scene": "A stone temple floor viewed from above with 9 rune tiles in a 3x3 grid. Each tile shows a symbol (sun, moon, star, or eye) and is either glowing yellow or dim grey. Layout (row by row): [sun-glow, moon-dim, star-glow], [eye-dim, sun-dim, moon-glow], [star-dim, eye-glow, sun-glow]. A rule wall reads: 'A tile is ACTIVE only if it shows a SUN AND is glowing yellow.'",
+      "question": "Based strictly on what is visible in the image, how many tiles on this floor are ACTIVE according to the posted rule?",
+      "answer": "2",
+      "lever": "Rule + grid scan + two-attribute conjunction (sun symbol × glow). Count sun-glow tiles: row1col1, row3col3 = 2."
+    },
+    {
+      "id": "MAGIC-035",
+      "sub_skill": "necklace_charm_strength",
+      "domain": "enchantress_jewelry_display",
+      "scene": "An enchantress's display case with 10 necklaces in a row, each holding a colored gem pendant: 4 ruby (red), 3 sapphire (blue), 3 emerald (green). Each necklace also has a number of small charms hanging next to the gem (between 1 and 5 charms). Charm counts (left to right): 2, 4, 1, 3, 5, 2, 3, 4, 1, 5. Gem types (left to right): ruby, ruby, sapphire, emerald, ruby, sapphire, emerald, ruby, sapphire, emerald. A rule scroll reads: 'A necklace is POTENT if its gem is RUBY AND it has AT LEAST 3 charms.'",
+      "question": "Based strictly on what is visible in the image, how many necklaces are POTENT according to the posted rule?",
+      "answer": "3",
+      "lever": "Per-necklace two-attribute check (gem type + charm count threshold). Ruby + ≥3 charms: pos 2(ruby,4✓), pos 5(ruby,5✓), pos 8(ruby,4✓) = 3."
+    },
+    {
+      "id": "MAGIC-036",
+      "sub_skill": "monster_threat_classification",
+      "domain": "monster_hunter_lineup",
+      "scene": "A monster hunter's identification chart shows 8 monsters in a row, each clearly visible. Each monster has a body color (red or grey) and a horn count (0, 1, 2, or 3). Left to right: red-2horn, grey-1horn, red-3horn, grey-0horn, red-1horn, grey-2horn, red-2horn, grey-3horn. A rule sign reads: 'A monster is CLASSIFIED DANGEROUS if it is RED AND has 2 OR MORE horns.'",
+      "question": "Based strictly on what is visible in the image, how many monsters are classified as DANGEROUS according to the posted rule?",
+      "answer": "3",
+      "lever": "Two-attribute conjunction with threshold; per-monster scan. Red + ≥2 horns: pos 1(red,2✓), pos 3(red,3✓), pos 7(red,2✓) = 3."
+    },
+    {
+      "id": "MAGIC-037",
+      "sub_skill": "two_step_card_filter",
+      "domain": "fortune_teller_table",
+      "scene": "A fortune teller's table with 12 tarot-style cards face-up in two rows of 6. Each card has a background color (gold or silver) and a central symbol (sun, moon, or star). Top row L-to-R: gold-sun, silver-moon, gold-star, silver-sun, gold-moon, silver-star. Bottom row L-to-R: silver-sun, gold-moon, silver-star, gold-sun, silver-moon, gold-star. A rule plaque reads: 'A card foretells GOOD FORTUNE if it is GOLD AND shows a SUN OR a STAR (not moon).'",
+      "question": "Based strictly on what is visible in the image, how many cards on the table foretell GOOD FORTUNE according to the posted rule?",
+      "answer": "4",
+      "lever": "Two-step: gold AND (sun OR star). Gold-sun (top1, bot4) + gold-star (top3, bot6) = 4 cards."
+    },
+    {
+      "id": "MAGIC-038",
+      "sub_skill": "potion_dose_calculation",
+      "domain": "apothecary_dose_chart",
+      "scene": "A wall chart in an apothecary shows 8 patient figures, each with a body height marker (numbers 4, 6, 5, 7, 3, 8, 5, 6 feet) and a clearly drawn potion bottle next to them showing the potion volume in drops (numbers 2, 3, 5, 4, 1, 6, 3, 2). A rule sign reads: 'A patient is OVERDOSED if their potion-drop count is GREATER THAN HALF their height in feet.'",
+      "question": "Based strictly on what is visible in the image, how many patients are OVERDOSED according to the posted rule?",
+      "answer": "4",
+      "lever": "Per-pair arithmetic: drops > height/2. (4,2): 2>2? no. (6,3): 3>3? no. (5,5): 5>2.5 yes. (7,4): 4>3.5 yes. (3,1): 1>1.5 no. (8,6): 6>4 yes. (5,3): 3>2.5 yes. (6,2): 2>3 no. = 4."
+    },
+    {
+      "id": "MAGIC-039",
+      "sub_skill": "spell_book_chapter_filter",
+      "domain": "library_spellbook_shelf",
+      "scene": "A library shelf with 10 spellbooks standing upright in a row. Each spellbook spine shows: a title era ('Ancient' or 'Modern') and a chapter count number (1-9). Left to right: (Ancient,3), (Modern,7), (Ancient,5), (Modern,2), (Ancient,8), (Modern,4), (Ancient,6), (Modern,9), (Ancient,1), (Modern,5). A rule plaque reads: 'A spellbook is FORBIDDEN if it is ANCIENT AND has MORE THAN 4 chapters.'",
+      "question": "Based strictly on what is visible in the image, how many spellbooks on this shelf are FORBIDDEN according to the posted rule?",
+      "answer": "3",
+      "lever": "Two-attribute filter (era × chapter count threshold). Ancient + >4 chapters: pos 3(Anc,5✓), pos 5(Anc,8✓), pos 7(Anc,6✓) = 3."
+    },
+    {
+      "id": "MAGIC-040",
+      "sub_skill": "wizard_spell_cost_check",
+      "domain": "wizard_mana_pool_chart",
+      "scene": "A wizard duel arena chart shows 6 wizards in a row, each with a glowing mana orb above their head displaying a number (current mana): 8, 12, 5, 15, 9, 11. Each wizard holds a spell scroll showing the spell's mana cost: 10, 7, 3, 12, 9, 14. A rule sign reads: 'A wizard CAN CAST their spell if their mana is GREATER THAN OR EQUAL TO the spell cost.'",
+      "question": "Based strictly on what is visible in the image, how many wizards CAN CAST their spell according to the posted rule?",
+      "answer": "4",
+      "lever": "Per-wizard arithmetic comparison mana ≥ cost. (8,10) no. (12,7) yes. (5,3) yes. (15,12) yes. (9,9) yes. (11,14) no. = 4."
+    },
+    {
+      "id": "MAGIC-041",
+      "sub_skill": "creature_alignment_rule",
+      "domain": "magical_creature_pen",
+      "scene": "A magical creature pen with 9 small creatures arranged in a row. Each creature has a body shape (round or spiky) and an aura color (white, black, or grey). Left to right: round-white, spiky-black, round-grey, spiky-white, round-black, spiky-grey, round-white, spiky-black, round-grey. A rule sign reads: 'A creature is ALIGNED with light if its body is ROUND AND its aura is WHITE OR GREY (not black).'",
+      "question": "Based strictly on what is visible in the image, how many creatures are ALIGNED with light according to the posted rule?",
+      "answer": "4",
+      "lever": "Two-step: round AND (white OR grey). Round-white (pos 1, pos 7), round-grey (pos 3, pos 9). Round-black (pos 5) excluded. Count = 4."
+    },
+    {
+      "id": "MAGIC-042",
+      "sub_skill": "ingredient_recipe_match",
+      "domain": "alchemist_recipe_lab",
+      "scene": "An alchemist's lab bench with 5 mixing bowls arranged in a row. Each bowl visibly contains a combination of 2 to 4 ingredients drawn from: dragon scale, phoenix feather, mandrake root, moonstone, unicorn hair. Bowl contents (each clearly identifiable): Bowl 1: dragon scale + phoenix feather + mandrake. Bowl 2: phoenix feather + moonstone. Bowl 3: dragon scale + phoenix feather + unicorn hair + mandrake. Bowl 4: moonstone + unicorn hair. Bowl 5: dragon scale + phoenix feather + mandrake + moonstone. A recipe scroll reads: 'A POTION OF FLIGHT requires AT LEAST dragon scale, phoenix feather, AND mandrake root simultaneously.'",
+      "question": "Based strictly on what is visible in the image, how many bowls contain a complete Potion of Flight according to the recipe?",
+      "answer": "3",
+      "lever": "Subset check across 5 bowls: must contain dragon+phoenix+mandrake. Bowls 1, 3, 5 satisfy = 3."
+    },
+    {
+      "id": "MAGIC-043",
+      "sub_skill": "weight_scale_balance",
+      "domain": "balance_scale_market",
+      "scene": "A magical market with 6 large two-pan balance scales in a row. Each scale has a colored weight stone on each pan. Stone colors map to weights: red=3, blue=5, green=2, yellow=4 (a posted chart shows this). Scale 1: red(left) vs blue(right). Scale 2: blue+green(left) vs yellow+red(right). Scale 3: yellow+yellow(left) vs blue+red(right). Scale 4: green+green+green(left) vs red+green(right). Scale 5: blue(left) vs green+red(right). Scale 6: yellow+blue(left) vs red+red+green(right).",
+      "question": "Based strictly on what is visible in the image, how many of the 6 balance scales are PERFECTLY BALANCED (left pan total weight equals right pan total weight)?",
+      "answer": "3",
+      "lever": "Weight chart lookup + per-scale arithmetic comparison. Scale1: 3vs5 no. Scale2: 5+2=7 vs 4+3=7 yes. Scale3: 4+4=8 vs 5+3=8 yes. Scale4: 6 vs 5 no. Scale5: 5 vs 2+3=5 yes. Scale6: 4+5=9 vs 3+3+2=8 no. = 3."
+    },
+    {
+      "id": "MAGIC-044",
+      "sub_skill": "rune_color_threshold",
+      "domain": "magic_door_rune_panel",
+      "scene": "A massive stone door panel embedded with 12 glowing runes in a 3x4 grid. Each rune is one of three colors: red, blue, green. Distribution by row: row 1 (4 runes) = red, blue, red, green; row 2 = blue, blue, green, red; row 3 = green, red, blue, blue. A rule plaque reads: 'The door OPENS only if the number of BLUE runes is STRICTLY GREATER than the number of RED runes.'",
+      "question": "Based strictly on what is visible in the image, does the door OPEN according to the posted rule? Answer YES or NO.",
+      "answer": "YES",
+      "lever": "Color counting + comparison. Blue: 5, red: 4. 5>4 → YES."
+    },
+    {
+      "id": "MAGIC-045",
+      "sub_skill": "compound_rune_activation",
+      "domain": "ancient_circle_summoning",
+      "scene": "A summoning circle viewed from above with 8 candles placed around the perimeter, each candle either LIT (with flame) or UNLIT (no flame). Each candle is on a colored tile (red or blue). Going clockwise from top: lit-red, unlit-blue, lit-blue, lit-red, unlit-red, lit-blue, unlit-blue, lit-red. A rule scroll reads: 'The summoning SUCCEEDS only if AT LEAST 3 candles are simultaneously LIT AND on RED tiles.'",
+      "question": "Based strictly on what is visible in the image, does the summoning SUCCEED according to the posted rule? Answer YES or NO.",
+      "answer": "YES",
+      "lever": "Two-attr conjunction count + threshold. Lit AND red: pos 1, pos 4, pos 8 = 3. 3≥3 → YES."
+    },
+    {
+      "id": "MAGIC-046",
+      "sub_skill": "wand_pairing_rule",
+      "domain": "wand_pairing_test",
+      "scene": "A test arena with 5 wizards in a row, each holding two wands (left wand and right wand). Each wand is one of three core types: phoenix, dragon, unicorn. Left to right wizards' (left, right) wands: (phoenix, dragon), (dragon, dragon), (phoenix, unicorn), (unicorn, phoenix), (dragon, unicorn). A rule plaque reads: 'A wizard achieves DUAL HARMONY if both wands have the SAME core OR if one is PHOENIX and the other is UNICORN.'",
+      "question": "Based strictly on what is visible in the image, how many wizards achieve DUAL HARMONY according to the posted rule?",
+      "answer": "3",
+      "lever": "Per-wizard pair check with disjunctive condition. (P,D) no. (D,D) same✓. (P,U) phoenix+unicorn✓. (U,P) phoenix+unicorn✓. (D,U) no. = 3."
+    },
+    {
+      "id": "MAGIC-047",
+      "sub_skill": "creature_food_chain",
+      "domain": "magical_food_chain_diagram",
+      "scene": "A diagram pinned to a wall shows 6 magical creatures in two rows. Top row (predators, left-to-right): wyvern, basilisk, hydra. Bottom row (prey, left-to-right): griffin, kobold, sprite. Arrows are drawn from predator to prey: wyvern→griffin, wyvern→sprite, basilisk→kobold, basilisk→sprite, hydra→griffin, hydra→kobold. A rule sign reads: 'A predator is APEX if it has eaten AT LEAST 2 different prey AND it has eaten the GRIFFIN.'",
+      "question": "Based strictly on what is visible in the image, how many predators in this diagram qualify as APEX according to the posted rule?",
+      "answer": "2",
+      "lever": "Diagram-graph reading: count out-edges per predator AND check specific edge to griffin. Wyvern: 2 prey including griffin ✓. Basilisk: 2 prey but NO griffin. Hydra: 2 prey including griffin ✓. = 2."
+    },
+    {
+      "id": "MAGIC-048",
+      "sub_skill": "altitude_dragon_rule",
+      "domain": "dragon_sky_chart",
+      "scene": "A wall chart shows 7 dragons depicted in flight at different altitudes (the altitude is labeled next to each dragon: 100, 250, 400, 80, 600, 320, 550 meters). Each dragon's body color is shown: red, blue, red, blue, red, blue, red. A rule plaque reads: 'A dragon ENTERS RESTRICTED SKY if its altitude is ABOVE 300 meters AND its color is RED.'",
+      "question": "Based strictly on what is visible in the image, how many dragons have ENTERED RESTRICTED SKY according to the posted rule?",
+      "answer": "3",
+      "lever": "Per-dragon attribute lookup + threshold + color filter. Red & >300m: pos3(red,400✓), pos5(red,600✓), pos7(red,550✓) = 3."
+    },
+    {
+      "id": "MAGIC-049",
+      "sub_skill": "magic_light_sequence",
+      "domain": "rune_sequence_corridor",
+      "scene": "A corridor wall has 10 rune lamps in a single horizontal row. Each lamp is either ON (glowing) or OFF (dark). Left to right: ON, OFF, ON, ON, ON, OFF, ON, ON, ON, OFF. A rule plaque reads: 'A rune lamp is CRITICAL if it is ON AND BOTH its immediate left and right neighbors are also ON. (End lamps cannot be critical because they only have one neighbor.)'",
+      "question": "Based strictly on what is visible in the image, how many rune lamps in this corridor are CRITICAL according to the posted rule?",
+      "answer": "2",
+      "lever": "Spatial 1D neighbor rule. Position 4 (ON) has neighbors 3(ON),5(ON) ✓. Position 8 (ON) has neighbors 7(ON),9(ON) ✓. = 2."
+    },
+    {
+      "id": "MAGIC-050",
+      "sub_skill": "tower_floor_color_rule",
+      "domain": "wizard_tower_floor_rule",
+      "scene": "A cross-section view of a wizard's tower showing 8 floors stacked vertically. Each floor is colored either red, blue, or yellow. From bottom to top: red, blue, blue, yellow, red, yellow, blue, red. Each floor has a window showing 1 to 4 candles burning inside (left to right candle counts on each floor, bottom to top): 2, 3, 1, 4, 2, 3, 1, 2. A rule scroll reads: 'A floor is HAUNTED if it is BLUE AND has FEWER THAN 3 candles.'",
+      "question": "Based strictly on what is visible in the image, how many floors in this tower are HAUNTED according to the posted rule?",
+      "answer": "2",
+      "lever": "Per-floor color × candle threshold. Blue floors: 2,3,7. Candle counts: 3,1,1. <3: floor 3 (1) and floor 7 (1) = 2."
+    },
+    {
+      "id": "MAGIC-051",
+      "sub_skill": "knight_armor_quest_rule",
+      "domain": "round_table_knight_council",
+      "scene": "A round-table council of 8 knights, each fully visible. Each knight has armor color (silver or gold) and holds a banner showing 1 to 5 quest stars (count visible). Going clockwise from top: silver-3, gold-5, silver-2, gold-4, silver-1, gold-3, silver-5, gold-2. A rule plaque on the wall reads: 'A knight is ELIGIBLE for the dragon quest if their armor is GOLD AND they have AT LEAST 3 quest stars.'",
+      "question": "Based strictly on what is visible in the image, how many knights are ELIGIBLE for the dragon quest according to the posted rule?",
+      "answer": "3",
+      "lever": "Two-attribute conjunction (armor color × star threshold). Gold + ≥3 stars: pos 2(gold,5✓), pos 4(gold,4✓), pos 6(gold,3✓), pos 8(gold,2✗) = 3."
+    },
+    {
+      "id": "MAGIC-052",
+      "sub_skill": "elemental_chain_reaction",
+      "domain": "elemental_arrow_chain",
+      "scene": "A magic chamber with 6 elemental orbs in a row, each labeled with an element symbol (F=fire, W=water, E=earth, A=air). Sequence left to right: F, W, F, A, W, E. Between each adjacent pair an arrow connects them, which shows a small reaction icon: a SPARK (active) or BLANK (inert). The reaction rule plaque reads: 'A reaction is ACTIVE only if the two adjacent orbs are F and W in either order, OR E and A in either order.' Sparks shown: arrow 1 (F→W) spark, arrow 2 (W→F) spark, arrow 3 (F→A) blank, arrow 4 (A→W) blank, arrow 5 (W→E) blank.",
+      "question": "Based strictly on what is visible in the image, how many of the depicted reaction arrows correctly show the SPARK icon according to the posted rule (i.e., both rule-active AND visually drawn with a spark)?",
+      "answer": "2",
+      "lever": "Adjacency rule + visual icon match. Active pairs (rule): F-W and W-F (arrows 1,2), no E-A pair. Sparks shown: arrows 1,2 — both correct. = 2."
+    },
+    {
+      "id": "MAGIC-053",
+      "sub_skill": "potion_strength_addition",
+      "domain": "potion_combine_table",
+      "scene": "A wizard's combine table shows 5 large flasks in a row. Each flask contains a mixture of small numbered ingredient cubes labeled with potency numbers. Flask contents (cubes visible): Flask A: 3, 2, 5. Flask B: 4, 1. Flask C: 7, 2, 3, 1. Flask D: 6, 2. Flask E: 5, 5, 1. A rule scroll reads: 'A flask is OVERPOTENT if the SUM of its potency numbers is STRICTLY GREATER than 10.'",
+      "question": "Based strictly on what is visible in the image, how many flasks are OVERPOTENT according to the posted rule?",
+      "answer": "2",
+      "lever": "Per-flask sum + strict threshold >10. A:10 (not strictly >), B:5, C:13✓, D:8, E:11✓ = 2."
+    },
+    {
+      "id": "MAGIC-054",
+      "sub_skill": "fairy_count_per_flower",
+      "domain": "fairy_garden_flower_grid",
+      "scene": "A fairy garden viewed from above with 9 large flowers in a 3x3 grid, each clearly distinct. Each flower has between 0 and 4 small fairies sitting on its petals. Fairy counts (row by row, left to right): row1: 2, 0, 3. Row2: 1, 4, 2. Row3: 3, 1, 0. Each flower is also one of two colors: pink (P) or yellow (Y). Flower colors: row1 P,Y,P. Row2 Y,P,Y. Row3 P,Y,P. A rule plaque reads: 'A flower is ENCHANTED if it is PINK AND has AT LEAST 2 fairies sitting on it.'",
+      "question": "Based strictly on what is visible in the image, how many flowers in this garden are ENCHANTED according to the posted rule?",
+      "answer": "4",
+      "lever": "Pink + ≥2 fairies. Pink cells: r1c1(2✓), r1c3(3✓), r2c2(4✓), r3c1(3✓), r3c3(0✗). = 4."
+    },
+    {
+      "id": "MAGIC-055",
+      "sub_skill": "spellbook_chapter_check",
+      "domain": "wizard_test_papers",
+      "scene": "A grading desk shows 6 student exam papers in a row, each labeled with a name plate. Each paper shows a score number and a colored pass/fail stamp (green = pass, red = fail). Papers (left to right): (Alice, 85, green), (Bob, 62, red), (Carol, 71, green), (Dan, 58, red), (Eve, 90, green), (Finn, 67, red). A rule sign reads: 'A student receives an HONORS award if their score is STRICTLY ABOVE 70 AND their stamp is GREEN.'",
+      "question": "Based strictly on what is visible in the image, how many students receive HONORS according to the posted rule?",
+      "answer": "3",
+      "lever": "Read score + color + apply two-step. Green AND >70: Alice(85✓), Carol(71✓), Eve(90✓) = 3."
+    },
+    {
+      "id": "MAGIC-056",
+      "sub_skill": "dragon_egg_temperature_rule",
+      "domain": "dragon_egg_incubator",
+      "scene": "A magical incubator with 7 dragon eggs in a row, each on its own pedestal. Each pedestal has a temperature gauge clearly displaying a number (degrees): 95, 110, 88, 120, 105, 75, 115. Each egg is one of three colors (shell): red, blue, green. Colors L-to-R: red, red, blue, green, blue, green, red. A rule sign reads: 'An egg is READY TO HATCH if its temperature is BETWEEN 100 and 120 INCLUSIVE AND its shell is RED OR BLUE (not green).'",
+      "question": "Based strictly on what is visible in the image, how many dragon eggs are READY TO HATCH according to the posted rule?",
+      "answer": "3",
+      "lever": "Per-egg numeric range + color filter. (red,95): 95<100 no. (red,110): 110 in range, red ✓. (blue,88): no. (green,120): green excluded. (blue,105): yes ✓. (green,75): no. (red,115): yes ✓. = 3."
+    },
+    {
+      "id": "MAGIC-057",
+      "sub_skill": "magical_lock_combination",
+      "domain": "magic_door_combination_lock",
+      "scene": "A magic door has a 4-dial combination lock visible. Each dial is set to a colored gem: dial 1 ruby, dial 2 sapphire, dial 3 ruby, dial 4 emerald. Above the lock, a code scroll shows: 'Required combination: ruby-sapphire-ruby-emerald. ANY mismatch keeps the door SEALED.' A second sign also reads: 'If the combination matches exactly, the door is UNLOCKED.'",
+      "question": "Based strictly on what is visible in the image, is the magic door currently UNLOCKED according to the posted rule? Answer YES or NO.",
+      "answer": "YES",
+      "lever": "Direct sequence comparison: shown dials = required = ruby-sapphire-ruby-emerald → YES."
+    },
+    {
+      "id": "MAGIC-058",
+      "sub_skill": "creature_strength_tournament",
+      "domain": "creature_arena_bracket",
+      "scene": "A tournament bracket diagram shows 4 first-round matches between 8 creatures (each match clearly labeled with two creature names and their strength numbers). Match 1: orc(7) vs goblin(4). Match 2: troll(9) vs gnome(3). Match 3: ogre(6) vs imp(8). Match 4: elf(5) vs dwarf(7). A rule plaque reads: 'In each match, the creature with the HIGHER strength number wins. After round 1, count the winners whose strength is STRICTLY GREATER than 7.'",
+      "question": "Based strictly on what is visible in the image, after round 1 how many winners have a strength STRICTLY GREATER than 7 according to the posted rule?",
+      "answer": "2",
+      "lever": "Bracket reading + per-match comparison + strict threshold. Winners strengths: 7,9,8,7. >7: 9,8 = 2."
+    },
+    {
+      "id": "MAGIC-059",
+      "sub_skill": "magical_card_collection",
+      "domain": "trading_card_album",
+      "scene": "A collector's album page shows 12 trading cards in a 3x4 grid. Each card has a creature type (dragon, phoenix, or kraken) and a rarity star (1, 2, or 3 stars visible on the card). Card grid (row by row, type-stars): row 1: dragon-2, phoenix-1, kraken-3, dragon-1. Row 2: phoenix-2, kraken-2, dragon-3, phoenix-3. Row 3: kraken-1, dragon-2, phoenix-3, kraken-3. A rule plaque reads: 'A card is COLLECTOR-GRADE if it is a PHOENIX AND has AT LEAST 2 stars.'",
+      "question": "Based strictly on what is visible in the image, how many cards on this album page are COLLECTOR-GRADE according to the posted rule?",
+      "answer": "3",
+      "lever": "Type + star threshold. Phoenix cards: phoenix-1(r1c2), phoenix-2(r2c1), phoenix-3(r2c4), phoenix-3(r3c3). With ≥2 stars: r2c1(2✓), r2c4(3✓), r3c3(3✓) = 3."
+    },
+    {
+      "id": "MAGIC-060",
+      "sub_skill": "wizard_robe_belt_rule",
+      "domain": "wizard_council_assembly",
+      "scene": "A wizard council assembly with 8 wizards seated in a row, each fully visible. Each wizard wears a robe (black or white) and a belt with a clearly visible buckle shape (square, round, or triangular). Left to right: black-square, white-round, black-triangular, white-square, black-round, white-triangular, black-square, white-round. A rule sign reads: 'A wizard is ELDER-RANK if their robe is BLACK AND their buckle is SQUARE OR TRIANGULAR (not round).'",
+      "question": "Based strictly on what is visible in the image, how many wizards are ELDER-RANK according to the posted rule?",
+      "answer": "3",
+      "lever": "Two-step: black AND (square OR triangular). Black wizards: pos 1(sq✓), pos 3(tri✓), pos 5(round✗), pos 7(sq✓) = 3."
+    },
+    {
+      "id": "MAGIC-061",
+      "sub_skill": "potion_cauldron_color_change",
+      "domain": "color_changing_cauldrons",
+      "scene": "An alchemy bench shows 5 cauldrons in a row, each containing a current color and a small floating reagent indicator showing what was just added. Cauldron displays: cauldron 1: blue + yellow reagent. Cauldron 2: red + blue reagent. Cauldron 3: yellow + red reagent. Cauldron 4: blue + red reagent. Cauldron 5: yellow + blue reagent. A rule chart reads: 'When a reagent is added: blue + yellow → green; red + blue → purple; yellow + red → orange; blue + red → purple; yellow + blue → green. The cauldron is then DEEMED COMPLETE if its new color is GREEN OR PURPLE.'",
+      "question": "Based strictly on what is visible in the image, how many cauldrons would be DEEMED COMPLETE after the visible reagent reacts according to the posted chart?",
+      "answer": "4",
+      "lever": "Multi-step: read color chart + apply per cauldron + filter on output. Outputs: green, purple, orange, purple, green. Green or purple: 4 (cauldrons 1,2,4,5)."
+    },
+    {
+      "id": "MAGIC-062",
+      "sub_skill": "magical_clock_hour_rule",
+      "domain": "wizard_clock_chamber",
+      "scene": "A clock chamber has 6 magical clocks mounted on the wall in a row, each showing a time clearly readable: clock 1: 3:00, clock 2: 9:00, clock 3: 12:00, clock 4: 6:00, clock 5: 4:00, clock 6: 11:00. Each clock face is one of two colors: gold or silver. Colors L-to-R: gold, silver, gold, silver, gold, silver. A rule plaque reads: 'A clock CHIMES if it is GOLD AND its hour is an EVEN NUMBER (12, 2, 4, 6, 8, 10).'",
+      "question": "Based strictly on what is visible in the image, how many clocks CHIME according to the posted rule?",
+      "answer": "2",
+      "lever": "Time reading + parity + color filter. Gold clocks: 1(3 odd✗), 3(12 even✓), 5(4 even✓). = 2."
+    },
+    {
+      "id": "MAGIC-063",
+      "sub_skill": "fairy_wand_count_rule",
+      "domain": "fairy_assembly_hall",
+      "scene": "A fairy assembly hall with 10 fairies in two rows of 5. Each fairy holds a number of magic wands (counts from 1 to 5 visible). Each fairy wears a sash that is either GOLD or PURPLE. Top row L-to-R: 3-gold, 1-purple, 4-gold, 2-purple, 5-gold. Bottom row L-to-R: 2-gold, 3-purple, 1-gold, 4-purple, 5-purple. A rule sign reads: 'A fairy is QUEEN-CANDIDATE if she holds AT LEAST 3 wands AND her sash is GOLD.'",
+      "question": "Based strictly on what is visible in the image, how many fairies are QUEEN-CANDIDATEs according to the posted rule?",
+      "answer": "3",
+      "lever": "Wand count threshold + sash color filter. Gold + ≥3 wands: top1(3,gold✓), top3(4,gold✓), top5(5,gold✓), bot1(2,gold✗), bot3(1,gold✗) = 3."
+    },
+    {
+      "id": "MAGIC-064",
+      "sub_skill": "creature_cage_size_rule",
+      "domain": "magical_creature_zoo_cages",
+      "scene": "A magical zoo with 6 cages in a row, each clearly labeled with a creature inside and a number representing the creature's size in feet. Cages L-to-R: cage 1: griffin, 8 ft. Cage 2: pixie, 1 ft. Cage 3: troll, 12 ft. Cage 4: phoenix, 5 ft. Cage 5: kraken, 20 ft. Cage 6: faun, 6 ft. Above each cage hangs a sign showing the cage's MAXIMUM allowed creature size in feet: 10, 2, 10, 8, 15, 7. A rule plaque reads: 'A creature is OVERSIZED if its size EXCEEDS its cage's maximum allowed size.'",
+      "question": "Based strictly on what is visible in the image, how many creatures are OVERSIZED according to the posted rule?",
+      "answer": "2",
+      "lever": "Pairwise comparison per cage. (8,10) ok, (1,2) ok, (12,10) over✓, (5,8) ok, (20,15) over✓, (6,7) ok. = 2."
+    },
+    {
+      "id": "MAGIC-065",
+      "sub_skill": "wizard_tower_window_rule",
+      "domain": "wizard_tower_facade",
+      "scene": "A wizard tower facade viewed straight-on showing 12 windows in a 3x4 grid. Each window is either LIT (orange glow) or DARK. Each window has a small clearly visible symbol etched on it: star, moon, or sun. Layout (row-major): row 1: lit-star, dark-moon, lit-sun, dark-star. Row 2: dark-sun, lit-moon, lit-star, dark-moon. Row 3: lit-star, dark-sun, lit-moon, lit-sun. A rule scroll reads: 'A window is BEACON-ACTIVE if it is LIT AND its symbol is STAR OR SUN (not moon).'",
+      "question": "Based strictly on what is visible in the image, how many windows in this tower are BEACON-ACTIVE according to the posted rule?",
+      "answer": "5",
+      "lever": "Lit AND (star or sun). Lit windows: r1c1(star✓), r1c3(sun✓), r2c2(moon✗), r2c3(star✓), r3c1(star✓), r3c3(moon✗), r3c4(sun✓). = 5."
+    },
+    {
+      "id": "MAGIC-066",
+      "sub_skill": "spell_combo_strength",
+      "domain": "battle_spell_grid",
+      "scene": "A battle scene shows 5 wizards in a row, each casting two spells simultaneously (left hand and right hand). Each spell has a power number visible as floating glyphs (1-9). Wizard 1: left 4, right 6. Wizard 2: left 3, right 3. Wizard 3: left 7, right 8. Wizard 4: left 2, right 5. Wizard 5: left 6, right 7. A rule plaque reads: 'A wizard creates a CRITICAL COMBO if the SUM of his two spell powers is STRICTLY GREATER than 10 AND the two powers are DIFFERENT (not equal).'",
+      "question": "Based strictly on what is visible in the image, how many wizards create a CRITICAL COMBO according to the posted rule?",
+      "answer": "2",
+      "lever": "Sum >10 AND L≠R. Sums: 10, 6, 15, 7, 13. Qualifying: w3(15, 7≠8✓), w5(13, 6≠7✓) = 2."
+    },
+    {
+      "id": "MAGIC-067",
+      "sub_skill": "monster_color_chain",
+      "domain": "monster_chain_lineup",
+      "scene": "A monster lineup shows 8 monsters in a row, each one of three body colors (red, green, blue). Sequence L-to-R: red, red, red, blue, blue, green, red, blue. A rule scroll reads: 'A monster is part of a CHAIN if it shares its color with BOTH its immediate left AND right neighbors. (End monsters cannot be in a chain — they only have one neighbor.)'",
+      "question": "Based strictly on what is visible in the image, how many monsters are part of a CHAIN according to the posted rule?",
+      "answer": "1",
+      "lever": "Spatial 1D adjacency. Pos 2 (red) has neighbors red, red ✓. All others fail. = 1."
+    },
+    {
+      "id": "MAGIC-068",
+      "sub_skill": "magical_door_count_rule",
+      "domain": "labyrinth_door_chamber",
+      "scene": "A labyrinth chamber wall has 10 doors in a row. Each door is OPEN or CLOSED, and each has a colored gem above it (red, blue, or yellow). L-to-R: open-red, closed-blue, open-yellow, open-red, closed-red, open-blue, closed-yellow, open-yellow, closed-red, open-blue. A rule plaque reads: 'A door is SAFE PASSAGE if it is OPEN AND its gem is NOT RED.'",
+      "question": "Based strictly on what is visible in the image, how many doors are SAFE PASSAGE according to the posted rule?",
+      "answer": "4",
+      "lever": "Two-attr filter (open AND not red). Open doors: 1(red✗),3(yellow✓),4(red✗),6(blue✓),8(yellow✓),10(blue✓) = 4."
+    },
+    {
+      "id": "MAGIC-069",
+      "sub_skill": "spell_target_validity",
+      "domain": "training_arena_dummies",
+      "scene": "A training arena shows 7 wooden practice dummies in a row, each clearly labeled with: armor type (leather, chain, plate) and a HP number (1-10). L-to-R: leather-3, chain-7, plate-2, leather-9, chain-5, plate-8, leather-4. A rule sign reads: 'A FIREBOLT spell is EFFECTIVE on a dummy if its armor is LEATHER OR CHAIN AND its HP is STRICTLY GREATER than 4.'",
+      "question": "Based strictly on what is visible in the image, on how many dummies would FIREBOLT be EFFECTIVE according to the posted rule?",
+      "answer": "3",
+      "lever": "(leather or chain) AND HP>4. Per dummy: (leather,3)✗HP, (chain,7)✓, (plate,2)✗armor, (leather,9)✓, (chain,5)✓, (plate,8)✗armor, (leather,4)✗HP. = 3."
+    },
+    {
+      "id": "MAGIC-070",
+      "sub_skill": "compound_three_attr_rule",
+      "domain": "wizard_judgement_court",
+      "scene": "A wizard judgement court with 8 wizards seated in a single row in front of a banner. Each wizard has three visible attributes: hat color (red, blue, or green), beard length (short or long), and a staff held in hand (visible) — present or absent. L-to-R: red-long-staff, blue-short-staff, red-short-no-staff, green-long-no-staff, red-long-no-staff, blue-long-staff, green-short-staff, red-short-staff. A rule scroll reads: 'A wizard PASSES JUDGEMENT only if ALL THREE of these conditions hold: hat is RED, beard is LONG, AND staff is PRESENT.'",
+      "question": "Based strictly on what is visible in the image, how many wizards PASS JUDGEMENT according to the posted rule?",
+      "answer": "1",
+      "lever": "Three-attribute conjunction. Per wizard: pos1(red,long,staff)✓, pos2(blue,short,staff)✗, pos3(red,short,no)✗, pos4(green,long,no)✗, pos5(red,long,no)✗, pos6(blue,long,staff)✗, pos7(green,short,staff)✗, pos8(red,short,staff)✗. = 1."
+    }
+  ]
+}

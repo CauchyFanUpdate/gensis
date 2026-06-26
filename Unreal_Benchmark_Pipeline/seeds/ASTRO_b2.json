@@ -1,0 +1,186 @@
+{
+  "family_id": "ASTRO",
+  "family_name": "Astronomy & Earth Science (concept-drift)",
+  "seeds": [
+    {
+      "id": "ASTRO-001",
+      "sub_skill": "two_suns_double_shadows",
+      "domain": "alien planet landscape",
+      "scene": "A landscape on an alien planet with TWO distinct suns visible in the sky at different positions (one upper-left, one upper-right). A vertical pole stands on the ground and casts TWO clearly separate shadows (one toward lower-right, one toward lower-left).",
+      "question": "Why are there two shadows from one pole, and how many suns are there?",
+      "answer": "Two suns — each casts one shadow opposite to its direction. The two distinct shadows are direct evidence of two light sources, not a single sun.",
+      "lever": "VLM caption-shortcut sees 'pole + shadow' → 'one sun, one shadow' (textbook S, single-sun assumption). Visible two shadows + two suns violate single-sun assumption; T is 'two suns, hence two shadows'."
+    },
+    {
+      "id": "ASTRO-002",
+      "sub_skill": "three_moons_different_phases",
+      "domain": "alien night sky",
+      "scene": "A night sky over an alien landscape showing THREE moons simultaneously visible: leftmost moon is full, center is half (first quarter), right is a thin crescent. All three are clearly distinct.",
+      "question": "If a single sun lights this sky, how can three moons show three different phases at the same instant?",
+      "answer": "Phase depends on the angle Sun–planet–moon for each moon. Three moons in different orbital positions relative to the same sun see different illumination angles → can simultaneously show different phases. So the three different phases are consistent with three moons + one sun (lit from the same sun direction).",
+      "lever": "VLM sees 'moons in night sky' → 'should all be at the same phase since same sun' (S, naive assumption). Multi-moon orbital geometry violates same-phase assumption; T is 'each moon's phase is set by its individual sun-planet-moon angle, so different phases are normal'."
+    },
+    {
+      "id": "ASTRO-003",
+      "sub_skill": "equatorial_terminator_sharp",
+      "domain": "satellite Earth view",
+      "scene": "A satellite's-eye view of Earth showing the day/night terminator passing through equatorial regions; a label states 'this image is at equinox, viewed from the side'. The terminator is a perfectly straight, sharp line; no twilight gradient.",
+      "question": "Is the day/night terminator really a sharp line as drawn?",
+      "answer": "No — the terminator is not sharp; Earth's atmosphere produces a gradual twilight zone (~50 km wide), and the angular size of the sun produces a soft penumbral edge. A perfectly knife-edge line is unrealistic.",
+      "lever": "VLM sees 'Earth day/night view' → 'sharp shadow line dividing day/night' (S). Sharp line in image violates atmospheric-twilight + finite-sun-size; T is 'should be a gradient, not a sharp line'."
+    },
+    {
+      "id": "ASTRO-004",
+      "sub_skill": "north_pole_summer_sun_position",
+      "domain": "polar landscape",
+      "scene": "A photo of the North Pole on June 21 (label 'midsummer at the North Pole, local noon'). The sun is shown high overhead near the zenith.",
+      "question": "Is this a realistic depiction of the sun's position?",
+      "answer": "No — at the North Pole even at midsummer the sun reaches at most ~23.5° above the horizon (Earth's axial tilt). It never approaches the zenith from the North Pole.",
+      "lever": "VLM sees 'noon sun' → 'high in the sky / overhead' (S, mid-latitude noon). Polar context violates the high-noon assumption; T is 'sun is low (~23.5°), never overhead'."
+    },
+    {
+      "id": "ASTRO-005",
+      "sub_skill": "moon_rises_in_west",
+      "domain": "horizon timelapse",
+      "scene": "A timelapse strip showing the moon rising on the WEST horizon (sun previously seen rising in the east in the same sequence).",
+      "question": "Does the moon rise in the west like depicted?",
+      "answer": "No — like the sun, the moon rises in the EAST (due to Earth's west-to-east rotation). Rising in the west is impossible (except via highly anomalous polar-region effects which do not change apparent rise direction).",
+      "lever": "VLM sees 'moon over horizon' → 'rising' (generic S). West-rise visibly violates Earth-rotation direction; T is 'moon rises in east, not west'."
+    },
+    {
+      "id": "ASTRO-006",
+      "sub_skill": "full_moon_at_noon",
+      "domain": "daytime sky photo",
+      "scene": "A daytime scene with the sun visible at noon (high overhead) and a bright FULL moon clearly visible in the same sky, opposite the sun.",
+      "question": "Can a full moon and the sun appear together overhead at noon?",
+      "answer": "No — a full moon is by definition opposite the sun (sun-Earth-moon ≈ 180°). Therefore when the sun is high (noon), the full moon is below the horizon (it rises at sunset). Seeing both simultaneously high in the sky is geometrically impossible.",
+      "lever": "VLM sees 'sun and moon in sky' → 'sometimes seen together' (S, partial truth — but only crescent/gibbous near sun). Visible full phase violates full-opposite-sun geometry; T is 'impossible — full moon cannot share the sky with high sun'."
+    },
+    {
+      "id": "ASTRO-007",
+      "sub_skill": "stars_visible_during_day",
+      "domain": "daytime sky",
+      "scene": "A photo of a bright sunlit sky at midday over a desert; faintly visible behind the blue sky are several constellations of stars (Big Dipper visible).",
+      "question": "Should faint stars be visible like this during a clear day on Earth?",
+      "answer": "No — atmospheric scattering of sunlight makes the daytime sky too bright for stars to be naked-eye visible (only Sun, Moon, Venus occasionally). The depicted star field in a clear daytime sky is unrealistic from Earth's surface.",
+      "lever": "VLM sees 'stars in sky' → 'normal night-sky stars' (S). Daytime context violates the night-only-stars-visible-from-Earth assumption; T is 'stars not visible during clear day'."
+    },
+    {
+      "id": "ASTRO-008",
+      "sub_skill": "solar_eclipse_full_moon",
+      "domain": "eclipse diagram",
+      "scene": "A diagram labeled 'solar eclipse' with the moon between Earth and sun, but the moon's far side (toward Earth) is shown FULLY illuminated by the sun.",
+      "question": "Is this depiction of a solar eclipse correct?",
+      "answer": "No — during a solar eclipse the moon is between Sun and Earth, so the side facing Earth is the moon's NIGHT side (new moon, dark). Showing it fully lit toward Earth contradicts the geometry.",
+      "lever": "VLM sees 'eclipse with moon' → may agree with depicted lighting (S, surface label). Geometry violates new-moon dark side; T is 'wrong — Earth-facing side must be dark during solar eclipse'."
+    },
+    {
+      "id": "ASTRO-009",
+      "sub_skill": "phases_inverted_southern_hemisphere",
+      "domain": "moon phase comparison",
+      "scene": "Two moon photos taken on the same date: one labeled 'taken from northern hemisphere', the other 'taken from southern hemisphere'. Both are first-quarter phase; both show the SAME side (right side) illuminated.",
+      "question": "Should the two photos look identical given the same lunar date?",
+      "answer": "No — observers in the southern hemisphere see the moon 'flipped' (illumination on the LEFT side for a first-quarter, since the observer is upside-down relative to the northern observer). Showing both with right-side illumination at the same date contradicts hemisphere geometry.",
+      "lever": "VLM sees 'first-quarter moon, illuminated right side' → 'standard first-quarter' (S, northern-hemisphere bias). Southern-hemisphere label violates same-orientation assumption; T is 'should be mirrored between hemispheres'."
+    },
+    {
+      "id": "ASTRO-010",
+      "sub_skill": "sun_position_southern_hemisphere",
+      "domain": "Sydney noon photo",
+      "scene": "A noon photo in Sydney, Australia (winter day, June). A vertical pole casts a shadow toward the SOUTH.",
+      "question": "Is the southward-pointing shadow at noon in Sydney correct?",
+      "answer": "No — in the southern hemisphere the noon sun is in the NORTH, so shadows at noon point SOUTH... wait, this is consistent. Actually in Sydney (southern hemisphere) the sun at noon is to the NORTH, and shadows point SOUTH. The shadow direction shown IS correct. The trap is reversed — the question primes for 'southward shadow seems wrong (since in northern hemisphere they point north)'. Correct answer: the southward shadow IS correct for Sydney; in the southern hemisphere, noon shadows point south because the sun is north.",
+      "lever": "VLM sees 'noon shadow southward' → 'wrong, should be northward' (S, northern-hemisphere bias from training data). Sydney label violates the northern-hemisphere shadow-pointing-north assumption; T is 'south shadow IS correct because sun is north of zenith in southern hemisphere'."
+    },
+    {
+      "id": "ASTRO-011",
+      "sub_skill": "shadow_at_equator_noon_equinox",
+      "domain": "equatorial sundial",
+      "scene": "A vertical pole at the equator at noon on the equinox. The pole is shown casting a long shadow stretching to the north.",
+      "question": "Should the pole cast such a shadow?",
+      "answer": "No — at the equator on the equinox, the noon sun is directly overhead (zenith). A vertical pole casts essentially NO shadow (or a tiny shadow at its base). A long northward shadow is wrong for that geometry.",
+      "lever": "VLM sees 'pole + shadow at noon' → 'normal long shadow' (S). Equator+equinox violates non-zenith-sun assumption; T is 'no shadow — sun is directly overhead'."
+    },
+    {
+      "id": "ASTRO-012",
+      "sub_skill": "two_suns_planet_temperature",
+      "domain": "two-sun system label",
+      "scene": "A planet diagram with TWO sun-like stars at typical distances; a label states 'planet's noon-side temperature is similar to Earth's' (~290 K).",
+      "question": "Is that noon-side temperature plausible with two suns at typical Sun-Earth distances?",
+      "answer": "No — with two Sun-equivalent stars at Earth-like distances, the planet receives roughly DOUBLE the solar flux (≈2730 W/m²), giving a much higher equilibrium temperature (~340 K or higher). Earth-like ~290 K is inconsistent; the planet would be much hotter.",
+      "lever": "VLM sees 'planet, similar to Earth' → 'temperate' (S). Two-sun label violates single-sun-flux assumption; T is 'too hot — should be hotter than Earth'."
+    },
+    {
+      "id": "ASTRO-013",
+      "sub_skill": "moon_size_relative_distance",
+      "domain": "moon photo at horizon",
+      "scene": "A photo of a moon on the horizon labeled 'Earth's moon, exactly the size shown' — moon takes up nearly half the sky (~30° diameter).",
+      "question": "Is the moon's apparent size correctly shown?",
+      "answer": "No — Earth's moon has an apparent angular diameter of only about 0.5°, not ~30°. Showing it half a sky wide is dramatically larger than reality (would require the moon to be ~60× closer than actual, well inside Earth's Roche limit).",
+      "lever": "VLM sees 'moon at horizon, looks big' → 'moon illusion makes it look big' (S, but only marginally). True ~0.5° angular size violates the half-sky depiction; T is 'unrealistically large by 60×'."
+    },
+    {
+      "id": "ASTRO-014",
+      "sub_skill": "polar_summer_24h_daylight",
+      "domain": "Arctic summer schedule",
+      "scene": "A weekly weather/sun-time diagram for a town inside the Arctic Circle in late June showing 'sunset at 21:00, sunrise at 04:00' just like a temperate latitude.",
+      "question": "Is this sunrise/sunset schedule correct for a town inside the Arctic Circle in late June?",
+      "answer": "No — inside the Arctic Circle in late June there is the midnight sun: 24 hours of daylight (no sunset). The depicted schedule contradicts the polar-day phenomenon.",
+      "lever": "VLM sees 'sunrise/sunset times' → 'normal day/night cycle' (S). Arctic-Circle + late-June violate normal day/night cycle; T is '24h daylight, no sunset'."
+    },
+    {
+      "id": "ASTRO-015",
+      "sub_skill": "stars_circumpolar_around_pole",
+      "domain": "long-exposure star trail",
+      "scene": "A long-exposure star-trail photo labeled 'taken at the equator, looking north'. The trails are circular arcs around a center point near the top of the image (suggesting circumpolar stars about a celestial pole high in the sky).",
+      "question": "Is this star-trail pattern consistent with the equator?",
+      "answer": "No — at the equator the celestial poles lie ON the horizon (north pole on north horizon, south pole on south horizon). Star trails would be open arcs that rise and set, not concentric circles around an overhead point. Concentric circles imply a pole high in the sky → high-latitude observer, not the equator.",
+      "lever": "VLM sees 'star trail around point' → 'stars circle the pole' (S, generic). Equator label violates pole-on-horizon geometry; T is 'inconsistent — at equator pole is on horizon'."
+    },
+    {
+      "id": "ASTRO-016",
+      "sub_skill": "earth_rotation_west_to_east",
+      "domain": "globe rotation diagram",
+      "scene": "A diagram of Earth viewed from above the North Pole, with rotation arrow indicating CLOCKWISE rotation (when viewed from above north).",
+      "question": "Is this Earth's actual rotation direction?",
+      "answer": "No — Earth rotates COUNTERCLOCKWISE viewed from above the north pole (west-to-east), which is why the sun rises in the east. Clockwise from above north would mean the sun rises in the west.",
+      "lever": "VLM sees 'Earth rotation arrow' → 'looks correct' (S). Clockwise-from-N violates west-to-east rotation; T is 'wrong — should be CCW from above north'."
+    },
+    {
+      "id": "ASTRO-017",
+      "sub_skill": "saturn_rings_orientation",
+      "domain": "Saturn telescope view",
+      "scene": "A telescope photo labeled 'Saturn'. The 'rings' are drawn as a perfect SPHERICAL halo surrounding the planet (a ball-shaped envelope), not as a flat disc.",
+      "question": "Is this Saturn's actual ring geometry?",
+      "answer": "No — Saturn's rings form a thin FLAT disc in the planet's equatorial plane, not a spherical envelope. A spherical halo is geometrically wrong.",
+      "lever": "VLM sees 'planet with rings' → 'Saturn' (S). Spherical halo violates flat-disc-ring assumption; T is 'wrong; rings are flat'."
+    },
+    {
+      "id": "ASTRO-018",
+      "sub_skill": "apollo_flag_motion_no_atmosphere",
+      "domain": "moon-landing photo",
+      "scene": "A photo labeled 'astronaut on the Moon, June'. The American flag is shown clearly waving in a breeze, fabric undulating.",
+      "question": "Can a flag flutter in a breeze on the Moon's surface?",
+      "answer": "No — the Moon has no atmosphere, so there is no wind to flutter a flag. Flags planted on the moon were stiffened with a horizontal rod to appear extended; visible breeze-driven motion is physically impossible there.",
+      "lever": "VLM sees 'astronaut + flag' → 'normal flag waving in wind' (S). Lunar context violates atmospheric-wind assumption; T is 'no wind, no flutter possible'."
+    },
+    {
+      "id": "ASTRO-019",
+      "sub_skill": "lunar_phases_caused_by_earth_shadow",
+      "domain": "phase explainer diagram",
+      "scene": "An educational poster labeled 'why the moon has phases' showing the Earth casting a shadow on the moon producing each phase (crescent, gibbous, etc.).",
+      "question": "Is this the correct explanation for lunar phases?",
+      "answer": "No — lunar phases are caused by the changing relative position of the Sun, Earth, and Moon, which changes which portion of the Moon's lit hemisphere we see. Earth's shadow on the moon causes lunar ECLIPSES (rare events), not the regular monthly phases.",
+      "lever": "VLM sees 'shadow-of-Earth-causes-phases' diagram → 'matches a common misconception'. Real geometry violates shadow-causation; T is 'phases come from sun-lit hemisphere geometry, not Earth's shadow'."
+    },
+    {
+      "id": "ASTRO-020",
+      "sub_skill": "summer_caused_by_distance_to_sun",
+      "domain": "seasons explainer",
+      "scene": "A poster labeled 'why we have summer' showing Earth in an exaggeratedly elliptical orbit, summer at perihelion (closest to sun) and winter at aphelion.",
+      "question": "Is this the correct cause of seasons?",
+      "answer": "No — seasons are caused by Earth's AXIAL TILT (~23.5°). Earth's orbital eccentricity is small and Earth is actually closest to the sun in early January (northern winter). Tilt → varying solar incidence + day length → seasons.",
+      "lever": "VLM sees 'orbital-distance-causes-seasons' → matches a widespread misconception. Real cause violates distance-causation; T is 'seasons come from axial tilt, not orbital distance'."
+    }
+  ]
+}

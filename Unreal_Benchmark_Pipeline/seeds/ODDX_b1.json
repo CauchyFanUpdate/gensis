@@ -1,0 +1,276 @@
+{
+  "family_id": "ODDX",
+  "family_name": "Odd-One-Out in a Crowd",
+  "seeds": [
+    {
+      "id": "ODDX-001",
+      "sub_skill": "single_color_outlier",
+      "domain": "abstract_grid",
+      "scene": "A 6×6 grid (36 cells) of small circles, all the same size. 35 of the circles are bright red. One circle, located at row 4 column 5, is a slightly darker shade of red — close enough to look red at a glance.",
+      "question": "Which cell contains the odd-one-out, and how does it differ?",
+      "answer": "Row 4, column 5 — a slightly darker shade of red than the rest",
+      "lever": "Subtle color-shade difference among many; tests fine color discrimination at scale."
+    },
+    {
+      "id": "ODDX-002",
+      "sub_skill": "single_size_outlier",
+      "domain": "dot_array",
+      "scene": "A scattered cluster of about 50 black dots on a white background. All dots appear to be the same size (3 mm diameter). One dot, near the lower-left of the cluster, is 4 mm diameter (about 30% larger).",
+      "question": "Identify and locate the odd-one-out dot.",
+      "answer": "The dot in the lower-left of the cluster, which is approximately 30% larger in diameter than the others",
+      "lever": "Subtle size difference; one dot among many similar-looking dots."
+    },
+    {
+      "id": "ODDX-003",
+      "sub_skill": "rotation_outlier",
+      "domain": "arrows_array",
+      "scene": "A 5×5 grid of upward-pointing arrows (25 total). 24 arrows point straight up; 1 arrow at row 2 column 4 is rotated by 5° clockwise (still close to vertical but slightly tilted to the right).",
+      "question": "Which arrow is rotated differently?",
+      "answer": "The arrow at row 2, column 4 — tilted ~5° clockwise from vertical",
+      "lever": "Small rotation among uniform orientation."
+    },
+    {
+      "id": "ODDX-004",
+      "sub_skill": "shape_outlier_in_text",
+      "domain": "letter_grid",
+      "scene": "A 7×7 grid of the lowercase letter 'o' rendered in a serif font. 48 cells contain the letter 'o'. One cell at row 3 column 6 contains the digit '0' (zero) in the same font; in this serif font the 0 is slightly taller and narrower than the o.",
+      "question": "Which cell does NOT contain the letter 'o'?",
+      "answer": "Row 3, column 6 — contains the digit 0 (zero) instead of the letter o",
+      "lever": "Glyph-substitution outlier requiring fine character distinction."
+    },
+    {
+      "id": "ODDX-005",
+      "sub_skill": "missing_internal_element",
+      "domain": "smiley_array",
+      "scene": "A 6×6 grid of identical yellow smiley faces (36 total). 35 faces have two black eyes and a curved smile. One face at row 5 column 2 has only one eye drawn (the right eye is missing).",
+      "question": "Which face is the odd one?",
+      "answer": "Row 5, column 2 — missing the right eye",
+      "lever": "Missing micro-feature in a busy field of similar icons."
+    },
+    {
+      "id": "ODDX-006",
+      "sub_skill": "subtle_pose_outlier",
+      "domain": "stick_figures",
+      "scene": "A 5×5 grid of identical stick-figure people with both arms raised at ~45° above horizontal (25 figures). 24 figures have arms exactly symmetrical. One figure at row 3 column 3 has the left arm at 45° but the right arm at 30° (a subtle asymmetry).",
+      "question": "Identify the asymmetric figure.",
+      "answer": "Row 3, column 3 — right arm at a slightly lower angle than the left",
+      "lever": "Pose asymmetry among uniform stick figures."
+    },
+    {
+      "id": "ODDX-007",
+      "sub_skill": "color_pattern_break",
+      "domain": "color_grid",
+      "scene": "A 8×8 grid where colors alternate in a checkerboard pattern of red and white squares. 63 cells follow the pattern. The cell at row 5 column 4 (which 'should' be red per the checkerboard) is white instead, breaking the pattern.",
+      "question": "Where is the pattern broken?",
+      "answer": "Row 5, column 4 — should be red per the checkerboard but is white",
+      "lever": "Pattern-violation localization in a regular grid."
+    },
+    {
+      "id": "ODDX-008",
+      "sub_skill": "same_count_in_group",
+      "domain": "dot_clusters",
+      "scene": "A page showing 30 small clusters of black dots, each cluster surrounded by a thin circle. 29 of the clusters contain exactly 7 dots. One cluster (in the lower-right area) contains 6 dots.",
+      "question": "Which cluster has a different dot count?",
+      "answer": "The cluster in the lower-right area — contains 6 dots while all others contain 7",
+      "lever": "Counting consistency across many small groups."
+    },
+    {
+      "id": "ODDX-009",
+      "sub_skill": "wrong_directional_marker",
+      "domain": "arrows_in_circle",
+      "scene": "A radial arrangement of 24 arrows around a center point, all pointing inward toward the center (like spokes pointing to the hub). 23 arrows point inward; one arrow at the 7-o'clock position points outward (away from the center).",
+      "question": "Which arrow is reversed?",
+      "answer": "The arrow at the 7-o'clock position — points outward instead of inward",
+      "lever": "Reversed direction in a radially symmetric arrangement."
+    },
+    {
+      "id": "ODDX-010",
+      "sub_skill": "different_letterspacing",
+      "domain": "text_block",
+      "scene": "A page densely filled with the word 'banana' repeated 50 times in a 5×10 grid, all in the same font. 49 instances are spelled 'banana'. One instance in row 3 column 7 is spelled 'banama' (third 'n' replaced with 'm').",
+      "question": "Identify the misspelled word and its location.",
+      "answer": "Row 3, column 7 — spelled 'banama' instead of 'banana'",
+      "lever": "Single-character text typo in a sea of identical words."
+    },
+    {
+      "id": "ODDX-011",
+      "sub_skill": "color_dot_in_polka",
+      "domain": "polka_dot_pattern",
+      "scene": "A repeating polka-dot pattern of small blue dots on a white background, roughly 100 dots arranged in 10 rows of 10. All dots appear blue. One dot near the center is purple (a slightly redder shade than the surrounding blue).",
+      "question": "Find the odd-colored dot.",
+      "answer": "The single purple dot near the center of the pattern",
+      "lever": "Subtle hue shift in a busy pattern."
+    },
+    {
+      "id": "ODDX-012",
+      "sub_skill": "different_font_letter",
+      "domain": "alphabet_grid",
+      "scene": "A 5×5 grid of the letter 'A' (25 total) all in Times New Roman serif font. One cell at row 2 column 3 contains the letter 'A' in Arial sans-serif font (no serifs at the feet).",
+      "question": "Which cell has the differently-styled A?",
+      "answer": "Row 2, column 3 — sans-serif Arial A vs serif Times A elsewhere",
+      "lever": "Typography difference at small scale."
+    },
+    {
+      "id": "ODDX-013",
+      "sub_skill": "extra_petal_flower",
+      "domain": "flower_array",
+      "scene": "A 4×6 grid of identical 5-petal flower icons (24 total). 23 flowers have exactly 5 petals. One flower at row 3 column 5 has 6 petals.",
+      "question": "Which flower has a different petal count?",
+      "answer": "Row 3, column 5 — has 6 petals instead of 5",
+      "lever": "Counting petals on small icons; extra-element outlier."
+    },
+    {
+      "id": "ODDX-014",
+      "sub_skill": "differently_oriented_letter",
+      "domain": "letter_array",
+      "scene": "A 6×6 grid of the uppercase letter 'P' (36 total). 35 P's are upright and face the right side. One P at row 5 column 5 is mirrored — its bowl faces left (i.e., it looks like a backwards P).",
+      "question": "Which letter is mirrored?",
+      "answer": "Row 5, column 5 — mirror-flipped P (bowl on left)",
+      "lever": "Mirror-flip outlier among uniform glyphs."
+    },
+    {
+      "id": "ODDX-015",
+      "sub_skill": "single_filled_outlined",
+      "domain": "circle_array",
+      "scene": "A 7×7 grid of small circles (49 total). 48 circles are outlined only (white interior, black border). One circle at row 6 column 4 is fully filled in black.",
+      "question": "Which circle is differently rendered?",
+      "answer": "Row 6, column 4 — fully filled black circle vs outlined elsewhere",
+      "lever": "Fill-style outlier; visually loud but in a busy field."
+    },
+    {
+      "id": "ODDX-016",
+      "sub_skill": "subtle_thickness_difference",
+      "domain": "line_pattern",
+      "scene": "A pattern of 30 horizontal parallel lines on a page. 29 lines are 1-pixel thick. One line, the 17th from the top, is 2-pixel thick.",
+      "question": "Which line is thicker than the others?",
+      "answer": "The 17th line from the top",
+      "lever": "Subtle thickness difference in a line array."
+    },
+    {
+      "id": "ODDX-017",
+      "sub_skill": "different_face_in_emoji_grid",
+      "domain": "emoji_grid",
+      "scene": "A 5×5 grid of identical 'smiling face' emojis (25 total). 24 are smiling. One emoji at row 4 column 2 is a 'neutral face' (straight-line mouth instead of smile).",
+      "question": "Find the odd emoji.",
+      "answer": "Row 4, column 2 — neutral face instead of smiling",
+      "lever": "Expression difference at small scale."
+    },
+    {
+      "id": "ODDX-018",
+      "sub_skill": "off_axis_pattern",
+      "domain": "icon_grid",
+      "scene": "A 6×6 grid of identical chess-knight icons (36 total). All 36 knights face left. One knight at row 3 column 4 is identical except it is shifted ~5 pixels to the right within its grid cell, breaking the alignment.",
+      "question": "Which cell has a positionally misaligned knight?",
+      "answer": "Row 3, column 4 — shifted slightly right within its cell",
+      "lever": "Positional alignment outlier rather than appearance outlier."
+    },
+    {
+      "id": "ODDX-019",
+      "sub_skill": "different_shape_in_shape_array",
+      "domain": "shape_grid",
+      "scene": "A 6×7 grid of identical hexagons (42 total). 41 are regular hexagons. One at row 4 column 6 is a heptagon (7 sides) drawn at the same overall size.",
+      "question": "Which cell has a non-hexagonal shape?",
+      "answer": "Row 4, column 6 — heptagon (7 sides) instead of hexagon (6 sides)",
+      "lever": "Side-count difference in similar-looking polygons."
+    },
+    {
+      "id": "ODDX-020",
+      "sub_skill": "color_outlier_in_animal_set",
+      "domain": "animal_grid",
+      "scene": "A 5×5 grid of small black-cat silhouettes (25 total). 24 cats are entirely black. One at row 1 column 5 is dark gray (just a few shades lighter than black, close enough to be missed at first glance).",
+      "question": "Which cat is the odd one?",
+      "answer": "Row 1, column 5 — dark gray cat among black cats",
+      "lever": "Subtle brightness difference in a uniform field."
+    },
+    {
+      "id": "ODDX-021",
+      "sub_skill": "extra_finger_hand",
+      "domain": "hand_icon_grid",
+      "scene": "A 4×6 grid of identical raised-hand icons (24 total). 23 hands show 5 fingers (4 fingers + thumb). One hand at row 2 column 3 shows 6 fingers (extra index finger).",
+      "question": "Which hand has a different finger count?",
+      "answer": "Row 2, column 3 — has 6 fingers instead of 5",
+      "lever": "Counting fingers on small icons; extra-element outlier."
+    },
+    {
+      "id": "ODDX-022",
+      "sub_skill": "missing_element_in_logo",
+      "domain": "logo_array",
+      "scene": "A 5×5 grid of identical sun icons (25 total) — each sun has a central circle and 8 ray spikes. 24 suns have all 8 rays. One sun at row 4 column 1 is missing one ray (the bottom-left ray).",
+      "question": "Which sun is missing a ray?",
+      "answer": "Row 4, column 1 — missing the bottom-left ray (only 7 rays)",
+      "lever": "Missing micro-feature requiring careful count."
+    },
+    {
+      "id": "ODDX-023",
+      "sub_skill": "color_swap_outlier",
+      "domain": "icon_color_pair",
+      "scene": "A 6×6 grid of identical small pie-chart icons (36 total), each split into two halves: top half blue, bottom half green. 35 icons follow this pattern. One icon at row 3 column 5 has the colors swapped (top green, bottom blue).",
+      "question": "Which icon has its colors swapped?",
+      "answer": "Row 3, column 5 — top green/bottom blue (swapped vs the rest)",
+      "lever": "Color-swap outlier within composite icons."
+    },
+    {
+      "id": "ODDX-024",
+      "sub_skill": "asymmetric_among_symmetric",
+      "domain": "butterfly_grid",
+      "scene": "A 5×5 grid of identical butterfly icons (25 total). 24 butterflies are perfectly bilateral-symmetric (left wing matches right wing). One butterfly at row 2 column 2 has its left wing slightly larger than its right.",
+      "question": "Which butterfly is asymmetric?",
+      "answer": "Row 2, column 2 — left wing is slightly larger than right",
+      "lever": "Bilateral asymmetry in icons that should be symmetric."
+    },
+    {
+      "id": "ODDX-025",
+      "sub_skill": "different_font_weight",
+      "domain": "letter_array_weight",
+      "scene": "A 6×6 grid of the letter 'X' (36 total). 35 X's are in regular weight. One X at row 1 column 4 is in bold weight (visibly thicker strokes).",
+      "question": "Which X is bold?",
+      "answer": "Row 1, column 4 — bold X among regular-weight X's",
+      "lever": "Font-weight difference; subtle stroke thickness change."
+    },
+    {
+      "id": "ODDX-026",
+      "sub_skill": "different_decimal_in_numbers",
+      "domain": "number_grid",
+      "scene": "A 5×5 grid of numbers (25 cells), each cell showing '3.14'. 24 cells show '3.14'. One cell at row 4 column 4 shows '3.41' (the digits after the decimal are transposed).",
+      "question": "Which cell has the wrong number?",
+      "answer": "Row 4, column 4 — shows 3.41 instead of 3.14",
+      "lever": "Digit-transposition in a uniform numeric field."
+    },
+    {
+      "id": "ODDX-027",
+      "sub_skill": "subtle_position_shift",
+      "domain": "circle_grid_small_offset",
+      "scene": "A 7×7 grid of small black dots, each centered in its cell. 48 dots are perfectly centered. One dot at row 6 column 3 is shifted ~3 pixels down from center.",
+      "question": "Which dot is off-center?",
+      "answer": "Row 6, column 3 — dot shifted slightly downward from cell center",
+      "lever": "Sub-pixel-scale position outlier."
+    },
+    {
+      "id": "ODDX-028",
+      "sub_skill": "extra_decoration",
+      "domain": "letter_grid_decor",
+      "scene": "A 6×6 grid of the letter 'i' in lowercase (36 total). 35 i's have a single dot above. One i at row 5 column 6 has two dots (like an umlaut ï).",
+      "question": "Which letter has extra decoration?",
+      "answer": "Row 5, column 6 — has two dots above (ï) instead of one (i)",
+      "lever": "Diacritic difference; subtle micro-element."
+    },
+    {
+      "id": "ODDX-029",
+      "sub_skill": "broken_pattern_animal",
+      "domain": "fish_school",
+      "scene": "An illustration of a school of about 40 small fish all swimming to the right (heads pointing right). One fish near the back of the school is swimming to the left (head pointing left).",
+      "question": "Which fish is swimming the wrong direction?",
+      "answer": "The single fish near the back of the school facing left while all others face right",
+      "lever": "Direction-of-motion outlier in a coherent group."
+    },
+    {
+      "id": "ODDX-030",
+      "sub_skill": "color_outlier_after_distractor",
+      "domain": "pattern_with_distractor",
+      "scene": "A 8×8 grid of 64 small squares. The grid alternates rows of red and blue squares (32 red, 32 blue). Within the red rows, all squares are red EXCEPT one at row 1 column 6, which is a slightly orangish-red. Within the blue rows, all squares are uniform blue.",
+      "question": "In which row–column is the odd-colored square, and what color is it?",
+      "answer": "Row 1, column 6 — slightly orangish-red instead of pure red",
+      "lever": "Outlier in a multi-color pattern; distractor of two colors makes the search harder."
+    }
+  ]
+}

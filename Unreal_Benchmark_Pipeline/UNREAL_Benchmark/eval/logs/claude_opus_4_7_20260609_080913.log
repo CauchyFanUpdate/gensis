@@ -1,0 +1,47 @@
+Model: claude-opus-4-7
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_claude_opus_4_7.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (claude-opus-4-7): 66 pending, 534 done
+    20/66
+    40/66
+    60/66
+  Done: 66 processed
+
+[Phase 2] Extract & judge: 18 empty, 10 MC + 38 OE
+  MC done: 10
+    OE 20/38
+  OE done: 38
+
+============================================================
+  Overall: 32.7% (196/600)  errors=0
+============================================================
+
+  By Domain:
+    Mathematics                          27.0% (70/259) █████
+    Physics & Engineering                30.2% (29/96) ██████
+    Reasoning & Logic                    42.4% (39/92) ████████
+    Perception                           30.8% (28/91) ██████
+    Natural Science                      48.4% (30/62) █████████
+
+  By Subdomain:
+    combinatorial_geometry               20.6% (13/63) ████
+    Biology & Chemistry                  48.4% (30/62) █████████
+    Spatial Reasoning                    26.5% (13/49) █████
+    Mechanics                            28.6% (14/49) █████
+    Logic & Document Knowledge           50.0% (24/48) ██████████
+    Counting & Numeracy                  34.1% (15/44) ██████
+    Visual Perception                    35.7% (15/42) ███████
+    metric_geometry                      32.5% (13/40) ██████
+    combinatorics_counting               34.2% (13/38) ██████
+    descriptive_geometry                 31.2% (10/32) ██████
+    solid_geometry                       36.0% (9/25) ███████
+    Electromagnetism & Optics            28.0% (7/25) █████
+    transformation_geometry               8.7% (2/23) █
+    graph_theory                         30.4% (7/23) ██████
+    Fluids & Thermodynamics              36.4% (8/22) ███████
+    logic_constraints                    20.0% (3/15) ████
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_claude_opus_4_7.jsonl

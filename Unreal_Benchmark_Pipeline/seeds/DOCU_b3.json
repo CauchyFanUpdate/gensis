@@ -1,0 +1,96 @@
+{
+  "family_id": "DOCU",
+  "family_name": "Document & Table Structure",
+  "seeds": [
+    {
+      "id": "DOCU-051",
+      "sub_skill": "footnote_marker_to_table_cell",
+      "domain": "scientific paper data table",
+      "scene": "A scientific table titled 'Experimental Yields'. Columns: Compound (A,B,C,D,E), Yield_run1, Yield_run2, Yield_run3, Mean. Footnote markers (†, ‡, *, **) appear superscripted on certain cells. Below the table the footnote legend reads: '† excluded due to contamination', '‡ outlier removed before mean', '* solvent batch X', '** solvent batch Y'. The Mean column for compound C reads '79.4 ‡' and the cell contents are: C row = 80, 78, 95‡; the marker '‡' attached to the third entry indicates that 95 was the outlier removed before the mean.",
+      "question": "Without the outlier exclusion, what would the raw 3-run mean for compound C have been?",
+      "answer": "84.3",
+      "lever": "Reverse the ‡-rule: include the 95 → (80+78+95)/3 = 84.33; tests parsing footnote legend + finding the marker on the right cell + arithmetic."
+    },
+    {
+      "id": "DOCU-052",
+      "sub_skill": "merged_cell_hierarchy_depth",
+      "domain": "annual report tabular header",
+      "scene": "A complex tabular header with merged cells forming a 4-level nested hierarchy. Top row: 'FY2025 Revenue (USD millions)' spans all 12 sub-columns. Second row: 'AMERICAS' (4 cols), 'EMEA' (4), 'APAC' (4). Third row, under each region: 'Hardware' (2), 'Software' (2). Fourth row, under each: 'Q1', 'Q2'. Body has 6 product rows.",
+      "question": "If a leaf cell is uniquely identified by its (region, line, quarter) triple, how many leaf data cells are in ONE product row?",
+      "answer": "12",
+      "lever": "Hierarchy = 3 regions × 2 lines × 2 quarters = 12 leaves per row; resists '4 levels = 4' confusion."
+    },
+    {
+      "id": "DOCU-053",
+      "sub_skill": "subtotal_row_disagreement",
+      "domain": "expense ledger printout",
+      "scene": "A printed expense ledger with rows: Travel 1200, Meals 320, Lodging 980, Subtotal 2400, Software 540, Hardware 760, Marketing 1100, Subtotal 2400, GRAND TOTAL 4800. The first subtotal cell prints '2400' but its component rows actually sum to 1200+320+980 = 2500; the printed Grand Total is consistent only with subtotal=2400 per block.",
+      "question": "Which printed value is INCORRECT (compared to the row arithmetic above it)?",
+      "answer": "The first Subtotal of 2400 (it should be 2500).",
+      "lever": "VLM tendency: trust printed subtotals. Must add the components and detect the discrepancy in only one of the subtotals."
+    },
+    {
+      "id": "DOCU-054",
+      "sub_skill": "form_field_conditional_logic",
+      "domain": "tax-form-style printed form",
+      "scene": "A printed government form with line items: Line 5 'Income' = 50000; Line 6 'Standard Deduction' = 12000; Line 7 = Line 5 − Line 6 = 38000; Line 8 'IF Line 7 < 40000, write 0; ELSE write 0.10 × (Line 7 − 40000)' = ___; Line 9 'Tax credit (refer to Line 8 calculation)' = (computed amount). The Line 8 box is BLANK in the printed image, but Line 9 reads $0.",
+      "question": "What value should appear in Line 8?",
+      "answer": "0",
+      "lever": "Apply the conditional rule literally: 38000 < 40000 → write 0; confirm with Line 9 = $0; tests if/else parsing in form text."
+    },
+    {
+      "id": "DOCU-055",
+      "sub_skill": "crossed_out_contract_amendment",
+      "domain": "marked-up legal contract page",
+      "scene": "A legal contract page. Original printed text: 'Lease term shall be for a period of ~~24~~ 36 months commencing on ~~Jan 1, 2026~~ Apr 1, 2026, with monthly rent of ~~$1,800~~ $2,000.' The strikethroughs (≈) are visible in red ink with handwritten replacements above. Initials of both parties are next to each amendment.",
+      "question": "What is the FINAL agreed monthly rent?",
+      "answer": "$2,000",
+      "lever": "Must read crossed-out original AND handwritten replacement, take the replacement as the actual value; resist returning the printed original $1,800."
+    },
+    {
+      "id": "DOCU-056",
+      "sub_skill": "pivot_table_axis_swap",
+      "domain": "spreadsheet pivot table",
+      "scene": "A pivot table with rows = 4 product names, columns = 3 quarters (Q1, Q2, Q3). Each cell has a number. Row totals on right, column totals on bottom, grand total bottom-right = 1200. Beside it a SECOND table is shown: same data PIVOTED so rows = quarters, columns = products. The second table has only the column totals printed; one column total is intentionally blank (Product C). Visible cells in first table indicate Product C: Q1=80, Q2=120, Q3=100.",
+      "question": "What is the missing column total for Product C in the pivoted (second) table?",
+      "answer": "300",
+      "lever": "Recognize the two tables show the same data with axes swapped; read Product C's row from table 1 → 80+120+100 = 300; resists trying to compute from column-sum identities of table 2."
+    },
+    {
+      "id": "DOCU-057",
+      "sub_skill": "color_coded_calendar_overlap",
+      "domain": "team calendar week view",
+      "scene": "A weekly team calendar (Mon-Sun, 9am-6pm grid). Three colored blocks span time slots: BLUE block 'Project A meeting' (Tue 10am-noon, Thu 2-3pm), GREEN block 'Mentorship' (Tue 11am-1pm, Wed 3-4pm), YELLOW block 'Allhands' (Thu 2-4pm). Wherever blocks overlap the cell shows STRIPES (mix of colors). A legend says 'striped = double-booked'.",
+      "question": "How many SLOT-HOURS during the week are double-booked (have stripes)?",
+      "answer": "2",
+      "lever": "Find Tue 11am-noon (blue+green = 1h) and Thu 2-3pm (blue+yellow = 1h); total = 2 slot-hours. Resists adding all colored hours without intersection logic."
+    },
+    {
+      "id": "DOCU-058",
+      "sub_skill": "handwritten_overprinted_form",
+      "domain": "filled paper form scan",
+      "scene": "A printed application form with field labels. The 'Applicant Name' field has TYPED 'JOHN SMITH' but a handwritten correction in blue ink crosses 'SMITH' out and writes 'SMYTH' above it. The 'Date of Birth' field is printed '1985-04-12' with no edits. The 'Address' field is BLANK in print but filled handwritten 'Apt 7B, 123 Main St'.",
+      "question": "What is the applicant's CURRENT (post-correction) full name?",
+      "answer": "JOHN SMYTH",
+      "lever": "Distinguish original print vs handwritten override; apply override only where present (name yes, DOB no)."
+    },
+    {
+      "id": "DOCU-059",
+      "sub_skill": "multipage_cross_reference",
+      "domain": "two-page invoice spread",
+      "scene": "A two-page invoice spread shown side by side. Page 1: 'See PAGE 2, line item L-3 for adjustment'. Page 2 line items: L-1 = +$120 (rebate), L-2 = +$45 (loyalty), L-3 = -$200 (defect refund), L-4 = +$30 (tax). Page 1 also shows: 'Subtotal: $1,500' and 'Final Total = Subtotal + adjustments from page 2 line L-3 ONLY'.",
+      "question": "What is the Final Total?",
+      "answer": "$1,300",
+      "lever": "Cross-reference page 1's instruction to page 2's L-3, ignoring all other adjustment lines; 1500 + (−200) = 1300."
+    },
+    {
+      "id": "DOCU-060",
+      "sub_skill": "stacked_bar_chart_legend_swap",
+      "domain": "stacked bar chart in slide",
+      "scene": "A stacked bar chart showing 4 bars (one per quarter) each split into 3 segments labeled by color. Legend (boxed at right) lists: BLUE = Hardware, ORANGE = Services, GREEN = Software. A small annotation arrow points to a SWAP NOTE in the corner: 'NOTE: legend colors for Services and Software were SWAPPED in this version'. Q1 bar segments visible heights: blue 30, orange 50, green 20.",
+      "question": "What is Q1's SERVICES revenue (after applying the legend correction)?",
+      "answer": "20",
+      "lever": "Apply the swap: orange in legend really means Software, green really means Services → Services = green segment = 20."
+    }
+  ]
+}

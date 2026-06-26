@@ -1,0 +1,96 @@
+{
+  "family_id": "ATTR",
+  "family_name": "Attribute & State",
+  "seeds": [
+    {
+      "id": "ATTR-051",
+      "sub_skill": "broken_vs_whole_egg_carton",
+      "domain": "kitchen egg carton",
+      "scene": "An open egg carton with a 2×6 grid (12 slots). 8 slots contain WHOLE eggs (smooth, uncracked); 3 slots contain CRACKED eggs (clearly visible cracks running across the shell with leaked yolk staining the bottom of the slot); 1 slot is EMPTY (no egg).",
+      "question": "How many UNUSABLE eggs are in the carton (cracked or empty)?",
+      "answer": "4",
+      "lever": "Distinguish three states (whole, cracked, empty) and group by usability; tests careful per-slot attribute classification."
+    },
+    {
+      "id": "ATTR-052",
+      "sub_skill": "wet_vs_dry_pavement_zones",
+      "domain": "post-rain street",
+      "scene": "Top-down view of a street section. A puddle is shown clearly under the awning of one shop on the left (wet zone visible). The unscoped pavement is visibly DRY (lighter color) over most of the visible area; a 2-meter strip RIGHT NEXT TO the gutter is darker/wet. The rest is dry. The image annotates 'puddle: 0.5 m²; gutter strip wet: 8 m²; total visible pavement: 30 m²'.",
+      "question": "What fraction (approx percent) of the visible pavement is WET?",
+      "answer": "About 28% (8.5 / 30 ≈ 0.283)",
+      "lever": "Aggregate distinct wet zones (puddle + gutter strip) → 8.5 m² wet; divide by 30 → ~28%."
+    },
+    {
+      "id": "ATTR-053",
+      "sub_skill": "lit_vs_unlit_candles_birthday",
+      "domain": "birthday cake with candles",
+      "scene": "A birthday cake with 12 candles arranged in a circle. 7 candles have visible flames and a small wisp of smoke; 4 candles have NO flame but show a faint trail of just-extinguished smoke; 1 candle is unlit and has no smoke at all (never lit).",
+      "question": "How many candles are CURRENTLY burning?",
+      "answer": "7",
+      "lever": "Classify three lifecycle states: lit (flame), just-blown (smoke without flame), and never-lit (nothing). Only count active flames."
+    },
+    {
+      "id": "ATTR-054",
+      "sub_skill": "battery_indicator_levels_remote",
+      "domain": "rack of remote controls",
+      "scene": "Five remote controls lined up; each has a battery indicator LED. Indicator semantics (printed on the wall): solid GREEN = full, solid YELLOW = half, solid RED = nearly empty, BLINKING RED = critical/dead. Remote 1: solid green. Remote 2: solid yellow. Remote 3: solid red. Remote 4: blinking red. Remote 5: NO LIGHT at all (off).",
+      "question": "How many remotes need their batteries REPLACED IMMEDIATELY (critical or dead)?",
+      "answer": "2",
+      "lever": "Apply legend: blinking red (critical) and no light (dead) both qualify → 2; tests categorizing across multiple indicator states."
+    },
+    {
+      "id": "ATTR-055",
+      "sub_skill": "sealed_vs_opened_packages",
+      "domain": "warehouse food packages",
+      "scene": "A pallet with 20 cardboard boxes of food. 14 boxes have visible BLUE TAPE seals running across the top flap (sealed). 4 boxes have the top flap open or partially folded back (opened). 2 boxes show the seal CUT but the flap closed (visibly tampered: thin slit visible on tape).",
+      "question": "How many boxes have INTACT seals (i.e., neither opened nor tampered)?",
+      "answer": "14",
+      "lever": "Distinguish three states (intact/opened/tampered); count only the intact sealed ones; resist counting closed-but-tampered as sealed."
+    },
+    {
+      "id": "ATTR-056",
+      "sub_skill": "ripeness_states_fruit_basket",
+      "domain": "fruit basket on table",
+      "scene": "A basket with 15 bananas. Color states: 5 GREEN (unripe), 7 YELLOW (ripe), 3 BROWN-SPOTTED (overripe). The basket sits in a sunlit room.",
+      "question": "How many bananas are READY-TO-EAT (yellow, ripe)?",
+      "answer": "7",
+      "lever": "Three-state ripeness classification by color; isolate the 'just right' state."
+    },
+    {
+      "id": "ATTR-057",
+      "sub_skill": "frozen_vs_liquid_water",
+      "domain": "kitchen with multiple water containers",
+      "scene": "Five glass containers on a kitchen counter, each holding water in different states: Container A: solid ice cube. Container B: half-melted (ice floating on water). Container C: fully liquid water with no ice. Container D: empty (just frost on inner walls — vapor only). Container E: liquid water with a thin SHEET of ice on top.",
+      "question": "How many containers have ANY ice (solid water) present?",
+      "answer": "4",
+      "lever": "Identify presence of solid phase (A, B, D-frost, E); only C is purely liquid. Frost on walls counts as solid water."
+    },
+    {
+      "id": "ATTR-058",
+      "sub_skill": "plant_health_states",
+      "domain": "office plant shelf",
+      "scene": "A shelf of 10 small potted plants. Visible attributes: 4 plants have lush green leaves (healthy); 3 have yellowing leaves but still upright (stressed); 2 have wilted, drooping leaves (severely dehydrated); 1 has brown/dead leaves with bare stem (dead).",
+      "question": "How many plants are NOT healthy (any state other than lush green)?",
+      "answer": "6",
+      "lever": "Multi-state classification: total minus the healthy 4 → 6. Tests distinguishing the binary 'healthy vs not' from the 4-state spectrum."
+    },
+    {
+      "id": "ATTR-059",
+      "sub_skill": "translucent_vs_opaque_containers",
+      "domain": "shelf of cosmetic bottles",
+      "scene": "A shelf of 12 cosmetic bottles. Visible properties: 5 bottles are clear/transparent (you can see liquid level inside); 4 are translucent/frosted (you can see vague silhouette of contents but not distinct liquid level); 3 are fully opaque (no view of contents at all). A label on the wall says 'reorder rule: only check liquid level on transparent bottles'.",
+      "question": "How many bottles can be checked for liquid level without opening them?",
+      "answer": "5",
+      "lever": "Three-class transparency classification; the rule allows only fully transparent. Translucent does NOT count as 'check-able'."
+    },
+    {
+      "id": "ATTR-060",
+      "sub_skill": "worn_vs_new_combined_states",
+      "domain": "shoe rack at entrance",
+      "scene": "A shoe rack with 8 pairs of running shoes (16 individual shoes). Some show WEAR on the soles (smooth heel patches), some are CLEAN/NEW. Detailed inventory: 5 pairs (10 shoes) are clearly worn with smooth heels and dirty uppers; 2 pairs (4 shoes) are visibly new (crisp white with intact tread); 1 pair (2 shoes) is MIXED — left shoe worn, right shoe new (clearly mismatched).",
+      "question": "How many INDIVIDUAL shoes are visibly NEW (not worn)?",
+      "answer": "5",
+      "lever": "Per-shoe attribute count, not per-pair; new = 4 (from new pairs) + 1 (right of the mismatched pair) = 5. Tests careful enumeration when pairs may be inhomogeneous."
+    }
+  ]
+}

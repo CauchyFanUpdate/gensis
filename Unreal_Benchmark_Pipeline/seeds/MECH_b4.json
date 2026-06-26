@@ -1,0 +1,51 @@
+{
+  "family_id": "MECH",
+  "family_name": "Mechanical Cause-Effect Chains",
+  "seeds": [
+    {
+      "id": "MECH-061",
+      "sub_skill": "unequal_mass_cradle_momentum_split",
+      "domain": "Newton's cradle with mass variation",
+      "scene": "A Newton's cradle frame with 5 balls hanging on equal-length strings. Visible diameter progression: balls 1–3 are tiny (~1 cm), ball 4 is medium (~3 cm), ball 5 is large (~6 cm). Balls are clearly different sizes, implying different masses. The largest ball (ball 5) is pulled back 30° and released.",
+      "question": "When ball 5 swings down and strikes the smaller balls, does ONLY ball 1 fly out with high speed, as in a uniform-mass cradle?",
+      "answer": "No. Because ball 5 is much heavier, momentum and energy cannot both be conserved by transferring to a single small ball. Instead, multiple balls (including ball 1) move, with reduced velocities. Ball 1 does NOT fly out alone.",
+      "lever": "VLM caption-shortcut sees 'Newton's cradle' and answers 'opposite ball flies out' (canonical textbook behavior). Visible size gradient violates the equal-mass assumption; T requires momentum+energy balance across multiple unequal masses, not single-ball transfer."
+    },
+    {
+      "id": "MECH-062",
+      "sub_skill": "non_uniform_density_center_of_mass",
+      "domain": "composite rectangular block",
+      "scene": "A rectangular block resting on a table. Seamlessly joined: left half is pale pine wood with visible grain (low density, light color); right half is dark dense metal (high density, dark gray-black). The block is clearly one unified object. A vertical plumb line hangs from the block's geometric center.",
+      "question": "Is the center of mass located at the geometric center of the block (where the plumb line hangs)?",
+      "answer": "No. The center of mass is shifted toward the denser metal half, NOT at the geometric center. A plumb line from the geometric center would not pass through the center of mass.",
+      "lever": "VLM sees 'rectangular block' and defaults 'center of mass = geometric center' (S). Material composition (wood vs metal) is visible; T requires recognizing non-uniform density shifts COM toward the heavier material."
+    },
+    {
+      "id": "MECH-063",
+      "sub_skill": "variable_friction_piecewise_motion",
+      "domain": "inclined plane with three friction zones",
+      "scene": "A wooden inclined plane at ~25° angle. Visibly divided into three distinct surface zones: upper third is smooth blue ice with frost; middle third is yellow sandpaper (rough texture); lower third is plain wood. A small wooden block is placed at the top and released.",
+      "question": "Will the block slide uniformly down the incline, or will its motion vary?",
+      "answer": "Motion varies. On ice (high-μ to low-μ transition), block accelerates rapidly. On sandpaper, friction may stop it or slow it drastically. On wood, it may accelerate again. The block does NOT exhibit uniform acceleration; may even stop mid-slope.",
+      "lever": "VLM caption-shortcut assumes 'block on incline' → single friction coefficient → uniform acceleration (S). Three visible texture zones violate uniform-μ; T requires per-zone friction analysis and piecewise motion."
+    },
+    {
+      "id": "MECH-064",
+      "sub_skill": "compound_pendulum_vs_simple",
+      "domain": "extended-bob pendulum",
+      "scene": "A pendulum: a thin string hanging from a ceiling pivot. The bob is NOT a point mass—it is a long horizontal cylindrical rod (~40 cm) suspended from one of its ends by the string. The rod is clearly extended (not compact). String length is ~1 m. The rod hangs horizontally and can swing as the pendulum bob.",
+      "question": "What is the period of oscillation: does the formula T = 2π√(L/g) apply, where L is the string length?",
+      "answer": "No. This is a compound (physical) pendulum, not a simple pendulum. The period T = 2π√(I/(mgd)), where I is the rod's moment of inertia about the pivot and d is the distance from pivot to rod's center of mass. The period is longer than the simple formula predicts.",
+      "lever": "VLM sees 'pendulum' and applies simple-pendulum formula (S). Visible extended rod as bob violates point-mass assumption; T requires compound-pendulum calculation with rotational inertia."
+    },
+    {
+      "id": "MECH-065",
+      "sub_skill": "atwood_machine_friction_at_pulley",
+      "domain": "Atwood machine with seized pulley",
+      "scene": "An Atwood machine: a single pulley fixed to the ceiling with a rope draped over it. On the left hangs a heavy block (~3 kg implied, based on size). On the right, a light block (~1 kg implied). The pulley wheel is visibly rusted and has a heavy chain partly seized around its hub, indicating significant friction. The blocks are at rest.",
+      "question": "Should the heavier side accelerate downward? What role does the seized pulley play?",
+      "answer": "Under ideal frictionless conditions, the heavier side would accelerate. But the seized pulley adds substantial friction. With enough friction, the system may NOT move despite the mass difference. Acceleration is reduced or blocked by pulley friction.",
+      "lever": "VLM caption-shortcut sees 'Atwood machine, mass difference' → 'heavier side accelerates' (S, neglecting friction). Visible rust+seized chain violates frictionless-pulley assumption; T requires including friction in the force balance."
+    }
+  ]
+}

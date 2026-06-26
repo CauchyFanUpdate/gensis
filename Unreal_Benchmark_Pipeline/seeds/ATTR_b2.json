@@ -1,0 +1,186 @@
+{
+  "family_id": "ATTR",
+  "family_name": "Attribute & State",
+  "seeds": [
+    {
+      "id": "ATTR-031",
+      "sub_skill": "transparency_through_stack",
+      "domain": "stacked acrylic sheets",
+      "scene": "Five tinted acrylic sheets stacked on a printed page; each sheet's individual tint is shown beside the stack. Stack order top→bottom: clear, yellow, cyan, magenta, clear.",
+      "question": "What COLOR does the printed text appear when viewed through the full stack?",
+      "answer": "black",
+      "lever": "Subtractive filtering: yellow blocks blue, cyan blocks red, magenta blocks green → all visible wavelengths blocked → text reads against near-black field."
+    },
+    {
+      "id": "ATTR-032",
+      "sub_skill": "weight_inference_via_deformation",
+      "domain": "shelf with sagging plank",
+      "scene": "A wooden plank shelf supports 4 boxes sitting on it; the plank visibly bows downward beneath box C the most, then under box A, then B, with no bow under D.",
+      "question": "Order the boxes from HEAVIEST to LIGHTEST.",
+      "answer": "C, A, B, D",
+      "lever": "Map plank deflection magnitude to load weight; rank by visible sag amount, treat zero-sag as lightest."
+    },
+    {
+      "id": "ATTR-033",
+      "sub_skill": "humidity_via_paper_curl",
+      "domain": "art studio drying rack",
+      "scene": "Six watercolor sheets clipped to a drying rack; each shows a different curl: flat, slight cup, deep cup, tube curl, slight wave, mostly flat with curled corners. A hygrometer-card chart on the wall maps curl shape to humidity ranges.",
+      "question": "Which sheet was painted under the LOWEST humidity?",
+      "answer": "the tube-curled sheet",
+      "lever": "Tighter curl = larger moisture differential between sides → lowest ambient humidity at painting time; pick the most extreme curl."
+    },
+    {
+      "id": "ATTR-034",
+      "sub_skill": "softness_via_compression_print",
+      "domain": "pillow display",
+      "scene": "Six pillows on a bed; each shows a hand-print indent from the same shopper. Indent depths and rebound times: P1 deep slow rebound, P2 shallow instant rebound, P3 medium quick rebound, P4 deep quick rebound, P5 no indent, P6 medium slow rebound. A sign requests 'memory foam (deep + slow rebound) for the guest room.'",
+      "question": "Which pillow matches the sign's request?",
+      "answer": "P1",
+      "lever": "Memory foam = both deep indent AND slow rebound; P4 is deep but fast (latex), P6 slow but only medium → only P1 satisfies both."
+    },
+    {
+      "id": "ATTR-035",
+      "sub_skill": "doneness_via_internal_color",
+      "domain": "kitchen cutting board",
+      "scene": "Four steaks cross-sectioned side by side on a cutting board. S1 cool red center, S2 warm pink center with thin gray band, S3 mostly gray throughout with a thin pink core, S4 fully gray-brown throughout. A printed doneness card maps colors: rare, medium-rare, medium, medium-well, well-done.",
+      "question": "Which steak is MEDIUM-WELL?",
+      "answer": "S3",
+      "lever": "Map cross-section color band thickness to doneness scale; medium-well = mostly gray with only a thin pink core, distinguishing from medium (wider pink) and well-done (no pink)."
+    },
+    {
+      "id": "ATTR-036",
+      "sub_skill": "fabric_weave_density_distinction",
+      "domain": "fabric swatches macro",
+      "scene": "A magnified photo strip of 5 woven fabric swatches with the same yarn color. Visible thread counts per square cm differ: F1 dense tight weave, F2 medium weave, F3 loose open weave with visible gaps, F4 medium-tight, F5 dense with diagonal twill. A spec sheet says 'select the fabric most resistant to wind passing through.'",
+      "question": "Which fabric should be selected?",
+      "answer": "F1",
+      "lever": "Wind resistance = lowest porosity = densest weave with smallest gaps; reject diagonal patterns that don't change air permeability when ranks are tied."
+    },
+    {
+      "id": "ATTR-037",
+      "sub_skill": "ice_vs_clear_glass_marbles",
+      "domain": "tabletop clear-objects bowl",
+      "scene": "A glass bowl contains 8 clear spherical objects sitting on a wood tabletop. Some show condensation droplets on their outer surface and a small puddle beneath; others are dry. The 8 objects: positions 1, 3, 5 wet with puddle; positions 2, 4, 6, 7, 8 dry.",
+      "question": "How many of the spheres are ICE (not glass)?",
+      "answer": "3",
+      "lever": "Ice causes condensation + meltwater puddle; glass at room temperature does neither. Count wet+puddle objects."
+    },
+    {
+      "id": "ATTR-038",
+      "sub_skill": "fluid_viscosity_via_pour_thread",
+      "domain": "kitchen pour test",
+      "scene": "Four bottles being poured from the same height into identical bowls; each pour stream's thickness, length-before-break, and shape differ: B1 thin continuous straight stream, B2 thick slow ribbon, B3 droplet-by-droplet, B4 medium stream. A label task: 'find the HONEY.'",
+      "question": "Which bottle holds the honey?",
+      "answer": "B2",
+      "lever": "Honey = high viscosity → thick slow continuous ribbon (not dripping discretely, not thin and fast); reject fast/thin (water-like) and droplet (very thick paste-like)."
+    },
+    {
+      "id": "ATTR-039",
+      "sub_skill": "soap_residue_clean_check",
+      "domain": "dish-rack clean test",
+      "scene": "Six clean-looking glasses upturned on a rack under directional light. Each has subtle markers: G1 visible streaks, G2 single water spot, G3 spotless clear, G4 cloudy haze film, G5 spotless clear, G6 fingerprint smudge on rim. A note: 'reject anything with film, streaks, or smudges; spots/dots OK.'",
+      "question": "How many glasses PASS the cleanliness check?",
+      "answer": "3",
+      "lever": "Apply rule: reject film (G4), streak (G1), smudge (G6); spots OK (G2). Pass: G2, G3, G5 = 3."
+    },
+    {
+      "id": "ATTR-040",
+      "sub_skill": "fruit_subtype_disambiguation",
+      "domain": "produce stand",
+      "scene": "A produce stand with 6 round red fruits unlabeled. Visual cues: F1 has a star-shaped calyx pit (apple), F2 smooth uniform skin and small stem (tomato), F3 has slight fuzz and a crease (peach turning red), F4 has a hard glossy skin with small dimple (pomegranate), F5 has visible seeds protruding through skin (strawberry), F6 has a long thin stem and tiny size (cherry).",
+      "question": "How many of the items are TRUE TOMATOES?",
+      "answer": "1",
+      "lever": "Disambiguate by stem morphology, calyx, surface texture; only F2 matches tomato signature, others are confounders."
+    },
+    {
+      "id": "ATTR-041",
+      "sub_skill": "lit_vs_unlit_bulb_distinction",
+      "domain": "string-light test board",
+      "scene": "A string of 12 incandescent bulbs photographed in dim ambient light. Some bulbs are dark filament-visible (off), some glow warm orange (on), some glow brightly white (on at full power), and one shows hairline broken filament (failed). Distribution: 5 fully white, 3 warm orange, 3 dark with intact filament, 1 dark with broken filament.",
+      "question": "How many bulbs are RECEIVING POWER?",
+      "answer": "8",
+      "lever": "Receiving power = visibly emitting light (any brightness); off filament-intact = no power; broken filament = receiving power but not glowing. Sum lit (5+3) only."
+    },
+    {
+      "id": "ATTR-042",
+      "sub_skill": "porcelain_vs_plastic_via_chip",
+      "domain": "thrift-store dish set",
+      "scene": "A row of 5 white round plates. Each has a small chip on the rim revealing the inner material under the glaze: P1 reveals white porcelain body, P2 reveals beige plastic body, P3 reveals porcelain, P4 reveals plastic, P5 reveals stoneware (gray-tan).",
+      "question": "How many plates are TRUE PORCELAIN?",
+      "answer": "2",
+      "lever": "Identify material by chip cross-section, not glaze color; plastic and stoneware bodies disqualify."
+    },
+    {
+      "id": "ATTR-043",
+      "sub_skill": "shadow_softness_implies_light_size",
+      "domain": "studio shadow tests",
+      "scene": "Four identical small statues photographed casting shadows on a white floor. Statue 1 shadow has a razor-sharp edge. Statue 2 shadow has a soft penumbra ~3cm. Statue 3 shadow has a wide diffuse penumbra ~10cm. Statue 4 shadow has a moderate ~5cm penumbra.",
+      "question": "Which statue was lit by the LARGEST light source?",
+      "answer": "Statue 3",
+      "lever": "Penumbra width grows with apparent light-source size at fixed distance; widest soft edge = largest source."
+    },
+    {
+      "id": "ATTR-044",
+      "sub_skill": "gas_remaining_in_propane_tank",
+      "domain": "outdoor BBQ area",
+      "scene": "Four propane tanks lined up outside a BBQ. Each shows a vertical condensation/frost line marking the liquid-gas boundary inside, visible as a horizontal band on the metal: T1 line near the bottom, T2 line at mid-tank, T3 line near the top, T4 no visible line.",
+      "question": "Which tank has the MOST gas remaining inside?",
+      "answer": "T3",
+      "lever": "The frost line marks the top of the liquid propane; higher line = more liquid remains; no line = effectively empty."
+    },
+    {
+      "id": "ATTR-045",
+      "sub_skill": "magnet_vs_lookalike",
+      "domain": "school physics lab tray",
+      "scene": "Six gray bar-shaped objects on a tray. Beside each lies a pile of identical iron filings; some piles cling and form lines along the bar (magnetic force visible as filings standing up at the ends), others sit loose. From left to right: bars 1, 3, 5 show filings stuck and standing; bars 2, 4, 6 show loose filings with no clinging.",
+      "question": "How many bars are MAGNETIC?",
+      "answer": "3",
+      "lever": "Direct visual evidence of magnetic field (filings clinging and aligning) — count only those, ignore identical-looking non-magnetic bars."
+    },
+    {
+      "id": "ATTR-046",
+      "sub_skill": "leather_vs_synthetic_grain",
+      "domain": "shoe shop close-up",
+      "scene": "Five close-up macro shots of shoe upper material. Visible grain features: S1 irregular pore pattern with scratch healing visible (real leather), S2 perfectly regular embossed pore pattern (synthetic), S3 irregular pores + visible follicle marks (real leather), S4 visible weave under coating (coated fabric), S5 regular pattern but with stitching showing real grain at edge (synthetic).",
+      "question": "How many of the materials are GENUINE LEATHER?",
+      "answer": "2",
+      "lever": "Genuine leather = irregular natural pore pattern (S1, S3); synthetic = regular embossed pattern even when convincing; coated fabric reveals weave under wear."
+    },
+    {
+      "id": "ATTR-047",
+      "sub_skill": "cooked_vs_raw_egg_spin_blur",
+      "domain": "tabletop spinning eggs",
+      "scene": "Two side-by-side long-exposure photographs of identical-looking white eggs spinning on a table. Egg A shows a sharply defined spinning blur (spinning fast and steadily). Egg B shows wobbly motion blur and is visibly off-center, blurrier and tilting.",
+      "question": "Which egg is RAW?",
+      "answer": "Egg B",
+      "lever": "A raw egg has fluid interior whose inertia lags rotation, causing wobble; cooked egg's solid interior spins cleanly. Wobble = raw."
+    },
+    {
+      "id": "ATTR-048",
+      "sub_skill": "heat_glow_temperature_inference",
+      "domain": "blacksmith forge",
+      "scene": "Four iron rods just pulled from a forge laid on an anvil. Color from tip: rod 1 dull cherry red, rod 2 bright orange, rod 3 yellow-white, rod 4 dark red barely glowing. A wall chart maps glow color to temperature: dark red ~500°C, cherry ~700°C, orange ~900°C, yellow-white ~1100°C.",
+      "question": "Which rod is HOTTEST?",
+      "answer": "rod 3",
+      "lever": "Map blackbody glow color to temperature; yellow-white > orange > cherry > dark red."
+    },
+    {
+      "id": "ATTR-049",
+      "sub_skill": "moisture_in_wood_via_warp",
+      "domain": "lumber yard plank stack",
+      "scene": "Four planks of identical-length 2x4 lumber stacked. Each shows a different deformation: cup, bow, twist, straight. A note: 'green (wet) wood arrived yesterday and was not stickered properly; mark for re-drying any plank that has warped.'",
+      "question": "How many planks need to be MARKED for re-drying?",
+      "answer": "3",
+      "lever": "Any non-flat shape (cup, bow, twist) indicates differential drying stress = needs re-drying; only the straight plank passes."
+    },
+    {
+      "id": "ATTR-050",
+      "sub_skill": "noise_level_via_speaker_cone_state",
+      "domain": "audio test rack",
+      "scene": "Four loudspeakers sitting on a test bench, each photographed mid-playback at the same instant. Cone positions: speaker 1 cone deeply pushed inward, speaker 2 cone at rest, speaker 3 cone slightly displaced, speaker 4 cone far displaced outward.",
+      "question": "Which speaker is currently producing the LOUDEST sound?",
+      "answer": "speaker 1 or speaker 4 (largest displacement either direction)",
+      "lever": "Loudness ∝ peak cone displacement amplitude regardless of direction; both 1 (in) and 4 (out) show maximum excursion vs the smaller and rest cones."
+    }
+  ]
+}

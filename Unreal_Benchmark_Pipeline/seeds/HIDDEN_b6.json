@@ -1,0 +1,366 @@
+{
+  "family_id": "HIDDEN",
+  "family_name": "Detail Spotting in Dense Fantasy Scenes (b6)",
+  "seeds": [
+    {
+      "id": "HIDDEN-031",
+      "sub_skill": "rare_target_in_dense_shelf",
+      "domain": "witch_potion_apothecary",
+      "scene": "A floor-to-ceiling apothecary wall packed with ~80 small glass potion bottles arranged on six wooden shelves, viewed straight-on. Each bottle is one of three liquid colors: emerald green, amber, or violet. Each bottle either has a paper label with a skull, or a paper label with a moon, or no label. Specifically: 5 bottles are violet AND have a skull label; the rest are randomly distributed across the shelves with no two skull-labeled violet bottles adjacent.",
+      "question": "Based strictly on what is visible in the image, how many bottles on this apothecary wall are simultaneously violet in color AND have a paper label showing a skull symbol?",
+      "answer": "5",
+      "lever": "Dense scene (~80 bottles); two-attribute conjunction; targets are not clustered, forcing full-shelf scan."
+    },
+    {
+      "id": "HIDDEN-032",
+      "sub_skill": "rare_coin_in_hoard",
+      "domain": "dragon_treasure_hoard",
+      "scene": "A massive dragon's treasure pile viewed from above, made of ~200 gold coins spread across the floor. Most coins are circular and plain. Among them: 7 coins are square-shaped (not circular), all clearly visible on top of the pile (not buried). All coins are the same gold color so shape is the only distinguishing feature.",
+      "question": "Based strictly on what is visible in the image, how many SQUARE-shaped gold coins are visible on top of the hoard?",
+      "answer": "7",
+      "lever": "Single-attribute (shape) target in extremely dense uniform-color hoard. Models tend to ignore individual coin shapes."
+    },
+    {
+      "id": "HIDDEN-033",
+      "sub_skill": "rare_book_with_symbol",
+      "domain": "wizard_tower_library",
+      "scene": "A wizard's tower library wall packed with ~120 leather-bound books standing upright on shelves, viewed straight-on. All book spines are uniform dark brown. Most spines have plain titles; specifically 6 book spines are stamped with a clearly visible silver star symbol. The 6 starred books are spread across different shelves with no two adjacent.",
+      "question": "Based strictly on what is visible in the image, how many book spines bear a silver star symbol?",
+      "answer": "6",
+      "lever": "Dense, uniform-colored shelves; small symbol target requires close inspection of every spine."
+    },
+    {
+      "id": "HIDDEN-034",
+      "sub_skill": "fairies_with_specific_accessory",
+      "domain": "fairy_market_crowd",
+      "scene": "A bustling fairy market scene from above with about 50 small fairies milling around stalls. Each fairy wears either a red cap, a blue cap, or no cap. Each fairy holds either a basket, a wand, or nothing. Specifically: 4 fairies wear a red cap AND hold a basket; targets are scattered, not clustered.",
+      "question": "Based strictly on what is visible in the image, how many fairies are simultaneously wearing a red cap AND holding a basket?",
+      "answer": "4",
+      "lever": "Dense crowd + two-attribute conjunction. Small figures make per-fairy attribute checking slow."
+    },
+    {
+      "id": "HIDDEN-035",
+      "sub_skill": "specific_weapon_in_armory",
+      "domain": "castle_armory_wall",
+      "scene": "A castle armory wall covered with ~60 weapons mounted on racks, viewed straight-on. Mix: ~25 swords, ~15 axes, ~15 spears, ~5 maces. Among the swords, exactly 4 have a glowing blue rune etched on the blade (clearly visible). All other swords are plain steel.",
+      "question": "Based strictly on what is visible in the image, how many SWORDS have a glowing blue rune on the blade?",
+      "answer": "4",
+      "lever": "Type filter (sword vs axe/spear/mace) + attribute filter (rune) on dense weapon wall."
+    },
+    {
+      "id": "HIDDEN-036",
+      "sub_skill": "specific_artifact_in_underwater_ruin",
+      "domain": "underwater_temple_ruins",
+      "scene": "An underwater temple floor viewed from above, scattered with ~40 ancient artifacts: golden goblets, stone tablets, jeweled crowns, ornate daggers, ceramic vases. Specifically there are exactly 3 jeweled crowns, all visible (not covered by sand). The rest are split roughly evenly across the other categories.",
+      "question": "Based strictly on what is visible in the image, how many JEWELED CROWNS are visible on this temple floor?",
+      "answer": "3",
+      "lever": "Type-specific count among dense mixed artifacts; crowns must be distinguished from goblets and other shiny items."
+    },
+    {
+      "id": "HIDDEN-037",
+      "sub_skill": "specific_creature_in_apothecary_jar",
+      "domain": "alchemist_specimen_jars",
+      "scene": "A wall of an alchemist's lab with ~50 cylindrical glass jars on shelves, each holding a single preserved specimen suspended in clear yellow fluid. Specimen types: tiny dragons, frogs, salamanders, eyeballs, bat wings, mushroom clusters. Specifically: 4 jars contain a tiny preserved DRAGON; the rest are distributed across other categories.",
+      "question": "Based strictly on what is visible in the image, how many jars contain a tiny preserved DRAGON?",
+      "answer": "4",
+      "lever": "Type identification across many similar-looking jars; dragons must be distinguished from salamanders/lizards."
+    },
+    {
+      "id": "HIDDEN-038",
+      "sub_skill": "rare_flower_color_filter",
+      "domain": "magical_garden",
+      "scene": "An overhead view of a dense magical garden with ~100 large flowers in bloom, packed in a meadow. Flower colors: mostly yellow and white. Among them, exactly 6 flowers are deep BLACK. The black flowers are spread across the meadow, not clustered.",
+      "question": "Based strictly on what is visible in the image, how many BLACK flowers are blooming in this garden?",
+      "answer": "6",
+      "lever": "Single rare color among uniform majority; forces full-meadow scan."
+    },
+    {
+      "id": "HIDDEN-039",
+      "sub_skill": "specific_seal_on_scrolls",
+      "domain": "ancient_library_scrolls",
+      "scene": "A massive scroll library: about 70 rolled parchment scrolls stacked on wooden cubbies, viewed straight-on. Each scroll has a wax seal on the visible end. Seal colors: ~30 red, ~25 green, ~10 blue, and exactly 5 PURPLE seals. Purple seals are scattered across cubbies.",
+      "question": "Based strictly on what is visible in the image, how many scrolls have a PURPLE wax seal?",
+      "answer": "5",
+      "lever": "Rare color among many similar small targets; requires examining seal of each scroll end."
+    },
+    {
+      "id": "HIDDEN-040",
+      "sub_skill": "specific_toy_in_chest",
+      "domain": "magical_toy_chest",
+      "scene": "An open magical toy chest viewed from above, overflowing with ~40 small toys: stuffed dragons, wooden soldiers, glass marbles, spinning tops, wind-up mice, dolls. Among them, exactly 3 are WIND-UP MICE (small with a visible key on the back). Toys are heaped but each clearly visible.",
+      "question": "Based strictly on what is visible in the image, how many WIND-UP MICE (mice with a visible winding key) are in this chest?",
+      "answer": "3",
+      "lever": "Subtle distinguishing feature (winding key) on small target among visually similar small toys."
+    },
+    {
+      "id": "HIDDEN-041",
+      "sub_skill": "specific_gem_cut_in_crystal_cave",
+      "domain": "crystal_cave_floor",
+      "scene": "A crystal cave floor viewed from above covered with ~80 large gemstones in many colors and cuts. Cut shapes include round, square, oval, heart, and teardrop. Specifically: 5 RED HEART-shaped gems are scattered across the floor. The rest are distributed across colors and cuts.",
+      "question": "Based strictly on what is visible in the image, how many gems are simultaneously RED in color AND HEART-shaped?",
+      "answer": "5",
+      "lever": "Two-attribute (color × cut) conjunction in extremely dense visual field."
+    },
+    {
+      "id": "HIDDEN-042",
+      "sub_skill": "specific_ghost_pose_in_ballroom",
+      "domain": "haunted_ballroom",
+      "scene": "A grand haunted ballroom with ~30 translucent ghosts dancing in pairs and singles. All ghosts are pale blue. Among them, exactly 4 ghosts are HOLDING A CANDLESTICK (clearly visible flickering candle in their hand). The other ghosts hold nothing or hold a fan.",
+      "question": "Based strictly on what is visible in the image, how many ghosts are holding a CANDLESTICK?",
+      "answer": "4",
+      "lever": "Item-in-hand filter on translucent figures in dense scene; small accessory."
+    },
+    {
+      "id": "HIDDEN-043",
+      "sub_skill": "specific_lock_on_chest",
+      "domain": "pirate_treasure_cove",
+      "scene": "A pirate treasure cove viewed from above with ~25 wooden treasure chests packed across a sandy beach. Each chest has a metal lock on the front. Lock types: ~12 padlocks, ~8 key-locks, exactly 5 SKULL-shaped locks. All locks visible.",
+      "question": "Based strictly on what is visible in the image, how many treasure chests have a SKULL-shaped lock?",
+      "answer": "5",
+      "lever": "Lock-shape distinction on small accessory; many similar chests."
+    },
+    {
+      "id": "HIDDEN-044",
+      "sub_skill": "rare_loot_in_goblin_pile",
+      "domain": "goblin_loot_pile",
+      "scene": "A heaped goblin loot pile in a cavern, viewed from above, with about 60 stolen items: spoons, forks, brass keys, candlesticks, bracelets, single shoes, mismatched buttons. Among them, exactly 4 GOLDEN POCKET WATCHES (round, with a visible chain) are present, scattered.",
+      "question": "Based strictly on what is visible in the image, how many GOLDEN POCKET WATCHES (with chain) are in this loot pile?",
+      "answer": "4",
+      "lever": "Specific small object in cluttered mixed pile; chain is the disambiguating feature from coins."
+    },
+    {
+      "id": "HIDDEN-045",
+      "sub_skill": "specific_necklace_in_jewelry_chest",
+      "domain": "mermaid_jewelry_hoard",
+      "scene": "An open mermaid jewelry chest viewed from above, packed with ~50 necklaces, bracelets, rings, and earrings. Among necklaces specifically: ~12 are pearl, ~8 are coral, exactly 3 necklaces have a STARFISH PENDANT clearly visible.",
+      "question": "Based strictly on what is visible in the image, how many necklaces have a STARFISH-shaped pendant?",
+      "answer": "3",
+      "lever": "Type+pendant-shape filter; pendant is small and easily missed."
+    },
+    {
+      "id": "HIDDEN-046",
+      "sub_skill": "specific_insect_in_collection",
+      "domain": "alchemist_insect_collection",
+      "scene": "A glass-topped insect display case viewed from above with ~80 pinned insects in a 8x10 grid. Mostly beetles, butterflies, dragonflies, and moths. Specifically: 6 of the specimens are SCORPIONS (not insects but included; clearly visible curled tail). All scattered, not clustered.",
+      "question": "Based strictly on what is visible in the image, how many SCORPIONS are pinned in this display case?",
+      "answer": "6",
+      "lever": "Cross-category target (scorpion among insects); requires per-cell inspection of grid."
+    },
+    {
+      "id": "HIDDEN-047",
+      "sub_skill": "specific_wand_shape",
+      "domain": "wand_shop_wall",
+      "scene": "A wand shop's full back wall covered with ~70 wands hanging vertically in narrow shelf slots, viewed straight-on. Wand handle shapes: round, square, twisted, claw-grip, crystal-tip. Specifically: 4 wands have a CRYSTAL TIP at the top (clearly visible faceted crystal). The rest are distributed across handle styles.",
+      "question": "Based strictly on what is visible in the image, how many wands have a faceted CRYSTAL TIP at the top?",
+      "answer": "4",
+      "lever": "Tip-only attribute on slender vertical objects; crystal tip is small."
+    },
+    {
+      "id": "HIDDEN-048",
+      "sub_skill": "rare_mushroom_in_forest",
+      "domain": "magical_mushroom_forest",
+      "scene": "A magical mushroom forest floor viewed from above, with ~100 mushrooms of varying species: red-with-white-spots, brown round, tall white, blue cup-shaped, yellow flat. Specifically: 5 mushrooms are GLOWING PINK with visible bioluminescence. Rest distributed across other species.",
+      "question": "Based strictly on what is visible in the image, how many GLOWING PINK mushrooms are visible on the forest floor?",
+      "answer": "5",
+      "lever": "Rare species in extremely dense field; the glow is the distinguishing feature."
+    },
+    {
+      "id": "HIDDEN-049",
+      "sub_skill": "specific_pose_in_troll_camp",
+      "domain": "snowy_troll_camp",
+      "scene": "A snowy mountain camp viewed from above with ~20 trolls scattered across the snow. Each troll is in one of three poses: standing, sitting on a rock, or lying down. Specifically: exactly 4 trolls are LYING DOWN. Trolls are well-spaced.",
+      "question": "Based strictly on what is visible in the image, how many trolls are LYING DOWN?",
+      "answer": "4",
+      "lever": "Pose filter; lying trolls have lower silhouette and are easier to miss in snowy scene."
+    },
+    {
+      "id": "HIDDEN-050",
+      "sub_skill": "constellation_pattern_in_sky",
+      "domain": "fantasy_constellation_sky",
+      "scene": "A night sky filled with ~150 stars of varying brightness against deep purple. Among them, 4 distinct three-star TRIANGLE patterns (where three bright stars form a small clear triangle, separated from other bright stars) are visible. The rest of the bright stars are isolated or in larger clusters that don't form clear triangles.",
+      "question": "Based strictly on what is visible in the image, how many three-star TRIANGLE constellations are formed by clearly grouped bright stars in this sky?",
+      "answer": "4",
+      "lever": "Pattern-recognition over visual noise; triangles vs random clusters require deliberate inspection."
+    },
+    {
+      "id": "HIDDEN-051",
+      "sub_skill": "specific_rune_on_wall",
+      "domain": "ancient_rune_wall",
+      "scene": "A massive stone wall carved with ~80 runes in a 8x10 grid, viewed straight-on. Each rune is one of five distinct shapes (wedge, triangle, circle, cross, double-line). Specifically: 6 of the runes are DOUBLE-LINE shape. They are scattered across the grid.",
+      "question": "Based strictly on what is visible in the image, how many DOUBLE-LINE runes appear on this wall?",
+      "answer": "6",
+      "lever": "Shape categorization across uniform-colored carved field; tedious enumeration."
+    },
+    {
+      "id": "HIDDEN-052",
+      "sub_skill": "specific_card_in_tarot_spread",
+      "domain": "fortune_teller_card_spread",
+      "scene": "A fortune teller's table viewed from above with ~50 tarot cards face-up in a wide spread. Each card has a distinct illustration. Specifically: 4 cards depict the MOON (a clearly visible crescent moon symbol prominent on the card face). The rest depict suns, stars, towers, hands, etc.",
+      "question": "Based strictly on what is visible in the image, how many tarot cards in this spread depict a MOON?",
+      "answer": "4",
+      "lever": "Symbol-on-card identification across dense card array."
+    },
+    {
+      "id": "HIDDEN-053",
+      "sub_skill": "specific_herb_in_drying_rack",
+      "domain": "apothecary_herb_drying_rack",
+      "scene": "An overhead beam in an apothecary with ~40 bunches of herbs hanging upside-down. Herb types: lavender (purple), rosemary (silver-green), sage (grey-green), basil (bright green), and SPECIFICALLY 5 bunches of bright RED CHILI PEPPERS. All bunches well-spaced.",
+      "question": "Based strictly on what is visible in the image, how many bunches of RED CHILI PEPPERS are hanging from this rack?",
+      "answer": "5",
+      "lever": "Color-distinct target among many similar-toned bunches; requires scanning entire rack."
+    },
+    {
+      "id": "HIDDEN-054",
+      "sub_skill": "specific_ore_in_mine_carts",
+      "domain": "dwarven_mine_carts",
+      "scene": "A dwarven mine tunnel viewed straight-on with ~20 mine carts lined up in two rows of 10. Each cart contains chunks of one type of ore: ~8 carry grey iron, ~6 carry yellow gold, ~4 carry green emerald, and exactly 2 carry pink-red RUBY ore. All carts clearly labeled by ore color.",
+      "question": "Based strictly on what is visible in the image, how many mine carts contain pink-red RUBY ore?",
+      "answer": "2",
+      "lever": "Rare category among many; small count target forces full row scan."
+    },
+    {
+      "id": "HIDDEN-055",
+      "sub_skill": "specific_feature_in_portraits",
+      "domain": "vampire_portrait_gallery",
+      "scene": "A vampire's portrait gallery wall with ~30 oil-painting portraits in gold frames hanging in three rows of 10. Each portrait shows a different vampire face. Specifically: 5 portraits show the vampire with VISIBLE FANGS (mouth open showing two pointed teeth). The other portraits have closed mouths.",
+      "question": "Based strictly on what is visible in the image, how many portraits show the vampire with VISIBLE FANGS (mouth open showing pointed teeth)?",
+      "answer": "5",
+      "lever": "Mouth-detail filter on small portrait faces; requires zooming-in attention."
+    },
+    {
+      "id": "HIDDEN-056",
+      "sub_skill": "kitsune_with_specific_tail_count",
+      "domain": "kitsune_shrine",
+      "scene": "A torii-gated shrine clearing with ~15 kitsune (fox spirits) sitting in a loose circle. Each kitsune has between 1 and 9 tails clearly fanned out behind them. Tail-count distribution: 4 have 1 tail, 4 have 3 tails, 3 have 5 tails, 2 have 7 tails, 2 have 9 tails. All tails fully separated and visible.",
+      "question": "Based strictly on what is visible in the image, how many kitsune have EXACTLY 5 tails?",
+      "answer": "3",
+      "lever": "Tail enumeration per individual in moderately dense scene; multiple anomalous counts."
+    },
+    {
+      "id": "HIDDEN-057",
+      "sub_skill": "specific_bird_in_cages",
+      "domain": "fairy_market_bird_cages",
+      "scene": "A wall of ~25 hanging bird cages in a fairy market, viewed straight-on. Each cage holds one small magical bird. Bird types: bluebirds, redbirds, golden canaries, owls, and specifically 4 cages contain a TINY DRAGON (with visible wings and tail). All cages clearly visible.",
+      "question": "Based strictly on what is visible in the image, how many cages contain a TINY DRAGON?",
+      "answer": "4",
+      "lever": "Cross-category target among similar-sized creatures; dragons must be distinguished from owls/birds."
+    },
+    {
+      "id": "HIDDEN-058",
+      "sub_skill": "specific_tool_in_workshop",
+      "domain": "gnome_workshop_wall",
+      "scene": "A gnome workshop pegboard wall viewed straight-on with ~70 small tools hanging: hammers, pliers, screwdrivers, chisels, files, gear-keys. Specifically: 5 tools are GEAR-KEYS (small key with a visible gear-shaped head). All scattered.",
+      "question": "Based strictly on what is visible in the image, how many GEAR-KEYS (keys with a gear-shaped head) are hanging on this pegboard?",
+      "answer": "5",
+      "lever": "Subtle head-shape distinction among many similar slim hand tools."
+    },
+    {
+      "id": "HIDDEN-059",
+      "sub_skill": "specific_creature_in_reef",
+      "domain": "alien_coral_reef",
+      "scene": "A coral reef viewed from the side with ~40 small sea creatures swimming or attached to coral. Mix: ~15 fish, ~10 sea-snails, ~8 jellyfish, ~5 starfish, and exactly 2 SEAHORSES with curled tails. All creatures clearly visible against bright coral.",
+      "question": "Based strictly on what is visible in the image, how many SEAHORSES (curled-tail body) are visible in this reef?",
+      "answer": "2",
+      "lever": "Very rare target among dense mixed reef life."
+    },
+    {
+      "id": "HIDDEN-060",
+      "sub_skill": "specific_weapon_in_demon_armory",
+      "domain": "demon_weapon_rack",
+      "scene": "A demon weapon rack with ~40 dark-iron weapons mounted in 4 rows of 10. Weapon types: scythes, war-hammers, jagged swords, halberds. Specifically: 6 of the swords have a SECOND BLADE branching off the main blade (forked sword). All weapons clearly visible.",
+      "question": "Based strictly on what is visible in the image, how many FORKED swords (sword with a secondary branching blade) are on this rack?",
+      "answer": "6",
+      "lever": "Specific blade-anomaly within sword sub-category; requires shape inspection of every sword."
+    },
+    {
+      "id": "HIDDEN-061",
+      "sub_skill": "specific_chess_piece",
+      "domain": "wizard_chess_set",
+      "scene": "An overhead view of a giant wizard's chess board with ~32 ornate chess pieces of unique enchanted figures (each piece has a small symbol on its base). All pieces are dark obsidian. Among them: 4 pieces have a GLOWING RUNE on their base (clearly emitting blue light). The rest have no glow.",
+      "question": "Based strictly on what is visible in the image, how many chess pieces have a GLOWING BLUE RUNE on their base?",
+      "answer": "4",
+      "lever": "Small base-detail filter on dense uniform-color piece array."
+    },
+    {
+      "id": "HIDDEN-062",
+      "sub_skill": "specific_spice_jar_color",
+      "domain": "spice_merchant_stall",
+      "scene": "A spice merchant's stall viewed straight-on with ~36 open glass jars in a 6x6 grid, each filled with powdered spice. Spice colors include red, yellow, brown, green, white. Specifically: 3 jars contain BRIGHT BLUE powder. All other jars contain natural-looking spice colors.",
+      "question": "Based strictly on what is visible in the image, how many jars contain BRIGHT BLUE powder?",
+      "answer": "3",
+      "lever": "Anomalous color in mostly natural-toned grid; small count requires full grid scan."
+    },
+    {
+      "id": "HIDDEN-063",
+      "sub_skill": "specific_boot_pattern",
+      "domain": "fairy_boot_shop",
+      "scene": "A fairy boot shop wall viewed straight-on with ~50 small boots displayed in shelf slots. All boots are dark leather. Boot tops have varying decorations: silver buckles, plain, embroidered flowers, fur trim. Specifically: 4 boots have STAR EMBROIDERY on the front (clearly visible silver star). The rest distributed across other decorations.",
+      "question": "Based strictly on what is visible in the image, how many boots have a STAR EMBROIDERY on the front?",
+      "answer": "4",
+      "lever": "Decoration-pattern filter among visually similar small objects."
+    },
+    {
+      "id": "HIDDEN-064",
+      "sub_skill": "specific_specimen_in_bottles",
+      "domain": "alchemist_specimen_shelves",
+      "scene": "A wall of ~60 narrow upright glass bottles on shelves in an alchemist's lab, each containing a single preserved specimen suspended in clear fluid. Specimens include: small lizards, eyeballs, flowers, fingers, mushrooms, frogs. Specifically: 5 bottles contain a PRESERVED BLUE FLOWER. Rest distributed.",
+      "question": "Based strictly on what is visible in the image, how many bottles contain a preserved BLUE FLOWER?",
+      "answer": "5",
+      "lever": "Color+type conjunction in dense vertical bottle array."
+    },
+    {
+      "id": "HIDDEN-065",
+      "sub_skill": "specific_music_box",
+      "domain": "music_box_collector_shelf",
+      "scene": "A collector's shelf wall with ~30 ornate music boxes of varying shapes: round, square, heart, pyramid, oval. All are gold-plated. Specifically: 3 music boxes are PYRAMID-shaped. Boxes are well-spaced.",
+      "question": "Based strictly on what is visible in the image, how many PYRAMID-shaped music boxes are on this shelf?",
+      "answer": "3",
+      "lever": "Shape-only distinction among uniform-colored objects."
+    },
+    {
+      "id": "HIDDEN-066",
+      "sub_skill": "specific_landmark_on_treasure_map",
+      "domain": "pirate_treasure_map",
+      "scene": "A weathered pirate treasure map viewed from above showing ~40 small inked landmarks scattered across an island: palm trees, mountains, skulls, X-marks, ships, anchors, compasses. Specifically: 5 landmarks are RED X-MARKS (drawn in red ink, all other inks black).",
+      "question": "Based strictly on what is visible in the image, how many RED X-MARKS appear on this treasure map?",
+      "answer": "5",
+      "lever": "Color filter on small inked symbols across dense map."
+    },
+    {
+      "id": "HIDDEN-067",
+      "sub_skill": "specific_creature_in_enchanted_forest",
+      "domain": "enchanted_forest_canopy",
+      "scene": "A view into an enchanted forest with dense foliage, ~30 small woodland creatures partially visible among the trees: deer, owls, foxes, rabbits, squirrels. Specifically: 3 creatures are HORNED RABBITS (rabbits with clearly visible antlers — jackalope-like). All visible enough to identify.",
+      "question": "Based strictly on what is visible in the image, how many HORNED RABBITS (rabbits with antlers) are visible in this forest?",
+      "answer": "3",
+      "lever": "Anomalous feature (antlers) on small target in cluttered foliage; jackalope is the unreal twist."
+    },
+    {
+      "id": "HIDDEN-068",
+      "sub_skill": "rare_plant_in_greenhouse",
+      "domain": "magical_greenhouse_grid",
+      "scene": "A magical greenhouse top-down view with ~64 potted plants in an 8x8 grid. Most pots contain ferns, ivy, small trees, herbs. Specifically: 4 pots contain CARNIVOROUS PLANTS with large open jaws (Venus-flytrap style, clearly distinguishable shape).",
+      "question": "Based strictly on what is visible in the image, how many pots contain CARNIVOROUS PLANTS with visible open jaws?",
+      "answer": "4",
+      "lever": "Shape-distinguishing target in regular grid; requires per-cell type identification."
+    },
+    {
+      "id": "HIDDEN-069",
+      "sub_skill": "specific_mask_in_shop",
+      "domain": "venetian_mask_shop_wall",
+      "scene": "A mask shop wall covered with ~50 ornate Venetian-style masks hanging on hooks, viewed straight-on. Mask types: bird-beaked plague masks, half-faces, full-faces with feathers. Specifically: 6 masks are BIRD-BEAKED with a clearly elongated curved beak. Rest distributed.",
+      "question": "Based strictly on what is visible in the image, how many masks on this wall are BIRD-BEAKED (with an elongated curved beak)?",
+      "answer": "6",
+      "lever": "Shape-feature filter on similar-sized decorative objects."
+    },
+    {
+      "id": "HIDDEN-070",
+      "sub_skill": "multi_attr_target_in_dense_scene",
+      "domain": "fantasy_banquet_hall",
+      "scene": "A fantasy banquet hall viewed from above with ~40 guests seated around long tables. Each guest has either a tall hat, a crown, or no headgear. Each guest holds either a goblet, a turkey leg, or nothing. Specifically: 4 guests are simultaneously WEARING A CROWN AND HOLDING A GOBLET. Guests are scattered across multiple tables.",
+      "question": "Based strictly on what is visible in the image, how many guests are simultaneously WEARING A CROWN AND HOLDING A GOBLET?",
+      "answer": "4",
+      "lever": "Two-attribute conjunction in dense crowd; requires per-guest two-feature inspection."
+    }
+  ]
+}

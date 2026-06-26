@@ -1,0 +1,186 @@
+{
+  "family_id": "GEOM",
+  "family_name": "Geometry in Real Scene",
+  "seeds": [
+    {
+      "id": "GEOM-011",
+      "sub_skill": "polygon_interior_angle",
+      "domain": "decorative tile",
+      "scene": "A floor inlaid with regular hexagonal tiles. One specific tile is highlighted with a red outline. The interior angle at each corner of a regular hexagon is the standard value.",
+      "question": "What is the interior angle of each corner of the highlighted hexagonal tile?",
+      "answer": "120°",
+      "lever": "Apply (n-2)·180°/n = 4·180°/6 = 120°."
+    },
+    {
+      "id": "GEOM-012",
+      "sub_skill": "triangle_inequality_check",
+      "domain": "garden fencing",
+      "scene": "A garden fenced into a triangular shape. The three sides have measurement signs visible: side A = 12 m, side B = 5 m, side C = 6 m. A note from the gardener says 'redo the fence with these dimensions'.",
+      "question": "Is the planned triangle geometrically possible?",
+      "answer": "No (triangle inequality fails: 5 + 6 = 11 < 12)",
+      "lever": "Triangle inequality requires sum of any two sides > third; 5+6=11 < 12 fails."
+    },
+    {
+      "id": "GEOM-013",
+      "sub_skill": "circle_circumference",
+      "domain": "round track",
+      "scene": "A circular running track painted on a school playground with diameter 50 m. A runner intends to run 10 laps.",
+      "question": "What total distance does the runner cover (use π ≈ 3.14)?",
+      "answer": "1570 m",
+      "lever": "Circumference = π·d = 3.14·50 = 157 m × 10 laps = 1570 m."
+    },
+    {
+      "id": "GEOM-014",
+      "sub_skill": "volume_cylinder_calc",
+      "domain": "water cooler",
+      "scene": "A cylindrical water cooler with internal radius 15 cm and height 60 cm, currently filled to 40 cm of water. Markings on the side confirm the dimensions.",
+      "question": "What is the volume of water in the cooler (use π ≈ 3.14, answer in liters)?",
+      "answer": "28.26 liters",
+      "lever": "V = π·r²·h = 3.14·15²·40 = 3.14·225·40 = 28260 cm³ = 28.26 L."
+    },
+    {
+      "id": "GEOM-015",
+      "sub_skill": "diagonal_via_pythagorean",
+      "domain": "rectangular table",
+      "scene": "A rectangular table with sides 3 m × 4 m. The diagonal is to be reinforced with a metal beam.",
+      "question": "What is the length of the diagonal beam?",
+      "answer": "5 m",
+      "lever": "Pythagorean: √(3²+4²) = √25 = 5."
+    },
+    {
+      "id": "GEOM-016",
+      "sub_skill": "similar_triangles_via_shadow",
+      "domain": "tree height via shadow",
+      "scene": "A 1.6 m tall person casts a 1.0 m shadow. Standing nearby, a tree casts a 7.5 m shadow at the same time of day.",
+      "question": "How tall is the tree?",
+      "answer": "12 m",
+      "lever": "Similar triangles: tree_height / 7.5 = 1.6 / 1.0 → tree = 12 m."
+    },
+    {
+      "id": "GEOM-017",
+      "sub_skill": "regular_polygon_count_sides",
+      "domain": "stop sign comparison",
+      "scene": "A photograph showing 5 different traffic signs on poles: a triangular yield sign, a circular speed limit sign, a square diamond-rotated warning sign, a regular octagonal stop sign, and a regular pentagonal sign.",
+      "question": "How many sides does the OCTAGONAL sign have?",
+      "answer": "8",
+      "lever": "Identify octagon among shapes."
+    },
+    {
+      "id": "GEOM-018",
+      "sub_skill": "rectangle_area_partial",
+      "domain": "lawn measurements",
+      "scene": "A rectangular lawn 30 m × 20 m. A circular fountain (radius 5 m) sits in the middle. The remaining grass area is to be reseeded.",
+      "question": "What is the grass area to be reseeded (use π ≈ 3.14)?",
+      "answer": "521.5 m²",
+      "lever": "Total area − fountain = 600 − 78.5 = 521.5 m²."
+    },
+    {
+      "id": "GEOM-019",
+      "sub_skill": "scale_ratio_drawing",
+      "domain": "architectural blueprint",
+      "scene": "An architectural blueprint with scale 1:50. A bedroom on the blueprint measures 8 cm × 6 cm.",
+      "question": "What is the actual bedroom area?",
+      "answer": "12 m²",
+      "lever": "Actual dimensions: 4 m × 3 m = 12 m²."
+    },
+    {
+      "id": "GEOM-020",
+      "sub_skill": "cube_surface_area",
+      "domain": "ice cube",
+      "scene": "A solid cube with edge length 4 cm.",
+      "question": "What is the total surface area?",
+      "answer": "96 cm²",
+      "lever": "6·a² = 6·16 = 96."
+    },
+    {
+      "id": "GEOM-021",
+      "sub_skill": "angle_at_clock",
+      "domain": "wall clock",
+      "scene": "An analog wall clock showing time 3:30 exactly. The hour hand and minute hand make an angle.",
+      "question": "What is the angle between the hour and minute hand?",
+      "answer": "75°",
+      "lever": "Hour hand at 3:30 = 105° from 12 (3.5·30°); minute hand at 30 min = 180° from 12; difference = 75°."
+    },
+    {
+      "id": "GEOM-022",
+      "sub_skill": "cone_volume",
+      "domain": "ice cream cone",
+      "scene": "A waffle ice-cream cone with internal opening radius 3 cm and depth 12 cm (cone shape).",
+      "question": "What is the cone's volume (use π ≈ 3.14)?",
+      "answer": "113.04 cm³",
+      "lever": "V_cone = (1/3)·π·r²·h = (1/3)·3.14·9·12 = 113.04 cm³."
+    },
+    {
+      "id": "GEOM-023",
+      "sub_skill": "hexagonal_packing_count",
+      "domain": "honeycomb tray",
+      "scene": "A hexagonal tray densely packed with circular cookies in hexagonal close packing arrangement. The tray side has 6 cookies along the edge. Standard hex-grid: rows of 6, 7, 8, 9, 10, 11, 10, 9, 8, 7, 6 (centered hexagon arrangement).",
+      "question": "How many cookies fit in the hexagonal tray?",
+      "answer": "91",
+      "lever": "Centered hexagonal number: 1 + 6·∑k = 1 + 6·15 = 91 (for hex side n=6: H = 3n²−3n+1 = 91)."
+    },
+    {
+      "id": "GEOM-024",
+      "sub_skill": "ratio_of_perimeters",
+      "domain": "two square frames",
+      "scene": "Two square picture frames side by side. Frame A has side length 12 cm; frame B has side length 18 cm.",
+      "question": "What is the ratio of frame A's perimeter to frame B's perimeter?",
+      "answer": "2:3",
+      "lever": "P ratio = side ratio = 12:18 = 2:3."
+    },
+    {
+      "id": "GEOM-025",
+      "sub_skill": "perpendicular_bisector_property",
+      "domain": "drawn line and points",
+      "scene": "A drawing on graph paper shows a line segment from A(0,0) to B(8,0). Points P(4,5), Q(4,-3), R(3,4), S(5,5) are also drawn.",
+      "question": "Which points lie on the perpendicular bisector of AB?",
+      "answer": "P and Q",
+      "lever": "Perpendicular bisector of AB is the vertical line x=4; P(4,5) and Q(4,-3) qualify."
+    },
+    {
+      "id": "GEOM-026",
+      "sub_skill": "trapezoid_area",
+      "domain": "garden plot",
+      "scene": "A trapezoidal garden plot with parallel sides 6 m and 10 m, height 4 m.",
+      "question": "What is the area?",
+      "answer": "32 m²",
+      "lever": "(a+b)·h/2 = (6+10)·4/2 = 32."
+    },
+    {
+      "id": "GEOM-027",
+      "sub_skill": "sphere_volume",
+      "domain": "soccer ball",
+      "scene": "A soccer ball with radius 11 cm.",
+      "question": "What is the volume (use π ≈ 3.14)?",
+      "answer": "5572.5 cm³",
+      "lever": "V = (4/3)·π·r³ = (4/3)·3.14·1331 = 5573 cm³ approx."
+    },
+    {
+      "id": "GEOM-028",
+      "sub_skill": "rotational_symmetry_order",
+      "domain": "snowflake",
+      "scene": "A photograph of a paper snowflake cut symmetrically. The snowflake is cut by folding paper into 6 equal sectors and cutting a single notch in each.",
+      "question": "What is the rotational symmetry order?",
+      "answer": "6",
+      "lever": "6-fold symmetry from 6 equal sectors."
+    },
+    {
+      "id": "GEOM-029",
+      "sub_skill": "right_angle_via_3_4_5",
+      "domain": "carpenter's square check",
+      "scene": "A carpenter checks if a corner is square by measuring 3 m along one wall and 4 m along the other from the corner; the diagonal between the two endpoints is 5.1 m.",
+      "question": "Is the corner exactly 90°?",
+      "answer": "No (slightly more than 90°)",
+      "lever": "3-4-5 triangle has hypotenuse exactly 5; if measured 5.1 > 5, angle > 90°."
+    },
+    {
+      "id": "GEOM-030",
+      "sub_skill": "intersecting_lines_angle",
+      "domain": "road intersection",
+      "scene": "Two roads intersect; one runs east-west, the other runs at a bearing of 60° (measured clockwise from north). They cross at a single point.",
+      "question": "What are the four angles formed at the intersection?",
+      "answer": "30°, 150°, 30°, 150°",
+      "lever": "East-west road = 90° bearing. Other road = 60° bearing. Difference = 30°. Crossing forms 30° and 150° angle pairs (vertically opposite pairs)."
+    }
+  ]
+}

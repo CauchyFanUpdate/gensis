@@ -1,0 +1,276 @@
+{
+  "family_id": "MECH",
+  "family_name": "Mechanical Cause-Effect Chains",
+  "seeds": [
+    {
+      "id": "MECH-001",
+      "sub_skill": "gear_chain_speed",
+      "domain": "gears",
+      "scene": "A schematic of three meshed gears in a row. Gear A on the left has 12 teeth and rotates at 60 rpm clockwise. Gear B in the middle has 24 teeth, meshed with A. Gear C on the right has 36 teeth, meshed with B. Tooth counts and the rotation arrow on A are labeled.",
+      "question": "At what rpm and in which direction does Gear C rotate?",
+      "answer": "20 rpm clockwise",
+      "lever": "Gear ratio: 60 × 12/24 × 24/36 = 60 × 12/36 = 20 rpm; direction flips with each mesh (CW → CCW → CW)."
+    },
+    {
+      "id": "MECH-002",
+      "sub_skill": "pulley_mechanical_advantage",
+      "domain": "pulleys",
+      "scene": "A block-and-tackle pulley system: a single load is supported by 4 rope segments going over a fixed top pulley and around two movable bottom pulleys. The free end of the rope is pulled downward.",
+      "question": "What force is needed at the free end to lift a 200 N load (assuming ideal/frictionless pulleys)?",
+      "answer": "50 N",
+      "lever": "MA = number of supporting rope segments = 4; F = load/MA = 200/4 = 50 N."
+    },
+    {
+      "id": "MECH-003",
+      "sub_skill": "rube_goldberg_chain",
+      "domain": "chain_reaction",
+      "scene": "A Rube-Goldberg-style diagram. Step 1: a marble released at the top of a ramp. Step 2: marble strikes a domino, knocking down a row of dominoes. Step 3: the last domino tips a small lever. Step 4: the lever releases a string holding a basket. Step 5: the basket falls onto a switch. Step 6: the switch turns on a fan. Step 7: the fan blows a paper boat across water. Step 8: the boat hits a button that rings a bell.",
+      "question": "How many distinct mechanical interactions occur from marble release to bell ring?",
+      "answer": "8 (or 7 transitions between stages 1→8)",
+      "lever": "Counting causal links in a long chain; tests sequential reasoning."
+    },
+    {
+      "id": "MECH-004",
+      "sub_skill": "lever_balance",
+      "domain": "lever",
+      "scene": "A horizontal seesaw balanced on a triangular fulcrum. On the left arm, 60 cm from the fulcrum, sits a 5 kg block. On the right arm, at distance d from the fulcrum, sits a 3 kg block. The seesaw is in static equilibrium.",
+      "question": "What is d?",
+      "answer": "100 cm (1 meter)",
+      "lever": "Torque balance: 5 × 60 = 3 × d → d = 100 cm."
+    },
+    {
+      "id": "MECH-005",
+      "sub_skill": "domino_chain_will_continue",
+      "domain": "dominoes",
+      "scene": "A row of standing dominoes spaced 4 cm apart. Each domino is 6 cm tall and 1 cm wide. The first domino is being pushed slightly (will tip). At position 7, however, there is a gap of 12 cm before the next domino.",
+      "question": "Will the chain reaction reach the last domino past the 12 cm gap?",
+      "answer": "No — a 6 cm tall domino can only push a neighbor that is within roughly its own height; a 12 cm gap exceeds the tipping range, so the chain stops at domino 7",
+      "lever": "Physical reasoning about domino spacing vs height."
+    },
+    {
+      "id": "MECH-006",
+      "sub_skill": "circuit_with_switch",
+      "domain": "electric_circuit",
+      "scene": "A simple schematic showing a 9V battery, a switch, a resistor (100 Ω), and a small light bulb in series. The switch is drawn in the OPEN position.",
+      "question": "Is the bulb lit?",
+      "answer": "No — the open switch breaks the circuit, no current flows",
+      "lever": "Reading switch state in a schematic and inferring downstream consequence."
+    },
+    {
+      "id": "MECH-007",
+      "sub_skill": "parallel_series_resistors",
+      "domain": "electric_circuit",
+      "scene": "A circuit with a 12V battery and three resistors: R1 = 4 Ω in series with the parallel combination of R2 = 6 Ω and R3 = 12 Ω. All values labeled.",
+      "question": "What is the total current drawn from the battery?",
+      "answer": "1.5 A",
+      "lever": "Parallel: R23 = (6×12)/(6+12) = 4 Ω. Series: R_total = 4+4 = 8 Ω. I = V/R = 12/8 = 1.5 A."
+    },
+    {
+      "id": "MECH-008",
+      "sub_skill": "pulley_direction",
+      "domain": "pulleys",
+      "scene": "A single fixed pulley at the top of a frame. A rope passes over it. The right end of the rope is attached to a bucket on the ground. A person grasps the left end and pulls downward.",
+      "question": "When the person pulls down on the left end, which direction does the bucket move?",
+      "answer": "Up",
+      "lever": "Direction reasoning for a fixed pulley (force redirection)."
+    },
+    {
+      "id": "MECH-009",
+      "sub_skill": "inclined_plane_friction",
+      "domain": "incline",
+      "scene": "A wooden block of mass 2 kg sits on a wooden ramp inclined at 25°. The coefficient of static friction between block and ramp is given as μs = 0.3.",
+      "question": "Does the block slide down the ramp on its own?",
+      "answer": "Yes — tan(25°) ≈ 0.466 > μs = 0.3, so gravitational component along the ramp exceeds maximum static friction; the block slides",
+      "lever": "Compare tan(angle) vs coefficient of friction."
+    },
+    {
+      "id": "MECH-010",
+      "sub_skill": "hydraulic_press",
+      "domain": "hydraulics",
+      "scene": "A hydraulic press: small piston of area 5 cm² connected to large piston of area 100 cm² via incompressible fluid. A 10 N force is applied downward on the small piston.",
+      "question": "What is the maximum lifting force at the large piston (assuming ideal conditions)?",
+      "answer": "200 N",
+      "lever": "Pascal's principle: F2 = F1 × (A2/A1) = 10 × 100/5 = 200 N."
+    },
+    {
+      "id": "MECH-011",
+      "sub_skill": "pendulum_period",
+      "domain": "pendulum",
+      "scene": "Two simple pendulums hung side by side. Pendulum A has length 1 m. Pendulum B has length 4 m. Both released simultaneously from the same small angle.",
+      "question": "Which pendulum has the longer period, and by what factor?",
+      "answer": "Pendulum B; its period is twice as long (T ∝ √L; √4 = 2)",
+      "lever": "Pendulum period scaling with √L."
+    },
+    {
+      "id": "MECH-012",
+      "sub_skill": "domino_topple_cascade",
+      "domain": "dominoes",
+      "scene": "Three rows of dominoes arranged in a Y-shape. The trunk has 5 dominoes leading to a junction. From the junction, two branches each have 4 dominoes. The first domino in the trunk is tipped. All spacings allow tipping to propagate.",
+      "question": "How many dominoes will fall in total?",
+      "answer": "13 (5 trunk + 4 + 4 branches)",
+      "lever": "Counting cascade in a branched chain."
+    },
+    {
+      "id": "MECH-013",
+      "sub_skill": "wheel_and_axle",
+      "domain": "mechanical_advantage",
+      "scene": "A wheel-and-axle system: wheel radius 30 cm, axle radius 5 cm. A rope around the wheel is pulled by a person with force F. A load hangs from a rope around the axle.",
+      "question": "If the person pulls with 20 N on the wheel rope, what load can be lifted (ideal conditions)?",
+      "answer": "120 N",
+      "lever": "MA = R/r = 30/5 = 6; load = 20 × 6 = 120 N."
+    },
+    {
+      "id": "MECH-014",
+      "sub_skill": "circuit_two_switches",
+      "domain": "electric_circuit",
+      "scene": "A circuit with a battery, a bulb, and two switches in PARALLEL with each other (both in line with the bulb but in alternate paths). Switch S1 is closed; switch S2 is open.",
+      "question": "Is the bulb lit?",
+      "answer": "Yes — current can flow through closed S1; the parallel arrangement means either switch alone is sufficient",
+      "lever": "Parallel switch logic (OR-gate behavior)."
+    },
+    {
+      "id": "MECH-015",
+      "sub_skill": "circuit_two_switches_series",
+      "domain": "electric_circuit",
+      "scene": "Same as previous but the two switches are now in SERIES. S1 closed, S2 open.",
+      "question": "Is the bulb lit?",
+      "answer": "No — series switches act as AND; S2 open breaks the circuit",
+      "lever": "Series switch logic (AND-gate behavior)."
+    },
+    {
+      "id": "MECH-016",
+      "sub_skill": "ball_on_track_choice",
+      "domain": "track_physics",
+      "scene": "Two parallel tracks from the same starting height to the same ending height. Track A is straight and slopes uniformly down. Track B has a dip in the middle (it goes down further, then climbs back up to the same end height as A). Two identical balls released simultaneously, one on each track. Both ramps are smooth (frictionless).",
+      "question": "Which ball reaches the end first?",
+      "answer": "Ball B (the dipped track) — it accelerates to a higher speed in the dip, completing the journey faster despite the longer path; classic 'brachistochrone-like' result",
+      "lever": "Counter-intuitive physics: dipped track is faster despite longer path."
+    },
+    {
+      "id": "MECH-017",
+      "sub_skill": "balloon_helium_lift",
+      "domain": "buoyancy",
+      "scene": "A helium-filled balloon tied to a small basket holding 50 g of cargo. The system is in static equilibrium hovering in mid-air at room temperature and pressure. Helium density 0.18 g/L; air density 1.2 g/L; balloon-fabric mass 5 g.",
+      "question": "What approximate volume of helium is the balloon holding (ignoring basket and string mass)?",
+      "answer": "Approximately 53.9 L (≈54 L). For lift balance: V × (1.2 - 0.18) g/L = 55 g → V = 55/1.02 ≈ 53.9 L",
+      "lever": "Buoyancy force balance with displaced air."
+    },
+    {
+      "id": "MECH-018",
+      "sub_skill": "rope_swing_collision",
+      "domain": "swing_collision",
+      "scene": "A ball on a rope (length 1 m) is held horizontal and released, swinging down to strike a stationary ball on a frictionless surface at the bottom of the swing. Both balls are identical mass; collision is perfectly elastic.",
+      "question": "After the collision, what happens to each ball?",
+      "answer": "The swinging ball stops; the stationary ball moves off horizontally with the velocity the swinging ball had at the bottom (Newton's cradle behavior for equal masses, elastic collision)",
+      "lever": "Elastic collision between equal masses transfers all velocity."
+    },
+    {
+      "id": "MECH-019",
+      "sub_skill": "siphon_flow_direction",
+      "domain": "fluid",
+      "scene": "Two open containers of water connected by a thin flexible tube. Container A is on a high shelf with water level 80 cm above the floor. Container B is on the floor with water level 10 cm above the floor. The tube is filled with water and forms an inverted-U siphon.",
+      "question": "Which way does water flow through the siphon?",
+      "answer": "From Container A to Container B (high to low water level)",
+      "lever": "Siphon physics — flow follows the head difference."
+    },
+    {
+      "id": "MECH-020",
+      "sub_skill": "compound_lever",
+      "domain": "lever_compound",
+      "scene": "A compound-lever diagram. Lever 1 is a class-1 lever with a 2 m long arm divided 1:1 about the fulcrum (effort arm = load arm = 1 m). Lever 1's right end pushes down on the left end of Lever 2, which is also class-1 with a 1 m arm divided so that the effort arm (the side being pushed by Lever 1) is 75 cm and the load arm is 25 cm. A 10 N force is applied to the left end of Lever 1.",
+      "question": "What force is exerted at the load end of Lever 2 (ideal conditions)?",
+      "answer": "30 N",
+      "lever": "Compound MA: Lever 1 transmits 10 N (1:1 arms); Lever 2 multiplies by effort/load arm ratio 75/25 = 3, giving 30 N."
+    },
+    {
+      "id": "MECH-021",
+      "sub_skill": "candle_flame_oxygen",
+      "domain": "combustion",
+      "scene": "A lit candle is placed under a closed glass jar, sealed at the bottom by a non-porous tray.",
+      "question": "What will happen to the candle flame after a few seconds?",
+      "answer": "The flame will extinguish once the oxygen inside the jar is consumed",
+      "lever": "Combustion requires oxygen; closed system depletes it."
+    },
+    {
+      "id": "MECH-022",
+      "sub_skill": "ice_melting_water_level",
+      "domain": "buoyancy",
+      "scene": "A tall glass partly filled with water. A large ice cube floats in it; the water level reaches a marked line. The ice gradually melts.",
+      "question": "After the ice fully melts, how does the water level compare to the marked line?",
+      "answer": "The water level remains at the same marked line",
+      "lever": "Classic counter-intuitive result: melted ice fills exactly the displaced volume."
+    },
+    {
+      "id": "MECH-023",
+      "sub_skill": "ramp_to_table_collision",
+      "domain": "kinematics",
+      "scene": "A ball rolls off the end of a horizontal table at velocity 3 m/s. The table is 1.25 m above the floor. Air resistance negligible.",
+      "question": "How far horizontally does the ball travel before hitting the floor?",
+      "answer": "Approximately 1.5 m (time to fall: t = √(2h/g) = √(2.5/9.8) ≈ 0.5 s; distance = 3 × 0.5 = 1.5 m)",
+      "lever": "Projectile motion decomposition."
+    },
+    {
+      "id": "MECH-024",
+      "sub_skill": "scissor_jack",
+      "domain": "screw_jack",
+      "scene": "A scissor-jack diagram. Turning the handle 1 full rotation (360°) advances the screw 2 mm. The screw separates two diagonal bars whose vertical-to-horizontal motion ratio at the current position is 4:1 (vertical lift gain). The handle's effective lever arm is 200 mm.",
+      "question": "How much vertical lift results from one full handle rotation?",
+      "answer": "8 mm (2 mm screw advance × 4 lift ratio)",
+      "lever": "Combining screw thread pitch with mechanical-advantage geometry."
+    },
+    {
+      "id": "MECH-025",
+      "sub_skill": "double_pendulum",
+      "domain": "double_pendulum",
+      "scene": "A diagram of a double pendulum: one rigid rod hung from a pivot, with a second rod connected at the lower end of the first via a free joint. Both rods are released from a high horizontal position simultaneously.",
+      "question": "Is the long-term motion of the second mass deterministic and predictable from the initial conditions?",
+      "answer": "Mathematically deterministic but exhibits chaotic behavior — small initial-condition differences lead to large divergence over time, making it practically unpredictable beyond a short window",
+      "lever": "Chaotic systems' sensitivity to initial conditions."
+    },
+    {
+      "id": "MECH-026",
+      "sub_skill": "rope_around_pole",
+      "domain": "friction_capstan",
+      "scene": "A rope wrapped 2 full turns around a vertical pole. One end of the rope holds a hanging weight of 100 kg. The other end is held by a person.",
+      "question": "Approximately, with what minimal hand force can the person hold the 100 kg weight given a friction coefficient between rope and pole of 0.3?",
+      "answer": "Approximately 2.3 kg-force (≈22 N). Capstan equation: T_load/T_hold = e^(μθ) = e^(0.3 × 4π) ≈ e^3.77 ≈ 43. So T_hold ≈ 100/43 ≈ 2.3 kg-force",
+      "lever": "Capstan / belt-friction equation; non-obvious massive amplification."
+    },
+    {
+      "id": "MECH-027",
+      "sub_skill": "newton_cradle_3of5",
+      "domain": "newton_cradle",
+      "scene": "A standard Newton's cradle with 5 identical steel balls suspended in a row. Three balls on the left are pulled back and released together to strike the remaining 2 stationary balls.",
+      "question": "After the impact, what happens?",
+      "answer": "Three balls swing out on the right side at the same speed and angle as the released three; the two leftmost balls remain (with the middle one in the original line briefly stationary, then swinging back)",
+      "lever": "Conservation of momentum and energy in a Newton's cradle with N released ≠ N stationary."
+    },
+    {
+      "id": "MECH-028",
+      "sub_skill": "balanced_mobile",
+      "domain": "mobile",
+      "scene": "A hanging mobile diagram. Top crossbar pivots at center; left side of bar (length 30 cm) holds a single 4 kg object. Right side (length L cm) holds a smaller crossbar from which two 1 kg objects hang at distances 5 cm and 10 cm from that smaller bar's pivot. The smaller bar is itself in equilibrium.",
+      "question": "What is L for the top bar to balance?",
+      "answer": "60 cm — total weight on right = 2 kg; torque balance: 4 × 30 = 2 × L → L = 60 cm. (The smaller bar's internal balance is ensured separately.)",
+      "lever": "Hierarchical torque balance in a compound mobile."
+    },
+    {
+      "id": "MECH-029",
+      "sub_skill": "circuit_short_bulb",
+      "domain": "electric_circuit",
+      "scene": "A circuit with a battery, a bulb, and a wire that bypasses (short-circuits) the bulb directly from one terminal of the bulb to the other. The wire has near-zero resistance compared to the bulb.",
+      "question": "Is the bulb lit?",
+      "answer": "No — current preferentially flows through the near-zero-resistance shorting wire, bypassing the bulb",
+      "lever": "Recognizing short-circuit topology and current path of least resistance."
+    },
+    {
+      "id": "MECH-030",
+      "sub_skill": "balloon_release_propulsion",
+      "domain": "newtons_third",
+      "scene": "An untied inflated balloon held with the nozzle pointing to the right is released into still air.",
+      "question": "Which direction does the balloon initially move?",
+      "answer": "To the left (Newton's third law: air rushes right out of the nozzle, balloon pushed left)",
+      "lever": "Action-reaction reasoning for a propulsion-like system."
+    }
+  ]
+}

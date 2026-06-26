@@ -1,0 +1,186 @@
+{
+  "family_id": "EM",
+  "family_name": "Electromagnetism (concept-drift)",
+  "seeds": [
+    {
+      "id": "EM-001",
+      "sub_skill": "horseshoe_magnet_field_lines",
+      "domain": "magnetic field diagram",
+      "scene": "A horseshoe magnet with N (left tip) and S (right tip) poles labeled. Field-line arrows are drawn going OUTWARD from BOTH tips simultaneously (both N and S behave like sources, no closed loops).",
+      "question": "Are these field lines drawn correctly?",
+      "answer": "No — magnetic field lines must form closed loops; they emerge from N and re-enter at S. Drawing both poles as sources (lines going outward from both) violates ∇·B = 0 (no magnetic monopoles). The depiction is incorrect.",
+      "lever": "VLM caption-shortcut sees 'magnet with field lines' and confirms 'field lines from poles' (textbook S, source-like depiction). Visible both-poles-emit pattern violates closed-loop requirement (no monopoles); T is 'wrong; lines must close from N to S'."
+    },
+    {
+      "id": "EM-002",
+      "sub_skill": "stationary_magnet_in_coil_no_emf",
+      "domain": "induction demonstration",
+      "scene": "A bar magnet inserted into a wire coil, both completely stationary (a label reads 'no relative motion, equilibrium'). A galvanometer connected to the coil reads ZERO current.",
+      "question": "Should the galvanometer be reading any current?",
+      "answer": "No — Faraday's law requires a CHANGING flux. A stationary magnet in a stationary coil has constant flux, so dΦ/dt = 0 and no EMF or current. Zero reading is correct.",
+      "lever": "VLM sees 'magnet in coil' → 'generates current' (S, magnet+coil shortcut). Stationary label violates the changing-flux requirement; T is 'no current; flux must CHANGE for EMF'."
+    },
+    {
+      "id": "EM-003",
+      "sub_skill": "single_pole_magnet_monopole",
+      "domain": "alleged monopole label",
+      "scene": "A bar of iron labeled 'magnetic monopole — pure North pole, no South'. Field-line arrows go radially outward in all directions, like an electric monopole field.",
+      "question": "Can such a magnetic monopole exist?",
+      "answer": "No — magnetic monopoles have never been observed; all known magnetic objects are dipoles. Cutting a magnet in half always produces two dipoles, not isolated N and S. The depicted 'pure-N' bar is unphysical (per Maxwell's ∇·B = 0).",
+      "lever": "VLM sees 'magnet labeled north' → 'OK, it has a north pole' (S, accept label). No-monopoles law violates the lone-N possibility; T is 'monopoles do not exist; cutting still produces dipoles'."
+    },
+    {
+      "id": "EM-004",
+      "sub_skill": "compass_needle_near_wire",
+      "domain": "current-carrying wire test",
+      "scene": "A horizontal current-carrying wire with a compass placed directly below it. Current flows north-to-south (large arrow). The compass needle is shown pointing exactly along the wire (north).",
+      "question": "Should the compass needle align with the wire's direction?",
+      "answer": "No — Ørsted's law / right-hand rule: a current-carrying wire produces a circumferential magnetic field around it. A compass below the wire (with current flowing N→S) should align EAST-WEST (perpendicular to the wire and Earth's field), not parallel to the wire.",
+      "lever": "VLM sees 'wire and compass' → 'compass follows wire direction' (S, alignment shortcut). Right-hand-rule violates parallel alignment; T is 'compass aligns perpendicular to wire (along the circumferential B field)'."
+    },
+    {
+      "id": "EM-005",
+      "sub_skill": "lens_law_induced_current_direction",
+      "domain": "magnet approaching coil",
+      "scene": "A bar magnet with N-pole approaching a coil from the left (motion arrow toward coil). The coil's induced current is drawn flowing in such a way (using the right-hand rule) that the coil's near face presents a SOUTH pole to the approaching magnet.",
+      "question": "Is the induced current direction correct per Lenz's law?",
+      "answer": "No — Lenz's law: induced current opposes the change in flux. As N approaches, the coil should produce a face that REPELS the magnet (presenting a NORTH pole toward the incoming N). Showing the near face as S would attract the magnet, violating Lenz's law and energy conservation.",
+      "lever": "VLM sees 'induced current diagram' → 'looks reasonable' (S, no Lenz's-law check). Lenz's law violates the attractive direction; T is 'should oppose, presenting N to incoming N'."
+    },
+    {
+      "id": "EM-006",
+      "sub_skill": "parallel_current_force_direction",
+      "domain": "two parallel wires",
+      "scene": "Two parallel vertical wires both carrying current upward (parallel currents). A force-arrow on each wire points OUTWARD (the wires repel).",
+      "question": "Should parallel currents repel or attract?",
+      "answer": "Parallel (same-direction) currents ATTRACT each other; antiparallel currents REPEL. The diagram is wrong — these wires should attract, not repel.",
+      "lever": "VLM sees 'parallel wires with force arrows' → may accept depicted direction (S). Real Ampère force law violates the repulsion depicted; T is 'parallel currents attract'."
+    },
+    {
+      "id": "EM-007",
+      "sub_skill": "induction_coil_no_change",
+      "domain": "AC vs DC coupling",
+      "scene": "A primary coil connected to a battery (DC source, switch closed for many seconds) wound around a secondary coil connected to a galvanometer. The galvanometer is shown deflecting strongly with the steady DC.",
+      "question": "Should the galvanometer show steady deflection with steady DC in the primary?",
+      "answer": "No — steady DC produces a constant magnetic flux in the secondary, which means dΦ/dt = 0 → no induced EMF in the secondary. The galvanometer should read zero. It only deflects briefly when the switch is opened/closed (when flux changes).",
+      "lever": "VLM sees 'transformer-style coils, current flows' → 'secondary has current' (S, transformer shortcut). DC steady-state violates the changing-flux requirement; T is 'no induced current with steady DC'."
+    },
+    {
+      "id": "EM-008",
+      "sub_skill": "static_charge_attracts_neutral_paper",
+      "domain": "comb-paper experiment",
+      "scene": "A statically charged plastic comb held above small bits of neutral paper. The paper bits are clearly attracted upward to the comb. The label states 'comb has only positive charge; paper is electrically neutral'.",
+      "question": "Why does a charged object attract neutral paper bits?",
+      "answer": "Induced polarization: the charged comb induces a slight charge separation in the neutral paper (negative side closer to positive comb), producing a net attractive force because the closer (opposite) charges experience stronger attraction than the farther (like) charges experience repulsion.",
+      "lever": "VLM sees 'charged comb attracts neutral object' → 'because they have opposite charges' (S, requires opposite charge). Neutral-label violates net-charge-attraction; T is 'induced polarization in dielectric'."
+    },
+    {
+      "id": "EM-009",
+      "sub_skill": "iron_filings_uniform_field",
+      "domain": "field visualization",
+      "scene": "Iron filings sprinkled on a plate over a setup labeled 'uniform B field, magnitude 50 mT, direction left-to-right'. Filings are shown forming RADIAL patterns emanating from a central point (like a single pole pattern), not parallel lines.",
+      "question": "Is this iron-filing pattern consistent with a uniform field?",
+      "answer": "No — a uniform field produces PARALLEL straight filing lines (all aligned with the field direction). A radial pattern indicates a near-monopole-like or near-pole field, not a uniform field. The depicted pattern is inconsistent with the uniform-field label.",
+      "lever": "VLM sees 'iron filings pattern' → 'visualizes magnetic field' (S, generic). Uniform-field label vs radial pattern violates parallel-filing requirement; T is 'inconsistent — uniform field produces parallel lines'."
+    },
+    {
+      "id": "EM-010",
+      "sub_skill": "circuit_short_no_current_flow",
+      "domain": "battery + wire + bulb circuit",
+      "scene": "A circuit with a battery, a wire, and a light bulb wired in PARALLEL with a thick zero-resistance wire (short). The bulb is shown lit BRIGHT.",
+      "question": "Should the bulb be lit when shorted by a zero-resistance wire?",
+      "answer": "No — a short circuit across the bulb provides a zero-resistance path; almost all current bypasses the bulb. The bulb should be dark (or dim from any tiny resistance), and the short-circuit current is dangerously high. Showing the bulb lit normally is incorrect.",
+      "lever": "VLM sees 'bulb in circuit' → 'lit' (S). Short-across-bulb violates current-prefers-low-R path; T is 'bulb should be dark (current bypasses through the short)'."
+    },
+    {
+      "id": "EM-011",
+      "sub_skill": "battery_polarity_wrong_LED",
+      "domain": "LED circuit",
+      "scene": "An LED in series with a battery and resistor. The LED's longer lead (anode) is connected to the battery's NEGATIVE terminal; shorter lead (cathode) to POSITIVE. The LED is shown brightly lit.",
+      "question": "Should the LED light with this polarity?",
+      "answer": "No — LEDs are polarized; current must flow from anode (+) to cathode (−). With reverse polarity (anode at battery −), the LED is reverse-biased and does not conduct → no light.",
+      "lever": "VLM sees 'LED + battery + resistor' → 'lit' (S, simple circuit). Reverse polarity violates anode-to-cathode requirement; T is 'no light — LED is reverse-biased'."
+    },
+    {
+      "id": "EM-012",
+      "sub_skill": "resistor_in_series_voltage_sum",
+      "domain": "series resistor circuit",
+      "scene": "Three identical 10 Ω resistors in series with a 12 V battery; voltmeters across each resistor each labeled 'reads 12 V'.",
+      "question": "Should each voltmeter read 12 V?",
+      "answer": "No — in a series circuit the source voltage divides among the resistors (proportional to resistance). With three equal resistors, each gets 12/3 = 4 V, not 12 V.",
+      "lever": "VLM sees 'voltmeters across resistors' → 'each reads source voltage' (S, parallel-distribution misconception). Series-divider physics violates same-voltage assumption; T is 'each = 4 V'."
+    },
+    {
+      "id": "EM-013",
+      "sub_skill": "magnet_attracts_aluminum",
+      "domain": "magnet-to-metal test",
+      "scene": "A strong neodymium magnet held above a sheet of aluminum foil. The aluminum is shown leaping up to the magnet, sticking to it.",
+      "question": "Should aluminum stick to a magnet like that?",
+      "answer": "No — aluminum is paramagnetic but extremely weakly so; it does not stick to permanent magnets in everyday conditions. (It does interact with CHANGING fields via eddy currents — Lenz drag — but not via static attraction.) The depicted strong attraction is incorrect for aluminum.",
+      "lever": "VLM sees 'metal + magnet' → 'sticks' (S, generic ferromagnetism). Aluminum's paramagnetic-only nature violates ferromagnetic assumption; T is 'aluminum does not stick'."
+    },
+    {
+      "id": "EM-014",
+      "sub_skill": "rotating_magnet_in_coil_DC_output",
+      "domain": "AC generator misclaimed as DC",
+      "scene": "A simple loop of wire with a magnet rotating inside (basic AC generator). The output is connected to an oscilloscope which shows a perfectly FLAT DC line.",
+      "question": "Should the output of a rotating-magnet generator be DC?",
+      "answer": "No — a rotating magnet in a stationary coil (with no commutator) produces an alternating EMF (sinusoidal AC), not DC. A flat DC oscilloscope trace is inconsistent with this configuration.",
+      "lever": "VLM sees 'generator → DC output' (S, treats generator generically). Rotating-magnet geometry violates DC; T is 'should be sinusoidal AC, not DC'."
+    },
+    {
+      "id": "EM-015",
+      "sub_skill": "capacitor_steady_state_DC_current",
+      "domain": "RC circuit DC analysis",
+      "scene": "A capacitor in series with a resistor and battery (DC), shown in steady-state long after switch closure. An ammeter in the loop reads 2 A.",
+      "question": "What current should the ammeter show in steady state?",
+      "answer": "Zero — once the capacitor is fully charged, no current flows in a series RC DC circuit (capacitor blocks DC). 2 A in steady state is wrong.",
+      "lever": "VLM sees 'circuit with battery and components' → 'current flows' (S). Capacitor in DC steady state violates current-flows assumption; T is 'I = 0 in steady state'."
+    },
+    {
+      "id": "EM-016",
+      "sub_skill": "magnetic_force_on_stationary_charge",
+      "domain": "Lorentz force diagram",
+      "scene": "A stationary charged particle (clearly labeled 'v = 0') sitting in a uniform magnetic field. A force arrow F is shown acting on the charge, perpendicular to B.",
+      "question": "Should the magnetic field exert a force on this stationary charge?",
+      "answer": "No — F = qv × B; with v = 0, the magnetic force is zero. The depicted force arrow is incorrect for a stationary charge.",
+      "lever": "VLM sees 'charge in magnetic field' → 'feels force' (S, charge+B = force). Stationary v=0 violates Lorentz formula; T is 'F = 0 for stationary charge'."
+    },
+    {
+      "id": "EM-017",
+      "sub_skill": "electric_field_inside_conductor",
+      "domain": "conductor cavity diagram",
+      "scene": "A solid metal sphere in electrostatic equilibrium with an external electric field. Inside the metal, field-line arrows are drawn matching the external field (i.e., the external E penetrates the conductor).",
+      "question": "Is the field inside the conductor correct?",
+      "answer": "No — in electrostatic equilibrium, the electric field inside a conductor is ZERO. Surface charges rearrange to cancel any external field inside. The drawn field is wrong.",
+      "lever": "VLM sees 'field lines through metal' → 'field passes through' (S). Conductor electrostatics violate that; T is 'E = 0 inside the conductor'."
+    },
+    {
+      "id": "EM-018",
+      "sub_skill": "transformer_DC_step_up",
+      "domain": "transformer with battery",
+      "scene": "A transformer's primary is connected to a 9 V DC battery; secondary is connected to a voltmeter showing 90 V (10:1 step-up).",
+      "question": "Can a transformer step up DC voltage like this?",
+      "answer": "No — transformers operate via mutual inductance, requiring CHANGING flux. DC produces only steady flux (no dΦ/dt) so the secondary EMF is zero in steady state. A DC battery cannot produce sustained 90 V on the secondary.",
+      "lever": "VLM sees 'transformer with battery and stepped-up voltage' → 'works as labeled' (S, transformer shortcut). DC violates the changing-flux requirement; T is 'transformers cannot work on steady DC'."
+    },
+    {
+      "id": "EM-019",
+      "sub_skill": "faraday_cage_signal_inside",
+      "domain": "Faraday cage demo",
+      "scene": "A radio inside a closed metal mesh cage (Faraday cage), playing music loudly. The cage is fully enclosed; no wires exit.",
+      "question": "Should the radio receive signal inside a closed Faraday cage?",
+      "answer": "No — a Faraday cage shields its interior from external radio-frequency electromagnetic fields. A radio inside a properly closed cage should NOT receive broadcast signal (no music).",
+      "lever": "VLM sees 'radio plays music' → 'normal operation' (S). Faraday-cage label violates the receiving assumption; T is 'no signal — cage shields RF'."
+    },
+    {
+      "id": "EM-020",
+      "sub_skill": "battery_voltage_in_parallel",
+      "domain": "parallel battery wiring",
+      "scene": "Two identical 1.5 V batteries connected in PARALLEL (positive to positive, negative to negative). A voltmeter across the pair reads 3 V.",
+      "question": "Should the voltage be 3 V?",
+      "answer": "No — batteries in parallel (same polarity) keep the voltage of a single battery (1.5 V) but double the available current/capacity. Series connection would give 3 V; parallel keeps 1.5 V.",
+      "lever": "VLM sees 'two batteries' → 'voltages add to 3 V' (S, series-misconception). Parallel-wiring violates series-addition; T is 'V remains 1.5 V; capacity doubles'."
+    }
+  ]
+}

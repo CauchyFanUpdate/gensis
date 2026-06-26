@@ -1,0 +1,276 @@
+{
+  "family_id": "MAGIC",
+  "family_name": "Multi-step Magic Rule Deduction",
+  "seeds": [
+    {
+      "id": "MAGIC-001",
+      "sub_skill": "spell_color_rule_violation",
+      "domain": "wizard_duel",
+      "scene": "A wizard's tournament. A large stone tablet at the top of the image lists 4 rules: '① Fire spells must produce BLUE flames. ② Ice spells must produce WHITE mist. ③ Lightning spells must produce PURPLE arcs. ④ Healing spells must produce GREEN sparkles.' Below the tablet, 5 wizards labeled W1–W5 cast spells whose visible effects are: W1=blue flames, W2=red flames, W3=white mist, W4=purple arcs, W5=yellow sparkles.",
+      "question": "Based on the image and the rules tablet, which wizard(s) are casting spells whose visible effect VIOLATES the stated rules?",
+      "answer": "W2 (fire produced red instead of blue) and W5 (sparkles are yellow, not green for healing — and yellow is not on the rule list at all, so it must be a violation regardless)",
+      "lever": "Multi-rule check; multiple violations possible; requires looking at each spell and matching to rule."
+    },
+    {
+      "id": "MAGIC-002",
+      "sub_skill": "alchemy_recipe_inventory",
+      "domain": "alchemy_workshop",
+      "scene": "An alchemist's workshop. A blackboard reads: '① 3 RED + 1 BLUE → 1 PURPLE. ② 2 PURPLE + 1 YELLOW → 1 BLACK.' On the workbench at the end of the day are: 4 RED bottles, 2 BLUE bottles, 1 YELLOW bottle, 0 PURPLE bottles, 1 BLACK bottle.",
+      "question": "Based strictly on the image (initial supplies + blackboard rules + remaining inventory), how many bottles of EACH starting color (red, blue, yellow) did the alchemist have at the START of the day?",
+      "answer": "Red 10, Blue 4, Yellow 2 — to produce 1 black requires 2 purple + 1 yellow; 2 purple requires 6 red + 2 blue. So used: 6 red + 2 blue + 1 yellow. Remaining: 4 red + 2 blue + 1 yellow + 0 purple + 1 black. Initial = remaining + used (and recover the consumed materials, accounting for the products): start red = 4 + 6 = 10, blue = 2 + 2 = 4, yellow = 1 + 1 = 2",
+      "lever": "Inverse chained-recipe arithmetic; multi-step inference from final state."
+    },
+    {
+      "id": "MAGIC-003",
+      "sub_skill": "rune_charge_minimum",
+      "domain": "runic_enchantment",
+      "scene": "A runic enchantment chamber. A wall plaque states: '⛤ Crystal capacities: DRAGON-CRYSTAL = 4 charges; MOON-STONE = 7 charges; STAR-SAND = 1 charge.' A staff in the center displays exactly 18 charges of glow on its meter.",
+      "question": "Based on the image, what is the MINIMUM number of crystals (any combination of types) that must be embedded in the staff to total exactly 18 charges?",
+      "answer": "3 — the unique minimum-count combination is 1 dragon-crystal (4) + 2 moon-stones (14) = 18 charges using 3 crystals. (Other 3-crystal solutions don't sum to 18; 4+ crystal combos exist but aren't minimum.)",
+      "lever": "Minimum-sum integer combination subject to charge total."
+    },
+    {
+      "id": "MAGIC-004",
+      "sub_skill": "elemental_circle_winner",
+      "domain": "elemental_arena",
+      "scene": "An elemental combat arena. Around the rim is engraved an elemental cycle: 'FIRE → AIR → EARTH → WATER → FIRE (each beats the next)'. Five mages enter, labeled M1–M5. Each carries an emblem showing their element: M1=Fire, M2=Earth, M3=Water, M4=Fire, M5=Air. They fight pair-wise in the order M1 vs M2, then winner vs M3, then winner vs M4, then winner vs M5.",
+      "question": "Based on the image (rules + emblems + fight order), who is the final winner?",
+      "answer": "Cannot be uniquely determined — the stated cycle (Fire→Air→Earth→Water→Fire) only defines outcomes for adjacent pairs; the very first matchup M1(Fire) vs M2(Earth) is non-adjacent and the rule is silent on it.",
+      "lever": "Requires detecting under-specified rules; tests honesty rather than guessing."
+    },
+    {
+      "id": "MAGIC-005",
+      "sub_skill": "potion_color_mixing_rule",
+      "domain": "potion_lab",
+      "scene": "A potion lab. A scroll lists: '① RED + BLUE = PURPLE. ② BLUE + YELLOW = GREEN. ③ RED + YELLOW = ORANGE. ④ Mix all three (R+B+Y) = BROWN.' On a tray are 4 finished bottles labeled by their (visible) color: P1=PURPLE, P2=BROWN, P3=GREEN, P4=ORANGE.",
+      "question": "Based on the image, what total set of single-color base ingredients (red, blue, yellow) were used across ALL four potions?",
+      "answer": "Red used in P1, P2, P4 → 3 reds. Blue used in P1, P2, P3 → 3 blues. Yellow used in P2, P3, P4 → 3 yellows. Total: 3 red + 3 blue + 3 yellow = 9 base ingredients",
+      "lever": "Sum across multiple recipe applications."
+    },
+    {
+      "id": "MAGIC-006",
+      "sub_skill": "spell_chain_outcome",
+      "domain": "wizard_chamber",
+      "scene": "A wizard's spell-chain chamber. A blackboard shows: '① If a target is WET, then a LIGHTNING spell stuns it. ② If a target is FROZEN, then a FIRE spell shatters it. ③ Water sprayed on a target makes it WET. ④ A FROST spell freezes a WET target.' A scene below: a stone golem has just been sprayed with water (visibly wet) and a wizard is gathering a FROST spell with hands glowing blue.",
+      "question": "Based on the image and the chained rules, what is the next-step state of the golem and what spell would then SHATTER it?",
+      "answer": "The wet golem will become FROZEN once the FROST spell is cast (rule ④). A subsequent FIRE spell will then shatter it (rule ②).",
+      "lever": "Two-step rule chain ending in a question about the third step."
+    },
+    {
+      "id": "MAGIC-007",
+      "sub_skill": "summoning_circle_count",
+      "domain": "summoning_pentagram",
+      "scene": "A summoning circle. A scroll states: 'Each demon summoning consumes 3 candles, 1 chalk-pentagram, and 2 hours of moon-time. The room can hold at most 12 candles in stock and 4 chalk pentagrams pre-drawn.'. The room shows: 12 candles in racks, 4 chalk pentagrams pre-drawn, and a moon-dial displaying 6 hours of remaining moon-time tonight.",
+      "question": "Based on the image, what is the maximum number of demons the wizard can summon TONIGHT before any resource runs out?",
+      "answer": "3 — bottleneck analysis: candles allow 12/3 = 4, pentagrams allow 4/1 = 4, but moon-time allows only 6/2 = 3. Min(4, 4, 3) = 3.",
+      "lever": "Bottleneck reasoning across multiple constrained resources."
+    },
+    {
+      "id": "MAGIC-008",
+      "sub_skill": "color_wheel_chain",
+      "domain": "color_magic",
+      "scene": "A magic-color wheel. A plaque: '① RED + BLUE = PURPLE. ② PURPLE + WHITE = LAVENDER. ③ LAVENDER + GOLD = ROYAL.' A goal banner reads: 'Produce ROYAL.' A pantry shows current stock: 2 RED, 2 BLUE, 1 WHITE, 1 GOLD, 0 PURPLE, 0 LAVENDER, 0 ROYAL.",
+      "question": "Based on the image, can the wizard produce 1 ROYAL given the current stock? If yes, what stock remains AFTER producing exactly one ROYAL?",
+      "answer": "Yes. Use 1 RED + 1 BLUE → 1 PURPLE; then 1 PURPLE + 1 WHITE → 1 LAVENDER; then 1 LAVENDER + 1 GOLD → 1 ROYAL. Remaining stock: 1 RED, 1 BLUE, 0 WHITE, 0 GOLD, 0 PURPLE, 0 LAVENDER, 1 ROYAL.",
+      "lever": "Three-step recipe chain with stock accounting."
+    },
+    {
+      "id": "MAGIC-009",
+      "sub_skill": "wand_combo_lock",
+      "domain": "magic_door",
+      "scene": "A locked magical door. A chiseled inscription reads: 'To open, simultaneously cast: 1 FIRE + 1 ICE + 1 LIGHTNING.' Five wizards stand before the door, each ready to cast one spell. Their wand colors indicate spell type: red wand = fire, blue wand = ice, yellow wand = lightning, green wand = healing, white wand = none/inert. The wizards from left to right hold: red, white, blue, yellow, red.",
+      "question": "Based on the image, can the door be opened with these 5 wizards each casting their wand's spell, and if so which 3 wizards must cast (numbered 1–5 from left to right)?",
+      "answer": "Yes — wizard 1 (red/fire) OR wizard 5 (red/fire), wizard 3 (blue/ice), wizard 4 (yellow/lightning). Either {1,3,4} or {3,4,5} works.",
+      "lever": "Constraint satisfaction: pick a subset of agents matching exact required-types multiset."
+    },
+    {
+      "id": "MAGIC-010",
+      "sub_skill": "transformation_sequence",
+      "domain": "transmutation_chamber",
+      "scene": "A transmutation chamber. A stone tablet reads: '① TIN + heat → COPPER. ② COPPER + heat → SILVER. ③ SILVER + heat → GOLD.' A pile on the floor begins as TIN. The wizard applies heat 4 times in succession.",
+      "question": "Based on the image, what does the pile become after 4 heat applications?",
+      "answer": "GOLD — after 1: copper; after 2: silver; after 3: gold; after 4: gold (no rule transforms gold further, so it stays gold).",
+      "lever": "Iterated rule application with a fixed point."
+    },
+    {
+      "id": "MAGIC-011",
+      "sub_skill": "magic_circuit_logic",
+      "domain": "rune_circuit",
+      "scene": "A rune circuit etched on a stone. Three input runes (A, B, C) connect to a central rune that lights up only if AT LEAST TWO inputs glow. Below it, an inscription reads: 'A glows when sun is up. B glows when moon is up. C glows when stars are visible.' The current scene shows: SUN visible, MOON visible, STARS NOT visible (it is dawn).",
+      "question": "Based on the image, does the central rune light up?",
+      "answer": "Yes — A glows (sun up), B glows (moon up), C dark (no stars). Two inputs glow ≥ 2, so the central rune lights up.",
+      "lever": "Logical voting / threshold gate from observed inputs."
+    },
+    {
+      "id": "MAGIC-012",
+      "sub_skill": "elemental_immunity_chart",
+      "domain": "elemental_combat_chart",
+      "scene": "A combat chart pinned to a wall: 'FIRE creatures are IMMUNE to FIRE; WATER creatures are IMMUNE to ICE; EARTH creatures are IMMUNE to LIGHTNING; AIR creatures are IMMUNE to NOTHING.' Below the chart, four creatures are shown labeled by element: C1=fire, C2=water, C3=earth, C4=air. A wizard prepares to cast a single spell that hits all four. He chooses: LIGHTNING.",
+      "question": "Based on the image, which of the four creatures take damage from the wizard's lightning spell?",
+      "answer": "C1 (fire), C2 (water), and C4 (air) take damage. C3 (earth) is immune to lightning.",
+      "lever": "Apply immunity table across multiple targets."
+    },
+    {
+      "id": "MAGIC-013",
+      "sub_skill": "potion_brew_time",
+      "domain": "brewing_schedule",
+      "scene": "A brewing chart on a wooden board: 'GREEN potion: 2 hours. RED potion: 3 hours. BLUE potion: 5 hours. Cauldron can brew only ONE at a time.' A clock on the wall shows the current time as 9:00 AM. The wizard's order list shows: 1 green, 1 red, 1 blue (in that order).",
+      "question": "Based on the image, at what clock time will the LAST potion (blue) be ready, if brewed strictly in the listed order?",
+      "answer": "7:00 PM — green finishes at 11:00 AM, red at 2:00 PM, blue at 7:00 PM (9 + 2 + 3 + 5 = 19h = 7:00 PM).",
+      "lever": "Sequential scheduling with arithmetic on times."
+    },
+    {
+      "id": "MAGIC-014",
+      "sub_skill": "spellbook_page_decode",
+      "domain": "spell_lookup",
+      "scene": "An open spellbook. The left page shows an INDEX: 'FIREBALL — page 12; BLIZZARD — page 17; HEAL — page 23; TELEPORT — page 31.' The right page is page 17 (visible page number). The visible page describes: 'Cast with 3 ice shards and 1 wand of frost.' Around the wizard, his ingredient pouches show: 5 ice shards, 1 frost wand, 1 fire ruby.",
+      "question": "Based on the image, which spell is the wizard preparing to cast, and is he able to cast it with his current ingredients?",
+      "answer": "The visible page is page 17 (BLIZZARD per the index). Required: 3 ice shards + 1 frost wand. He has 5 ice shards + 1 frost wand → yes, he can cast it (with 2 ice shards left over).",
+      "lever": "Index lookup + ingredient check."
+    },
+    {
+      "id": "MAGIC-015",
+      "sub_skill": "rune_priority_resolution",
+      "domain": "magic_engine",
+      "scene": "A magic engine room. A control plaque states: 'When multiple runes glow simultaneously, only the HIGHEST-PRIORITY one takes effect. Priority order (highest first): RED > BLUE > GREEN > YELLOW.' The current panel shows: BLUE glowing, GREEN glowing, YELLOW glowing, RED dark.",
+      "question": "Based on the image, which rune's effect is currently active?",
+      "answer": "BLUE — RED is dark, BLUE is the highest-priority glowing rune.",
+      "lever": "Priority-resolution among multiple active inputs."
+    },
+    {
+      "id": "MAGIC-016",
+      "sub_skill": "summoning_resource_planning",
+      "domain": "ritual_planning",
+      "scene": "A planning board reads: 'To summon GIANT: 5 candles, 1 ruby. To summon DRAGON: 8 candles, 2 rubies. To summon ANGEL: 3 candles, 1 ruby + 1 pearl.' Inventory in chests shown below: 16 candles, 3 rubies, 1 pearl. The wizard wants to summon ONE giant + ONE angel + as many dragons as possible.",
+      "question": "Based on the image, given that the giant + angel summons happen first, how many dragons can additionally be summoned?",
+      "answer": "0 dragons — after Giant (5 candles + 1 ruby) and Angel (3 candles + 1 ruby + 1 pearl), only 8 candles + 1 ruby + 0 pearls remain. Each dragon needs 2 rubies; only 1 left → cannot summon any.",
+      "lever": "Resource bottleneck analysis after fixed prior commitments."
+    },
+    {
+      "id": "MAGIC-017",
+      "sub_skill": "summoning_chain_step_count",
+      "domain": "ritual_chain",
+      "scene": "A ritual chart on a tablet: 'Step A produces 2 imps. Each pair of imps can perform Step B which produces 1 demon. Each demon can perform Step C which produces 1 archfiend.' The wizard wants 1 archfiend.",
+      "question": "Based on the image, what is the MINIMUM total number of steps (A + B + C) the wizard must perform to obtain 1 archfiend?",
+      "answer": "3 steps total — 1 step A → 2 imps; 1 step B → 1 demon; 1 step C → 1 archfiend. Total = 1+1+1 = 3 steps.",
+      "lever": "Multi-step chain inference; minimum-steps reasoning."
+    },
+    {
+      "id": "MAGIC-018",
+      "sub_skill": "magic_array_count_glow",
+      "domain": "magic_grid",
+      "scene": "A 4×4 grid of runic stones embedded in a floor. A scroll explains: 'A stone glows ONLY IF the row index + column index is EVEN (using 1-indexed positions).' The grid shows current state: stones glow at positions (1,1), (1,3), (2,2), (2,4), (3,1), (3,3), (4,2), (4,4) — 8 stones glowing.",
+      "question": "Based on the image, does the depicted glow pattern match the rule? If yes, how many stones glow?",
+      "answer": "Yes, the pattern matches the rule. Stones with row+col even: row 1: cols 1,3 → 2 stones; row 2: cols 2,4 → 2; row 3: cols 1,3 → 2; row 4: cols 2,4 → 2. Total = 8 stones, matching the depicted state.",
+      "lever": "Verify image against parity rule + count."
+    },
+    {
+      "id": "MAGIC-019",
+      "sub_skill": "stack_resolution_cards",
+      "domain": "card_resolution",
+      "scene": "A magic-card stack. A rule banner: 'Cards resolve LAST-IN-FIRST-OUT.' The stack from bottom to top shows: ① Heal 3 HP, ② Burn 2 HP, ③ Shield (negates next damage), ④ Burn 4 HP. The target starts at 10 HP.",
+      "question": "Based on the image, after all cards resolve, what is the target's HP?",
+      "answer": "9 HP — Resolution top→bottom: ④ Burn 4 → target -4 = 6 HP. ③ Shield activates and would negate the NEXT damage. ② Burn 2 → negated by shield. ① Heal 3 → 6+3 = 9 HP. (If shield negates resolution-order next, it negates ② Burn 2 since after ④ resolves, shield is on the stack top-to-bottom 'next' is ②.)",
+      "lever": "LIFO stack resolution with state-affecting cards."
+    },
+    {
+      "id": "MAGIC-020",
+      "sub_skill": "ingredient_minimum_buy",
+      "domain": "potion_shopping",
+      "scene": "A shopping list and price board. The board reads: 'Healing potion recipe: 2 mandrake + 3 lotus petals + 1 dragon scale. Mandrake costs 5 gold each; lotus petal costs 2 gold each; dragon scale costs 20 gold each.' The list says the wizard needs to brew exactly 4 healing potions. He currently has 3 mandrake, 6 lotus petals, 2 dragon scales.",
+      "question": "Based on the image, how much gold must the wizard spend to buy the missing ingredients to brew 4 potions?",
+      "answer": "77 gold — needs 8 mandrake (have 3, buy 5 × 5g = 25g) + 12 lotus (have 6, buy 6 × 2g = 12g) + 4 dragon scales (have 2, buy 2 × 20g = 40g). Total = 25 + 12 + 40 = 77 gold.",
+      "lever": "Inventory-shortage cost calculation."
+    },
+    {
+      "id": "MAGIC-021",
+      "sub_skill": "spell_phase_dependency",
+      "domain": "moon_phases",
+      "scene": "A wizard's tower window shows the current moon as a HALF MOON. A spell schedule on the wall reads: 'GROWTH spell needs WAXING moon; HARVEST spell needs FULL moon; DREAM spell needs WANING moon; ECLIPSE spell needs NEW moon.' Below, a calendar marks today as the night BEFORE the full moon.",
+      "question": "Based on the image (current moon + calendar context), which of the four spells can the wizard cast TONIGHT?",
+      "answer": "GROWTH — the moon is half and waxing toward full (calendar says tomorrow is full). Therefore the moon is currently waxing, satisfying GROWTH spell's requirement. The other three need different phases.",
+      "lever": "Combine current visual state + temporal context to pick valid spell."
+    },
+    {
+      "id": "MAGIC-022",
+      "sub_skill": "spell_target_filter",
+      "domain": "battle_targeting",
+      "scene": "A battle scene. A scroll on the ground states: 'POISON-CLOUD: damages all UNDEAD and BEAST creatures within range; does not affect HUMAN or DEMON.' Within the depicted spell-circle stand 6 creatures, each labeled by type: T1=undead, T2=human, T3=beast, T4=demon, T5=undead, T6=beast.",
+      "question": "Based on the image and the rule, how many of the 6 creatures take damage?",
+      "answer": "4 — T1 (undead), T3 (beast), T5 (undead), T6 (beast) take damage; T2 (human) and T4 (demon) do not.",
+      "lever": "Selective application of an effect by type filter."
+    },
+    {
+      "id": "MAGIC-023",
+      "sub_skill": "rune_xor_lock",
+      "domain": "magic_lock",
+      "scene": "A 3-rune door lock. A plaque reads: 'The lock opens only when EXACTLY ONE rune glows.' The current state shows: rune A glowing, rune B dark, rune C glowing.",
+      "question": "Based on the image, is the lock currently OPEN? If not, what must change?",
+      "answer": "No, the lock is closed (2 runes glow, not exactly 1). To open, exactly one of A or C must be turned off (or both off and B turned on).",
+      "lever": "Cardinality-constraint check + state-correction reasoning."
+    },
+    {
+      "id": "MAGIC-024",
+      "sub_skill": "weather_spell_combination",
+      "domain": "weather_magic",
+      "scene": "A weather-magic codex page: 'WIND + COLD = SNOW. WIND + HEAT = SANDSTORM. RAIN + COLD = HAIL. RAIN + HEAT = STEAM.' A wizard channels two simultaneous spells: his left hand glows BLUE (cold) and his right hand glows GREY-BLUE (rain).",
+      "question": "Based on the image, what weather phenomenon does the wizard produce?",
+      "answer": "HAIL — the combination is RAIN + COLD.",
+      "lever": "2D rule lookup from visual hand-color cues."
+    },
+    {
+      "id": "MAGIC-025",
+      "sub_skill": "alchemy_purity_pyramid",
+      "domain": "alchemy_purity",
+      "scene": "An alchemical pyramid diagram: bottom level = LEAD, middle = SILVER, top = GOLD. Inscribed rule: 'Two LEAD ingots fuse into one SILVER ingot. Two SILVER ingots fuse into one GOLD ingot.' Workshop floor shows 9 LEAD ingots.",
+      "question": "Based on the image, what is the maximum number of GOLD ingots that can be produced from 9 lead ingots, and how many lead remain unused?",
+      "answer": "2 GOLD with 1 LEAD unused — 9 lead → 4 silver + 1 lead leftover (8 lead used to make 4 silver; 1 lead leftover); 4 silver → 2 gold (all silver used). Final: 2 gold + 1 leftover lead.",
+      "lever": "Two-step pairwise fusion with leftover accounting."
+    },
+    {
+      "id": "MAGIC-026",
+      "sub_skill": "spell_line_aoe",
+      "domain": "battlefield_grid",
+      "scene": "A battlefield drawn as a 5×5 grid of squares. The wizard at column 1 prepares to cast LIGHTNING-LINE which, per the scroll: 'Travels in a straight line eastward and damages every enemy in the row UNLESS a STONE-WALL square stops it. The line stops at and does not pass a stone wall.' Row 3 (the wizard's row) contains, west to east: wizard at column 1, enemy at column 2, enemy at column 3, STONE-WALL at column 4, enemy at column 5.",
+      "question": "Based on the image, how many enemies in row 3 take damage from the lightning line?",
+      "answer": "2 — the line travels east from column 1, hits enemies at columns 2 and 3, then is stopped by the stone wall at column 4. Enemy at column 5 is shielded.",
+      "lever": "Line-of-effect with obstacle interaction."
+    },
+    {
+      "id": "MAGIC-027",
+      "sub_skill": "elemental_chain_failure",
+      "domain": "ritual_failure",
+      "scene": "A ritual circle with 5 candles arranged in a pentagram. A scroll reads: 'The ritual succeeds ONLY IF all 5 candles burn the same color simultaneously.' The current state shows: 4 candles burning RED, 1 candle (top vertex) burning ORANGE.",
+      "question": "Based on the image and the rule, does the ritual succeed?",
+      "answer": "No — one candle (top vertex) burns orange while the others burn red, so the 'same color' condition fails.",
+      "lever": "All-must-match rule check."
+    },
+    {
+      "id": "MAGIC-028",
+      "sub_skill": "spell_distance_check",
+      "domain": "range_combat",
+      "scene": "A grid battlefield with labeled distances. A wand-rule plaque states: 'FIREBOLT range = 3 squares. CHAIN-LIGHTNING range = 5 squares. METEOR range = 7 squares.' The wizard stands on square A. Three enemies stand at distances (in squares from A): E1 at 2, E2 at 4, E3 at 6.',",
+      "question": "Based on the image, what is the smallest-range spell that can hit ALL three enemies?",
+      "answer": "METEOR — range 7 covers all three (max distance is 6). Chain-lightning (range 5) misses E3 at distance 6. Firebolt (range 3) misses E2 and E3.",
+      "lever": "Range coverage comparison."
+    },
+    {
+      "id": "MAGIC-029",
+      "sub_skill": "multi_cast_resource_burnout",
+      "domain": "mana_management",
+      "scene": "A mana counter beside the wizard reads '20 mana'. A spell list: 'FIREBALL costs 5 mana. SHIELD costs 3 mana. HEAL costs 4 mana.' The wizard plans this exact sequence: FIREBALL, SHIELD, FIREBALL, HEAL, FIREBALL.",
+      "question": "Based on the image, can the wizard complete the planned sequence? If not, which spell number first fails (1=first FIREBALL, etc.) and how much mana does he have at that point?",
+      "answer": "He fails at spell #5 (the third FIREBALL). After 1: 20-5=15. After 2: 15-3=12. After 3: 12-5=7. After 4: 7-4=3. Spell 5 needs 5 mana, but only 3 left → fails. He has 3 mana when attempting spell #5.",
+      "lever": "Sequential resource-consumption tracking."
+    },
+    {
+      "id": "MAGIC-030",
+      "sub_skill": "summoning_attribute_consistency",
+      "domain": "demon_summoning_rules",
+      "scene": "A summoning rulebook page: 'A summoned demon's HORN-COUNT must equal its TIER. Tier-1 demons have 1 horn; tier-2 demons have 2 horns; tier-3 demons have 3 horns. A summoning circle's RUNE-COUNT must equal the tier of the demon being summoned.' In the image, a 4-rune circle has just summoned a demon visibly displaying 3 horns.",
+      "question": "Based on the image, does the summoning satisfy ALL rules? If not, which rule is violated?",
+      "answer": "No — the circle has 4 runes (implying tier 4 attempted) but the summoned demon has 3 horns (implying tier 3). The horn-count and rune-count do not match each other (tier inconsistency). The horn=tier rule and rune=tier rule cannot both be satisfied with these counts.",
+      "lever": "Cross-rule consistency check between two rule applications."
+    }
+  ]
+}

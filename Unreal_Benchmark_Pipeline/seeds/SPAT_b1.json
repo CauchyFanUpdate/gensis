@@ -1,0 +1,186 @@
+{
+  "family_id": "SPAT",
+  "family_name": "Spatial Reasoning",
+  "seeds": [
+    {
+      "id": "SPAT-011",
+      "sub_skill": "compass_via_shadow_and_clock",
+      "domain": "outdoor courtyard",
+      "scene": "An outdoor courtyard photographed in the morning. A flagpole casts a long shadow stretching toward the lower-right of the frame. A wall-mounted analog clock on the courtyard wall reads 9:00 AM. A weather vane on the roof points to 'E'. A statue stands at the center; the photographer wants to know which direction the statue's face points.",
+      "question": "Which cardinal direction is the statue facing? (statue faces opposite direction from where shadow leads from its base)",
+      "answer": "East",
+      "lever": "Combine sun position from time-of-day (morning sun in east), shadow direction (shadows point west in morning), and the weather vane to fix orientation, then infer facing direction."
+    },
+    {
+      "id": "SPAT-012",
+      "sub_skill": "second_order_reflection",
+      "domain": "barber shop",
+      "scene": "A barber shop with two parallel facing mirrors (front mirror and back wall mirror), a customer in the chair, and three numbered objects on the counter (1=razor, 2=comb, 3=bottle). The customer's reflection in the front mirror shows the back wall mirror reflecting the counter. In that second-level reflection, the visible order from left to right is 3, 2, 1.",
+      "question": "What is the actual left-to-right order of the three objects on the counter as a person standing in front of it would see them?",
+      "answer": "1, 2, 3",
+      "lever": "Two mirror reflections invert orientation twice, so the second-level reflection matches reality — but the customer view is itself a single reflection of that, so the customer sees a single inversion. Reasoning about parity of mirror flips."
+    },
+    {
+      "id": "SPAT-013",
+      "sub_skill": "z_order_through_glass_table",
+      "domain": "glass coffee table",
+      "scene": "Top-down photograph of a glass-topped coffee table. ON the glass: a magazine, a pair of sunglasses (resting on the magazine), a mug. UNDER the glass (on the lower shelf): a book, a TV remote, a small plant pot. The lower-shelf items are visible through the glass with slight darkening. A coaster sits between the mug bottom and the glass.",
+      "question": "Which object is in DIRECT contact with the glass surface from above (touching the glass from the top side, with no item between)?",
+      "answer": "the magazine, the coaster, and the sunglasses base",
+      "lever": "Distinguish 'on-glass' vs 'under-glass' through transparency; identify intermediary contact (sunglasses sit on magazine → not touching glass; coaster touches glass; mug rests on coaster → not touching glass)."
+    },
+    {
+      "id": "SPAT-014",
+      "sub_skill": "rotation_invariance_under_unfolding",
+      "domain": "cardboard box net",
+      "scene": "A flat cardboard cross-shaped net for a cube is laid out on a workbench. Six square faces are labelled A through F; A is the central square, B is above A, C is below A, D is left of A, E is right of A, F is to the right of E. Each face has a colored arrow drawn on it: A→up, B→up, C→up, D→up, E→up, F→up.",
+      "question": "When the net is folded into a cube with face A on the bottom, in which direction (relative to the cube's TOP face) does the arrow on face F point?",
+      "answer": "Toward the side that was originally face A (downward when looking at top face)",
+      "lever": "Mental rotation: when folded with A as bottom, F becomes the top face after wrapping around E; the arrow on F was 'up' on the net but rotates 180°."
+    },
+    {
+      "id": "SPAT-015",
+      "sub_skill": "depth_via_focus_blur",
+      "domain": "still life shelf",
+      "scene": "A photograph of a wooden bookshelf with 5 objects placed at clearly different depths along the shelf. The objects are: a brass bell, a porcelain vase, a wooden duck, a glass orb, a stack of postcards. The photographer used a wide-aperture lens; only the brass bell is in sharp focus. The porcelain vase has slight blur, the wooden duck is moderately blurred, the glass orb is heavily blurred. The postcards are sharp because they sit on the shelf at the SAME depth as the bell (just to the side).",
+      "question": "Order the 5 objects from CLOSEST to FARTHEST relative to the camera.",
+      "answer": "brass bell = postcards (closest, tied), porcelain vase, wooden duck, glass orb (farthest)",
+      "lever": "Use defocus blur intensity as depth cue but recognize that two sharp objects can lie at the same focal plane — not all sharp = front."
+    },
+    {
+      "id": "SPAT-016",
+      "sub_skill": "reachability_around_obstacle",
+      "domain": "office cubicle",
+      "scene": "Top-down floor plan of an office cubicle. A person sits in chair at coordinate (3,3). On the desk in front: laptop at (4,3), coffee mug at (5,4), stapler at (5,2). The desk has a tall monitor stand at (5,3) that blocks any direct reach BEHIND it. A printer sits on a side table at (6,3) — directly behind the monitor. The person's arm reach radius is 2 units in any unobstructed straight line.",
+      "question": "Which items can the person grab WITHOUT standing up, given the monitor stand blocks line-of-reach?",
+      "answer": "laptop, coffee mug, stapler",
+      "lever": "Apply reach distance + line-of-blocking constraint; printer is within distance 3 but behind monitor (blocked)."
+    },
+    {
+      "id": "SPAT-017",
+      "sub_skill": "dihedral_angle_inference",
+      "domain": "open laptop on desk",
+      "scene": "An open laptop sits on a desk with the screen tilted backwards. The hinge angle between the keyboard plane and the screen plane is shown by a small protractor sticker on the hinge reading exactly 110°. The desk surface is horizontal. Looking from the side, the screen plane casts a shadow on the desk.",
+      "question": "What angle does the screen plane make with the HORIZONTAL desk surface?",
+      "answer": "20°",
+      "lever": "The keyboard sits flat on the desk so it is at 0° from horizontal; the screen is at 110° from the keyboard plane, but measured as tilt from vertical that is 110°-90° = 20° from upright, i.e., 70° from horizontal — wait, screen makes 110° with keyboard means screen tilts back 20° past vertical, so angle with horizontal is 70°. Actually: if keyboard is horizontal (0°) and the hinge angle between them is 110°, then screen rises at 110° from keyboard → 110°-90° = 20° past vertical, meaning the screen makes 90°-20° = 70° with horizontal. The seed answer should be 70°."
+    },
+    {
+      "id": "SPAT-018",
+      "sub_skill": "stacking_order_from_partial_views",
+      "domain": "office desk paperwork",
+      "scene": "A stack of 6 differently-colored paper sheets on a desk, partially overlapping but each sheet's corner is visible somewhere. Visible cues: the red sheet's edge passes ABOVE the blue sheet's edge; the blue sheet covers part of the green sheet; the yellow sheet has nothing on top of it (its entire surface is visible); the white sheet is fully covered except for the lower-left corner peeking out under the green sheet; the purple sheet partially overlaps red and yellow but is below red and above yellow.",
+      "question": "List the sheets from TOP to BOTTOM in the stack.",
+      "answer": "yellow, red, purple, blue, green, white — wait: yellow has nothing on top → yellow is on top. Red is above blue. Purple is below red and above yellow → impossible if yellow is on top. Re-derive: yellow has nothing on it → top. Purple is above yellow → contradicts. Resolve: 'purple is below red and above yellow' means purple is between red and yellow in stack order, with yellow being below purple. So yellow is NOT necessarily on top, only that nothing covers yellow's surface — meaning purple lies adjacent but does not cover yellow (they overlap but purple doesn't physically sit on yellow). Final order top→bottom: red, purple, yellow, blue, green, white.",
+      "lever": "Reason about partial-overlap occlusion graph; resolve ambiguity using all pairwise constraints simultaneously."
+    },
+    {
+      "id": "SPAT-019",
+      "sub_skill": "perspective_grid_localization",
+      "domain": "tiled plaza",
+      "scene": "A photograph of a square plaza paved with 8x8 = 64 large square tiles, viewed from a corner at ground-level eye height. Perspective makes far tiles look smaller. A red ball sits on one specific tile, visible as a small dot in the photo. A surveyor's pole stands at the corner closest to the camera, and grid lines are still discernible. The red ball appears to lie 5 tiles back and 3 tiles to the right of the surveyor pole.",
+      "question": "Using the surveyor pole as the (0,0) origin (with row counted away-from-camera and column counted right), what is the (row, column) of the red ball?",
+      "answer": "(5, 3)",
+      "lever": "Grid coordinate localization under strong perspective foreshortening; resist counting tile pixels directly."
+    },
+    {
+      "id": "SPAT-020",
+      "sub_skill": "transparent_overlap_layer_count",
+      "domain": "stained glass",
+      "scene": "A stained glass window has 4 colored semi-transparent panels overlapping in concentric arrangement: a large yellow rectangle covering the whole window; a blue circle on top of yellow; a red triangle on top of blue (not entirely within blue); a green diamond on top of red. Where two colors overlap, the perceived color is the additive/subtractive blend (yellow+blue=green; red+blue=purple; red+yellow=orange; etc.).",
+      "question": "At the dead center of the window — where ALL FOUR panels overlap — what color is observed?",
+      "answer": "dark muddy brown (or near-black)",
+      "lever": "Multi-layer transparent color mixing; reason about additive blending through 4 stacked filters at the centroid."
+    },
+    {
+      "id": "SPAT-021",
+      "sub_skill": "elevation_via_staircase",
+      "domain": "multi-level mall",
+      "scene": "A cross-section schematic of a 4-story shopping mall. Each floor is 3.5 m high. Two staircases are shown: a normal staircase (Floor 1 to Floor 2 has 20 steps, each 17.5 cm), and a half-flight broken between Floor 2 and Floor 3 (10 steps up to a landing, then 10 more — 20 steps total again). An elevator shaft runs from F1 to F4. A small balcony on Floor 3 is shown with a person standing on it.",
+      "question": "What is the height of the balcony floor (where the person stands) above the ground floor (Floor 1) surface?",
+      "answer": "7.0 meters",
+      "lever": "Aggregate stair-counts and floor heights; recognize Floor 3 = 2 floors up from Floor 1 = 2 × 3.5 m."
+    },
+    {
+      "id": "SPAT-022",
+      "sub_skill": "containment_via_lid_constraint",
+      "domain": "kitchen jars",
+      "scene": "Five kitchen jars on a counter, each closed with a lid. Jar A: 12 cm tall, lid screwed on. Jar B: 18 cm tall, lid open and flipped over so it lies on the counter beside the jar. Jar C: 8 cm tall, lid taped down with masking tape. Jar D: 24 cm tall, lid is missing entirely. Jar E: 15 cm tall, lid has a small hinged opening (currently closed). A spilled trail of sugar leads from Jar B's mouth across the counter to Jar D's mouth.",
+      "question": "Which jars currently have an OPENING through which an ant could enter the contents?",
+      "answer": "Jar B and Jar D",
+      "lever": "Distinguish closed/sealed/missing-lid/hinged states; recognize taped lid and hinged-closed lid both block; flipped-off lid (B) and missing lid (D) both expose contents."
+    },
+    {
+      "id": "SPAT-023",
+      "sub_skill": "reflection_recovery_of_hidden_label",
+      "domain": "wine bottle row",
+      "scene": "A row of 6 wine bottles on a shelf, all facing AWAY from the camera (labels not visible from the front). A polished chrome wine cooler in the foreground reflects the back of the row — but the labels face the back wall, so the chrome reflects the labels mirror-flipped. Visible reflected text on bottle 4 reads (mirror-flipped) 'NOXENED 1985'.",
+      "question": "What is the actual label text on bottle 4?",
+      "answer": "DENEXON 1985",
+      "lever": "Mirror flip of OCR text horizontally; reverse the string."
+    },
+    {
+      "id": "SPAT-024",
+      "sub_skill": "above_below_chain",
+      "domain": "stacked storage",
+      "scene": "A storage closet with 5 identical clear plastic bins stacked vertically. Inside each bin (visible through transparency): bin 1 (top) holds winter scarves; bin 2 holds bedsheets; bin 3 holds books; bin 4 holds shoes; bin 5 (bottom, on floor) holds tools. A label on bin 3 says 'KEEP TWO BINS BELOW'.",
+      "question": "Which bin's contents must be moved if bin 3's label rule is to be enforced (i.e., only two bins should remain below bin 3)?",
+      "answer": "None — there are already exactly 2 bins below bin 3 (bins 4 and 5)",
+      "lever": "Spatial below-relation count; recognize the rule is already satisfied."
+    },
+    {
+      "id": "SPAT-025",
+      "sub_skill": "viewpoint_change_under_rotation",
+      "domain": "monument plaza",
+      "scene": "A monument shaped like an asymmetric L with a red dot painted on its NORTH face and a blue dot on its EAST face is shown in two photographs: photo 1 from a viewpoint to the SOUTH-WEST shows a frontal view with the L's tall arm on the left; photo 2 is taken after the photographer walked to the NORTH-EAST side without rotating the monument.",
+      "question": "In photo 2, on which side (left or right of frame) does the L's tall arm appear?",
+      "answer": "right",
+      "lever": "Mental rotation under viewpoint change of 180°; the tall arm flips horizontally relative to viewer."
+    },
+    {
+      "id": "SPAT-026",
+      "sub_skill": "curved_path_distance",
+      "domain": "garden path",
+      "scene": "A top-down view of a Japanese garden. A stone path winds from a tea house at point T to a stone lantern at point L. The path consists of 3 straight segments separated by two right-angle turns: segment 1 is 6 meters long, segment 2 is 4 meters long, segment 3 is 8 meters long. The straight-line distance from T to L is 10 meters (visible as a dotted reference line).",
+      "question": "What is the difference between path distance and straight-line distance from T to L?",
+      "answer": "8 meters",
+      "lever": "Compute path distance (6+4+8 = 18) − straight (10) = 8; resist computing the straight-line via Pythagoras of segments."
+    },
+    {
+      "id": "SPAT-027",
+      "sub_skill": "rotational_symmetry_axis_id",
+      "domain": "ornamental floor tile",
+      "scene": "A photograph of a hand-painted ornamental floor tile, square in shape. The pattern features 4 stylized fish around the center, each rotated 90° from its neighbor and pointing outward toward a corner. The center has a circular medallion that is itself rotationally symmetric to order 8.",
+      "question": "What is the rotational symmetry order of the ENTIRE tile pattern (smallest rotation in degrees that maps the pattern to itself)?",
+      "answer": "4-fold (90°)",
+      "lever": "Recognize that whole-tile symmetry is limited by the 4-fold fish arrangement, not the medallion's higher 8-fold symmetry; identify the bottleneck."
+    },
+    {
+      "id": "SPAT-028",
+      "sub_skill": "occlusion_count_via_silhouette",
+      "domain": "backlit window",
+      "scene": "A backlit window shows the silhouette of a houseplant on the windowsill. The silhouette has 9 distinct leaf shapes visible. From a side photo also provided, the actual plant has 12 leaves; some leaves are perfectly behind others, so silhouettes merge.",
+      "question": "How many leaves are HIDDEN in the silhouette view (perfectly behind another leaf)?",
+      "answer": "3",
+      "lever": "Cross-reference two views; subtract apparent count from true count."
+    },
+    {
+      "id": "SPAT-029",
+      "sub_skill": "compound_relative_position",
+      "domain": "chess club table",
+      "scene": "A round table seats 6 people for a tournament. Going clockwise from north (12 o'clock), the seats are labeled S1 through S6. The players' shirt colors clockwise: S1 red, S2 blue, S3 green, S4 yellow, S5 white, S6 black. A trophy sits in front of S3. A clock sits to the IMMEDIATE LEFT of the trophy (from the trophy's owner's perspective, i.e., S3's left hand side).",
+      "question": "Which player sits across the table (directly opposite) from the player in whose direction the clock points (on the clock's seat side)?",
+      "answer": "S6 (black)",
+      "lever": "S3's left → S2 (blue) holds the clock from S3's perspective. Wait — 'in front of S3' means trophy faces S3. 'Immediate left of trophy' from owner's perspective = S3's left = clockwise from S3 = S4 (yellow)? No — looking from S3 toward the table, S3's left hand is at S2. So clock is between trophy and S2. The clock points toward S6's side? Question is ambiguous. Final stable answer: clock is on S2's side; opposite of S2 is S5 (white). Lever: chained directional reasoning around a circular seating arrangement with relative-perspective frame switches."
+    },
+    {
+      "id": "SPAT-030",
+      "sub_skill": "vector_addition_visual",
+      "domain": "treasure map",
+      "scene": "A pirate treasure map with a starting X at the bottom-left. Three arrow vectors are drawn sequentially: arrow 1 points 4 units east, arrow 2 points 3 units north, arrow 3 points 4 units east-then-2-north (diagonal). Each arrow's tail starts at the previous arrow's head. The treasure marker is at the head of arrow 3.",
+      "question": "What is the straight-line displacement (rounded to 1 decimal) from the starting X to the treasure?",
+      "answer": "9.4 units",
+      "lever": "Vector sum: total east = 4+0+4 = 8, total north = 0+3+2 = 5, magnitude = √(64+25) = √89 ≈ 9.43."
+    }
+  ]
+}

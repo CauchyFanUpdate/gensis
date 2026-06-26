@@ -1,0 +1,186 @@
+{
+  "family_id": "COMP",
+  "family_name": "Comparison & Matching",
+  "seeds": [
+    {
+      "id": "COMP-031",
+      "sub_skill": "twin_face_subtle_difference",
+      "domain": "twin portraits",
+      "scene": "Two near-identical portrait photos of identical twins side by side; differences only in eyebrow asymmetry, freckle count under the right eye, and earlobe attachment.",
+      "question": "How many distinct facial differences are visible between the twins?",
+      "answer": "3",
+      "lever": "Identify subtle pairwise face differences and count only the distinct categories, not occurrences."
+    },
+    {
+      "id": "COMP-032",
+      "sub_skill": "key_to_lock_matching_by_bitting",
+      "domain": "locksmith bench",
+      "scene": "Six keys in a row above six lock cylinders; each key shows its bitting profile, each cylinder shows its pin-pattern silhouette. Only one key's bitting matches each cylinder; some keys are decoys and match nothing.",
+      "question": "How many of the six keys actually match a lock on the bench?",
+      "answer": "4",
+      "lever": "Match key bitting heights to cylinder pin gaps; count valid matches, not just visually similar pairs."
+    },
+    {
+      "id": "COMP-033",
+      "sub_skill": "watch_movement_match",
+      "domain": "watch repair tray",
+      "scene": "Four watch dials side-by-side, each showing the seconds hand at a different position. A note: 'all four watches were set to the same time and started simultaneously 3 minutes ago — find the one that has stopped or is running fast.'",
+      "question": "Which dial shows the FAULTY watch?",
+      "answer": "the dial whose seconds-hand position is inconsistent with the others by more than allowed drift",
+      "lever": "Compare relative seconds-hand offset; identify the outlier vs the cluster."
+    },
+    {
+      "id": "COMP-034",
+      "sub_skill": "shoeprint_to_sole_matching",
+      "domain": "forensic pairing board",
+      "scene": "Top row shows 5 dirt shoeprints; bottom row shows 5 shoe soles in a different order. Each sole has a unique tread pattern (chevron, herringbone, lugged, smooth, hex grid).",
+      "question": "Which print pairs with the herringbone sole?",
+      "answer": "the print whose tread image shows the herringbone pattern",
+      "lever": "Match tread geometry between print impression and shoe sole, ignoring scale and orientation."
+    },
+    {
+      "id": "COMP-035",
+      "sub_skill": "shadow_to_object_matching",
+      "domain": "puppet show silhouettes",
+      "scene": "Top row: 6 cast shadows projected on a wall (rabbit, bird, dog, fish, hand, scissors). Bottom row: 6 candidate hand-puppet shapes in a different order.",
+      "question": "Which puppet casts the bird shadow?",
+      "answer": "the puppet whose silhouette geometry matches the bird shadow",
+      "lever": "Mentally project 3D hand shape onto 2D silhouette and match across rotation."
+    },
+    {
+      "id": "COMP-036",
+      "sub_skill": "screw_thread_pitch_match",
+      "domain": "hardware fastener tray",
+      "scene": "Six screws of similar diameter and four nuts of similar bore. Each screw and nut shows visible thread pitch (turns per cm). Pitches differ across the screws and nuts.",
+      "question": "How many screws have a matching nut on the tray?",
+      "answer": "varies by setup; compute by matching pitch within tolerance",
+      "lever": "Pair fasteners by thread pitch (and diameter), counting only tight matches."
+    },
+    {
+      "id": "COMP-037",
+      "sub_skill": "near_duplicate_image_pair",
+      "domain": "photo verification grid",
+      "scene": "A 3x3 grid of 9 nearly-identical product shots; eight are the same photo, one differs subtly (small price-tag color change, missing UPC bar, or off-by-one count).",
+      "question": "Which cell contains the OUTLIER, and what is the difference?",
+      "answer": "specify cell and the single difference",
+      "lever": "Cross-compare all cells and pinpoint the unique low-salience deviation."
+    },
+    {
+      "id": "COMP-038",
+      "sub_skill": "missing_puzzle_piece_match",
+      "domain": "jigsaw puzzle tray",
+      "scene": "An assembled jigsaw puzzle with one missing slot; below it sit 6 candidate pieces with similar tab/blank patterns and partial imagery.",
+      "question": "Which candidate piece fits the missing slot?",
+      "answer": "the piece whose tabs, blanks, and image continuation match",
+      "lever": "Match both interlock geometry AND image continuity; reject pieces with one but not both."
+    },
+    {
+      "id": "COMP-039",
+      "sub_skill": "x_ray_to_outline_match",
+      "domain": "luggage scan station",
+      "scene": "Top: 4 x-ray images of luggage interiors. Bottom: 4 outline silhouette diagrams of those luggages' exterior with object placements roughly indicated. Match each x-ray to its outline.",
+      "question": "Which outline corresponds to x-ray #2?",
+      "answer": "the outline whose object positions and shapes align with x-ray #2",
+      "lever": "Cross-modality matching: equate dense radiographic shapes with sparse outlined positions."
+    },
+    {
+      "id": "COMP-040",
+      "sub_skill": "fabric_swatch_lighting_match",
+      "domain": "interior design board",
+      "scene": "Top row: a sofa fabric photographed under cool LED lighting. Bottom row: 4 candidate fabric swatches photographed under warm tungsten lighting. The same physical fabric appears different under the two lights.",
+      "question": "Which candidate IS the same physical fabric as the sofa?",
+      "answer": "the swatch whose under-tungsten color is the warm-light-shifted version of the sofa color",
+      "lever": "Apply color-temperature correction mentally to compare across lighting conditions."
+    },
+    {
+      "id": "COMP-041",
+      "sub_skill": "handwriting_writer_attribution",
+      "domain": "handwriting comparison sheet",
+      "scene": "Top: 3 reference handwriting samples by writers W1, W2, W3 (each writing a paragraph). Bottom: 1 unknown short note. Letter-formation cues: slant, loop closure on 'g', 'a' style (round vs Greek), pen lift in 't'.",
+      "question": "Which writer most likely wrote the unknown note?",
+      "answer": "the writer whose letterform features match across all three cues",
+      "lever": "Multi-cue handwriting feature matching across slant, letter shape, pen mechanics."
+    },
+    {
+      "id": "COMP-042",
+      "sub_skill": "pill_id_against_chart",
+      "domain": "pharmacy ID chart",
+      "scene": "A reference chart of 10 pills (color, shape, imprint) and a tray of 4 unknown loose pills photographed beside it. Some unknowns match exactly; some have wrong imprint despite identical color/shape.",
+      "question": "How many unknowns appear on the reference chart?",
+      "answer": "count of full-attribute matches",
+      "lever": "Require simultaneous match on color + shape + imprint; lookalikes with wrong imprint do not count."
+    },
+    {
+      "id": "COMP-043",
+      "sub_skill": "leaf_to_tree_id",
+      "domain": "botany guide page",
+      "scene": "An open botany guide page lists 6 tree species with leaf silhouettes; beside the book lie 4 freshly-collected leaves photographed against a white sheet.",
+      "question": "Which collected leaf belongs to species 'Acer rubrum' as shown in the guide?",
+      "answer": "the leaf whose lobing and venation match Acer rubrum",
+      "lever": "Match leaf morphological features (lobe count, margin teeth, venation pattern) to taxonomic key."
+    },
+    {
+      "id": "COMP-044",
+      "sub_skill": "audio_waveform_to_speaker_match",
+      "domain": "speech-recognition lab printout",
+      "scene": "Top: 3 named speakers' reference voiceprints (waveform spectrograms). Bottom: 1 unknown clip's spectrogram. Differences in formant placement, pitch contour, and vibrato visible.",
+      "question": "Which speaker most likely produced the unknown clip?",
+      "answer": "the reference whose formant pattern best matches",
+      "lever": "Spectrogram pattern matching; reject high-pitch/low-pitch confusables based on formant location, not just intensity."
+    },
+    {
+      "id": "COMP-045",
+      "sub_skill": "broken_pottery_reassembly_match",
+      "domain": "archaeology lab table",
+      "scene": "Eight pottery shards on a table; 4 form one vessel, 4 form another. Each shard shows its curvature, glaze color, and edge pattern. Two vessels have similar but distinguishable glazes.",
+      "question": "How many shards belong to vessel A (the cream-glazed one)?",
+      "answer": "4",
+      "lever": "Group shards by glaze color and curvature, match edge patterns within group; reject crossover lookalikes."
+    },
+    {
+      "id": "COMP-046",
+      "sub_skill": "font_pair_match",
+      "domain": "typography sample sheet",
+      "scene": "Top: a poster set in two unidentified fonts. Bottom: 6 candidate font specimens labeled with names. Subtle differences: terminal shape on 'a', stroke contrast, x-height ratio.",
+      "question": "Which two named fonts were used on the poster?",
+      "answer": "names of the matching fonts based on letterform features",
+      "lever": "Identify fonts by detail features (terminals, contrast, joins) ignoring superficial size differences."
+    },
+    {
+      "id": "COMP-047",
+      "sub_skill": "egg_size_grade_match",
+      "domain": "egg grading station",
+      "scene": "Six eggs on a scale display, each with a measured weight tag. A reference card on the wall maps weight ranges to grades: Peewee, Small, Medium, Large, X-Large, Jumbo.",
+      "question": "How many eggs grade as LARGE per the chart?",
+      "answer": "count from cross-referencing weight to grade ranges",
+      "lever": "Read each weight, look up the grade row, count only Large; resist neighboring-grade lookalikes."
+    },
+    {
+      "id": "COMP-048",
+      "sub_skill": "before_after_subtle_change",
+      "domain": "medical imaging review",
+      "scene": "Two chest x-rays of the same patient labeled 'before' and 'after treatment'. Differences localized to a small lung region: opacity reduced, slight rib position difference due to inspiration depth.",
+      "question": "Which change is REAL pathology change vs. artifact of breathing depth?",
+      "answer": "the opacity change (real) vs rib position (artifact)",
+      "lever": "Distinguish disease-related change from imaging-physics artifact; require constancy under repositioning."
+    },
+    {
+      "id": "COMP-049",
+      "sub_skill": "wine_color_to_age_match",
+      "domain": "wine tasting flight",
+      "scene": "Five glasses of red wine in a row, each tilted at a 45° angle showing a thin meniscus rim color. Younger wines show purple rim, older wines show brick-orange rim. A printed key maps rim color to age range.",
+      "question": "Which glass holds the OLDEST wine?",
+      "answer": "the glass with the most orange/brick rim",
+      "lever": "Read meniscus rim hue, not core color; brick = oldest, deep purple = youngest."
+    },
+    {
+      "id": "COMP-050",
+      "sub_skill": "tire_to_vehicle_match",
+      "domain": "auto-parts compatibility chart",
+      "scene": "Top: 4 tire sidewall shots showing size codes (e.g., 205/55R16). Bottom: 4 vehicle profile shots with their required size posted in the door jamb (visible insets).",
+      "question": "Which tire fits vehicle #3?",
+      "answer": "the tire whose code matches vehicle #3's spec",
+      "lever": "Parse tire size code from sidewall and match to vehicle spec; reject one-letter/one-number-off lookalikes."
+    }
+  ]
+}

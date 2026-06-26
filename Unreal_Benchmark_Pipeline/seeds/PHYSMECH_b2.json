@@ -1,0 +1,186 @@
+{
+  "family_id": "PHYSMECH",
+  "family_name": "Concept-Drift Mechanics",
+  "seeds": [
+    {
+      "id": "PHYSMECH-001",
+      "sub_skill": "newtons_cradle_unequal_mass",
+      "domain": "Newton's cradle",
+      "scene": "A Newton's cradle frame with 5 hanging balls of clearly increasing diameter from left (smallest ~1cm) to right (largest ~6cm). The leftmost (smallest) ball is pulled back at ~30° and is mid-swing about to strike the others.",
+      "question": "After the smallest ball strikes, which ball flies out and how does the impacting ball behave?",
+      "answer": "Multiple balls move with reduced velocities; the impacting (smallest) ball does NOT fully stop and rebounds backward — single-ball end-transfer is impossible because momentum and energy cannot both be conserved by transfer to one unequal-mass ball.",
+      "lever": "VLM caption-shortcut sees 'Newton's cradle' and answers 'only the opposite-end ball flies out at the same height' (textbook S). The scene visibly violates the equal-mass assumption (sizes obviously different); correct T requires re-deriving conservation with unequal masses."
+    },
+    {
+      "id": "PHYSMECH-002",
+      "sub_skill": "newtons_cradle_unequal_mass_pull_largest",
+      "domain": "Newton's cradle",
+      "scene": "A Newton's cradle with 5 balls of clearly decreasing diameter from left (largest ~6cm) to right (smallest ~1cm). The leftmost (largest) ball is pulled back at ~30° and is mid-swing about to strike.",
+      "question": "After impact, will only the rightmost ball fly out, with the same height as the released ball?",
+      "answer": "No — multiple balls move; even if the rightmost flies out, it cannot do so at the same height because the masses are unequal and momentum/energy cannot both balance with single-ball single-height transfer.",
+      "lever": "Same caption-shortcut trap as 001 with reversed mass gradient; VLM answers textbook 'one ball out at same height', but unequal masses break the standard analysis."
+    },
+    {
+      "id": "PHYSMECH-003",
+      "sub_skill": "newtons_cradle_three_balls_unequal",
+      "domain": "Newton's cradle",
+      "scene": "A 3-ball Newton's cradle with sizes small / medium / large from left to right. The small ball is pulled back at ~30° and strikes.",
+      "question": "Which balls move after impact?",
+      "answer": "Both the medium and large balls move with reduced speeds, and the small ball rebounds backward — single-ball end-transfer is impossible with unequal masses.",
+      "lever": "Reduced-ball-count variant of the cradle trap; smaller setup makes the violation even more obvious but the textbook caption still fires."
+    },
+    {
+      "id": "PHYSMECH-004",
+      "sub_skill": "uniform_block_center_of_mass_dual_material",
+      "domain": "block on table",
+      "scene": "A rectangular block on a table, viewed from the side; the block is visibly composed of two seamlessly joined halves: left half pale pine wood with grain, right half dark dense lead-colored metal of the same dimensions.",
+      "question": "Where is the block's center of mass located horizontally relative to its geometric center?",
+      "answer": "Shifted toward the dense metal (right) half — NOT at the geometric center, because density is non-uniform.",
+      "lever": "VLM captions as 'rectangular block' and applies geometric-center default. The two-material visual violates the implicit uniform-density assumption, so center of mass shifts toward the denser side."
+    },
+    {
+      "id": "PHYSMECH-005",
+      "sub_skill": "dual_material_block_tipping_angle",
+      "domain": "block on inclined surface",
+      "scene": "The same dual-material rectangular block (pine left, lead right) is placed on a slowly tilting board with the dense (lead) side on the downhill side.",
+      "question": "Will the block tip over at a smaller, equal, or larger angle than a uniform-density block of the same shape?",
+      "answer": "Smaller angle — center of mass is shifted toward the downhill end so it crosses the base of support sooner.",
+      "lever": "Same uniform-density violation; reframed as a tipping question. VLM applies symmetric tipping formula based on shape, missing the COM shift."
+    },
+    {
+      "id": "PHYSMECH-006",
+      "sub_skill": "incline_friction_zoned_motion",
+      "domain": "block on inclined plane",
+      "scene": "A wooden inclined plane at ~30° with three clearly distinct surface zones top to bottom: smooth blue ice with frost (upper third), yellow sandpaper texture (middle third), plain wood (lower third). A small wooden block sits at the top.",
+      "question": "Describe the block's motion as it slides from top to bottom.",
+      "answer": "Accelerates rapidly on the ice, decelerates and likely STOPS on the sandpaper (high friction); does not reach the wood section unless given extra speed.",
+      "lever": "VLM captions as 'block on incline' and applies single-friction sliding formula. The three visible material zones violate uniform-friction assumption; correct answer requires zone-by-zone analysis."
+    },
+    {
+      "id": "PHYSMECH-007",
+      "sub_skill": "incline_friction_zoned_reverse_order",
+      "domain": "block on inclined plane",
+      "scene": "Inclined plane at ~30° with three zones top to bottom: yellow sandpaper (upper third), smooth ice (middle third), wood (lower third). A wooden block sits at the top.",
+      "question": "Will the block reach the bottom by gravity alone?",
+      "answer": "No — the block likely never starts moving, because static friction on the upper sandpaper zone exceeds the gravity component along the incline.",
+      "lever": "Reversed zoning makes the violation even more dramatic: textbook single-coefficient sliding answer would say it slides; the visible high-friction starting zone prevents motion entirely."
+    },
+    {
+      "id": "PHYSMECH-008",
+      "sub_skill": "physical_pendulum_extended_bob",
+      "domain": "pendulum",
+      "scene": "A pendulum hanging from a ceiling pivot: a thin string ends at a long horizontal cylindrical wooden rod hanging from one of the rod's ends, so the bob is the rod itself extending horizontally outward.",
+      "question": "Is the period of small oscillations equal to T = 2π√(L/g) where L is the string length?",
+      "answer": "No — this is a physical (compound) pendulum with period T = 2π√(I/(mgd)); the period is LONGER than the simple-pendulum formula predicts.",
+      "lever": "VLM captions as 'pendulum' and applies simple-pendulum formula. The extended rod bob violates the point-mass assumption; correct answer needs moment of inertia about the pivot."
+    },
+    {
+      "id": "PHYSMECH-009",
+      "sub_skill": "physical_pendulum_distance_dependence",
+      "domain": "pendulum",
+      "scene": "Two identical horizontal rod-pendulums photographed side by side. Pendulum A's rod hangs from a string twice as long as pendulum B's; rod itself is the same in both.",
+      "question": "Is pendulum A's period exactly √2 times pendulum B's?",
+      "answer": "No — the simple-pendulum √(L_A/L_B) ratio applies only to point masses; for these compound pendulums the ratio depends on rod inertia and pivot-to-COM distance, not on string length alone.",
+      "lever": "Comparative reframing of the same point-mass-violation slot, where the textbook period scaling is wrong."
+    },
+    {
+      "id": "PHYSMECH-010",
+      "sub_skill": "block_tackle_advantage_visible_segments",
+      "domain": "compound pulley",
+      "scene": "A block-and-tackle: a heavy load hangs from a movable pulley with a thick rope visibly looping over fixed and movable pulleys, forming exactly 4 clearly visible parallel rope segments supporting the load. A person pulls the free end.",
+      "question": "If the load weighs 200 N, what force is needed at the free rope end (ideal)?",
+      "answer": "50 N — 200 N divided by 4 supporting segments.",
+      "lever": "VLM captions as 'pulley with load' and may default to 'force = load' for a single-rope hoist. The 4 supporting segments visible in the scene violate the single-segment default; correct answer counts segments."
+    },
+    {
+      "id": "PHYSMECH-011",
+      "sub_skill": "block_tackle_six_segment",
+      "domain": "compound pulley",
+      "scene": "A block-and-tackle with 6 clearly visible parallel rope segments supporting a hanging load.",
+      "question": "How does the rope length pulled at the free end compare to the load's rise height?",
+      "answer": "The free end must be pulled 6× the rise height (mechanical advantage 6 — both force and displacement ratio).",
+      "lever": "Same compound-pulley slot reframed as a displacement question; textbook S 'rope = rise' is wrong because the visible segment count overrides the single-rope assumption."
+    },
+    {
+      "id": "PHYSMECH-012",
+      "sub_skill": "tall_narrow_block_tip_vs_slide",
+      "domain": "tall block on incline",
+      "scene": "A tall narrow wooden block (height ~30 cm, base width ~5 cm) standing upright on a wooden inclined plane tilted at ~25°. Aspect ratio is clearly tall and unstable.",
+      "question": "As the incline angle is slowly increased from 0°, will the block first slide or first tip over?",
+      "answer": "Tip over — tipping angle θ_tip = arctan(width/height) ≈ arctan(5/30) ≈ 9.5°, which is smaller than the typical sliding angle for wood-on-wood.",
+      "lever": "VLM captures 'block on incline' and applies sliding analysis (tan θ vs μ). The visible tall-narrow geometry violates point-mass treatment; correct answer requires comparing tip vs slide thresholds."
+    },
+    {
+      "id": "PHYSMECH-013",
+      "sub_skill": "atwood_seized_pulley",
+      "domain": "Atwood machine",
+      "scene": "An Atwood machine with two clearly different-mass blocks; the pulley wheel is heavily rusted with a thick iron chain partially seized around its hub.",
+      "question": "Will the heavier mass accelerate downward at a = (m1−m2)g/(m1+m2)?",
+      "answer": "No — pulley friction reduces acceleration substantially; if static friction is large enough, the system may not move at all despite the mass difference.",
+      "lever": "VLM captions 'Atwood machine' and applies frictionless formula. The visible rust+seized chain violates the frictionless-pulley assumption."
+    },
+    {
+      "id": "PHYSMECH-014",
+      "sub_skill": "atwood_pulley_no_motion",
+      "domain": "Atwood machine",
+      "scene": "Same heavily-seized rusty pulley with two unequal masses; one mass is only slightly heavier than the other (visible small size difference).",
+      "question": "Will the system move when released from rest?",
+      "answer": "No — the small mass difference is insufficient to overcome the visibly large pulley friction; the system stays at rest.",
+      "lever": "Edge case of slot mech-007: VLM still mechanically applies the frictionless formula and predicts motion."
+    },
+    {
+      "id": "PHYSMECH-015",
+      "sub_skill": "newtons_cradle_glass_balls_unequal",
+      "domain": "Newton's cradle",
+      "scene": "A Newton's cradle with 5 hanging glass balls of clearly increasing diameter from left to right; otherwise standard frame. The largest ball pulled back and mid-swing.",
+      "question": "Will exactly one ball at the opposite end fly out?",
+      "answer": "No — multiple balls move with different speeds; even if a single ball did emerge, it would not be at the same height as the released ball.",
+      "lever": "Material-style variant (glass instead of metal) keeps caption shortcut active while violation remains the unequal-mass setup."
+    },
+    {
+      "id": "PHYSMECH-016",
+      "sub_skill": "incline_block_two_zone_ice_wood",
+      "domain": "block on inclined plane",
+      "scene": "An inclined plane at ~30° split into TWO zones: upper half smooth ice, lower half rough wood. A block sits at the top.",
+      "question": "Will the block reach the bottom with the same speed as if the entire incline were ice?",
+      "answer": "No — the block decelerates on the lower wood section and arrives slower (or not at all if the wood friction angle exceeds 30°).",
+      "lever": "Two-zone variant of the friction-zoning slot; the visible material change violates uniform-friction assumption."
+    },
+    {
+      "id": "PHYSMECH-017",
+      "sub_skill": "asymmetric_block_balance_point",
+      "domain": "block on edge",
+      "scene": "A rectangular block, half pine wood (left) half lead (right), placed on a narrow knife-edge support directly under its geometric center.",
+      "question": "Is the block balanced?",
+      "answer": "No — it tips toward the dense (lead) side because the center of mass is offset to the right of the geometric center where the support is placed.",
+      "lever": "Reframed dual-material block with explicit balance test; textbook geometric-center reasoning fails on visible material asymmetry."
+    },
+    {
+      "id": "PHYSMECH-018",
+      "sub_skill": "two_ball_collision_unequal_mass",
+      "domain": "1D collision",
+      "scene": "Two suspended balls with strings: a small ball (~1cm) approaches a stationary much larger ball (~6cm) of the same material. Side-view setup like a single-pair Newton's cradle.",
+      "question": "After the elastic collision, does the small ball stop?",
+      "answer": "No — the small ball rebounds backward with substantial speed; the heavy ball moves forward only slightly. Equal-mass single-ball-stop result does not apply.",
+      "lever": "Captures 'cradle-like collision' shortcut; but with two clearly unequal balls, the equal-mass stop result is wrong."
+    },
+    {
+      "id": "PHYSMECH-019",
+      "sub_skill": "block_tackle_advantage_with_friction_pulleys",
+      "domain": "compound pulley",
+      "scene": "A block-and-tackle with 4 visibly supporting rope segments AND visibly rusty/seized pulleys.",
+      "question": "Is the force needed at the free end exactly load/4?",
+      "answer": "No — friction at the pulleys increases the required force above the ideal load/4 value.",
+      "lever": "Composite violation: VLM may go all the way to the 'load/N' formula but still misses friction loss visible in rusty pulleys."
+    },
+    {
+      "id": "PHYSMECH-020",
+      "sub_skill": "stacked_block_tipping_topheavy",
+      "domain": "stacked blocks on incline",
+      "scene": "A small dense base block (~5cm cube of metal) with a much larger lighter block (~20cm cube of foam) glued on top, placed on an incline at ~10°.",
+      "question": "Will the stack remain stable as the incline tilts further?",
+      "answer": "No — the stack tips at a small angle because the combined center of mass is high (dominated by the large foam upper block's geometric height even though it is light); tip angle is much smaller than the sliding angle for the metal-floor contact.",
+      "lever": "Combines unequal-density (slot mech-002) with tip-vs-slide (mech-006); two visible violations of point-mass + uniform density assumptions."
+    }
+  ]
+}

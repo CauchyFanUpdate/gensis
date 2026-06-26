@@ -1,0 +1,47 @@
+Model: gpt-5.5
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_gpt_5_5.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (gpt-5.5): 52 pending, 548 done
+    20/52
+    40/52
+  Done: 52 processed
+
+[Phase 2] Extract & judge: 0 empty, 10 MC + 42 OE
+  MC done: 10
+    OE 20/42
+    OE 40/42
+  OE done: 42
+
+============================================================
+  Overall: 58.8% (353/600)  errors=0
+============================================================
+
+  By Domain:
+    Mathematics                          60.2% (156/259) ████████████
+    Physics & Engineering                56.2% (54/96) ███████████
+    Reasoning & Logic                    68.5% (63/92) █████████████
+    Perception                           52.7% (48/91) ██████████
+    Natural Science                      51.6% (32/62) ██████████
+
+  By Subdomain:
+    combinatorial_geometry               42.9% (27/63) ████████
+    Biology & Chemistry                  51.6% (32/62) ██████████
+    Mechanics                            59.2% (29/49) ███████████
+    Spatial Reasoning                    55.1% (27/49) ███████████
+    Logic & Document Knowledge           68.8% (33/48) █████████████
+    Counting & Numeracy                  68.2% (30/44) █████████████
+    Visual Perception                    50.0% (21/42) ██████████
+    metric_geometry                      72.5% (29/40) ██████████████
+    combinatorics_counting               71.1% (27/38) ██████████████
+    descriptive_geometry                 59.4% (19/32) ███████████
+    solid_geometry                       72.0% (18/25) ██████████████
+    Electromagnetism & Optics            56.0% (14/25) ███████████
+    transformation_geometry              56.5% (13/23) ███████████
+    graph_theory                         69.6% (16/23) █████████████
+    Fluids & Thermodynamics              50.0% (11/22) ██████████
+    logic_constraints                    46.7% (7/15) █████████
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_gpt_5_5.jsonl

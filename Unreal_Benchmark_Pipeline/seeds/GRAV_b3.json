@@ -1,0 +1,96 @@
+{
+  "family_id": "GRAV",
+  "family_name": "Gravity & Reference Frames (concept-drift)",
+  "seeds": [
+    {
+      "id": "GRAV-021",
+      "sub_skill": "graded_gravity_gradient_column",
+      "domain": "vertical physics column",
+      "scene": "A tall transparent vertical column 6 m high. A printed scale on the side reads gravity magnitude g(h) = 0.0 m/s² at the bottom and rises LINEARLY to 9.8 m/s² at the top, with intermediate marks (1.6, 3.3, 4.9, 6.5, 8.1) clearly drawn beside their height ticks. A dense steel ball is placed AT REST on a thin platform at the very top, then the platform retracts. A second identical ball is released from rest at h = 3.0 m (mid-column).",
+      "question": "Which ball reaches the bottom first, and roughly how does the descent feel different from a uniform-g free fall?",
+      "answer": "The TOP ball arrives first; both balls decelerate (in apparent acceleration sense) as they descend because g shrinks toward zero — the ball never coasts at constant speed but its acceleration smoothly falls to 0 at the bottom, so the lower portion of the trip is the slowest part of any uniform-g intuition.",
+      "lever": "VLM caption-shortcut sees 'ball falling in tube' → uniform-g free fall, top ball hits faster simply because of more height (S). Visible monotone gradient label violates uniform-g assumption A; T must reason about g(h) integral and that the bottom-half traversal asymptotically slows."
+    },
+    {
+      "id": "GRAV-022",
+      "sub_skill": "magnetic_floor_pseudo_gravity",
+      "domain": "lab with ferromagnetic floor",
+      "scene": "A normal-looking room labeled 'WALLS NON-MAGNETIC; FLOOR is a powerful electromagnet, ON'. Inside: a styrofoam ball rests on the floor; an identical-looking iron ball ALSO rests on the floor; a wooden cube floats freely in midair (held by a thin invisible thread shown faintly); a sign reads 'gravity g = 0 in this room (orbital lab)'.",
+      "question": "If a person releases another iron ball at chest height in the room's center, what happens?",
+      "answer": "It accelerates DOWNWARD toward the magnetic floor (not because of gravity — there is none — but because the electromagnet attracts ferromagnetic material). A non-magnetic ball released identically would simply float in place.",
+      "lever": "VLM sees 'ball released in room' → 'falls because gravity' (S). Floating cube + zero-g label violate ground-frame gravity assumption; MAGNETIC-floor label means the apparent 'gravity' is selective by material — a critical ferromagnetic-vs-not distinction."
+    },
+    {
+      "id": "GRAV-023",
+      "sub_skill": "rotating_glass_water_level",
+      "domain": "rotating glass on turntable",
+      "scene": "A cylindrical drinking glass of water sits on a rotating turntable, off-center at radius r=0.20 m, spinning at constant ω. Visible motion arrows. The water surface inside the glass is clearly TILTED: the side away from the rotation axis is HIGHER than the side toward it, by a visible angle. A still reference glass on a non-rotating shelf nearby has a flat horizontal surface.",
+      "question": "Why is the water surface tilted, and on which side is the water higher: the inner-radius side or the outer-radius side?",
+      "answer": "In the rotating frame the water experiences centrifugal pseudo-force pushing it RADIALLY OUTWARD (plus real gravity downward). The equilibrium free surface is perpendicular to the net effective gravity, so water piles up on the OUTER-radius side (away from the spin axis) — exactly what is shown.",
+      "lever": "VLM sees 'glass of water' → 'water surface is flat horizontal' (S, hydrostatic). Visible turntable + tilt violate stationary-frame assumption; T requires recognizing centrifugal-induced tilt and that the OUTER side rises (not inner)."
+    },
+    {
+      "id": "GRAV-024",
+      "sub_skill": "submarine_buoyancy_in_gradient_g",
+      "domain": "deep ocean submarine cross-section",
+      "scene": "A vertical cross-section of a special test tank, 100 m deep, with a labeled 'gravity gradient: g = 9.8 m/s² at the SURFACE, g = 0 at the BOTTOM, linear in between'. A neutrally-buoyant submarine (designed for surface conditions) hangs at depth 50 m, motionless. The water density is uniform.",
+      "question": "If the submarine is gently nudged downward, will it sink, rise, or hover?",
+      "answer": "It RISES (back up) — at greater depth the local g is smaller, so buoyancy (which scales with ρ·g·V) drops less than the weight (also ρ_sub·g·V), but BOTH scale with g identically. Wait: in fact since both buoyancy and weight scale with the SAME g, the equilibrium is preserved — the sub remains neutrally buoyant at any depth and stays put. The CORRECT answer is: it hovers wherever you place it, because both forces scale identically with g.",
+      "lever": "VLM sees 'gravity decreases with depth' → 'buoyancy wins, sub rises' OR 'weight stays so it sinks' (S, partial-physics shortcut). T requires recognizing both buoyancy and weight share the same g(h) factor, so neutral buoyancy is preserved and the sub hovers."
+    },
+    {
+      "id": "GRAV-025",
+      "sub_skill": "uniform_gravity_two_clocks_train",
+      "domain": "long horizontally-accelerating train",
+      "scene": "A long passenger train cabin, sign 'CONSTANT a = 4.9 m/s² FORWARD'. Two pendulum clocks hang from the ceiling, one at the FRONT of the cabin, one at the REAR. Both pendulums clearly tilt BACKWARD (opposite to motion) by the same angle ≈ 26.6° (= arctan(a/g)). A passenger throws a tennis ball straight UP relative to themselves at the cabin's center.",
+      "question": "Where does the ball land relative to the passenger?",
+      "answer": "It lands RIGHT BACK in the passenger's hand — in the train's accelerating frame the effective gravity points down-and-backward at 26.6°, but the ball is launched along the passenger-up axis (which is along the cabin ceiling-direction, not along true vertical), so in the train frame it goes 'up and back down' along its own pseudo-vertical and returns to hand.",
+      "lever": "VLM sees 'ball thrown up in train' → 'lands behind because train moved forward' (S, ground-frame intuition). The fact that the throw is 'straight up relative to passenger' (i.e., along train-ceiling) means in the accelerating frame it lands at hand; ground-frame answer is wrong."
+    },
+    {
+      "id": "GRAV-026",
+      "sub_skill": "hanging_plants_reveal_g_direction",
+      "domain": "ordinary-looking apartment with anomaly",
+      "scene": "An apartment interior — couch, table, lamp all sit normally on the floor. But six potted plants hung by chains from the ceiling do NOT hang straight down: they all hang at the SAME angle ~30° from vertical, leaning toward the south wall. A bowl of water on the table also has a distinctly TILTED water surface, sloping the same direction. No explicit g sign is shown.",
+      "question": "What is the apparent direction of gravity in this room, and would a billiard ball placed on the perfectly-level table stay still?",
+      "answer": "Gravity is NOT vertical — it has a horizontal component pointing toward the south wall (≈ tan 30° of the down-component). A billiard ball on a table whose surface is horizontal-by-Earth-leveling will roll toward the south wall, because the table is no longer perpendicular to true effective gravity.",
+      "lever": "VLM sees 'normal apartment, ball on table' → 'stays still' (S, gravity-down). Multiple visual cues (six plant chains tilted same way + tilted water surface) jointly imply g is tilted; T deduces tilt direction + magnitude WITHOUT a label, then predicts ball rolls south."
+    },
+    {
+      "id": "GRAV-027",
+      "sub_skill": "coriolis_long_corridor_walk",
+      "domain": "rotating space station long corridor",
+      "scene": "Top-down schematic of a giant rotating-ring station. A corridor runs RADIALLY (from outer hull toward axis). Spin direction shown counter-clockwise. A person walks from the OUTER wall toward the INNER (axis) end of the corridor at a steady pace. Their footprints (drawn) curve subtly to the LEFT of their intended straight path.",
+      "question": "Why do the footprints curve, and which direction is the deflection (in walking-frame: left or right of intended motion)?",
+      "answer": "It is the Coriolis effect in the rotating frame. For a counter-clockwise (viewed from spin axis) rotation, motion radially INWARD is deflected to the RIGHT in the rotating frame... but the figure shows LEFT — wait, sign depends on viewing convention. In a CCW-spinning frame, the Coriolis force on a radially-inward-moving body points in the direction OPPOSITE to the local rotational velocity, which for a person moving inward ends up appearing as a leftward deflection in the walking-forward frame. The visible left-curve is consistent.",
+      "lever": "VLM sees 'corridor walking' → 'walks in straight line' (S, Earth-stationary assumption). Visible curved footprints + spin arrow + radial corridor jointly demand Coriolis reasoning; T includes both the WHY (Coriolis) and a sign analysis."
+    },
+    {
+      "id": "GRAV-028",
+      "sub_skill": "free_floating_water_bubble_zero_g",
+      "domain": "ISS-like cabin in microgravity",
+      "scene": "A cabin labeled 'ON-ORBIT — g_local = 0'. Inside: a roughly spherical floating BLOB of water (a free water bubble ~10 cm diameter) hovers in the middle of the cabin, not in any container. An astronaut gently inserts a thin straw into the bubble and BLOWS air in.",
+      "question": "What happens to the bubble — does it deform like blowing into a cup, or does the air bubble form a hollow shell, or does it explode?",
+      "answer": "The injected air forms a hollow internal SPHERICAL bubble inside the water blob (water-shell with gas core), because in zero-g surface tension dominates and minimizes surface area for both the water-air outer interface and the inner air-water interface — yielding nested spheres. With enough air the inner bubble can break through and pop out the other side.",
+      "lever": "VLM sees 'blowing into water' → 'splash / bubbles rise to top' (S, gravity-driven buoyancy intuition). Zero-g label removes buoyancy; T must invoke surface-tension-only equilibrium, which yields spherical-shell geometry."
+    },
+    {
+      "id": "GRAV-029",
+      "sub_skill": "ramp_on_rotating_table_block_slide",
+      "domain": "block on inclined ramp on turntable",
+      "scene": "A turntable rotates at constant ω. A solid wooden ramp is bolted to the turntable surface, inclined 20° upward toward the OUTER edge (so the high end of the ramp is at greater radius). A small block sits at the ramp's middle. An accompanying still-frame ramp on a non-rotating shelf at the same 20° has the block sliding DOWN it (toward the low end).",
+      "question": "On the rotating ramp, given high enough ω, will the block slide DOWN the ramp (toward axis) or UP it (toward outer edge)?",
+      "answer": "For sufficiently high ω, centrifugal pseudo-force outward is large enough to drive the block UP the ramp (toward the outer edge). Below a critical ω it still slides down, at the critical ω it is in equilibrium.",
+      "lever": "VLM sees 'block on ramp' → 'slides down due to gravity' (S, stationary-frame). Rotating turntable label introduces centrifugal pseudo-force; T must recognize that beyond a threshold the block accelerates UP the ramp."
+    },
+    {
+      "id": "GRAV-030",
+      "sub_skill": "twin_planet_object_falls_to_lighter_one",
+      "domain": "two-planet space scene with object",
+      "scene": "Two equally-sized planets are shown, but with bold labels 'planet A: mass M' (left) and 'planet B: mass 0.25 M' (right). A ball is shown at exactly the GEOMETRIC midpoint between their surfaces (equidistant from both centers), released from rest. Each planet's gravitational pull is drawn as a dashed arrow at the ball's location: the arrow toward A is visibly longer than the arrow toward B.",
+      "question": "Which planet does the ball ultimately strike?",
+      "answer": "It accelerates toward and strikes planet A (the heavier one). The geometric midpoint is NOT the point of force balance because the planets have different masses — gravitational pull scales with M, so the heavier planet wins at the geometric midpoint.",
+      "lever": "VLM sees 'object midway between two planets' → 'symmetric situation, stays put' OR 'falls to the closer / smaller one' (S, symmetric-mass intuition). Mass labels visibly differ 4×; T must reason that midpoint != equilibrium and the ball goes to the heavier one."
+    }
+  ]
+}

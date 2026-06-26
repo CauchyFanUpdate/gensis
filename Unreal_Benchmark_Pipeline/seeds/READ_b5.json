@@ -1,0 +1,276 @@
+{
+  "family_id": "READ",
+  "family_name": "Reading & OCR (b5: rune-cipher)",
+  "seeds": [
+    {
+      "id": "READ-031",
+      "sub_skill": "rune_cipher_lookup",
+      "domain": "spell_scroll",
+      "scene": "A scroll. Top-half key table: rune [A]=H, [B]=E, [C]=L, [D]=O. Bottom-half spell: '[A] [B] [C] [C] [D]'. Each [X] is a unique pictographic rune drawn in the image.",
+      "question": "Based strictly on the image (using only the cipher key shown), decode the spell.",
+      "answer": "HELLO",
+      "lever": "Pure rune-to-letter substitution from a key in the same image."
+    },
+    {
+      "id": "READ-032",
+      "sub_skill": "rune_word",
+      "domain": "stone_tablet",
+      "scene": "A weathered tablet. Left-half key: [A]=A, [B]=R, [C]=G, [D]=O, [E]=N. Right-half word: '[A] [B] [C] [D] [E]'.",
+      "question": "Based on the image and the key shown, decode the word on the right.",
+      "answer": "ARGON",
+      "lever": "Direct cipher application."
+    },
+    {
+      "id": "READ-033",
+      "sub_skill": "bilingual_inference",
+      "domain": "bilingual_door",
+      "scene": "A bilingual door. Top row: 6 runes [R1] [R2] [R3] [R4] [R5] [R6]. Bottom row: same word in Latin letters partly worn: 'D _ A G _ N' (positions 2 and 5 missing). Runes align position-by-position above Latin letters.",
+      "question": "Based on the image (use legible Latin letters to infer mappings + complete the word), what is the full word, and what letter does [R5] correspond to?",
+      "answer": "DRAGON; rune [R5] corresponds to letter O",
+      "lever": "Cipher inference from partial parallel text + word completion."
+    },
+    {
+      "id": "READ-034",
+      "sub_skill": "long_decode",
+      "domain": "wizard_textbook",
+      "scene": "A textbook. Top key: [A]=F, [B]=I, [C]=R, [D]=E, [E]=B, [F]=A, [G]=L. Spell: '[A] [B] [C] [D] [E] [F] [G] [G]'.",
+      "question": "Based on the image, decode the 8-rune spell.",
+      "answer": "FIREBALL",
+      "lever": "Substitution with repeated rune."
+    },
+    {
+      "id": "READ-035",
+      "sub_skill": "decoding_with_distractors",
+      "domain": "library_plaque",
+      "scene": "A library plaque. Key: [A]=W, [B]=I, [C]=S, [D]=D, [E]=O, [F]=M. Central inscription: '[A] [B] [C] [D] [E] [F]'. Decorative border has unrelated runes [X] [Y] [Z] NOT part of the inscription.",
+      "question": "Based on the image, decode ONLY the central inscription line (ignore decorative runes).",
+      "answer": "WISDOM",
+      "lever": "Selective decoding ignoring distractors."
+    },
+    {
+      "id": "READ-036",
+      "sub_skill": "synonym_glyphs",
+      "domain": "grimoire",
+      "scene": "A grimoire. Key: [A]=E, [A']=E (alt form), [B]=N, [C]=R, [D]=G, [E]=Y. Two glyphs [A] and [A'] both map to E. Spell: '[A] [B] [A] [C] [D] [A']'.",
+      "question": "Based on the image, decode the spell line; both E-glyphs yield E.",
+      "answer": "ENERGY",
+      "lever": "Many-to-one cipher (synonyms)."
+    },
+    {
+      "id": "READ-037",
+      "sub_skill": "two_word_phrase",
+      "domain": "throne_banner",
+      "scene": "A banner. Left edge key: [A]=K, [B]=I, [C]=N, [D]=G, [E]=Q, [F]=U, [G]=E. Center text: '[A] [B] [C] [D]   [E] [F] [G] [G] [C]' (clear gap = word break).",
+      "question": "Based on the image, decode the two-word banner.",
+      "answer": "KING QUEEN",
+      "lever": "Multi-word with explicit space."
+    },
+    {
+      "id": "READ-038",
+      "sub_skill": "number_runes",
+      "domain": "merchant_price",
+      "scene": "Price board. Key: [N0]=0, [N1]=1, [N2]=2, [N3]=3, [N4]=4, [N5]=5, [N6]=6, [N7]=7. Tag: '[N1] [N4] [N6] gold pieces' (the words 'gold pieces' in plain English).",
+      "question": "Based on the image, what numeric price (base-10) is on the tag?",
+      "answer": "146 gold pieces",
+      "lever": "Number-rune positional decoding."
+    },
+    {
+      "id": "READ-039",
+      "sub_skill": "missing_key_unknown",
+      "domain": "incomplete_codex",
+      "scene": "Codex. Key: [A]=S, [B]=T, [C]=A, [D]=R. Message: '[A] [B] [C] [X] [D]' (5 runes; [X] is NOT in the key).",
+      "question": "Based strictly on the image (only keys shown), decode the message — use '_' for any rune not covered.",
+      "answer": "STA_R",
+      "lever": "Honest handling of unknown runes."
+    },
+    {
+      "id": "READ-040",
+      "sub_skill": "diacritic_modifier",
+      "domain": "scroll_diacritic",
+      "scene": "Scroll. Key: '[A]=N. Rule: a dot ABOVE the rune doubles its letter; a dot BELOW capitalizes.' Spell line: '[A]' with a single dot drawn directly above it.",
+      "question": "Based on the image and the key's rule, decode the spell line.",
+      "answer": "NN",
+      "lever": "Diacritic-modifier rule."
+    },
+    {
+      "id": "READ-041",
+      "sub_skill": "circular_read",
+      "domain": "medallion",
+      "scene": "Circular medallion. Inner-ring key: [A]=L, [B]=I, [C]=G, [D]=H, [E]=T. Outer ring (clockwise from 12 o'clock): '[A] [B] [C] [D] [E]'.",
+      "question": "Based on the image, decode the outer-ring word, reading clockwise from 12 o'clock.",
+      "answer": "LIGHT",
+      "lever": "Reading along a curved path."
+    },
+    {
+      "id": "READ-042",
+      "sub_skill": "two_lines_same_key",
+      "domain": "two_line_scroll",
+      "scene": "Scroll. Key: [A]=M, [B]=A, [C]=G, [D]=I, [E]=C, [F]=N. Line 1: '[A] [B] [C] [D] [E]'. Line 2: '[F] [B] [F] [B]'.",
+      "question": "Based on the image, decode both lines (line 1 followed by line 2).",
+      "answer": "MAGIC NANA",
+      "lever": "Two parallel decodings using one key."
+    },
+    {
+      "id": "READ-043",
+      "sub_skill": "key_in_legend_box",
+      "domain": "treasure_map",
+      "scene": "A treasure map. A small legend box in the lower-right corner (~5% of image area) lists: [A]=N, [B]=O, [C]=R, [D]=T, [E]=H. The map's compass rose label reads: '[A] [B] [C] [D] [E]'.",
+      "question": "Based on the image (find the legend box first, then decode the compass label), what direction does the label spell?",
+      "answer": "NORTH",
+      "lever": "Localizing a small key + applying it."
+    },
+    {
+      "id": "READ-044",
+      "sub_skill": "decode_with_color_modifier",
+      "domain": "color_runes",
+      "scene": "Inscription panel. Key: '[A]=W (when colored RED) or A (when colored BLUE)'. Each rune in the spell may appear in red or blue ink. Spell: '[A]_red [A]_blue [A]_blue [A]_red' (4 runes; reading left-to-right, the colors are red, blue, blue, red).",
+      "question": "Based on the image and the color-conditional rule, decode the 4-rune spell.",
+      "answer": "WAAW",
+      "lever": "Conditional cipher based on visual attribute (color)."
+    },
+    {
+      "id": "READ-045",
+      "sub_skill": "decode_phrase_with_punctuation",
+      "domain": "fortune_card",
+      "scene": "Fortune card. Key: [A]=Y, [B]=O, [C]=U, [D]=W, [E]=I, [F]=N. Inscription: '[A] [B] [C] , [D] [E] [F] !' (commas and exclamation mark drawn explicitly).",
+      "question": "Based on the image, decode the inscription preserving punctuation.",
+      "answer": "YOU, WIN!",
+      "lever": "Reading punctuation alongside cipher."
+    },
+    {
+      "id": "READ-046",
+      "sub_skill": "decode_arithmetic_runes",
+      "domain": "rune_arithmetic",
+      "scene": "Stone slab. Key: number runes [N0]=0, [N1]=1, [N2]=2, [N3]=3, [N4]=4, [N5]=5, [N6]=6, [N7]=7, [N8]=8, [N9]=9. Plus the operator runes '+' and '='. Equation: '[N4] [N7] + [N1] [N8] = ?'.",
+      "question": "Based on the image, evaluate the equation and give the answer (in base-10).",
+      "answer": "65 (47 + 18 = 65)",
+      "lever": "Decode digits + perform arithmetic."
+    },
+    {
+      "id": "READ-047",
+      "sub_skill": "decode_with_position_swap",
+      "domain": "mirror_inscription",
+      "scene": "Stone door. Key: [A]=R, [B]=I, [C]=V, [D]=E, [E]=R. Inscription drawn right-to-left (the rightmost rune is the first letter): '[E] [D] [C] [B] [A]' visually, but the door label says READ THIS RIGHT-TO-LEFT.",
+      "question": "Based on the image (reading right-to-left as instructed), decode the inscription.",
+      "answer": "RIVER",
+      "lever": "Direction-of-reading instruction."
+    },
+    {
+      "id": "READ-048",
+      "sub_skill": "tiered_key_section",
+      "domain": "tiered_codex",
+      "scene": "Codex with two key sections separated by a heading. Section 1 ('VOWELS'): [V1]=A, [V2]=E, [V3]=I, [V4]=O, [V5]=U. Section 2 ('CONSONANTS'): [C1]=M, [C2]=G, [C3]=C. Spell: '[C1] [V1] [C2] [V3] [C3]'.",
+      "question": "Based on the image (using both key sections), decode the spell.",
+      "answer": "MAGIC",
+      "lever": "Two-section key lookup."
+    },
+    {
+      "id": "READ-049",
+      "sub_skill": "key_with_typo_in_one_entry",
+      "domain": "spellbook_typo",
+      "scene": "A spellbook. Key shown: [A]=H, [B]=A, [C]=L, [D]=L, [E]=O. (Note that [C] and [D] both map to L — likely a typo by the scribe, but the key as drawn says so.) Spell: '[A] [B] [C] [D] [E]'.",
+      "question": "Based strictly on the image (using exactly the keys as shown, even if they map two runes to the same letter), decode the spell.",
+      "answer": "HALLO",
+      "lever": "Faithful application of the printed key, including duplicates."
+    },
+    {
+      "id": "READ-050",
+      "sub_skill": "decode_compound_word",
+      "domain": "compound_word",
+      "scene": "Tavern sign. Key: [A]=S, [B]=U, [C]=N, [D]=L, [E]=I, [F]=G, [G]=H, [H]=T. Sign reads: '[A] [B] [C] - [D] [E] [F] [G] [H]' (with a literal hyphen drawn between two groups).",
+      "question": "Based on the image, decode the hyphenated compound word.",
+      "answer": "SUN-LIGHT",
+      "lever": "Compound-word decoding with hyphen preserved."
+    },
+    {
+      "id": "READ-051",
+      "sub_skill": "match_key_from_legend_picture",
+      "domain": "pictographic_key",
+      "scene": "A page where the key uses pictures rather than letters. Key: a drawing of a CAT next to the rune [A]; a drawing of a TREE next to [B]; a drawing of a STAR next to [C]; a drawing of a MOON next to [D]. Spell: '[B] [C] [A] [D]'.",
+      "question": "Based on the image, decode the spell as the sequence of picture-words.",
+      "answer": "TREE STAR CAT MOON",
+      "lever": "Picture-to-rune cipher (no letters)."
+    },
+    {
+      "id": "READ-052",
+      "sub_skill": "decode_with_3_letter_acronym",
+      "domain": "magical_society_seal",
+      "scene": "Society seal. Key: [A]=R, [B]=O, [C]=Y, [D]=A, [E]=L. Below the seal, a tiny acronym in runes: '[A] [B] [C] [D] [E]'.",
+      "question": "Based on the image, decode the acronym.",
+      "answer": "ROYAL",
+      "lever": "Decoding short labels."
+    },
+    {
+      "id": "READ-053",
+      "sub_skill": "decode_alongside_decoy_text",
+      "domain": "haunted_letter",
+      "scene": "Haunted letter. The page contains TWO inscriptions and ONE key. Key (boxed): [A]=H, [B]=E, [C]=L, [D]=P. Inscription 1 (in red ink, in a box labeled 'CIPHER'): '[A] [B] [C] [D]'. Inscription 2 (in plain English, decoy): 'I am fine, do not worry.'",
+      "question": "Based on the image, decode the CIPHER inscription only (ignore the decoy plain-English line).",
+      "answer": "HELP",
+      "lever": "Reading the labeled cipher; ignore decoy plain text."
+    },
+    {
+      "id": "READ-054",
+      "sub_skill": "decode_with_doubled_glyph_form",
+      "domain": "double_rune_form",
+      "scene": "Page. Key: [A]=B, [B]=O, [C]=K. Rule note: 'When a rune appears DOUBLED side-by-side ([X][X]), the resulting letter is doubled.' Spell: '[A] [B] [B] [C]' (the [B] glyph appears twice consecutively, indicating a doubled letter per the rule).",
+      "question": "Based on the image and the doubling rule, decode the spell.",
+      "answer": "BOOK (B + double O + K)",
+      "lever": "Special doubling rule for repeated glyphs."
+    },
+    {
+      "id": "READ-055",
+      "sub_skill": "decode_within_image_caption",
+      "domain": "captioned_painting",
+      "scene": "A fantasy painting. Below the painting, a small caption strip shows the key first ([A]=D, [B]=R, [C]=A, [D]=G, [E]=O, [F]=N) and then the rune title: '[A] [B] [C] [D] [E] [F]'.",
+      "question": "Based on the image, decode the painting's title in the caption.",
+      "answer": "DRAGON",
+      "lever": "Standard cipher; tests reading caption strip beneath an image."
+    },
+    {
+      "id": "READ-056",
+      "sub_skill": "tiny_key_legend",
+      "domain": "wanted_poster_runic",
+      "scene": "A wanted poster. The main text is in runes (large): '[A] [B] [C] [D]'. In a TINY footer at the bottom of the poster (~3% of poster height), a key is printed: [A]=B, [B]=A, [C]=N, [D]=K.",
+      "question": "Based on the image (find and read the tiny footer key first), decode the main text.",
+      "answer": "BANK",
+      "lever": "Tiny-text key + main message."
+    },
+    {
+      "id": "READ-057",
+      "sub_skill": "key_split_in_two_locations",
+      "domain": "split_key",
+      "scene": "Inscription panel. Half of the key is on the LEFT margin: [A]=W, [B]=A, [C]=T. Half is on the RIGHT margin: [D]=E, [E]=R. Center inscription: '[A] [B] [C] [D] [E]'.",
+      "question": "Based on the image (combining both margin halves of the key), decode the center inscription.",
+      "answer": "WATER",
+      "lever": "Key combination from spatially split fragments."
+    },
+    {
+      "id": "READ-058",
+      "sub_skill": "decode_with_obscured_rune",
+      "domain": "smudged_inscription",
+      "scene": "Inscription. Key: [A]=F, [B]=I, [C]=R, [D]=E. Spell: '[A] [B] [C] [?]' where the 4th rune is heavily smudged but its outline is clearly the same as [D] in the key.",
+      "question": "Based on the image (identifying the smudged rune by its outline matching [D]), decode the spell.",
+      "answer": "FIRE",
+      "lever": "Partial occlusion + glyph-shape matching."
+    },
+    {
+      "id": "READ-059",
+      "sub_skill": "decode_with_position_swap_2",
+      "domain": "anagram_door",
+      "scene": "Door inscription. Key: [A]=A, [B]=E, [C]=N, [D]=R, [E]=T. The door label says 'REARRANGE THESE LETTERS TO FORM A 5-LETTER WORD'. Runes shown unordered: '[B] [C] [D] [E] [A]'.",
+      "question": "Based on the image (decode each rune, then anagram into a common English 5-letter word), what word can be formed?",
+      "answer": "ENTER (or one of: ENTER / RANTE — only ENTER is a common English word)",
+      "lever": "Decode + anagram puzzle solving."
+    },
+    {
+      "id": "READ-060",
+      "sub_skill": "decode_inverted_rune",
+      "domain": "upside_down_rune",
+      "scene": "Inscription. Key: [A]=W (when upright) or M (when rotated 180°). Spell: '[A]_up [A]_down [A]_up' (3 runes; the 1st upright, the 2nd rotated 180°, the 3rd upright).",
+      "question": "Based on the image and the orientation-conditional rule, decode the spell.",
+      "answer": "WMW",
+      "lever": "Orientation-conditional cipher — same glyph yields different letter when flipped."
+    }
+  ]
+}

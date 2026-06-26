@@ -1,0 +1,186 @@
+{
+  "family_id": "COUNT",
+  "family_name": "Counting",
+  "seeds": [
+    {
+      "id": "COUNT-011",
+      "sub_skill": "compound_conjunctive_filter",
+      "domain": "school cafeteria",
+      "scene": "A busy lunchroom with 32 visible students seated at long tables. Among them: 14 are using chopsticks (others use forks); 11 wear a wristwatch on the LEFT wrist, 6 wear a watch on the RIGHT wrist; 9 are clearly left-handed (holding utensils in the left hand). Of the right-wrist watch wearers, 4 are using chopsticks; of those 4, exactly 2 are also left-handed. Various distractors: 18 wear glasses, 7 wear hats.",
+      "question": "How many students are simultaneously LEFT-handed, eating with CHOPSTICKS, AND wearing a WATCH on the RIGHT wrist?",
+      "answer": "2",
+      "lever": "Triple-conjunctive attribute filtering across three independent visual cues (handedness, utensil, watch hand), with deliberately misleading marginal totals."
+    },
+    {
+      "id": "COUNT-012",
+      "sub_skill": "arithmetic_from_partial_labels",
+      "domain": "warehouse shipping bay",
+      "scene": "Nine identical cardboard boxes labeled BOX-A through BOX-I are stacked. Each box has a count stamp on the side. Visible stamps: A=12, B=8, C=15, D=11, E=9, G=14, I=7. Stamps on F and H are smudged so only the leading digit '1' is readable on each. A shipping manifest on the foreground clipboard reads 'Total units: 87'.",
+      "question": "Given F and H have equal counts, what is the count stamped on box F?",
+      "answer": "11",
+      "lever": "OCR of seven labels + manifest arithmetic + system-of-equations inference for the two illegible boxes (F+H = 87-76 = 22, so each = 11)."
+    },
+    {
+      "id": "COUNT-013",
+      "sub_skill": "subtractive_count_with_gaps",
+      "domain": "library shelf",
+      "scene": "A library shelf with 40 numbered slots (1 through 40), books standing vertically. Books are missing at slots 7, 13, 22, 35. Two books at slots 18 and 19 are lying flat on top of others (still on the shelf). A small stack of 3 books sits on the floor in front, labeled 'TO RESHELVE' (these are NOT on the shelf).",
+      "question": "How many books are currently ON the shelf?",
+      "answer": "36",
+      "lever": "Identify slot gaps (subtraction), recognize that flat-lying books still count as 'on shelf', exclude the floor stack despite proximity."
+    },
+    {
+      "id": "COUNT-014",
+      "sub_skill": "distinct_kind_count",
+      "domain": "kitchen tray",
+      "scene": "A tray holds 50 metal cookie cutters in a 5x10 grid. Many are duplicates and several appear in different rotations. The distinct shapes present are: star (×8 in various rotations), heart (×6), Christmas tree (×7), gingerbread man (×5), snowflake (×9, all visually identical due to symmetry), reindeer (×4), bell (×6), and crescent moon (×5). One cutter shaped like a star is also flipped to its mirror image — but mirror flips of a 5-pointed star are still the same shape.",
+      "question": "How many DISTINCT shape categories are on the tray (treating rotations and mirror images of the same shape as one category)?",
+      "answer": "8",
+      "lever": "Deduplicate across rotations and reflections; resist over-counting visually-different orientations as distinct categories."
+    },
+    {
+      "id": "COUNT-015",
+      "sub_skill": "trifold_mirror_dedup",
+      "domain": "vanity table",
+      "scene": "A trifold dressing-table mirror (left wing, center, right wing) faces a vanity with perfume bottles. The center mirror reflects 6 bottles; the left wing reflects 5 bottles (some overlap with center reflections); the right wing reflects 4 bottles. Direct view of the vanity surface shows 7 bottles, but 2 of them are partially behind a tissue box and visible only via the mirrors. The trifold geometry causes some bottles to appear in 2 wings.",
+      "question": "What is the TRUE total number of perfume bottles on the vanity?",
+      "answer": "7",
+      "lever": "Reflection-induced phantom duplicates across three mirror panels; correctly using the mirrors only to recover the 2 occluded real bottles, not to inflate the count."
+    },
+    {
+      "id": "COUNT-016",
+      "sub_skill": "periodic_extrapolation_through_occluder",
+      "domain": "exposed brick wall",
+      "scene": "A long horizontal exposed-brick wall, total length marked by a measuring tape on the floor as 8.40 meters. A tall bookshelf occupies the middle, blocking exactly 3.20 meters of wall. To the left of the bookshelf, 36 bricks are visible across 6 horizontal courses (rows). The visible left segment is 1.80 meters wide. The bricks are uniform and the courses continue behind the bookshelf.",
+      "question": "How many bricks does the entire wall contain across all 6 courses?",
+      "answer": "168",
+      "lever": "Compute brick density (36 bricks / 1.80 m = 20 bricks/m × 8.40 m = 168), requiring measurement reading + ratio reasoning + assumption of periodic continuation behind occluder."
+    },
+    {
+      "id": "COUNT-017",
+      "sub_skill": "shadow_only_count",
+      "domain": "sunny plaza",
+      "scene": "A sunlit cobblestone plaza shot from a high angle. The frame crops out almost all bodies (only feet visible at top edge) but the ground is fully visible with crisp human shadows cast by low afternoon sun. The shadows: 11 individual standing-person shadows, 1 shadow of two people holding hands (clearly two heads merged at hand level), 1 shadow of a person riding a bicycle (count as 1 person), 1 shadow of a dog, and 1 shadow of a lamppost.",
+      "question": "How many distinct PEOPLE are in the plaza based on the shadows?",
+      "answer": "14",
+      "lever": "Disambiguate merged human shadows, exclude non-human shadows (dog, lamppost), correctly count the cyclist as one person."
+    },
+    {
+      "id": "COUNT-018",
+      "sub_skill": "transparent_cylinder_dedup",
+      "domain": "round aquarium",
+      "scene": "A cylindrical glass aquarium viewed from one side. Through the front glass you see fish; through the curvature on either side, additional fish from the back of the tank are also visible (refracted). An overhead inset photograph in the corner shows the top-down view: 9 fish total, with marker dots labelling each. The side view shows 5 fish in front + 4 fish that appear smaller and shifted (these are the back-side fish seen through the curved glass).",
+      "question": "What is the TRUE number of fish in the aquarium?",
+      "answer": "9",
+      "lever": "Recognize that 'back' fish visible through curvature are not new fish; cross-reference with the top-down inset to confirm."
+    },
+    {
+      "id": "COUNT-019",
+      "sub_skill": "topological_room_count",
+      "domain": "architectural floor plan",
+      "scene": "A black-and-white architectural floor plan of a single-story house. Walls drawn as thick black lines. There are 23 doors (drawn as arc symbols), 14 windows, 3 closets (small fully-enclosed rectangles with door arcs), 1 hallway (long narrow space connecting other spaces), 1 entry foyer, 5 bedrooms, 2 bathrooms, 1 kitchen, 1 living room, 1 dining room. The garage attached to the side is also enclosed by walls and has 1 main door + 1 side door.",
+      "question": "How many enclosed ROOMS are in the house plan? (A room is any space fully enclosed by walls with at least one door, INCLUDING closets, hallway, foyer, and the garage.)",
+      "answer": "16",
+      "lever": "Apply explicit definition: 5+2+1+1+1+3+1+1+1 = 16; resist counting doors instead of rooms; include closets/garage per the definition."
+    },
+    {
+      "id": "COUNT-020",
+      "sub_skill": "arithmetic_from_receipt",
+      "domain": "bakery counter",
+      "scene": "A bakery counter shows a glass case with 4 visible product types and a partially-visible printed receipt next to the cash register. Price tags: croissant 8.00, baguette 12.00, muffin 5.00, danish 7.00. The receipt footer reads 'TOTAL 91.00'. Visible receipt lines: '3 × croissant ........ 24.00', '2 × baguette ......... 24.00', '4 × danish ........... 28.00'. The muffin line is torn off the bottom of the receipt.",
+      "question": "How many MUFFINS were purchased on this receipt?",
+      "answer": "3",
+      "lever": "OCR three visible line totals (24+24+28 = 76), subtract from grand total (91-76 = 15), divide by muffin unit price (15/5 = 3)."
+    },
+    {
+      "id": "COUNT-021",
+      "sub_skill": "topological_hole_count",
+      "domain": "bakery plate",
+      "scene": "A round plate displays 12 baked goods: 4 pretzels (each pretzel forms 3 distinct holes), 5 ring donuts (each with 1 hole), 2 bagels (each with 1 hole), 1 plain bread roll (no holes). Some pretzels are partially overlapping but every hole remains visually distinguishable.",
+      "question": "How many TOTAL holes are visible across all baked goods on the plate?",
+      "answer": "19",
+      "lever": "Genus/topological counting: 4×3 + 5×1 + 2×1 + 1×0 = 19; requires recognizing pretzel as a 3-hole topology, not 1."
+    },
+    {
+      "id": "COUNT-022",
+      "sub_skill": "set_logic_inclusion_exclusion",
+      "domain": "pet adoption center",
+      "scene": "A bulletin board at a pet adoption center shows 18 photo cards of dogs available for adoption. Each card has 0–2 colored stickers: a green sticker means 'vaccinated', a blue sticker means 'neutered'. By visible count: 12 cards have a green sticker, 10 cards have a blue sticker, 7 cards have BOTH stickers. The remaining cards have neither sticker.",
+      "question": "How many dogs are NEITHER vaccinated NOR neutered?",
+      "answer": "3",
+      "lever": "Inclusion-exclusion: |A∪B|=12+10−7=15, complement = 18−15 = 3."
+    },
+    {
+      "id": "COUNT-023",
+      "sub_skill": "full_visibility_only_count",
+      "domain": "parking lot",
+      "scene": "Top-down drone view of an outdoor parking lot with 40 painted parking slots, vehicles in many of them. Several columns of slots are partially shadowed by trees, several other rows are partially obscured by structural pillars. Detailed counts: 28 slots are occupied; of these, 9 cars have part of their body hidden behind a pillar or under deep tree shade such that less than 80% of the vehicle outline is visible, 19 cars are fully visible end-to-end with full outline.",
+      "question": "How many vehicles are FULLY visible (entire outline unobstructed) in the lot?",
+      "answer": "19",
+      "lever": "Distinguish 'present' from 'fully visible'; resist defaulting to total occupied count."
+    },
+    {
+      "id": "COUNT-024",
+      "sub_skill": "orientation_filter_count",
+      "domain": "village rooftops",
+      "scene": "A panoramic view of an old European village; 30 weather vanes are visible on rooftops. The wind direction is northward (a flag on the church visibly points N). Vane orientations: 11 point north (aligned with the wind), 7 point south, 5 point east, 4 point west, 3 are stuck at NE due to rust (visibly leaning). The compass rose in the bottom-right of the image confirms which direction is N.",
+      "question": "How many weather vanes are pointing exactly NORTH?",
+      "answer": "11",
+      "lever": "Orientation reading + compass disambiguation in a top-down village; reject NE (stuck) vanes."
+    },
+    {
+      "id": "COUNT-025",
+      "sub_skill": "distinct_person_under_motion_blur",
+      "domain": "dance studio",
+      "scene": "A long-exposure photograph of a dance studio mid-performance. 6 dancers spin in place, each producing a circular motion blur trail; their static legs/feet remain crisp. 1 dancer is standing still in the corner observing (no blur). A wall mirror behind the dancers reflects all 7 — but the reflection is stretched and tinted differently.",
+      "question": "How many distinct dancers are physically in the studio (excluding the mirror)?",
+      "answer": "7",
+      "lever": "Use the static feet to count physical bodies (not motion trails); exclude mirrored duplicates; include the still observer."
+    },
+    {
+      "id": "COUNT-026",
+      "sub_skill": "page_number_extrapolation",
+      "domain": "magazine stack",
+      "scene": "A flat-lay of 5 open magazines, each showing two facing pages with clear page numbers visible. Magazine A: pages 18-19, total page count printed on cover '64'. Magazine B: pages 7-8, cover says '48'. Magazine C: pages 32-33, cover '80'. Magazine D: pages 11-12, cover '24'. Magazine E: pages 50-51, cover '128'. Question requires summing total pages across all magazines.",
+      "question": "What is the SUM of total page counts across all 5 magazines?",
+      "answer": "344",
+      "lever": "OCR five cover numbers, sum: 64+48+80+24+128 = 344; resist using the visible interior page numbers."
+    },
+    {
+      "id": "COUNT-027",
+      "sub_skill": "dense_compound_filter",
+      "domain": "library reading room",
+      "scene": "A library shelf in extreme close-up shows 24 books standing vertically. Spine attributes: 9 are RED, 8 are BLUE, 7 are GREEN. 11 books have a small white circular library sticker on the spine. 14 books are taller than 25cm (a 25cm ruler stands beside them). Among the 9 red books: 5 have stickers, 6 are taller than 25cm, 4 are BOTH red+stickered+tall.",
+      "question": "How many books are RED, have a sticker, AND are taller than 25cm?",
+      "answer": "4",
+      "lever": "Triple-attribute conjunction directly stated; success depends on extracting the precise overlap count, not multiplying marginal probabilities."
+    },
+    {
+      "id": "COUNT-028",
+      "sub_skill": "min_subgroup_identify_and_count",
+      "domain": "aquarium gallery",
+      "scene": "A public aquarium has 6 themed tanks each with a species placard. Tank 1: 'Clownfish — 14 specimens visible'. Tank 2: 'Seahorse — 9'. Tank 3: 'Lionfish — 5'. Tank 4: 'Pufferfish — 7'. Tank 5: 'Angelfish — 11'. Tank 6: 'Moray eel — 3'. However, the placards are partially OUT OF DATE: the actual currently-visible counts (after recent moves) are: clownfish 12, seahorse 11, lionfish 4, pufferfish 8, angelfish 9, eel 3.",
+      "question": "Which species has the FEWEST current specimens, and how many?",
+      "answer": "Moray eel, 3",
+      "lever": "Resolve placard-vs-actual discrepancy; both lists give moray eel as smallest, but the contrast tests which source you trust."
+    },
+    {
+      "id": "COUNT-029",
+      "sub_skill": "chess_attack_count",
+      "domain": "tournament chess board",
+      "scene": "A chess board mid-game shown from White's side. White pieces: King e1, Queen d1, Rook a1, Rook h1, Bishop c4, Knight f3, Pawns a2, b2, c3, d4, e4, f2, g2, h2. Black pieces: King e8, Queen d8, Rook a8, Rook h8, Bishop c5, Knight f6, Pawns a7, b7, c6, d6, e5, f7, g7, h7. It is Black's turn. The Black bishop on c5 attacks White's pawn on f2. The Black knight on f6 attacks White's pawn on e4. The Black pawn on d6 attacks White's pawn on e5 (no, d6 attacks e5 only if e5 is white, which it is — wait, e5 is Black). Actually e5 is Black per setup; so d6 attacks c5/e5 which are own color → no attack. Recompute: pieces of Black currently giving check or attacking white pieces — Bishop c5 attacks pawn on f2 (diagonal c5-d4(white pawn)-e3-f2 blocked by white d4). So Bc5 attacks d4. Nf6 attacks e4 (knight move). Pawn e5 attacks d4 and f4 — d4 is white, f4 is empty. So attacks: Bc5→d4, Nf6→e4, Pe5→d4. Three attacking pieces.",
+      "question": "How many of Black's pieces are currently attacking a White piece?",
+      "answer": "3",
+      "lever": "Read board state precisely (square by square) and apply chess movement rules including blocked diagonals; count attacker-pieces (not attacks)."
+    },
+    {
+      "id": "COUNT-030",
+      "sub_skill": "calendar_compound_marks",
+      "domain": "wall calendar",
+      "scene": "A wall calendar opened to September 2026. September 2026 starts on a Tuesday; Mondays fall on the 7th, 14th, 21st, 28th. Sticker overlay: green dots on dates 2, 7, 9, 14, 16, 21, 23, 28, 30 (every Mon and Wed); red X marks on dates 14 and 21 (cancelled). A small legend reads 'green = scheduled, red = cancelled'.",
+      "question": "How many MONDAYS in September 2026 have a green dot AND no red X?",
+      "answer": "2",
+      "lever": "Identify Mondays from the calendar grid (4 Mondays) → those with green dot (all 4) → exclude red X (2) → answer 2."
+    }
+  ]
+}

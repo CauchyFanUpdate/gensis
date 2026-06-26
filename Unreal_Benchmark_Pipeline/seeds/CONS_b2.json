@@ -1,0 +1,186 @@
+{
+  "family_id": "CONS",
+  "family_name": "Semantic Consistency & Contradiction Detection",
+  "seeds": [
+    {
+      "id": "CONS-031",
+      "sub_skill": "season_vs_clothing_mismatch",
+      "domain": "park scene",
+      "scene": "A park photo with snow on the ground, leafless trees, breath visible in the air; people in the scene wearing varied clothing: some in heavy coats, one in shorts and tank top, one in light jacket, one in swimsuit by a 'closed pool' sign.",
+      "question": "How many people are dressed INCONSISTENTLY with the visible weather?",
+      "answer": "2",
+      "lever": "Read environmental weather cues (snow, breath, leafless), apply 'cold' constraint, flag people in summer attire."
+    },
+    {
+      "id": "CONS-032",
+      "sub_skill": "clock_vs_window_light_inconsistency",
+      "domain": "office cubicle",
+      "scene": "An office desk with a wall clock reading 2:00 (numeral), a computer showing system time 14:00, and a window showing pitch-black night outside with city lights visible.",
+      "question": "Which element is INCONSISTENT with the rest?",
+      "answer": "the clock or the window — they cannot both be true at the same instant; the clock says afternoon but the window says night",
+      "lever": "Cross-check clock + system time + ambient light; pick the element disagreeing with the majority signal."
+    },
+    {
+      "id": "CONS-033",
+      "sub_skill": "menu_price_total_inconsistency",
+      "domain": "restaurant receipt + menu",
+      "scene": "A restaurant receipt lists 4 items with prices: Burger $8, Fries $3, Coke $2, Pie $5. The 'subtotal' field reads $19; the menu beside it shows the same prices.",
+      "question": "Is the receipt subtotal consistent with the listed items?",
+      "answer": "no — subtotal should be $18, not $19",
+      "lever": "Sum visible prices, compare to printed subtotal, flag the off-by-one."
+    },
+    {
+      "id": "CONS-034",
+      "sub_skill": "team_uniform_player_mismatch",
+      "domain": "sports broadcast still",
+      "scene": "A basketball game still: 5 players in red jerseys at one end, 5 in blue at the other. The scoreboard ribbon reads 'RED 64 — BLUE 58'. One player at the red end is wearing a blue jersey.",
+      "question": "Is there an inconsistency on the court?",
+      "answer": "yes — one player at the red end is in a blue jersey",
+      "lever": "Group by spatial team area + jersey color; flag the mismatched item."
+    },
+    {
+      "id": "CONS-035",
+      "sub_skill": "shadow_count_vs_sun_count",
+      "domain": "outdoor stadium photo",
+      "scene": "A daytime outdoor scene with one bright sun visible. People and lampposts cast shadows; one statue casts two shadows in different directions, and one person casts no shadow at all.",
+      "question": "How many shadow-related inconsistencies are present?",
+      "answer": "2",
+      "lever": "With one sun, every opaque object should cast exactly one shadow in the same direction; flag both rule violations."
+    },
+    {
+      "id": "CONS-036",
+      "sub_skill": "currency_consistency_within_country",
+      "domain": "tourist photo of marketplace",
+      "scene": "A street market in Tokyo (visible Japanese signage). Two stall price boards: stall A '¥500', stall B '$5.00 USD', stall C '€4.50', stall D '¥600'.",
+      "question": "Which stall pricing is INCONSISTENT with the location?",
+      "answer": "stalls B and C",
+      "lever": "Detect country from signage, apply local currency expectation, flag foreign-currency boards."
+    },
+    {
+      "id": "CONS-037",
+      "sub_skill": "calendar_year_day_alignment",
+      "domain": "wall calendar",
+      "scene": "A wall calendar page labeled 'February 2024'. The grid shows days starting on a Tuesday, with February 29 present, ending on Wednesday.",
+      "question": "Is this calendar page valid for the labeled month?",
+      "answer": "no — February 2024 begins on a Thursday, not Tuesday",
+      "lever": "Cross-check year/month label vs first-day-of-week and leap-day inclusion; flag inconsistency."
+    },
+    {
+      "id": "CONS-038",
+      "sub_skill": "license_plate_country_mismatch",
+      "domain": "parking lot photo",
+      "scene": "Five cars parked at an airport in Berlin (German signage visible). Plates: P1 German format (rectangular, EU-blue strip with 'D'), P2 US format (state name 'California'), P3 German, P4 UK with GB strip, P5 German.",
+      "question": "How many cars have NON-LOCAL plates?",
+      "answer": "2",
+      "lever": "Detect location, apply local plate format, count exceptions; recognize multiple foreign formats."
+    },
+    {
+      "id": "CONS-039",
+      "sub_skill": "math_chalkboard_error",
+      "domain": "classroom chalkboard",
+      "scene": "A chalkboard shows three equations chalked by a teacher: '7 + 5 = 12', '12 × 3 = 36', '36 ÷ 4 = 8'. A teacher sticker says 'all checked correct'.",
+      "question": "Which equation contradicts the sticker?",
+      "answer": "36 ÷ 4 = 8 (should be 9)",
+      "lever": "Verify each equation arithmetically; flag the false one despite the 'all correct' label."
+    },
+    {
+      "id": "CONS-040",
+      "sub_skill": "weather_forecast_visual_mismatch",
+      "domain": "TV weather screen",
+      "scene": "A TV weather graphic shows a sun icon labeled 'Sunny, 28°C', and the live camera in the corner shows heavy rain on a city street.",
+      "question": "What inconsistency is visible?",
+      "answer": "forecast graphic says sunny but live camera shows rain",
+      "lever": "Cross-check overlay graphic against ground-truth video pane."
+    },
+    {
+      "id": "CONS-041",
+      "sub_skill": "store_open_hours_vs_clock",
+      "domain": "shop entrance",
+      "scene": "A storefront door shows a sign 'OPEN — Mon–Fri 9–6'. The window also shows a 'CLOSED' hanging tag. A wall clock visible inside shows 11:30 AM. A small calendar is set to 'Wednesday'.",
+      "question": "Are the entrance signs internally consistent?",
+      "answer": "no — by hours+time+day the store should be open, but the CLOSED tag contradicts it",
+      "lever": "Combine hours rule + day + time → expected state; compare with the displayed status."
+    },
+    {
+      "id": "CONS-042",
+      "sub_skill": "price_tag_vs_barcode_inconsistency",
+      "domain": "supermarket scanner",
+      "scene": "A grocery item with two stickers: a paper price tag '$3.99' and a scanner display showing '$5.49' for the same scanned item.",
+      "question": "Which price is authoritative, and is there a discrepancy?",
+      "answer": "discrepancy exists; scanner is authoritative for charge but tag is misrepresentation",
+      "lever": "Note the discrepancy and state the policy implication."
+    },
+    {
+      "id": "CONS-043",
+      "sub_skill": "language_signage_local_inconsistency",
+      "domain": "international airport sign",
+      "scene": "A signage panel at an airport with directions in English, Spanish, French, and one line in mirror-reversed text. Other panels in the photo only use the three forward-facing languages.",
+      "question": "Which line on the panel is INCONSISTENT with the rest?",
+      "answer": "the mirror-reversed line",
+      "lever": "Detect text-orientation outlier among uniform conventions."
+    },
+    {
+      "id": "CONS-044",
+      "sub_skill": "physics_water_level_inconsistency",
+      "domain": "tilted aquarium photo",
+      "scene": "A photo of a fish tank tilted by ~20°; water inside it is shown at an angle that aligns with the tank walls (tilted with the tank), not with gravity.",
+      "question": "What physical law does the image violate?",
+      "answer": "water surface should remain horizontal regardless of container tilt (gravity), not align with the tank",
+      "lever": "Apply physics constraint that liquid surfaces are gravity-aligned (horizontal)."
+    },
+    {
+      "id": "CONS-045",
+      "sub_skill": "speed_signs_contradiction",
+      "domain": "highway road",
+      "scene": "A stretch of highway with three speed-limit signs visible in succession: '60 mph', '40 mph', '80 mph' on the same straight, no construction zones or ramps between them.",
+      "question": "Which sign(s) are INCONSISTENT in this context?",
+      "answer": "the 80 mph sign (and arguably the 60 mph), since no transition justifies the swing",
+      "lever": "Apply road-context rule: limits change gradually with reason; flag jumps without cause."
+    },
+    {
+      "id": "CONS-046",
+      "sub_skill": "gauge_dial_red_zone_vs_label",
+      "domain": "industrial control panel",
+      "scene": "A pressure gauge with a needle in the green safe zone, and a digital readout below stating '85 PSI — DANGER'. The dial markings show green to 60 PSI, yellow 60-100 PSI, red >100 PSI.",
+      "question": "Which display is wrong?",
+      "answer": "the digital 'DANGER' label is wrong — 85 PSI is yellow caution, not red danger",
+      "lever": "Read needle position against zone scale; cross-check with the digital label/zone classification."
+    },
+    {
+      "id": "CONS-047",
+      "sub_skill": "person_count_caption_mismatch",
+      "domain": "newspaper photo",
+      "scene": "A newspaper photo shows 7 people in a meeting room. The caption underneath reads 'The five board members convene Tuesday.'",
+      "question": "Is the caption consistent with the image?",
+      "answer": "no — the image shows 7 people but caption claims 5",
+      "lever": "Cross-check number in caption vs visible count."
+    },
+    {
+      "id": "CONS-048",
+      "sub_skill": "speed_distance_time_inconsistency",
+      "domain": "racing scoreboard",
+      "scene": "A race scoreboard: distance run = 5 km, time elapsed = 20:00 (mm:ss), pace shown = '8:00/km'. A note: 'pace = time / distance'.",
+      "question": "Is the pace correctly calculated?",
+      "answer": "no — 20 min / 5 km = 4 min/km, not 8 min/km",
+      "lever": "Compute pace from distance and time, compare to stated pace."
+    },
+    {
+      "id": "CONS-049",
+      "sub_skill": "geographic_landmark_mismatch",
+      "domain": "travel postcard",
+      "scene": "A postcard captioned 'Greetings from Paris' shows a clearly recognizable Eiffel-Tower silhouette in the background — but in the foreground stand the unmistakable Sydney Opera House sails.",
+      "question": "Which landmark is INCONSISTENT with the caption?",
+      "answer": "the Sydney Opera House (caption says Paris)",
+      "lever": "Recognize landmarks; cross-check with the captioned location."
+    },
+    {
+      "id": "CONS-050",
+      "sub_skill": "camera_metadata_vs_scene",
+      "domain": "photo with EXIF caption",
+      "scene": "A photo with an overlaid metadata strip: 'ISO 100, f/2.8, 1/8000s, taken 14:00 local'. The image content shows an indoor candlelit dinner with deep shadows and warm light.",
+      "question": "Which EXIF parameter is INCONSISTENT with the scene?",
+      "answer": "1/8000s shutter (and ISO 100) cannot expose a dim candlelit indoor scene properly",
+      "lever": "Apply exposure-triangle reasoning: low ISO + fast shutter + small light = underexposed black; scene shouldn't be visible."
+    }
+  ]
+}

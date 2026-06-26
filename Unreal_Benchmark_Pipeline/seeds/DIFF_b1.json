@@ -1,0 +1,276 @@
+{
+  "family_id": "DIFF",
+  "family_name": "Paired Spot-the-Difference",
+  "seeds": [
+    {
+      "id": "DIFF-001",
+      "sub_skill": "object_count_diff",
+      "domain": "kitchen_counter",
+      "scene": "A side-by-side image: Left panel shows a kitchen counter with 5 red apples in a wooden bowl, a white kettle, a toaster, and a hanging clock showing 3:00. Right panel is identical EXCEPT the bowl contains 4 apples instead of 5 (one apple is missing from the front-right of the pile).",
+      "question": "List exactly all visual differences between the left and right panels.",
+      "answer": "Exactly one difference: the right panel has 4 apples in the bowl instead of 5",
+      "lever": "Single subtle count difference; tests whether the model finds it AND avoids fabricating additional fake differences."
+    },
+    {
+      "id": "DIFF-002",
+      "sub_skill": "color_swap",
+      "domain": "playground",
+      "scene": "Two side-by-side photos of a children's playground. Left: a yellow swing, a red slide, a blue seesaw, and a green spring-rider duck. Right: identical layout but the swing seat is GREEN and the spring-rider duck is YELLOW (the swing and duck have swapped colors). Everything else is identical.",
+      "question": "What changed between the two panels?",
+      "answer": "Two color swaps: the swing changed from yellow to green, and the spring-rider duck changed from green to yellow",
+      "lever": "Color swap among multiple objects; requires not just spotting one but recognizing the paired exchange."
+    },
+    {
+      "id": "DIFF-003",
+      "sub_skill": "text_diff_one_letter",
+      "domain": "shop_sign",
+      "scene": "Two photos of the same shop facade. Left panel sign reads 'CLASSIC BARBER'. Right panel sign reads 'CLASSIC BARBOR' (the second 'E' has been changed to 'O'). The shop, awning, door, and decorations are otherwise identical.",
+      "question": "Identify the difference.",
+      "answer": "The sign text differs by one letter: 'BARBER' on the left vs 'BARBOR' on the right",
+      "lever": "Single-character text difference within a long sign; classic VLM blind spot."
+    },
+    {
+      "id": "DIFF-004",
+      "sub_skill": "shadow_direction",
+      "domain": "park",
+      "scene": "Two side-by-side photos of a park bench at midday. Left: bench with a long shadow falling to the LEFT (sun from the right). Right: identical bench but shadow falls to the RIGHT (sun from the left). The sky, bench, and grass are otherwise identical.",
+      "question": "What is the difference between the panels?",
+      "answer": "The bench's shadow points in opposite directions (left in one panel, right in the other), implying opposite sun directions",
+      "lever": "Lighting/shadow direction change; tests physical-world reasoning, not just object recognition."
+    },
+    {
+      "id": "DIFF-005",
+      "sub_skill": "missing_small_object",
+      "domain": "desk",
+      "scene": "Two photos of an office desk. Left: laptop, mug, notepad, pen, eyeglasses, stapler, paperclip holder, small cactus. Right: identical setup but the small cactus is missing.",
+      "question": "What is missing in the right panel compared to the left?",
+      "answer": "The small cactus",
+      "lever": "Removal of one minor object among many; tests inventory comparison."
+    },
+    {
+      "id": "DIFF-006",
+      "sub_skill": "rotated_clock_hands",
+      "domain": "wall_clock",
+      "scene": "Two photos of the same wall clock. Left: hour hand at 3, minute hand at 12 (3:00). Right: hour hand at 3, minute hand at 6 (3:30). Clock face, walls, and frame are identical.",
+      "question": "What time does each clock show?",
+      "answer": "Left: 3:00. Right: 3:30. Difference: minute hand position",
+      "lever": "Reading two analog clock states accurately and identifying which hand moved."
+    },
+    {
+      "id": "DIFF-007",
+      "sub_skill": "added_object",
+      "domain": "library",
+      "scene": "Two photos of a library shelf. Left: 12 books on the top row, 11 on the middle, 10 on the bottom. Right: same arrangement but ONE additional small green book has been inserted between the 4th and 5th book of the middle row.",
+      "question": "What was added in the right panel?",
+      "answer": "One small green book inserted in the middle row (now 12 books on the middle row instead of 11)",
+      "lever": "Subtle addition in a dense field; row-specific localization required."
+    },
+    {
+      "id": "DIFF-008",
+      "sub_skill": "person_clothing_diff",
+      "domain": "portrait",
+      "scene": "Two side-by-side portraits of the same person from the same angle. Left: black shirt, silver wristwatch on left wrist, no earrings. Right: black shirt, silver wristwatch on right wrist, small gold stud earring in left ear. Background and pose are identical.",
+      "question": "List all differences.",
+      "answer": "Two differences: (1) wristwatch is on opposite wrists; (2) right panel has a gold stud earring in the left ear that is absent on the left",
+      "lever": "Multiple subtle accessory differences requiring careful side-by-side scanning."
+    },
+    {
+      "id": "DIFF-009",
+      "sub_skill": "no_difference",
+      "domain": "fruit_stand",
+      "scene": "Two side-by-side photos of a fruit stand with apples, oranges, bananas, grapes, and a hand-written sign saying 'FRESH'. The two panels are pixel-identical (presented as a deliberate negative control).",
+      "question": "What differences exist between the two panels?",
+      "answer": "There are no differences — the panels are identical",
+      "lever": "Negative control: tests whether the model fabricates differences when none exist."
+    },
+    {
+      "id": "DIFF-010",
+      "sub_skill": "weather_state",
+      "domain": "house_exterior",
+      "scene": "Two photos of the same suburban house. Left: blue sky with a few clouds, dry driveway, dry lawn. Right: same house, same angle, but the sky is overcast gray, the driveway has wet patches, and the lawn looks darker. Otherwise (mailbox, car, garden gnome) identical.",
+      "question": "What environmental difference is shown?",
+      "answer": "Weather state: left panel is dry/sunny; right panel is overcast and recently rained (wet driveway, darker lawn)",
+      "lever": "Environmental/atmospheric difference rather than object difference."
+    },
+    {
+      "id": "DIFF-011",
+      "sub_skill": "license_plate_digit",
+      "domain": "parking",
+      "scene": "Two photos of the same parked sedan from the rear. Left: license plate reads 'XYZ-4827'. Right: license plate reads 'XYZ-4823' (last digit 7 → 3). Car, lighting, and surroundings identical.",
+      "question": "What digit changed on the license plate?",
+      "answer": "The last digit: 7 in the left panel, 3 in the right panel",
+      "lever": "Single-character text diff in a small region of the image."
+    },
+    {
+      "id": "DIFF-012",
+      "sub_skill": "multiple_subtle_diffs",
+      "domain": "living_room",
+      "scene": "Two photos of a living room. Left: 3 cushions on sofa (red, blue, green), painting of a sailboat above sofa, lamp ON, cat sleeping on rug. Right: 3 cushions on sofa (red, blue, green) BUT the green and blue have swapped positions; painting is of a sailboat with one extra small bird in the sky; lamp is OFF; cat sleeping on rug. So 3 subtle differences total.",
+      "question": "List all differences between the panels.",
+      "answer": "Three differences: (1) blue and green cushions have swapped positions on the sofa; (2) the painting in the right panel has an extra bird in the sky; (3) the lamp is on in the left and off in the right",
+      "lever": "Multiple small simultaneous differences; tests exhaustive enumeration."
+    },
+    {
+      "id": "DIFF-013",
+      "sub_skill": "mirror_flipped_panel",
+      "domain": "office",
+      "scene": "Two photos of an office. Left: original photo, with desk on the right side, window on the left, computer monitor facing right. Right: the SAME photo but horizontally mirror-flipped (so desk on left, window on right, monitor facing left). No other content differs.",
+      "question": "How are the two panels related?",
+      "answer": "The right panel is a horizontal mirror flip of the left panel",
+      "lever": "Mirror-flip detection (a global transformation) rather than per-object difference."
+    },
+    {
+      "id": "DIFF-014",
+      "sub_skill": "swapped_signs",
+      "domain": "intersection",
+      "scene": "Two photos of a street intersection. Left: a STOP sign on the north corner and a YIELD sign on the south corner. Right: same intersection but STOP and YIELD have been swapped (STOP on south corner, YIELD on north).",
+      "question": "What changed?",
+      "answer": "The STOP and YIELD signs have swapped corners",
+      "lever": "Spatial swap of two distinct objects; tests both identification and position."
+    },
+    {
+      "id": "DIFF-015",
+      "sub_skill": "facial_expression",
+      "domain": "portrait_pair",
+      "scene": "Two portraits of the same person, same lighting, same outfit, same crop. Left: smiling with teeth visible. Right: neutral expression, lips closed.",
+      "question": "What is the difference?",
+      "answer": "Facial expression: left smiling with teeth visible; right neutral with lips closed",
+      "lever": "Subtle facial expression difference; everything else identical."
+    },
+    {
+      "id": "DIFF-016",
+      "sub_skill": "missing_reflection",
+      "domain": "puddle",
+      "scene": "Two photos of a wet street with a streetlamp visible. Left: streetlamp visible AND its reflection visible in the puddle in front. Right: streetlamp visible but the puddle shows NO reflection of the lamp (the puddle reflects only sky).",
+      "question": "What is physically inconsistent in one of the panels?",
+      "answer": "The right panel: the puddle should show the streetlamp's reflection but does not",
+      "lever": "Physical-consistency reasoning between paired images."
+    },
+    {
+      "id": "DIFF-017",
+      "sub_skill": "added_pet",
+      "domain": "garden",
+      "scene": "Two photos of a backyard garden. Left: lawn, flower beds, garden hose coiled. Right: identical scene but a small orange tabby cat is sitting near the flower beds.",
+      "question": "What was added in the right panel?",
+      "answer": "A small orange tabby cat near the flower beds",
+      "lever": "New foreground object addition in a busy natural scene."
+    },
+    {
+      "id": "DIFF-018",
+      "sub_skill": "altered_arithmetic",
+      "domain": "whiteboard",
+      "scene": "Two photos of a whiteboard. Left: written equation '12 + 34 = 46'. Right: same whiteboard but reads '12 + 34 = 49'. Otherwise identical (markers on tray, eraser, magnets).",
+      "question": "What changed and which version is arithmetically correct?",
+      "answer": "The right-hand side changed from 46 to 49; the left panel (12 + 34 = 46) is correct, the right panel is wrong",
+      "lever": "Difference is arithmetically meaningful; requires verification not just spotting."
+    },
+    {
+      "id": "DIFF-019",
+      "sub_skill": "occluded_vs_present",
+      "domain": "bookshelf",
+      "scene": "Two photos of a bookshelf with a small framed photo on it. Left: the framed photo shows a clear picture of a beach. Right: a houseplant has been moved in front of the frame, occluding the photo entirely. All other objects (books, lamp, vase) are identical.",
+      "question": "What changed between the panels?",
+      "answer": "A houseplant has been moved (or added) in the right panel so that it now occludes the framed beach photo",
+      "lever": "Occlusion-based difference; the underlying objects are unchanged but visibility differs."
+    },
+    {
+      "id": "DIFF-020",
+      "sub_skill": "different_count_in_pattern",
+      "domain": "tile_floor",
+      "scene": "Two photos of a tiled floor with a 5×5 grid pattern of black and white tiles forming a checkerboard. Left: standard checkerboard, 13 black and 12 white tiles. Right: same checkerboard but ONE tile in the center column, second row from top, has been replaced (black where it should be white).",
+      "question": "Compared to a perfect checkerboard, what is wrong with the right panel and how many black tiles does each panel have?",
+      "answer": "Right panel has one tile in the wrong color (black where it should be white); left has 13 black tiles, right has 14 black tiles (broken checkerboard)",
+      "lever": "Pattern-violation detection plus counting."
+    },
+    {
+      "id": "DIFF-021",
+      "sub_skill": "swapped_label_objects",
+      "domain": "pharmacy_shelf",
+      "scene": "Two photos of a pharmacy shelf. Left: a bottle labeled 'Aspirin' on the left, 'Ibuprofen' in the middle, 'Acetaminophen' on the right. Right: 'Ibuprofen' on the left, 'Aspirin' in the middle, 'Acetaminophen' on the right (Aspirin and Ibuprofen have swapped positions).",
+      "question": "Which two labels swapped positions?",
+      "answer": "Aspirin and Ibuprofen swapped positions",
+      "lever": "Order-of-labels difference among similar objects."
+    },
+    {
+      "id": "DIFF-022",
+      "sub_skill": "broken_window_pane",
+      "domain": "house",
+      "scene": "Two photos of the same house with a multi-pane window of 3×3 panes. Left: all 9 panes intact. Right: the center pane has a star-shaped crack visible. Otherwise identical.",
+      "question": "What is different?",
+      "answer": "The center window pane is cracked (star-shaped fracture) in the right panel",
+      "lever": "Subtle damage detail in a single pane."
+    },
+    {
+      "id": "DIFF-023",
+      "sub_skill": "different_food_on_plate",
+      "domain": "dinner_table",
+      "scene": "Two photos of a dinner setting from above. Left plate: grilled salmon, broccoli, mashed potatoes, lemon wedge. Right plate (same plate, same place setting, same garnish): grilled chicken breast (instead of salmon), broccoli, mashed potatoes, lemon wedge. Other place settings, glassware, and napkins identical.",
+      "question": "What is the only difference?",
+      "answer": "The protein on the plate: salmon (left) vs chicken breast (right)",
+      "lever": "Fine-grained food category discrimination."
+    },
+    {
+      "id": "DIFF-024",
+      "sub_skill": "altered_sky_features",
+      "domain": "landscape",
+      "scene": "Two photos of a mountain landscape. Left: 3 birds visible flying in the sky and 1 white airplane contrail. Right: 4 birds visible (one extra in the lower-right of sky) and no contrail (the contrail has been removed).",
+      "question": "List the differences in the sky.",
+      "answer": "Two differences: (1) right panel has 4 birds vs 3 in the left (one added); (2) the contrail in the left panel is absent in the right",
+      "lever": "Concurrent addition and removal in the same region."
+    },
+    {
+      "id": "DIFF-025",
+      "sub_skill": "altered_book_titles",
+      "domain": "bookshelf_titles",
+      "scene": "Two photos of a bookshelf with 5 thick books standing upright, titles visible on spines. Left titles top-to-bottom: 'Theory of Forms', 'A Brief History', 'Quantum Worlds', 'Sapiens', 'The Republic'. Right titles: 'Theory of Forms', 'A Long History' (was 'A Brief History'), 'Quantum Worlds', 'Sapiens', 'The Republic'. Books, colors, and order identical.",
+      "question": "What changed?",
+      "answer": "The second book's title changed from 'A Brief History' to 'A Long History'",
+      "lever": "Single-word change in one of many titles."
+    },
+    {
+      "id": "DIFF-026",
+      "sub_skill": "size_change_one_object",
+      "domain": "fruit_basket",
+      "scene": "Two photos of a fruit basket with one pear, one apple, one orange, two bananas, and one peach. Left: peach is normal-sized (similar to the apple). Right: peach is roughly half the size of the apple (and noticeably smaller than the orange). All other fruits identical in size and position.",
+      "question": "What is different about the right panel?",
+      "answer": "The peach is significantly smaller (roughly half size) in the right panel",
+      "lever": "Relative size change of one object among many; subtle without direct measurement."
+    },
+    {
+      "id": "DIFF-027",
+      "sub_skill": "altered_signage_arrow",
+      "domain": "parking_garage",
+      "scene": "Two photos of a parking-garage interior with a yellow directional sign. Left sign: 'EXIT →' (arrow pointing right). Right sign: 'EXIT ←' (arrow pointing left). Sign placement, walls, parked cars all identical.",
+      "question": "What is different?",
+      "answer": "The exit-arrow direction has been flipped (right → left)",
+      "lever": "Direction-of-arrow change; tests pictogram orientation perception."
+    },
+    {
+      "id": "DIFF-028",
+      "sub_skill": "altered_window_curtain",
+      "domain": "bedroom",
+      "scene": "Two photos of a bedroom. Left: window has open curtains showing daylight outside; bed made with white sheets; lamp on nightstand. Right: window has closed curtains (no daylight visible through them); bed made with white sheets; lamp on nightstand.",
+      "question": "What changed?",
+      "answer": "The curtains: open in the left panel, closed in the right",
+      "lever": "Single state-change of a textile element."
+    },
+    {
+      "id": "DIFF-029",
+      "sub_skill": "altered_score_board",
+      "domain": "stadium_scoreboard",
+      "scene": "Two photos of an electronic scoreboard at a sports stadium. Left scoreboard reads 'HOME 14 — VISITOR 21 — Q3 — 7:42'. Right scoreboard reads 'HOME 17 — VISITOR 21 — Q3 — 7:42' (HOME score changed from 14 to 17). Stadium background identical.",
+      "question": "What changed?",
+      "answer": "The HOME score increased from 14 to 17",
+      "lever": "Single-digit/number change in scoreboard text; tests reading multiple numbers and comparing."
+    },
+    {
+      "id": "DIFF-030",
+      "sub_skill": "altered_digital_clock_display",
+      "domain": "microwave",
+      "scene": "Two photos of a kitchen microwave panel. Left display shows '12:34'. Right display shows '12:43' (the last two digits have been swapped). Microwave buttons, kitchen cabinet, and surroundings identical.",
+      "question": "What changed on the display?",
+      "answer": "The last two digits have been transposed (34 → 43); time changed from 12:34 to 12:43",
+      "lever": "Digit transposition difference in 7-segment display; subtle."
+    }
+  ]
+}

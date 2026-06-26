@@ -1,0 +1,276 @@
+{
+  "family_id": "HIDDEN",
+  "family_name": "Hidden Detail Spotting",
+  "seeds": [
+    {
+      "id": "HIDDEN-001",
+      "sub_skill": "tiny_text_in_corner",
+      "domain": "wizard_market",
+      "scene": "A bustling wizard's bazaar, isometric pixel-art style, dozens of stalls and characters. In the lower-right corner, posted on a wall behind a pumpkin stall, is a small bounty poster. The poster's tiny printed text reads: 'WANTED: Grimwald the Cursed — Bounty 750 gold'. Everywhere else in the scene there are decorative signs with random numbers (prices on stalls etc.) but only the bounty poster contains the word 'Bounty'.",
+      "question": "Based strictly on what is shown in the image, what is the bounty amount on the wanted poster?",
+      "answer": "750 gold",
+      "lever": "The crucial number is in <2% of the image; many other numerical distractors fill the rest. Tests whether the model actually localizes and reads the bounty poster instead of guessing from price tags."
+    },
+    {
+      "id": "HIDDEN-002",
+      "sub_skill": "find_unique_marked_object",
+      "domain": "treasure_map",
+      "scene": "A weathered fantasy treasure map drawn in brown ink on parchment. The map shows islands, sea monsters, mountains, and 4 large 'X' marks scattered across different islands. 3 of the X marks are drawn in BROWN ink (matching the rest of the map). 1 X (on the island in the upper-left) is drawn in RED ink.",
+      "question": "Based on the image, which X mark is the real treasure spot, given that the legend says 'red X = real treasure'?",
+      "answer": "The X on the upper-left island (the one drawn in red ink)",
+      "lever": "Distinguishing one of 4 visually similar marks by a subtle color difference; tests fine color perception in a busy parchment context."
+    },
+    {
+      "id": "HIDDEN-003",
+      "sub_skill": "reversed_letter_in_runes",
+      "domain": "spell_scroll",
+      "scene": "An open spell scroll showing 7 lines of fantasy script. Each line consists of stylized rune-letters. 6 lines are written normally (left-to-right). The 4th line has all its letters MIRROR-FLIPPED (so they read backward and look slightly different), while still being in the same row position.",
+      "question": "Based on the image, which line number contains the mirror-flipped letters?",
+      "answer": "Line 4",
+      "lever": "Anomaly localization in a uniform-looking script; subtle flip easy to miss without scanning each line."
+    },
+    {
+      "id": "HIDDEN-004",
+      "sub_skill": "missing_attribute_in_crowd",
+      "domain": "hooded_council",
+      "scene": "A council chamber scene with 30 hooded figures standing in concentric rings. All 30 wear identical dark robes with hoods up. From the bottom of each robe, BOOTS are visible — except for ONE figure (in the second ring from the inside, at the 4 o'clock position) whose robe hem reveals NOTHING, just darkness or empty floor below — implying the figure is incorporeal (a ghost).",
+      "question": "Based on the image, which figure (specify ring and clock position) is the ghost (lacks visible boots beneath the robe)?",
+      "answer": "The figure in the 2nd ring from the inside, at the 4 o'clock position",
+      "lever": "Single-object missing-attribute detection in a crowd of similar entities; requires checking each individually."
+    },
+    {
+      "id": "HIDDEN-005",
+      "sub_skill": "tiny_creature_in_landscape",
+      "domain": "fantasy_landscape",
+      "scene": "A vast watercolor landscape: mountains, a winding river, a forest, a castle on a distant hill. In the foreground meadow, partly hidden behind a small boulder near the bottom-left, is a tiny dragon (about 1% of image height). It has clearly visible RED scales while everything else in the landscape is in cool blue/green tones.",
+      "question": "Based on the image, where in the landscape is the (red) dragon hiding?",
+      "answer": "Behind a small boulder in the foreground meadow on the bottom-left",
+      "lever": "Tiny target in a vast scene; color difference is the only saliency cue."
+    },
+    {
+      "id": "HIDDEN-006",
+      "sub_skill": "wrong_color_petal",
+      "domain": "magic_garden",
+      "scene": "A magical garden top-down view containing 50 visible flowers, each flower drawn as 5 petals around a center. 49 flowers have all 5 petals the same shade of pink. 1 flower (in the upper-right quadrant) has 4 pink petals and 1 PURPLE petal (the petal pointing east).",
+      "question": "Based on the image, which flower has a petal of a different color, and what color is that petal?",
+      "answer": "The flower in the upper-right quadrant; the east-facing petal is purple",
+      "lever": "Sub-petal color anomaly in a dense floral pattern."
+    },
+    {
+      "id": "HIDDEN-007",
+      "sub_skill": "secret_tool_in_inventory",
+      "domain": "alchemist_shelf",
+      "scene": "An alchemist's workbench cluttered with 25 small bottles, jars, scrolls, and tools laid out on a shelf. Among them, hidden between a mortar and a stack of books, is a small SILVER KEY (the only metallic silver object in the otherwise warm-toned scene).",
+      "question": "Based on the image, what unusual object is hidden between the mortar and the stack of books?",
+      "answer": "A silver key",
+      "lever": "Find a small distinctive object in a cluttered shelf using color/material as cue."
+    },
+    {
+      "id": "HIDDEN-008",
+      "sub_skill": "subtle_facial_mark",
+      "domain": "tavern_portrait_lineup",
+      "scene": "A row of 8 fantasy character portraits (busts) hung on a tavern wall. All 8 figures have distinct races (elf, dwarf, orc, etc.) but every face is drawn cleanly except one: the ORC in position 5 has a small SCAR across the right cheek (about 5 mm in image, light pink against green skin). No other character has a scar.",
+      "question": "Based on the image, which character has a facial scar, and where on the face is it?",
+      "answer": "The orc in portrait position 5; the scar is on the right cheek",
+      "lever": "Subtle facial-feature anomaly across a cast of distinct characters."
+    },
+    {
+      "id": "HIDDEN-009",
+      "sub_skill": "off_clock_position_in_pile",
+      "domain": "dragon_egg_clutch",
+      "scene": "A dragon nest viewed from above with 20 eggs nestled together. Each egg has the same family crest (a flame icon) painted on top. 19 crests are oriented upright. ONE egg (located at the cluster's lower-edge, third from the left) has its crest rotated 180° (upside-down).",
+      "question": "Based on the image, which egg has its crest oriented incorrectly, and how is it rotated?",
+      "answer": "The egg at the lower edge, third from the left; its crest is rotated 180° (upside-down)",
+      "lever": "Orientation-anomaly in a uniform field of similar items."
+    },
+    {
+      "id": "HIDDEN-010",
+      "sub_skill": "tiny_typo_on_sign",
+      "domain": "shopfront_sign",
+      "scene": "A fantasy storefront with a large hanging wooden sign reading 'POTIONS & ELIXIRS' in big carved letters. Below it, a small flyer pinned to the door reads in fine print: 'Daily speciel: Healing brew 5gp' (note the typo 'speciel' instead of 'special'). All other text is correct.",
+      "question": "Based on the image, identify any spelling error on the storefront and quote the misspelled word.",
+      "answer": "On the small flyer, 'speciel' is misspelled (should be 'special')",
+      "lever": "Tiny typo in fine print, otherwise overlooked."
+    },
+    {
+      "id": "HIDDEN-011",
+      "sub_skill": "object_visible_through_window",
+      "domain": "wizards_tower",
+      "scene": "A wizard's tower exterior at twilight, 5 floors with one round window per floor. 4 windows show a candle's warm orange glow. The 3rd-floor window (counting from the bottom) shows instead the silhouette of a CAT sitting in the window frame — no candle, no glow, just the cat shape against a faintly bluer interior.",
+      "question": "Based on the image, which floor's window has a non-candle silhouette and what is the silhouette of?",
+      "answer": "The 3rd floor (from the bottom); the silhouette is of a cat",
+      "lever": "Localizing a different-content window among repeating elements."
+    },
+    {
+      "id": "HIDDEN-012",
+      "sub_skill": "single_inverted_card",
+      "domain": "tarot_spread",
+      "scene": "A 5-card tarot spread laid out on a velvet table. Each card shows a fantasy illustration of a different figure (Magician, Empress, Hermit, Tower, Star). 4 of the 5 cards are oriented upright. The middle card (the Hermit) is oriented UPSIDE-DOWN (reversed).",
+      "question": "Based on the image, which card in the spread is reversed (upside-down)?",
+      "answer": "The middle card — the Hermit",
+      "lever": "Card-orientation anomaly; classic detail-spotting."
+    },
+    {
+      "id": "HIDDEN-013",
+      "sub_skill": "hidden_door_in_wall",
+      "domain": "dungeon_corridor",
+      "scene": "A long dungeon corridor in a top-down dungeon-crawler art style. The walls are made of square stone blocks. The right wall has 30 visible blocks. ONE of these blocks (the 17th from the entrance) has a barely-visible thin DARK SEAM around all 4 of its edges, indicating it's a hidden door. All other blocks have no such seam.",
+      "question": "Based on the image, which stone block in the right wall is the hidden door (specify by counting from the entrance)?",
+      "answer": "The 17th block from the entrance",
+      "lever": "Sub-pixel/line-level anomaly in a tiled wall."
+    },
+    {
+      "id": "HIDDEN-014",
+      "sub_skill": "single_tipped_chess_piece",
+      "domain": "chess_set_battle",
+      "scene": "A chess board mid-game with all 32 pieces placed (no captures yet, all pieces still on the board). 31 pieces are standing upright. 1 piece — the white knight on g1 — is tipped over lying on its side.",
+      "question": "Based on the image, which chess piece is knocked over (specify color and square)?",
+      "answer": "The white knight on g1",
+      "lever": "Single anomaly among 32 similar objects."
+    },
+    {
+      "id": "HIDDEN-015",
+      "sub_skill": "wrong_symbol_on_pendant",
+      "domain": "necklace_lineup",
+      "scene": "A jeweler's velvet display showing 12 silver pendants in a row. 11 pendants bear the same engraved symbol (a 5-pointed star). 1 pendant (the 7th from the left) bears a 6-POINTED star instead.",
+      "question": "Based on the image, which pendant in the row bears a different symbol, and how does it differ?",
+      "answer": "The 7th pendant from the left; it has a 6-pointed star instead of a 5-pointed star",
+      "lever": "Subtle symbol-detail anomaly."
+    },
+    {
+      "id": "HIDDEN-016",
+      "sub_skill": "hidden_message_in_first_letters",
+      "domain": "spell_book_page",
+      "scene": "A spell book page showing 5 numbered ingredients of a potion: '1. Hawthorn berries / 2. Eel scales / 3. Lavender oil / 4. Pepper grains / 5. Sage leaves'. The first letter of each ingredient (H, E, L, P, S) spells a hidden message when read in order.",
+      "question": "Based on the image, what hidden word is spelled by the first letters of the 5 ingredients?",
+      "answer": "HELPS",
+      "lever": "Acrostic detail in plain sight."
+    },
+    {
+      "id": "HIDDEN-017",
+      "sub_skill": "color_change_in_one_letter",
+      "domain": "fantasy_book_title",
+      "scene": "A fantasy book cover with the title 'THE CHRONICLES OF AVALON' in large gold letters. The 11th letter (the 'O' of 'OF') is rendered in SILVER instead of gold. All other letters are gold.",
+      "question": "Based strictly on the image, which letter of the title is a different color from the rest?",
+      "answer": "The 'O' in the word 'OF' (11th letter overall) — rendered in silver instead of gold",
+      "lever": "One-character color anomaly in a long title."
+    },
+    {
+      "id": "HIDDEN-018",
+      "sub_skill": "spy_in_marching_army",
+      "domain": "orc_army_march",
+      "scene": "A horizontal panoramic view of an orc army marching, 25 orcs in two parallel rows. All 25 carry identical curved scimitars EXCEPT one (the 4th from the right in the back row) who carries a STRAIGHT longsword instead of a scimitar.",
+      "question": "Based on the image, which orc carries the wrong weapon, and what is the weapon?",
+      "answer": "The 4th orc from the right in the back row; he carries a straight longsword instead of a curved scimitar",
+      "lever": "One outlier in a marching army."
+    },
+    {
+      "id": "HIDDEN-019",
+      "sub_skill": "single_cracked_window",
+      "domain": "magic_lab_windows",
+      "scene": "An exterior view of a wizard's tower with 16 small windows arranged in a 4×4 grid. 15 windows show clean, intact glass. 1 window (row 3, column 2) shows a star-shaped CRACK in the glass.",
+      "question": "Based on the image, which window has a cracked pane, and where is it in the grid?",
+      "answer": "Row 3, column 2",
+      "lever": "Damage-anomaly in a uniform window grid."
+    },
+    {
+      "id": "HIDDEN-020",
+      "sub_skill": "tiny_creature_riding_dragon",
+      "domain": "dragon_in_flight",
+      "scene": "A massive western dragon flying across a dramatic sunset sky. On the dragon's back, near the base of the neck (small in image, ~2% of image height), sits a tiny ARMORED RIDER. The rider holds a banner. The rider is easy to miss against the dragon's textured scales.",
+      "question": "Based on the image, is there a rider on the dragon's back? If so, where is the rider sitting?",
+      "answer": "Yes, a small armored rider sits near the base of the dragon's neck",
+      "lever": "Detecting a small overlooked figure on a dominant subject."
+    },
+    {
+      "id": "HIDDEN-021",
+      "sub_skill": "wrong_card_in_deck_fan",
+      "domain": "card_fan",
+      "scene": "A magician's fan of 13 face-up playing cards spread out, all clubs (Ace through King of Clubs). 12 cards are properly clubs. 1 card (the 7) actually shows a SPADE suit instead of a club (visually similar at small size but distinguishable: spade has a thin stem at the bottom while club has a 'trefoil' three-lobed shape).",
+      "question": "Based on the image, which card has the wrong suit?",
+      "answer": "The 7 — it shows a spade instead of a club",
+      "lever": "Subtle suit-glyph distinction; spade vs club confusion is a known detail-trap."
+    },
+    {
+      "id": "HIDDEN-022",
+      "sub_skill": "missing_finger_in_handprints",
+      "domain": "cave_handprints",
+      "scene": "An ancient cave wall with 12 ochre handprints in a row, made by pressing palms against the stone. 11 handprints clearly show 5 fingers. 1 handprint (the 5th from the left) shows only 4 fingers (the pinky is absent; just 4 finger marks plus thumb position).",
+      "question": "Based on the image, which handprint differs from the others, and how?",
+      "answer": "The 5th handprint from the left — it shows only 4 fingers (missing the pinky)",
+      "lever": "Subtle one-feature-missing in a row of similar-looking marks."
+    },
+    {
+      "id": "HIDDEN-023",
+      "sub_skill": "false_door_in_facade",
+      "domain": "elven_facade",
+      "scene": "An ornate elven palace facade with 9 identical-looking arched doorways. 8 doorways have visible 3D depth (stairs leading inward, dim interior shadows). 1 doorway (the 4th from the left) is actually a flat painted surface — same arch outline but no depth, no stairs, just a flat mural of a doorway.",
+      "question": "Based on the image, which doorway is actually a fake (flat painting, no depth)?",
+      "answer": "The 4th doorway from the left",
+      "lever": "Depth/perspective cue distinguishing a false from a real opening."
+    },
+    {
+      "id": "HIDDEN-024",
+      "sub_skill": "tiny_signature_on_painting",
+      "domain": "painting_close_up",
+      "scene": "A medieval-style fantasy painting of a knight standing in a field. In the very lower-right corner, in tiny script (~1% of image area), is the artist's signature reading 'E. Drysdale, 1487'.",
+      "question": "Based on the image, what is the artist's signature and date in the corner of the painting?",
+      "answer": "E. Drysdale, 1487",
+      "lever": "Reading tiny corner text; tests OCR on small detail."
+    },
+    {
+      "id": "HIDDEN-025",
+      "sub_skill": "hidden_creature_in_camouflage",
+      "domain": "forest_camouflage",
+      "scene": "A dense leafy forest scene in green and brown tones. Hidden in the lower-middle area, a chameleon-like creature blends almost perfectly with the moss; its outline is faint, but ONE detail betrays it: a single bright yellow eye open and visible.",
+      "question": "Based on the image, where is the hidden creature, and what visual cue gives it away?",
+      "answer": "In the lower-middle of the image; the creature is given away by its single bright yellow eye visible against the moss",
+      "lever": "Camouflaged target identified by one bright micro-feature."
+    },
+    {
+      "id": "HIDDEN-026",
+      "sub_skill": "broken_link_in_chain",
+      "domain": "chain_mail_armor",
+      "scene": "A close-up of chain-mail armor on a knight's chest, showing roughly 200 interlocking metal rings. ONE ring (located near the center of the visible patch) is BROKEN open, leaving a small gap in the mesh.",
+      "question": "Based on the image, is there a broken ring in the chain mail? If so, where is it located?",
+      "answer": "Yes, near the center of the visible patch one ring is broken open",
+      "lever": "Defect-detection in a uniform mesh."
+    },
+    {
+      "id": "HIDDEN-027",
+      "sub_skill": "different_eye_color_in_pack",
+      "domain": "wolf_pack_portrait",
+      "scene": "A pack portrait of 7 wolves sitting in a row facing forward. 6 wolves have YELLOW eyes. 1 wolf (the 3rd from the left) has BLUE eyes.",
+      "question": "Based on the image, which wolf has a different eye color, and what color?",
+      "answer": "The 3rd wolf from the left; it has blue eyes (the others have yellow)",
+      "lever": "Subtle micro-feature (eye color) distinguishing one of many similar subjects."
+    },
+    {
+      "id": "HIDDEN-028",
+      "sub_skill": "imposter_in_robes",
+      "domain": "monk_procession",
+      "scene": "A line of 12 monks walking in a procession, all wearing identical brown robes with hoods up. Each monk's hands are clasped in front. 11 monks have HUMAN hands clasped; 1 monk (the 9th in line) reveals CLAWED hands instead (clearly inhuman, with talons and reddish skin).",
+      "question": "Based on the image, which monk in the procession is not human, and what gives it away?",
+      "answer": "The 9th monk in line; clawed (inhuman) hands instead of human hands",
+      "lever": "Identifying an imposter by a small visible anomaly (hands)."
+    },
+    {
+      "id": "HIDDEN-029",
+      "sub_skill": "one_lit_candle_among_unlit",
+      "domain": "candle_chandelier",
+      "scene": "A grand chandelier holding 24 candles in 3 concentric rings (8 candles per ring). 23 candles are unlit. 1 candle (in the middle ring, at the 11 o'clock position) is LIT with a small flame visible.",
+      "question": "Based on the image, which single candle is lit (specify ring and clock position)?",
+      "answer": "Middle ring, 11 o'clock position",
+      "lever": "Single 'on' state in a uniform 'off' field."
+    },
+    {
+      "id": "HIDDEN-030",
+      "sub_skill": "cipher_marker_on_map",
+      "domain": "kingdom_map",
+      "scene": "A fantasy kingdom map with dozens of named towns (small text). The map's legend states: 'Towns ending in -burg house a wizard's guild'. There are 18 town names visible. Of these, exactly 3 end in '-burg' (the others end in -ton, -shire, -ford, -wick, etc.): Stoneburg in the north, Mossburg by the river in the center, and Goldburg in the south-east.",
+      "question": "Based on the image, list all towns that house a wizard's guild according to the legend's rule.",
+      "answer": "Stoneburg, Mossburg, Goldburg",
+      "lever": "Reading dozens of small labels and applying a legend rule; tests detail-level OCR + filtering."
+    }
+  ]
+}

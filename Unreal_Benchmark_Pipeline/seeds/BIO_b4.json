@@ -1,0 +1,51 @@
+{
+  "family_id": "BIO",
+  "family_name": "Biology & Anatomy (concept-drift)",
+  "seeds": [
+    {
+      "id": "BIO-021",
+      "sub_skill": "extra_limbs_fantasy_anatomy",
+      "domain": "naturalist field-guide creature",
+      "scene": "A detailed naturalist field-guide illustration of a fantasy creature: lion-like body with mane, but with 6 fully formed muscular legs (clearly arranged as three pairs) and 2 distinct long tails with tufted ends. Every limb is anatomically correct and visible. Scientific illustration style on white background.",
+      "question": "How many LEGS does this creature have in total?",
+      "answer": "6 legs (three pairs). This creature has a non-standard vertebrate body plan with extra limbs compared to typical 4-legged mammals.",
+      "lever": "VLM caption-shortcut sees 'lion-like' and defaults to 'four legs' (S, standard mammal prior). Visible six distinct legs violate the 4-limb assumption; T requires counting legs directly from the image."
+    },
+    {
+      "id": "BIO-022",
+      "sub_skill": "wing_body_ratio_cannot_fly",
+      "domain": "centaur with tiny wings",
+      "scene": "A naturalist field-guide illustration of a centaur-like creature: full horse body (~500 kg implied by size scale) with a human torso, and two small bird wings (~30 cm wingspan each, pigeon-sized) attached to the shoulder blades. The creature stands on grass in side view. Scientific illustration style.",
+      "question": "Can this creature achieve sustained powered flight?",
+      "answer": "No. Wing area is far too small relative to body mass (~500 kg) to generate sufficient lift for powered flight. The wing-to-body-mass ratio violates the biomechanical requirements for vertebrate flight.",
+      "lever": "VLM sees 'creature with wings' and defaults to 'has wings → can fly' (S). Visible size disparity (huge body, tiny wings) violates the physical possibility of flight; T requires biomechanics reasoning about lift requirements."
+    },
+    {
+      "id": "BIO-023",
+      "sub_skill": "red_leaves_non_photosynthetic_environment",
+      "domain": "red-leaved plant in candlelit room",
+      "scene": "A potted houseplant with vibrant deep-red leaves (no visible green coloration) placed on a wooden table in a dimly lit interior lit only by a single candle. The plant appears healthy and full, despite the extremely low light. Photorealistic, low-light scene.",
+      "question": "Can this plant be performing active photosynthesis in this lighting condition?",
+      "answer": "No. Even though red-leaved plants contain chlorophyll under the red pigment, the light from a candle is far too dim for photosynthesis. The plant cannot sustain itself by photosynthesis and must be relying on stored reserves or is artificially sustained.",
+      "lever": "VLM sees 'red leaves → different pigment' but may miss the lighting constraint. T requires combining two factors: (1) red leaves don't mean no photosynthesis (chlorophyll still present under the pigment) AND (2) candlelight is insufficient for photosynthesis regardless of leaf color."
+    },
+    {
+      "id": "BIO-024",
+      "sub_skill": "asymmetric_creature_hybrid_features",
+      "domain": "field-guide asymmetric chimera",
+      "scene": "A scientific naturalist illustration of a fantasy creature with clearly asymmetric body: the LEFT side has furry mammalian features (fur, mammal-like leg, whiskered face); the RIGHT side has reptilian features (scales, scaled leg, smooth face). The creature stands facing forward. Scientific illustration style on white background.",
+      "question": "Describe the creature's left and right sides separately.",
+      "answer": "Left side: mammalian (furry, whiskers, mammal leg). Right side: reptilian (scaled, smooth face, reptilian leg). The creature is asymmetric — features differ between left and right.",
+      "lever": "VLM tends to default to bilateral description (assumes symmetry) and may describe only one side or average the two. T requires explicitly noting the asymmetry and describing each side separately."
+    },
+    {
+      "id": "BIO-025",
+      "sub_skill": "fish_count_transparent_tank_multiple_angles",
+      "domain": "cylindrical aquarium with curved refraction",
+      "scene": "A cylindrical glass aquarium viewed from one side. Through the front glass, 5 fish are clearly visible. Through the curved side glass (refracted), 4 additional fish from the back of the tank are faintly visible (distorted by refraction through the curved glass). An overhead inset photo shows the true top-down view: exactly 9 fish total with marker dots labeling each.",
+      "question": "How many ACTUAL fish are in the aquarium, counting the true physical count?",
+      "answer": "9 fish. The 5 visible in front + 4 visible through curved refraction = 9 total, confirmed by the inset top-down view. The refracted images are not new fish, just alternate views.",
+      "lever": "VLM sees '5 + 4 = 9' and may count the refracted images as separate fish. T requires recognizing that refracted/curved-glass images do NOT represent new fish; the inset photo confirms 9 unique individuals."
+    }
+  ]
+}

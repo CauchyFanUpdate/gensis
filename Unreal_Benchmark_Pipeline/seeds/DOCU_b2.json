@@ -1,0 +1,186 @@
+{
+  "family_id": "DOCU",
+  "family_name": "Document & Table Structure",
+  "seeds": [
+    {
+      "id": "DOCU-031",
+      "sub_skill": "merged_cell_value_lookup",
+      "domain": "spreadsheet table",
+      "scene": "A printed spreadsheet with merged header cells: 'Q1' spans columns 1-3 (Jan, Feb, Mar), 'Q2' spans columns 4-6. Sales rows for products A, B, C. Question targets Product B Feb sales.",
+      "question": "What is Product B's Feb sales value?",
+      "answer": "the cell at intersection of Product B row and Feb column under the Q1 merged header",
+      "lever": "Resolve merged-header span correctly to identify the right column."
+    },
+    {
+      "id": "DOCU-032",
+      "sub_skill": "table_with_strikethrough_validity",
+      "domain": "audit ledger",
+      "scene": "An audit ledger with 8 entries; 3 entries have strikethrough lines and a 'VOID' rubber stamp; the running 'subtotal' field at the bottom should reflect non-voided rows only.",
+      "question": "Is the printed subtotal correct?",
+      "answer": "yes/no based on whether the subtotal sums non-voided rows",
+      "lever": "Identify void rows by visual cue and exclude them from sum check."
+    },
+    {
+      "id": "DOCU-033",
+      "sub_skill": "footer_continuation_marker",
+      "domain": "multi-page invoice",
+      "scene": "A page from an invoice with a 'Continued on next page →' marker at the footer; the visible page totals up to subtotal $480; final TOTAL appears at the top of next-page header.",
+      "question": "Does the visible page contain the FINAL total?",
+      "answer": "no — final total is on the next page",
+      "lever": "Recognize continuation marker; do not treat the visible subtotal as final."
+    },
+    {
+      "id": "DOCU-034",
+      "sub_skill": "table_pivot_aggregation_with_filter",
+      "domain": "sales table",
+      "scene": "A table of monthly sales by salesperson and product. Rows: Alice, Bob, Carol × Jan-Jun. Columns: WidgetA, WidgetB, WidgetC. Some cells marked as 'returned'.",
+      "question": "What is Alice's NET sales (excluding returned units) of WidgetA across all months?",
+      "answer": "sum of Alice's WidgetA cells minus returned cells",
+      "lever": "Filter by row + column + status condition before aggregating."
+    },
+    {
+      "id": "DOCU-035",
+      "sub_skill": "checkbox_form_aggregate",
+      "domain": "survey form",
+      "scene": "A paper survey with 12 multiple-choice questions; respondent ticked some boxes. Answer key with point weights at the bottom: A=1, B=2, C=3, D=0.",
+      "question": "What is the respondent's TOTAL score?",
+      "answer": "sum of selected option weights across questions",
+      "lever": "Read tick marks correctly (e.g., distinguish ticked vs partially marked) and apply weighting."
+    },
+    {
+      "id": "DOCU-036",
+      "sub_skill": "footnote_reference_chain",
+      "domain": "academic paper page",
+      "scene": "A page of academic prose with superscript footnote markers ¹, ², ³. Footnotes at the bottom: ¹ See ref. ², ² From [Smith 2020], ³ See ref. ¹.",
+      "question": "What is the ULTIMATE source of the data behind footnote ³?",
+      "answer": "[Smith 2020] (via ³→¹→²)",
+      "lever": "Follow chained footnote references through the page."
+    },
+    {
+      "id": "DOCU-037",
+      "sub_skill": "table_row_alignment_off_by_one",
+      "domain": "tax form",
+      "scene": "A tax form table where data has been entered with one row offset by mistake (Income for 'spouse' written into the 'self' row). The 'self' label is in column 1, but values were typed starting from row 2.",
+      "question": "What is the spouse's actual income according to the form data?",
+      "answer": "the value in the row labeled 'self' (because rows are misaligned)",
+      "lever": "Detect off-by-one row alignment and reinterpret which value belongs to whom."
+    },
+    {
+      "id": "DOCU-038",
+      "sub_skill": "two_table_join_lookup",
+      "domain": "logistics report",
+      "scene": "Two tables on the same page. Table 1 maps order ID to product code. Table 2 maps product code to warehouse location. Question targets order #4221.",
+      "question": "Which warehouse will ship order #4221?",
+      "answer": "warehouse looked up via order#4221 → product code → location",
+      "lever": "Two-step join across two on-page tables."
+    },
+    {
+      "id": "DOCU-039",
+      "sub_skill": "form_dependent_field_validation",
+      "domain": "tax form Schedule X",
+      "scene": "A tax form: line 7 = line 5 - line 6; line 8 = max(0, line 7). Filled values: line 5 = $4200, line 6 = $4500, line 7 = -$300, line 8 = -$300.",
+      "question": "Is line 8 calculated correctly?",
+      "answer": "no — line 8 should be 0 (max with 0 floor)",
+      "lever": "Apply formula with min/max clamps; flag negative when floor is 0."
+    },
+    {
+      "id": "DOCU-040",
+      "sub_skill": "calendar_grid_workflow_dependency",
+      "domain": "Gantt chart",
+      "scene": "A Gantt-chart calendar showing 5 tasks T1-T5 with dependencies arrows: T2 depends on T1, T3 on T1, T4 on T2 AND T3, T5 on T4. Task durations and start dates listed.",
+      "question": "What is the EARLIEST week T5 can begin?",
+      "answer": "max(T1+T2, T1+T3) + duration adjustments → resolve",
+      "lever": "Resolve dependency DAG and propagate finish times to find T5 earliest start."
+    },
+    {
+      "id": "DOCU-041",
+      "sub_skill": "highlight_only_subset_total",
+      "domain": "expense report",
+      "scene": "An expense report with 12 rows; 4 rows highlighted in yellow and a note 'highlighted = pending approval, do not include in approved subtotal'. The printed 'approved subtotal' field shown at bottom.",
+      "question": "Is the printed 'approved subtotal' correct?",
+      "answer": "compare sum of non-highlighted rows to printed value",
+      "lever": "Visually filter rows by highlight color; sum the unhighlighted subset and compare."
+    },
+    {
+      "id": "DOCU-042",
+      "sub_skill": "checkbox_signature_combo",
+      "domain": "consent form",
+      "scene": "A consent form with three checkboxes (A, B, C); signature line below; instructions: 'sign only if at least two boxes are checked.' The visible form shows boxes A and C checked, signature present.",
+      "question": "Is the form validly completed per its rule?",
+      "answer": "yes — two boxes checked + signed",
+      "lever": "Apply rule (≥2 checked → sign required) and verify both conditions."
+    },
+    {
+      "id": "DOCU-043",
+      "sub_skill": "vertical_text_label_orientation",
+      "domain": "filing cabinet labels",
+      "scene": "A filing cabinet with three drawers labeled vertically: drawer 1 'A-G', drawer 2 'H-N', drawer 3 'O-Z'. A label is rotated 180° on drawer 2.",
+      "question": "Which drawer should hold a 'Patel' file?",
+      "answer": "drawer 3 (O-Z range; reading the 180°-rotated label correctly is required)",
+      "lever": "Read alphabet ranges including rotated label; map name's first letter to range."
+    },
+    {
+      "id": "DOCU-044",
+      "sub_skill": "scanned_underline_emphasis_field",
+      "domain": "letter document",
+      "scene": "A scanned letter with multiple paragraphs. One sentence is underlined: 'Payment must be received by Nov 15, 2025.' Other dates appear elsewhere.",
+      "question": "What is the deadline date emphasized in the document?",
+      "answer": "Nov 15, 2025",
+      "lever": "Detect emphasized (underlined) text among many candidate dates."
+    },
+    {
+      "id": "DOCU-045",
+      "sub_skill": "table_row_color_legend",
+      "domain": "school grading sheet",
+      "scene": "A grading sheet table with student rows colored: green=pass, yellow=borderline, red=fail (legend at top). 12 rows: 5 green, 4 yellow, 3 red.",
+      "question": "How many students are at risk of failing (yellow or red)?",
+      "answer": "7",
+      "lever": "Apply color-to-status legend; count rows matching combined criteria."
+    },
+    {
+      "id": "DOCU-046",
+      "sub_skill": "stamp_overlay_obscures_value",
+      "domain": "approved invoice",
+      "scene": "An invoice page where a 'PAID' rubber-stamp partly overlays the 'Total Due' field; legible characters '$1,2_5.00' (one digit obscured).",
+      "question": "What is the most likely total due value? Note any uncertainty.",
+      "answer": "specify the inferred value or report ambiguity",
+      "lever": "Infer obscured digits using context (subtotal + tax + standard formats) and flag uncertainty."
+    },
+    {
+      "id": "DOCU-047",
+      "sub_skill": "form_signature_initials_match",
+      "domain": "multi-initial form",
+      "scene": "A form requires initials in 5 boxes for 5 clauses; signature at bottom. Initials in boxes look like 'JD', 'JD', 'JD', 'JD', 'AD'. Bottom signature is 'John Doe'.",
+      "question": "Which clause initial is INCONSISTENT with the signer?",
+      "answer": "the box with 'AD' (does not match 'JD' from John Doe)",
+      "lever": "Match initials to signer's name; flag the outlier box."
+    },
+    {
+      "id": "DOCU-048",
+      "sub_skill": "header_repeat_in_split_table",
+      "domain": "split-page table",
+      "scene": "A table split across page break; the bottom of page 1 shows rows 1-15 with the column header 'Date | Item | Amount'. Top of page 2 shows rows 16-30 but the header is missing; only data rows.",
+      "question": "What is the header for column 2 on page 2?",
+      "answer": "'Item' (carried from page 1)",
+      "lever": "Carry over header from previous page when continuing table."
+    },
+    {
+      "id": "DOCU-049",
+      "sub_skill": "diagonal_split_cell",
+      "domain": "schedule table",
+      "scene": "A schedule cell uses a diagonal slash dividing the cell into two triangles: upper-right shows 'Mon AM', lower-left 'Tue PM'.",
+      "question": "Which two time slots does that single cell represent?",
+      "answer": "Mon AM and Tue PM",
+      "lever": "Recognize diagonal-split cell convention to extract two distinct slot labels."
+    },
+    {
+      "id": "DOCU-050",
+      "sub_skill": "currency_unit_consistency",
+      "domain": "financial report",
+      "scene": "A financial table with three columns labeled 'USD', 'USD', '(thousands USD)'. A footnote: 'last column expressed in thousands.' Question asks total of one row.",
+      "question": "What is the row total in actual dollars?",
+      "answer": "sum first two columns + (third column × 1000)",
+      "lever": "Apply unit scale per-column when summing across mixed-unit columns."
+    }
+  ]
+}

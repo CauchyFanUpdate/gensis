@@ -1,0 +1,45 @@
+Model: qwen3.6-plus
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_qwen3_6_plus.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (qwen3.6-plus): 59 pending, 541 done
+    20/59
+    40/59
+  Done: 59 processed
+
+[Phase 2] Extract & judge: 14 empty, 3 MC + 14 OE
+  MC done: 3
+  OE done: 14
+
+============================================================
+  Overall: 40.0% (228/570)  errors=30
+============================================================
+
+  By Domain:
+    Mathematics                          36.5% (89/244) ███████
+    Physics & Engineering                42.2% (38/90) ████████
+    Reasoning & Logic                    58.0% (51/88) ███████████
+    Perception                           32.2% (28/87) ██████
+    Natural Science                      36.1% (22/61) ███████
+
+  By Subdomain:
+    combinatorial_geometry               33.3% (20/60) ██████
+    Biology & Chemistry                  36.1% (22/61) ███████
+    Spatial Reasoning                    38.3% (18/47) ███████
+    Mechanics                            37.0% (17/46) ███████
+    Logic & Document Knowledge           65.2% (30/46) █████████████
+    Counting & Numeracy                  50.0% (21/42) ██████████
+    Visual Perception                    25.0% (10/40) █████
+    metric_geometry                      51.3% (20/39) ██████████
+    combinatorics_counting               28.9% (11/38) █████
+    descriptive_geometry                 20.0% (6/30) ████
+    solid_geometry                       43.5% (10/23) ████████
+    Electromagnetism & Optics            47.8% (11/23) █████████
+    transformation_geometry              47.4% (9/19) █████████
+    graph_theory                         47.6% (10/21) █████████
+    Fluids & Thermodynamics              47.6% (10/21) █████████
+    logic_constraints                    21.4% (3/14) ████
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_qwen3_6_plus.jsonl

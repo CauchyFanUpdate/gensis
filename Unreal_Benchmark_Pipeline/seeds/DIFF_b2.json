@@ -1,0 +1,186 @@
+{
+  "family_id": "DIFF",
+  "family_name": "Paired Spot-the-Difference",
+  "seeds": [
+    {
+      "id": "DIFF-031",
+      "sub_skill": "missing_object_in_busy_scene",
+      "domain": "kitchen counter pair",
+      "scene": "Two side-by-side photos of a busy kitchen counter; in the right panel a small jar of cinnamon present in the left has been removed and the gap is partially filled by repositioned items.",
+      "question": "What object was removed from the right panel?",
+      "answer": "the cinnamon jar",
+      "lever": "Detect missing item among many objects with intentional repositioning camouflage."
+    },
+    {
+      "id": "DIFF-032",
+      "sub_skill": "added_extra_finger",
+      "domain": "portrait pair",
+      "scene": "Two near-identical portraits of a person with hands visible. In the right panel one hand has 6 fingers instead of 5; everything else identical.",
+      "question": "What is the difference?",
+      "answer": "the right panel shows an extra finger on one hand",
+      "lever": "Spot anatomical mistake against natural reference; count fingers carefully."
+    },
+    {
+      "id": "DIFF-033",
+      "sub_skill": "color_shift_single_object",
+      "domain": "wardrobe pair",
+      "scene": "Two photos of an open wardrobe with many garments. One shirt's color is a slightly different shade of red between the two panels; all other items identical.",
+      "question": "Which item changed?",
+      "answer": "the shirt that shifted hue",
+      "lever": "Detect subtle hue shift on one item among many similarly-colored items."
+    },
+    {
+      "id": "DIFF-034",
+      "sub_skill": "swapped_pair_of_objects",
+      "domain": "office desk pair",
+      "scene": "Two desk photos; in the right panel two items (stapler and tape dispenser) have swapped positions. Counts and inventory match.",
+      "question": "What changed between the panels?",
+      "answer": "stapler and tape dispenser positions are swapped",
+      "lever": "Detect transposition rather than addition/removal; identify the specific pair."
+    },
+    {
+      "id": "DIFF-035",
+      "sub_skill": "text_substitution_one_word",
+      "domain": "menu board pair",
+      "scene": "Two photos of a chalkboard menu. In the right panel, 'soup of the day' is replaced with 'salad of the day'; layout otherwise identical.",
+      "question": "What text changed?",
+      "answer": "'soup' → 'salad'",
+      "lever": "OCR-level diff over many words; locate the single substituted word."
+    },
+    {
+      "id": "DIFF-036",
+      "sub_skill": "size_change_single_object",
+      "domain": "fruit bowl pair",
+      "scene": "Two photos of a fruit bowl with 8 fruits. In the right panel one apple is noticeably larger than its left counterpart; all positions identical.",
+      "question": "Which fruit's size changed?",
+      "answer": "the larger apple",
+      "lever": "Detect a scale change of a single object while position and identity are preserved."
+    },
+    {
+      "id": "DIFF-037",
+      "sub_skill": "shadow_direction_change",
+      "domain": "playground pair",
+      "scene": "Two near-identical playground photos. The shadows in the right panel are angled differently (sun position changed) but only one object's shadow direction has changed; the rest match the left panel.",
+      "question": "Which object's shadow disagrees with the rest?",
+      "answer": "the inconsistently-shadowed object",
+      "lever": "Cross-pair shadow consistency rather than per-pair difference; spot the local inconsistency."
+    },
+    {
+      "id": "DIFF-038",
+      "sub_skill": "off_by_one_count",
+      "domain": "parking lot pair",
+      "scene": "Two parking-lot photos with many cars. The right panel has exactly one fewer car than the left; the empty space is partially filled by a dropped shadow that mimics a car.",
+      "question": "How many fewer cars are in the right panel?",
+      "answer": "1",
+      "lever": "Cross-image counting under shadow camouflage."
+    },
+    {
+      "id": "DIFF-039",
+      "sub_skill": "mirror_flip_one_panel",
+      "domain": "street sign pair",
+      "scene": "Two photos of the same intersection. In one panel a street sign's text is mirror-reversed; everything else matches.",
+      "question": "Which panel contains the mirrored element?",
+      "answer": "the panel with the reversed sign",
+      "lever": "Detect orientation flip on a localized element vs whole-frame consistency."
+    },
+    {
+      "id": "DIFF-040",
+      "sub_skill": "clothing_pattern_change",
+      "domain": "crowd pair",
+      "scene": "Two photos of a crowd of 12 people. One person's shirt pattern changes from stripes to checks between panels; same person, same pose.",
+      "question": "Which person changed clothing pattern?",
+      "answer": "specify the person whose shirt pattern changed",
+      "lever": "Spot subtle pattern change on a single item amid a busy crowd."
+    },
+    {
+      "id": "DIFF-041",
+      "sub_skill": "background_replaced_segment",
+      "domain": "park bench pair",
+      "scene": "Two near-identical park-bench photos. In the right panel a small portion of the background tree was replaced by sky; foreground identical.",
+      "question": "What changed in the background?",
+      "answer": "a tree-trunk segment in the right panel was replaced by sky",
+      "lever": "Detect localized background edit while foreground is invariant."
+    },
+    {
+      "id": "DIFF-042",
+      "sub_skill": "time_on_clock_change",
+      "domain": "two-clock pair",
+      "scene": "Two near-identical office photos. The wall clock minute hand is at :12 in left, :17 in right; everything else identical.",
+      "question": "What changed?",
+      "answer": "the minute hand position on the wall clock (advanced 5 minutes)",
+      "lever": "Detect small dial change among many static elements."
+    },
+    {
+      "id": "DIFF-043",
+      "sub_skill": "reflection_inconsistency",
+      "domain": "store window pair",
+      "scene": "Two photos of a store window with reflections of the street. In the right panel the reflection has been altered: a passing bus appears in the reflection but not in the actual street view.",
+      "question": "What is the inconsistency?",
+      "answer": "right panel's reflection contains a bus that doesn't exist in the live scene",
+      "lever": "Cross-check reflection against ground-truth scene content."
+    },
+    {
+      "id": "DIFF-044",
+      "sub_skill": "weather_overlay_change",
+      "domain": "outdoor pair",
+      "scene": "Two outdoor scenes that look identical in foreground; in one panel ground is wet (puddles, dark pavement) and in the other dry. Sky is similar in both.",
+      "question": "Which panel was photographed AFTER rain?",
+      "answer": "the wet-pavement panel",
+      "lever": "Identify wetness cues (puddles, color depth) without relying on overhead sky."
+    },
+    {
+      "id": "DIFF-045",
+      "sub_skill": "double_difference",
+      "domain": "two-room pair",
+      "scene": "Two photos of a living room; exactly two differences between them: one painting rotated 90°, and a candle moved from coffee table to mantel.",
+      "question": "List ALL differences.",
+      "answer": "rotated painting; relocated candle",
+      "lever": "Detect multiple low-salience differences and list completely without spurious additions."
+    },
+    {
+      "id": "DIFF-046",
+      "sub_skill": "person_swapped_positions",
+      "domain": "team-photo pair",
+      "scene": "Two team photos with 8 people in a row. In the right panel positions 3 and 6 have swapped places; same individuals, same uniforms.",
+      "question": "Which positions swapped between the panels?",
+      "answer": "positions 3 and 6",
+      "lever": "Identify two-person swap in row context with high inter-person similarity."
+    },
+    {
+      "id": "DIFF-047",
+      "sub_skill": "logo_letter_change",
+      "domain": "branded sign pair",
+      "scene": "Two photos of a storefront with a brand logo. In the right panel one letter in the brand name is replaced by a similar-looking letter ('I' → 'l').",
+      "question": "What changed in the logo?",
+      "answer": "a letter substitution in the brand name",
+      "lever": "Detect single-character substitution in stylized logo text."
+    },
+    {
+      "id": "DIFF-048",
+      "sub_skill": "object_orientation_flip",
+      "domain": "tool tray pair",
+      "scene": "Two tool-tray photos with 10 hand tools. In the right panel, a screwdriver is reversed (handle to tip swapped end-for-end) while all other tools remain.",
+      "question": "Which tool changed orientation?",
+      "answer": "the screwdriver was reversed",
+      "lever": "Spot end-for-end flip vs. positional change."
+    },
+    {
+      "id": "DIFF-049",
+      "sub_skill": "subtle_color_swap_in_chart",
+      "domain": "infographic pair",
+      "scene": "Two pie-chart infographics with 6 slices. In the right panel two adjacent slices have swapped colors but kept the same labels and sizes.",
+      "question": "Which two slices' colors were swapped?",
+      "answer": "the adjacent pair whose colors traded",
+      "lever": "Detect color permutation while size/label stays the same."
+    },
+    {
+      "id": "DIFF-050",
+      "sub_skill": "hands_pose_micro_change",
+      "domain": "yoga photo pair",
+      "scene": "Two yoga-pose photos. In the right panel the subject's right hand has moved from palm-down to palm-up, but body posture and all other limbs identical.",
+      "question": "What change occurred?",
+      "answer": "right hand rotated from palm-down to palm-up",
+      "lever": "Detect micro-pose change in a single joint."
+    }
+  ]
+}

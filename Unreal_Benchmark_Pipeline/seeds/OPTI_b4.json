@@ -1,0 +1,51 @@
+{
+  "family_id": "OPTI",
+  "family_name": "Transparent Objects & Optical Effects",
+  "seeds": [
+    {
+      "id": "OPTI-051",
+      "sub_skill": "spherical_lens_text_inversion",
+      "domain": "glass marble on printed text",
+      "scene": "A close-up photograph of a clear glass marble (~2 cm diameter) resting on a piece of newsprint. Under the marble, text from the newspaper is clearly visible. The text viewed THROUGH the marble appears upside-down (inverted). Surrounding text outside the marble reads normally, right-side up.",
+      "question": "Why does text appear inverted when viewed through the glass marble?",
+      "answer": "The glass sphere acts as a thick converging lens. Light from the text forms a real inverted image at a focal point inside/beyond the marble. The inversion is a direct consequence of the spherical lensing effect.",
+      "lever": "VLM sees 'marble on text' and predicts 'magnified or slightly shifted' (S, planar refraction intuition). Visible inversion violates planar-surface assumption; T recognizes spherical glass as a thick lens forming real images."
+    },
+    {
+      "id": "OPTI-052",
+      "sub_skill": "convex_lens_object_between_f_2f_magnified",
+      "domain": "optical bench with enlarged real image",
+      "scene": "An optical bench, side view. A convex lens is mounted vertically. To the left, a small lit candle (clear object) is positioned between the lens's focal length and twice the focal length (spatial cues make this clear). To the right, a white screen shows a real image of the candle: the image is INVERTED (flame pointing down) and visibly LARGER than the actual candle.",
+      "question": "For a convex lens, when the object is between f and 2f, is the image real or virtual, inverted or upright, and larger or smaller than the object?",
+      "answer": "Real, inverted, and LARGER. The magnification is M > 1. This is a magnifying configuration where the object is closer to the lens than usual.",
+      "lever": "VLM caption-shortcut defaults to 'convex lens makes smaller images' (S, from the canonical far-object case). Visible magnified-inverted image violates this; T requires recognizing the between-(f,2f) configuration."
+    },
+    {
+      "id": "OPTI-053",
+      "sub_skill": "refraction_bending_in_tilted_prism",
+      "domain": "prism dispersing white light onto screen",
+      "scene": "A glass triangular prism on an optical bench. White light from a source hits the prism's face; the prism disperses the light into a spectrum on a screen. The spectrum from RED (deviated LEAST) to VIOLET (deviated MOST) is clearly visible, with colors sorted by bending angle.",
+      "question": "Which color of light is deviated the LEAST by the prism, and why?",
+      "answer": "Red light is deviated the least because red light has the lowest refractive index in glass (n is smallest for red). Violet has the highest refractive index, so it is deviated the most.",
+      "lever": "VLM sees 'rainbow from prism' and may confuse 'violet is most bent' with 'violet is most visible' or may invert the order. T requires mapping refractive index to bending angle: n_red < n_violet → θ_red < θ_violet."
+    },
+    {
+      "id": "OPTI-054",
+      "sub_skill": "polarizer_malus_law_transmission",
+      "domain": "two crossed polarizers with 45° rotation",
+      "scene": "A laboratory optical bench with a light source, Polarizer 1 (vertical axis), Polarizer 2 (rotated 45° from Polarizer 1), and an intensity detector. Unpolarized light of intensity I₀ enters Polarizer 1, exits Polarizer 2, and is measured.",
+      "question": "If unpolarized light of intensity I₀ passes through Polarizer 1 and then Polarizer 2 (at 45°), what is the final transmitted intensity?",
+      "answer": "I₀/4 (or 0.25 I₀). After P1: I₀/2 (unpolarized → linear). After P2 at 45°: (I₀/2) cos²(45°) = (I₀/2)(1/2) = I₀/4.",
+      "lever": "VLM may predict 'two polarizers at 45° transmit something' without quantifying. T requires combining unpolarized-to-polarized halving with Malus's law: cos²(45°) = 1/2."
+    },
+    {
+      "id": "OPTI-055",
+      "sub_skill": "total_internal_reflection_fiber_optics",
+      "domain": "optical fiber with labeled critical angle",
+      "scene": "A schematic of a glass fiber (n=1.5) surrounded by air (n=1.0). Several light rays are shown inside the fiber striking the side boundary at different incident angles: ray A at 30° (refracts and escapes), ray B at 40° (mostly reflects), ray C at 50° (totally internally reflected, bounces back). A label indicates the critical angle region.",
+      "question": "What is the critical angle for total internal reflection at a glass-air interface (n_glass=1.5, n_air=1.0)?",
+      "answer": "θ_c ≈ 41.8°. sin(θ_c) = n_air/n_glass = 1.0/1.5 → θ_c = arcsin(2/3) ≈ 41.8°. Rays at angles > 41.8° are totally internally reflected.",
+      "lever": "VLM sees 'light in fiber' and may answer 'all light is trapped' (S, generic understanding) without deriving the critical angle. T requires applying sin(θ_c) = n₂/n₁ and computing arcsin."
+    }
+  ]
+}

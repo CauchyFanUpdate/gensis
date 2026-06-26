@@ -1,0 +1,186 @@
+{
+  "family_id": "TEMP",
+  "family_name": "Temporal & Sequential",
+  "seeds": [
+    {
+      "id": "TEMP-011",
+      "sub_skill": "shadow_progression_time_lapse",
+      "domain": "sundial timelapse",
+      "scene": "A 6-frame time-lapse of a sundial. Frame A: shadow points NW. Frame B: shadow points N. Frame C: shadow points NE. Frame D: shadow points E. Frame E: shadow points SE. Frame F: shadow points S. The sundial is in the Northern Hemisphere.",
+      "question": "What is the correct chronological order of the frames from morning to evening?",
+      "answer": "A, B, C, D, E, F",
+      "lever": "Shadow points opposite of sun. Sun moves E→S→W; shadow moves W→N→E. Morning shadow NW (A) → noon shadow N (B) → afternoon shadow NE/E/SE → late shadow S as sun sets behind. Read shadow rotation as a clock."
+    },
+    {
+      "id": "TEMP-012",
+      "sub_skill": "calendar_workflow_sequence",
+      "domain": "project gantt chart",
+      "scene": "A 4-week Gantt chart with 5 tasks: T1 (week 1, design), T2 (weeks 2-3, code), T3 (week 2, review), T4 (weeks 3-4, test), T5 (week 4, deploy). Dependency arrows: T1→T2, T1→T3, T2→T4, T3→T4, T4→T5.",
+      "question": "What is the EARLIEST week T5 can start?",
+      "answer": "Week 4",
+      "lever": "Critical path: T1(w1)→T2(w2-3)→T4(w3-4)→T5; T5 must wait for T4 completion at end of w4. Actually T5 starts at w4 (after T4 finishes). Earliest start of T5 = beginning of week 4? T4 spans w3-4 finishing end of w4 → T5 starts after — but T5 is in week 4 per chart, so start of week 4 = simultaneous with T4 end? The chart shows T5 in week 4 → answer week 4."
+    },
+    {
+      "id": "TEMP-013",
+      "sub_skill": "stopwatch_elapsed",
+      "domain": "lab stopwatch",
+      "scene": "Two photographs of a stopwatch from a lab experiment. First photo (start): shows 00:42.3. Second photo (end): shows 03:18.7. Both are mm:ss.t format.",
+      "question": "How much time elapsed between the photos?",
+      "answer": "02:36.4",
+      "lever": "Subtract times: 03:18.7 - 00:42.3 = 02:36.4."
+    },
+    {
+      "id": "TEMP-014",
+      "sub_skill": "fruit_ripening_sequence",
+      "domain": "tomato ripening",
+      "scene": "5 photos of the same tomato plant taken weekly. Week 1: small green fruit. Week 2: larger green. Week 3: green-yellow stripes. Week 4: orange-red. Week 5: full red, slight wrinkle (overripe).",
+      "question": "Which week is the tomato at PEAK eating ripeness (red but firm)?",
+      "answer": "Week 4",
+      "lever": "Identify between under-ripe and over-ripe; peak = full color but not wrinkled."
+    },
+    {
+      "id": "TEMP-015",
+      "sub_skill": "traffic_light_cycle",
+      "domain": "intersection traffic light timing",
+      "scene": "An intersection's traffic light schedule: NS direction is green for 40s, yellow for 5s, red for 35s. EW direction has the complementary schedule (red while NS green, etc.). At t=0 the NS light just turned green.",
+      "question": "What color is the EW light at t = 47s?",
+      "answer": "Green",
+      "lever": "EW is red 0-45s (matching NS green 0-40 + NS yellow 40-45), then green 45-80s, then yellow 80-85, then red 85+. At t=47s → EW green."
+    },
+    {
+      "id": "TEMP-016",
+      "sub_skill": "construction_progress_phase_id",
+      "domain": "construction site sequence",
+      "scene": "Six construction site photos of the same building project: P1 = empty lot. P2 = excavated foundation hole. P3 = poured concrete foundation. P4 = steel frame skeleton up. P5 = exterior walls and windows installed. P6 = interior finishings + landscaping done.",
+      "question": "Which phase shows the structure 'enclosed' (weatherproof) for the first time?",
+      "answer": "P5",
+      "lever": "Identify the threshold transition: walls + windows = first 'enclosed' phase."
+    },
+    {
+      "id": "TEMP-017",
+      "sub_skill": "race_finish_order_from_strip",
+      "domain": "race photo finish",
+      "scene": "A photo-finish strip from a 100m race showing 5 runners crossing the line at slightly different times. Strip indicates: lane 3 broke the tape first; lane 1 came second by 0.05s; lane 5 third; lane 2 fourth; lane 4 fifth.",
+      "question": "Who came in 4th place?",
+      "answer": "Lane 2",
+      "lever": "Read photo-finish strip ordering."
+    },
+    {
+      "id": "TEMP-018",
+      "sub_skill": "candle_burn_inference",
+      "domain": "wax candle progress",
+      "scene": "A candle 20 cm tall when new burns at a constant rate of 1.5 cm/hour. A photo shows the candle currently 12.5 cm tall.",
+      "question": "How many hours has the candle been burning?",
+      "answer": "5 hours",
+      "lever": "(20 - 12.5) / 1.5 = 5."
+    },
+    {
+      "id": "TEMP-019",
+      "sub_skill": "decay_temperature_curve",
+      "domain": "cooling coffee",
+      "scene": "A cooling curve graph: coffee starts at 90°C and cools toward room temp 20°C. The graph shows temperature at times: t=0:90°C, t=10min:60°C, t=20min:42°C, t=30min:31°C, t=40min:25°C, t=50min:22°C.",
+      "question": "After what time is the coffee 'drinkable' (≤55°C)?",
+      "answer": "Between 10 and 20 min (approximately 12-13 min)",
+      "lever": "Read curve interpolation; between t=10 (60°C) and t=20 (42°C), 55°C falls early in interval."
+    },
+    {
+      "id": "TEMP-020",
+      "sub_skill": "schedule_conflict_detection",
+      "domain": "appointment calendar",
+      "scene": "A weekly calendar showing appointments. Monday: 9-11 (Meeting A), 10:30-12 (Meeting B), 14-15 (Workshop). Tuesday: 9-10, 11-12, 14-16 (no overlaps). Wednesday: 8-12 (Conference), 11-13 (Lunch with client). Thursday and Friday: no conflicts.",
+      "question": "How many days have at least one scheduling conflict?",
+      "answer": "2 (Monday and Wednesday)",
+      "lever": "Detect overlapping intervals: Mon 10:30-11 overlap (A∩B), Wed 11-12 overlap (Conf∩Lunch). Two days."
+    },
+    {
+      "id": "TEMP-021",
+      "sub_skill": "video_frame_motion_direction",
+      "domain": "stop motion frames",
+      "scene": "5 stop-motion frames of a bouncing ball: F1 ball at top of arc on left, F2 ball mid-air right of F1, F3 ball touching ground, F4 ball mid-air right of F3, F5 ball at top of arc on right.",
+      "question": "If played in chronological order, in which direction does the ball move (overall)?",
+      "answer": "Left to right",
+      "lever": "Trace ball horizontal positions across frames."
+    },
+    {
+      "id": "TEMP-022",
+      "sub_skill": "tide_chart_reading",
+      "domain": "tide chart",
+      "scene": "A tide chart for one day with high tides at 4:30 (1.8m) and 16:50 (1.6m), low tides at 10:45 (0.4m) and 23:10 (0.5m). A surfer wants to surf at the SECOND high tide.",
+      "question": "What time should they arrive?",
+      "answer": "Around 16:50",
+      "lever": "Identify the second of two high tides."
+    },
+    {
+      "id": "TEMP-023",
+      "sub_skill": "before_during_after_3panel",
+      "domain": "rain on city street",
+      "scene": "Three street photos: Panel 1 dry pavement, sunny shadows, people in t-shirts. Panel 2 wet pavement, raindrops in air, people running with newspapers over heads. Panel 3 wet pavement with puddles, sunny again, people walking calmly.",
+      "question": "What is the chronological order?",
+      "answer": "1, 2, 3",
+      "lever": "Before (dry), during (rain), after (wet+sun returns)."
+    },
+    {
+      "id": "TEMP-024",
+      "sub_skill": "exam_countdown_timer",
+      "domain": "exam clock",
+      "scene": "A digital exam timer showing '00:23:47' counting down. A student took 12 minutes 30 seconds for question 1, and there are 4 questions remaining.",
+      "question": "On average, how much time is left per remaining question?",
+      "answer": "Approximately 5:57",
+      "lever": "23:47 / 4 = 5:57 (5 min 57 sec) per question."
+    },
+    {
+      "id": "TEMP-025",
+      "sub_skill": "season_via_animal_behavior",
+      "domain": "wildlife observation",
+      "scene": "Field photo: deciduous trees in full green leaves, a bear with two cubs foraging berries, butterflies visible, no flowers but green grass tall, bees active, river running fast with snowmelt fully gone.",
+      "question": "Which season is this most likely?",
+      "answer": "Mid-summer (or late spring transitioning to summer)",
+      "lever": "Combine cues: full green leaves (not spring-fresh), berries ripening, butterflies + bees active, snowmelt past."
+    },
+    {
+      "id": "TEMP-026",
+      "sub_skill": "duration_via_clock_pair",
+      "domain": "two analog clocks",
+      "scene": "Two analog clocks side by side. Clock A reads 9:35. Clock B reads 12:10 (PM). Both are on the same day.",
+      "question": "How much time elapsed from clock A to clock B?",
+      "answer": "2 hours 35 minutes",
+      "lever": "Read both analog clocks; subtract times."
+    },
+    {
+      "id": "TEMP-027",
+      "sub_skill": "time_required_to_fill_tank",
+      "domain": "filling water tank",
+      "scene": "A tank with capacity 1000 L being filled. Inflow rate 25 L/min from one pipe and 15 L/min from another (both pipes open). Tank has a leak draining 5 L/min. Currently the tank shows 200 L filled.",
+      "question": "How long until the tank is completely full?",
+      "answer": "Approximately 22 minutes 51 seconds",
+      "lever": "Net fill rate = 25+15-5 = 35 L/min. Remaining = 800 L. Time = 800/35 ≈ 22.857 min = 22 min 51 sec."
+    },
+    {
+      "id": "TEMP-028",
+      "sub_skill": "decay_pattern_radioactive",
+      "domain": "isotope decay graph",
+      "scene": "A graph of radioactive decay: starting amount 1000 mg at t=0, half-life 8 days. The graph shows decay at days 0, 4, 8, 16, 24.",
+      "question": "What is the remaining amount at day 24?",
+      "answer": "125 mg",
+      "lever": "24/8 = 3 half-lives → 1000 × (1/2)³ = 125 mg."
+    },
+    {
+      "id": "TEMP-029",
+      "sub_skill": "lifecycle_stage_id",
+      "domain": "butterfly lifecycle",
+      "scene": "Four photos of a butterfly lifecycle in order: egg cluster on a leaf; caterpillar feeding; chrysalis hanging; emerged butterfly wings drying.",
+      "question": "Which stage shows METAMORPHOSIS occurring INTERNALLY?",
+      "answer": "Chrysalis",
+      "lever": "Identify pupa stage (chrysalis) where the body is internally restructured."
+    },
+    {
+      "id": "TEMP-030",
+      "sub_skill": "time_zone_arrival",
+      "domain": "international flight schedule",
+      "scene": "Flight ticket: departs Tokyo (UTC+9) at 14:30 local time on Monday. Flight duration 11 hours. Destination: New York (UTC-5).",
+      "question": "What is the local arrival time in New York?",
+      "answer": "11:30 Monday (NY time)",
+      "lever": "Tokyo 14:30 = UTC 05:30 + 11h flight = UTC 16:30 = NY 11:30. Same calendar day."
+    }
+  ]
+}

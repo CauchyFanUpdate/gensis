@@ -1,0 +1,186 @@
+{
+  "family_id": "TEMP",
+  "family_name": "Temporal & Sequential",
+  "seeds": [
+    {
+      "id": "TEMP-031",
+      "sub_skill": "shadow_progression_chronology",
+      "domain": "outdoor courtyard",
+      "scene": "Four photos of the same courtyard sundial taken at different times of day; shadows point at: long-westward, short-northward, long-eastward, medium-northwest. Frames labeled randomly W, X, Y, Z.",
+      "question": "What is the correct chronological order of the frames from morning to evening?",
+      "answer": "morning long-westward → noon short-northward → afternoon medium-northwest → evening long-eastward (or per actual frame mapping)",
+      "lever": "Map shadow length and direction to time of day; order accordingly."
+    },
+    {
+      "id": "TEMP-032",
+      "sub_skill": "calendar_workflow_dependency",
+      "domain": "Gantt chart",
+      "scene": "A Gantt-chart calendar with 5 tasks T1-T5 and dependencies; each task lasts 1 week. T1 must finish before T2 and T3, T4 needs T2+T3 done, T5 needs T4 done. Start week 1.",
+      "question": "What is the EARLIEST week T5 can start?",
+      "answer": "week 4 (T1 in W1, T2&T3 in W2, T4 in W3, T5 starts W4)",
+      "lever": "Resolve DAG critical path through finish-to-start dependencies."
+    },
+    {
+      "id": "TEMP-033",
+      "sub_skill": "stopwatch_elapsed_diff",
+      "domain": "stopwatch pair",
+      "scene": "Two photos of a digital stopwatch: photo 1 shows '12:34:56', photo 2 shows '13:01:09'.",
+      "question": "How much time elapsed between the photos?",
+      "answer": "26 minutes 13 seconds",
+      "lever": "Subtract two timestamps including hh:mm:ss arithmetic with carry."
+    },
+    {
+      "id": "TEMP-034",
+      "sub_skill": "candle_burn_time_estimation",
+      "domain": "candle pair time-lapse",
+      "scene": "Two photos of the same candle: photo 1 shows full 15 cm candle, photo 2 shows 9 cm remaining. Burn rate sticker says 'this candle burns 1 cm/hour'.",
+      "question": "How long has elapsed between the two photos?",
+      "answer": "6 hours",
+      "lever": "Apply burn rate to length difference to compute elapsed time."
+    },
+    {
+      "id": "TEMP-035",
+      "sub_skill": "ice_melt_progression_order",
+      "domain": "ice block melt photos",
+      "scene": "Four photos of an ice block melting on a counter, labeled randomly: 100% intact, 60% remaining with some pooling, 25% with large puddle, fully melted (just water).",
+      "question": "Order from earliest to latest.",
+      "answer": "100% → 60% → 25% → fully melted",
+      "lever": "Order monotone-decreasing ice mass with pooling water as confirmation."
+    },
+    {
+      "id": "TEMP-036",
+      "sub_skill": "sun_path_seasonal_inference",
+      "domain": "north-facing window photos",
+      "scene": "Two photos of the same north-facing window taken at noon: one in June (no direct sunlight reaches the window), one in December (no direct sunlight either, but ambient light from low sun differs subtly).",
+      "question": "Which photo was taken in winter?",
+      "answer": "the one with longer apparent shadow indoor and warmer light angle",
+      "lever": "Infer season from sun-angle proxy (shadow length, light color)."
+    },
+    {
+      "id": "TEMP-037",
+      "sub_skill": "running_clock_ahead_or_behind",
+      "domain": "two clocks comparison",
+      "scene": "Two adjacent wall clocks; left reads 3:42, right reads 3:48. A note: 'left is the official correct clock.'",
+      "question": "Is the right clock ahead or behind, and by how much?",
+      "answer": "ahead by 6 minutes",
+      "lever": "Compare two clocks against reference and compute offset and direction."
+    },
+    {
+      "id": "TEMP-038",
+      "sub_skill": "schedule_conflict_detection",
+      "domain": "appointment book",
+      "scene": "A daily appointment book showing time slots with handwritten meetings: 9-10 'standup', 10:30-11:30 'planning', 11-12 'design review', 1-2 'lunch'.",
+      "question": "Are any meetings overlapping?",
+      "answer": "yes — 'planning' (10:30-11:30) and 'design review' (11-12) overlap from 11-11:30",
+      "lever": "Detect time-interval overlaps in a schedule."
+    },
+    {
+      "id": "TEMP-039",
+      "sub_skill": "growth_chart_age_inference",
+      "domain": "child height marks on wall",
+      "scene": "A wall with horizontal pencil marks at increasing heights, each labeled with date: 2018-1m, 2019-1.1m, 2020-1.2m, 2021-1.3m, 2022-1.4m. A new mark today reads 1.5m, undated.",
+      "question": "What is the most likely date of the new mark, by trend?",
+      "answer": "2023 (continuing 0.1 m/year)",
+      "lever": "Extrapolate linear growth trend to date the new mark."
+    },
+    {
+      "id": "TEMP-040",
+      "sub_skill": "egg_timer_remaining",
+      "domain": "kitchen sand timer",
+      "scene": "An hourglass egg timer showing approximately 2/3 of sand still in the top half; total runtime is 3 minutes.",
+      "question": "Approximately how much time remains?",
+      "answer": "about 2 minutes",
+      "lever": "Map sand-remaining ratio to remaining time."
+    },
+    {
+      "id": "TEMP-041",
+      "sub_skill": "seasonal_clothing_progression",
+      "domain": "wardrobe time-lapse",
+      "scene": "Four wardrobe photos with the front-facing outfits: 1 heavy coat, 2 light jacket, 3 t-shirt and shorts, 4 sweater. Random order; northern-hemisphere assumed.",
+      "question": "Order them from January to December chronologically.",
+      "answer": "heavy coat → light jacket → t-shirt → sweater (roughly winter→spring→summer→fall)",
+      "lever": "Order outfits by inferred season."
+    },
+    {
+      "id": "TEMP-042",
+      "sub_skill": "movie_runtime_subtract_intermission",
+      "domain": "cinema schedule board",
+      "scene": "A cinema marquee: showtimes 'Movie A: 2:00 PM start, 4:25 PM end. Includes 10 min intermission.'",
+      "question": "What is the actual runtime of the movie excluding intermission?",
+      "answer": "2 hours 15 minutes",
+      "lever": "Compute total elapsed minus stated breaks."
+    },
+    {
+      "id": "TEMP-043",
+      "sub_skill": "trip_arrival_time_calc",
+      "domain": "train schedule board",
+      "scene": "A train board: depart 14:30, scheduled trip 2h 45m, train delayed 35 minutes.",
+      "question": "What is the projected arrival time?",
+      "answer": "17:50",
+      "lever": "Add scheduled time and delay to departure."
+    },
+    {
+      "id": "TEMP-044",
+      "sub_skill": "video_frame_speed_inference",
+      "domain": "ball bounce sequence",
+      "scene": "A multi-frame photo of a bouncing ball; in 4 evenly-spaced frames the ball moves 50 cm, 30 cm, 20 cm, 5 cm.",
+      "question": "Is the ball speeding up or slowing down?",
+      "answer": "slowing down",
+      "lever": "Compare per-frame displacement deltas to infer acceleration sign."
+    },
+    {
+      "id": "TEMP-045",
+      "sub_skill": "calendar_recurring_event",
+      "domain": "calendar with weekly meeting",
+      "scene": "A monthly calendar with a recurring weekly meeting marked every Tuesday. May 2026 begins on Friday.",
+      "question": "How many Tuesday meetings are in May 2026?",
+      "answer": "4 (5, 12, 19, 26)",
+      "lever": "Count weekday occurrences in a month given start day-of-week."
+    },
+    {
+      "id": "TEMP-046",
+      "sub_skill": "time_zone_conversion_meeting",
+      "domain": "timezone clock board",
+      "scene": "A wall with three clocks labeled NY, LON, TOK. NY shows 9:00 AM. A note: 'meeting is at 9 AM Tokyo time.'",
+      "question": "What time is the meeting in NY?",
+      "answer": "8 PM the previous day (Tokyo is 14h ahead of NY EDT, depending on DST)",
+      "lever": "Apply timezone offset to convert meeting time to local."
+    },
+    {
+      "id": "TEMP-047",
+      "sub_skill": "delivery_eta_window",
+      "domain": "package tracking screen",
+      "scene": "A package tracking screen: status 'shipped 2025-04-30', expected delivery 'within 3-5 business days'. Shipping carrier doesn't deliver Sundays. Question evaluated at 2025-05-05 (Mon).",
+      "question": "Has the delivery window started, ended, or is it ongoing?",
+      "answer": "ongoing (3 business days = May 5; 5 business days = May 7)",
+      "lever": "Compute business-day arithmetic excluding Sundays."
+    },
+    {
+      "id": "TEMP-048",
+      "sub_skill": "process_step_sequencing",
+      "domain": "recipe steps photos",
+      "scene": "Four recipe-step photos: dough mixed in bowl, dough rising in covered bowl, dough shaped into loaf, baked golden loaf. Random order.",
+      "question": "What is the correct sequence?",
+      "answer": "mix → rise → shape → bake",
+      "lever": "Order procedural steps by causal dependency."
+    },
+    {
+      "id": "TEMP-049",
+      "sub_skill": "growth_phase_plant",
+      "domain": "plant growth panels",
+      "scene": "Five photos of a sunflower's growth: seed, sprout, sapling with leaves, budding, full bloom. Random order.",
+      "question": "Order them from earliest to latest.",
+      "answer": "seed → sprout → sapling → budding → full bloom",
+      "lever": "Order biological growth stages."
+    },
+    {
+      "id": "TEMP-050",
+      "sub_skill": "schedule_earliest_finish",
+      "domain": "task swimlane",
+      "scene": "A swimlane chart with 3 workers; tasks have durations and assignments: W1 has T1(2d) then T4(1d); W2 has T2(3d); W3 has T3(1d) then T5(2d). All workers start day 1.",
+      "question": "What is the EARLIEST day all tasks finish?",
+      "answer": "day 3 (W2's 3-day task is the bottleneck)",
+      "lever": "Compute max across worker timelines for project finish."
+    }
+  ]
+}

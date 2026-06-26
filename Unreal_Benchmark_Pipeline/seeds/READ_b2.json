@@ -1,0 +1,186 @@
+{
+  "family_id": "READ",
+  "family_name": "Reading in Scene",
+  "seeds": [
+    {
+      "id": "READ-031",
+      "sub_skill": "stacked_receipts_partial",
+      "domain": "stack of receipts",
+      "scene": "A stack of 6 overlapping receipts on a desk; only the totals of the first 5 are clearly visible: $12.34, $8.90, $25.05, $4.20, $11.11. The 6th receipt's total is partially hidden behind a coffee cup; only '$_3.45' visible.",
+      "question": "What is the most likely total on the 6th receipt?",
+      "answer": "report visible portion + ambiguity (e.g., $13.45 or $23.45)",
+      "lever": "Acknowledge partial occlusion; do not invent missing digits."
+    },
+    {
+      "id": "READ-032",
+      "sub_skill": "embossed_low_contrast_serial",
+      "domain": "credit card embossed",
+      "scene": "A credit card with embossed 16-digit number; lighting is low and the embossing is the same color as the card. Numbers visible as raised relief.",
+      "question": "What is the embossed serial number?",
+      "answer": "transcribe the visible digits",
+      "lever": "Read low-contrast embossed digits using shadow cues."
+    },
+    {
+      "id": "READ-033",
+      "sub_skill": "text_under_water",
+      "domain": "swimming pool labels",
+      "scene": "A swimming pool with depth markers painted on the wall; each is labeled. The marker visible beneath ~2 m of water reads '4 m' deep.",
+      "question": "What depth is at the deeper end of the pool, as labeled?",
+      "answer": "4 m",
+      "lever": "Read text through refractive water medium."
+    },
+    {
+      "id": "READ-034",
+      "sub_skill": "text_on_curved_surface",
+      "domain": "wine bottle label",
+      "scene": "A wine bottle photographed straight on; the label wraps around the curved bottle, distorting text at the edges. Center reads 'CABERNET 2020'.",
+      "question": "What's the wine and vintage?",
+      "answer": "CABERNET 2020",
+      "lever": "Read text from center where curvature distortion is minimal."
+    },
+    {
+      "id": "READ-035",
+      "sub_skill": "small_text_on_thumbnail",
+      "domain": "phone screen with notification",
+      "scene": "A phone screen with a small notification preview reading 'Message from Alice: meeting moved to 3pm.'",
+      "question": "What time is the meeting moved to?",
+      "answer": "3pm",
+      "lever": "Read small UI text and extract specific entity."
+    },
+    {
+      "id": "READ-036",
+      "sub_skill": "reflective_surface_text",
+      "domain": "polished metal nameplate",
+      "scene": "A polished brass nameplate engraved 'CONFERENCE ROOM 4B' with bright reflections nearly washing out parts of the text.",
+      "question": "What does the nameplate say?",
+      "answer": "CONFERENCE ROOM 4B",
+      "lever": "Read engraved text under heavy specular reflection."
+    },
+    {
+      "id": "READ-037",
+      "sub_skill": "tilted_book_spine",
+      "domain": "bookshelf",
+      "scene": "A bookshelf with books standing vertically; one book is tilted ~70° leaning against neighbors. Spine text on the tilted book reads 'A History of Time'.",
+      "question": "What is the tilted book's title?",
+      "answer": "A History of Time",
+      "lever": "Read rotated spine text correctly."
+    },
+    {
+      "id": "READ-038",
+      "sub_skill": "text_obscured_by_sticker",
+      "domain": "shipping label",
+      "scene": "A shipping label with the recipient's address; a small barcode sticker partially covers the city, leaving '___ York, NY 10001'.",
+      "question": "What city is the destination?",
+      "answer": "New York (inferred from state and ZIP)",
+      "lever": "Use postal context (state, ZIP) to fill obscured city name."
+    },
+    {
+      "id": "READ-039",
+      "sub_skill": "tiny_text_on_pill_capsule",
+      "domain": "medication capsule",
+      "scene": "A medicine capsule with imprint 'L484' on its surface; magnified view shows the imprint clearly.",
+      "question": "What is the imprint code?",
+      "answer": "L484",
+      "lever": "Read small imprint text on round/curved object."
+    },
+    {
+      "id": "READ-040",
+      "sub_skill": "text_through_misted_window",
+      "domain": "shop sign through misted window",
+      "scene": "A shop sign 'OPEN' visible through a partially-misted window pane; the letters are blurred but readable.",
+      "question": "What does the sign say?",
+      "answer": "OPEN",
+      "lever": "Read text through atmospheric blur."
+    },
+    {
+      "id": "READ-041",
+      "sub_skill": "neon_sign_glow_text",
+      "domain": "diner exterior at night",
+      "scene": "A neon sign reading 'EAT HERE' against a dark night sky; bloom and glow blur the letters.",
+      "question": "What does the neon sign say?",
+      "answer": "EAT HERE",
+      "lever": "Read text through neon-glow bloom."
+    },
+    {
+      "id": "READ-042",
+      "sub_skill": "text_with_strikethrough",
+      "domain": "menu with edit",
+      "scene": "A printed menu with one price '$8.50' that has been crossed out, with '$7.00' handwritten next to it.",
+      "question": "What is the current price?",
+      "answer": "$7.00",
+      "lever": "Identify strikethrough means superseded; use handwritten replacement."
+    },
+    {
+      "id": "READ-043",
+      "sub_skill": "text_with_overlapping_stamp",
+      "domain": "old photo with date stamp",
+      "scene": "An old photo with a date stamp 'JUL 15 1987' overlaying the lower-right; the photo's caption '_aris vacation' is partially obscured.",
+      "question": "What is the date of the photo and the inferred caption?",
+      "answer": "JUL 15 1987; 'Paris vacation'",
+      "lever": "Read date stamp and infer obscured caption from context."
+    },
+    {
+      "id": "READ-044",
+      "sub_skill": "text_in_uniform_color_camouflage",
+      "domain": "store sign blending with wall",
+      "scene": "A store sign painted same color as the wall; only embossed shadow shows the word 'BAKERY'.",
+      "question": "What does the camouflaged sign say?",
+      "answer": "BAKERY",
+      "lever": "Read text relying on shadow cues only."
+    },
+    {
+      "id": "READ-045",
+      "sub_skill": "reading_through_chain_link",
+      "domain": "fenced sign",
+      "scene": "A 'NO TRESPASSING' sign visible through a chain-link fence in the foreground; some letters partially blocked by the wires.",
+      "question": "What does the sign say?",
+      "answer": "NO TRESPASSING",
+      "lever": "Read text through partial occlusion by wire mesh."
+    },
+    {
+      "id": "READ-046",
+      "sub_skill": "graffiti_obscured_street_name",
+      "domain": "street sign with graffiti",
+      "scene": "A street sign 'OAK AVE' with spray paint partially across it; only 'O_K AVE' visible.",
+      "question": "What street name?",
+      "answer": "OAK AVE (single-letter inference)",
+      "lever": "Infer obscured letter from common-name context."
+    },
+    {
+      "id": "READ-047",
+      "sub_skill": "text_in_two_colors_split",
+      "domain": "two-tone book cover",
+      "scene": "A book cover where the title 'GREEN MOUNTAIN' is printed in two colors: 'GREEN' in green, 'MOUNTAIN' in white. The green portion is on a white background; the white portion on a green background.",
+      "question": "What is the book title?",
+      "answer": "GREEN MOUNTAIN",
+      "lever": "Read text across high-contrast color shift."
+    },
+    {
+      "id": "READ-048",
+      "sub_skill": "text_in_grid_with_one_typo",
+      "domain": "labelled museum specimen grid",
+      "scene": "A museum exhibit grid with 12 specimen labels; 11 spelled 'Coleoptera' correctly; 1 misspelled 'Coleopetra'.",
+      "question": "Which label has a spelling error?",
+      "answer": "the 'Coleopetra' label",
+      "lever": "Detect single-letter transposition in long word among many."
+    },
+    {
+      "id": "READ-049",
+      "sub_skill": "vertical_text_japanese_style",
+      "domain": "vertical sign",
+      "scene": "A sign with text written vertically, top-to-bottom: each letter stacked. Reads 'PARKING'.",
+      "question": "What does the vertical sign say?",
+      "answer": "PARKING",
+      "lever": "Read top-down vertical text correctly as a horizontal word."
+    },
+    {
+      "id": "READ-050",
+      "sub_skill": "raindrops_on_window_text",
+      "domain": "shop sign through rainy window",
+      "scene": "A shop sign 'COFFEE' visible through a glass window covered in raindrops, distorting parts of the letters.",
+      "question": "What does the sign say?",
+      "answer": "COFFEE",
+      "lever": "Read text through droplet refraction occlusion."
+    }
+  ]
+}

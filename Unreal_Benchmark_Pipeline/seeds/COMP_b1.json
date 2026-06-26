@@ -1,0 +1,186 @@
+{
+  "family_id": "COMP",
+  "family_name": "Comparison & Matching",
+  "seeds": [
+    {
+      "id": "COMP-011",
+      "sub_skill": "weight_via_compression",
+      "domain": "bookshelf with cushion",
+      "scene": "A long horizontal cushion on top of a low bookshelf supports 5 different objects spaced apart. The cushion compresses (visibly indented) under each object proportional to weight. Compression depths visible in side view: under object A 3mm, under object B 8mm, under object C 1mm, under object D 12mm, under object E 5mm. Objects are differently shaped (book, brick, feather, dumbbell, mug) and the bases differ in area, but the cushion is firm enough that area effect is negligible compared to weight.",
+      "question": "Which object is the HEAVIEST?",
+      "answer": "object D",
+      "lever": "Map compression depth to weight ranking; reject visual size cues (feather might look big but compresses little)."
+    },
+    {
+      "id": "COMP-012",
+      "sub_skill": "near_identical_signature_compare",
+      "domain": "bank signature card",
+      "scene": "A bank signature verification card showing the customer's reference signature 'J. Smith' (cursive) and 4 candidate signatures from recent checks: candidate A is identical except the loop on the 'J' is slightly tighter; candidate B has the same 'J' but the 't' in 'Smith' has a longer cross-bar; candidate C is visually identical to the reference; candidate D has a different slant angle (~5° more upright).",
+      "question": "Which candidate is the GENUINE signature?",
+      "answer": "candidate C",
+      "lever": "Fine handwriting comparison; require zero deviation in stroke proportions, slant, and loop tightness."
+    },
+    {
+      "id": "COMP-013",
+      "sub_skill": "fingerprint_pair_matching",
+      "domain": "forensic display",
+      "scene": "A forensic display board with 8 fingerprint cards laid out in a 2x4 grid. Each fingerprint has visible ridge patterns: loops, whorls, arches. Cards 1, 3, 5, 7 are from suspect A. Cards 2, 4, 6, 8 are crime-scene unknowns. Visible features: card 1 = right-hand whorl with delta point at lower-left; card 3 = left-hand loop; card 5 = right-hand arch; card 7 = right-hand whorl with delta at lower-left + small scar above core. Card 2 = left-hand loop matching card 3 features. Card 4 = right-hand arch matching card 5. Card 6 = right-hand whorl with delta lower-left + scar above core (matching 7). Card 8 = right-hand whorl no scar (matches card 1).",
+      "question": "How many of the 4 unknown cards have a matching reference card?",
+      "answer": "4",
+      "lever": "Pair-match across small ridge details (delta location + scars); all 4 have matches but require precise discrimination."
+    },
+    {
+      "id": "COMP-014",
+      "sub_skill": "lever_balance_inference",
+      "domain": "balance scale",
+      "scene": "A balance scale (equal-arm) with weights on both pans. Left pan: 3 unmarked cubes. Right pan: 1 cube of the same type + a 250g standard weight. The beam tilts down on the LEFT (left side heavier). A second scale beside it shows: left pan 2 cubes, right pan 200g standard weight + 1 cube — beam balanced exactly. Cubes are all identical.",
+      "question": "What is the mass of one cube?",
+      "answer": "200 g",
+      "lever": "From scale 2: 2 cubes = 200g + 1 cube → 1 cube = 200g. Verify with scale 1: 3 cubes (600g) > 1 cube + 250g (450g) ✓."
+    },
+    {
+      "id": "COMP-015",
+      "sub_skill": "size_via_known_reference",
+      "domain": "outdoor object measurement",
+      "scene": "A photograph of a parked car next to an unknown sculpture. The car is a Toyota Camry (length 4.85 m, height 1.45 m — printed on a small spec card placed beside it). The sculpture stands directly behind the car. By visual comparison, the sculpture appears 2.3 times taller than the car's roofline.",
+      "question": "What is the approximate height of the sculpture?",
+      "answer": "3.34 m (≈ 1.45 × 2.3)",
+      "lever": "Use known reference object dimensions to estimate unknown via ratio."
+    },
+    {
+      "id": "COMP-016",
+      "sub_skill": "before_after_subtle_5_changes",
+      "domain": "office desk before/after",
+      "scene": "Two side-by-side photos of the same office desk taken 1 hour apart. The left has: 3 pens in a holder, a closed laptop, a coffee mug (full), a stapler, an open notebook on page 12, a small cactus pot. The right has: 2 pens in the holder + 1 pen lying on the desk, the laptop is now open at 30°, the coffee mug is half-empty, the stapler is rotated 90° and moved 5 cm right, the notebook is open on page 14, the cactus is unchanged.",
+      "question": "How many things have CHANGED between the two photos?",
+      "answer": "5",
+      "lever": "Identify all 5 changes: pen position, laptop state, mug fill, stapler rotation+move (counts as 1), notebook page; cactus unchanged. Multi-attribute scan."
+    },
+    {
+      "id": "COMP-017",
+      "sub_skill": "speed_comparison_motion_blur",
+      "domain": "racetrack photo",
+      "scene": "Photo of a racetrack with 4 cars passing at the moment of capture. Camera shutter was fast enough that very fast cars still show some motion blur, slow cars are crisp. Car 1: heavy directional motion blur on entire body. Car 2: crisp body, minor wheel spin blur. Car 3: medium blur, wheels spinning fast. Car 4: completely sharp, almost no blur visible.",
+      "question": "Order the cars from FASTEST to SLOWEST.",
+      "answer": "Car 1, Car 3, Car 2, Car 4",
+      "lever": "Map motion blur intensity to speed; use full-body blur not just wheel spin."
+    },
+    {
+      "id": "COMP-018",
+      "sub_skill": "shape_congruence_after_rotation",
+      "domain": "geometry puzzle",
+      "scene": "A worksheet with 6 irregular polygon shapes labeled A through F. Shape A is a 5-pointed irregular pentagon. Shape B = A rotated 90° clockwise. Shape C = A reflected horizontally. Shape D = A rotated 180°. Shape E = a similar but slightly different pentagon (one vertex moved 2mm). Shape F = A rotated 270°.",
+      "question": "Which shapes are CONGRUENT to A (identical except for rotation/reflection)?",
+      "answer": "B, C, D, F",
+      "lever": "Mental rotation/reflection; reject E which is similar but not congruent."
+    },
+    {
+      "id": "COMP-019",
+      "sub_skill": "audio_waveform_visual_match",
+      "domain": "music studio screen",
+      "scene": "A music studio screen displays 4 audio waveforms stacked vertically labeled track A-D. Visual features: track A has a steady mid-amplitude sine-wave shape. Track B has sharp spikes spaced regularly (drum). Track C has a gradual swell pattern (build-up). Track D has sharp spikes IDENTICAL in spacing and amplitude to track B. A side panel: 'kick drum stems duplicated for layering.'",
+      "question": "Which two waveforms are IDENTICAL?",
+      "answer": "Tracks B and D",
+      "lever": "Visual waveform pattern matching."
+    },
+    {
+      "id": "COMP-020",
+      "sub_skill": "sequence_value_comparison",
+      "domain": "stock chart panels",
+      "scene": "Three stock chart panels displayed side by side, each showing the same stock over different time windows: Panel A = 1 day intraday (close = $42.10, day high = $43.50, day low = $41.80). Panel B = 1 week (week high = $45.20, week low = $40.10). Panel C = 1 month (month high = $48.00, month low = $39.00). All panels share the y-axis price scale on the right.",
+      "question": "Across all three time windows, what is the HIGHEST price reached?",
+      "answer": "$48.00",
+      "lever": "Cross-panel maximum extraction; reject the leftmost intraday panel as the source."
+    },
+    {
+      "id": "COMP-021",
+      "sub_skill": "pixel_art_difference_count",
+      "domain": "pixel art canvas",
+      "scene": "Two side-by-side 16x16 pixel art canvases of the same simple character (pixel mushroom with cap, eyes, legs). Differences from canvas A to B: cap color shifted from red to dark-red on 4 specific pixels; left eye is one pixel down; the leg base has 2 extra dark pixels added. Total = 4 + 1 + 2 = 7 changed pixels.",
+      "question": "How many pixels differ between the two canvases?",
+      "answer": "7",
+      "lever": "Pixel-level diff counting; subtle dark-red vs red discrimination."
+    },
+    {
+      "id": "COMP-022",
+      "sub_skill": "speech_bubble_match_to_speaker",
+      "domain": "comic strip 4 panel",
+      "scene": "A 4-panel comic. Panel 1: two characters Anna and Ben standing. Panel 2: speech bubble 'I LOVE PIZZA' with tail pointing toward Anna. Panel 3: thought bubble 'I prefer sushi.' floating above Ben. Panel 4: speech bubble 'Let's order both!' with tail pointing toward Anna again.",
+      "question": "Which dialogue lines are spoken aloud (NOT thoughts)?",
+      "answer": "I LOVE PIZZA; Let's order both!",
+      "lever": "Distinguish speech bubble (jagged or pointed tail) from thought bubble (cloud with circles); identify speaker via tail direction."
+    },
+    {
+      "id": "COMP-023",
+      "sub_skill": "growth_comparison_plants",
+      "domain": "lab plant trial",
+      "scene": "Three pots labeled W (water only), F (fertilizer A), G (fertilizer B). Each photographed weekly for 4 weeks; 12 photos in a 3x4 grid. Visible measurements: W reaches 8cm, 14cm, 20cm, 25cm. F reaches 9cm, 18cm, 31cm, 42cm. G reaches 10cm, 16cm, 22cm, 28cm.",
+      "question": "Which fertilizer produces the FASTEST growth rate, and by how much over W at week 4?",
+      "answer": "Fertilizer A; 17 cm taller than W (42 vs 25)",
+      "lever": "Cross-time growth comparison; compute the difference between F and W at week 4."
+    },
+    {
+      "id": "COMP-024",
+      "sub_skill": "missing_part_pair",
+      "domain": "puzzle box",
+      "scene": "A puzzle box with 6 puzzle pieces inside and 1 piece missing from the assembled puzzle on a board. The missing slot has a complex shape: top-left bump, right notch, bottom-left flat, bottom-right bump. The 6 spare pieces have various shapes; piece 4 has top-left bump, right notch, bottom-left flat, bottom-right bump matching exactly.",
+      "question": "Which spare piece (number) fits the missing slot?",
+      "answer": "Piece 4",
+      "lever": "Multi-feature shape matching across 4 corners simultaneously."
+    },
+    {
+      "id": "COMP-025",
+      "sub_skill": "mirror_image_distinguish",
+      "domain": "letter cards",
+      "scene": "A row of 8 cards each showing a letter or symbol. Cards: 'b', 'd', 'p', 'q', 'M', 'W', 'S', 'Ƨ' (reversed S). Some pairs are mirror images of each other (b/d, p/q, M/W, S/Ƨ).",
+      "question": "How many mirror-image PAIRS are present in the row?",
+      "answer": "4",
+      "lever": "Identify horizontal/vertical mirror pairs; b↔d (horizontal), p↔q (horizontal), M↔W (vertical), S↔Ƨ (horizontal)."
+    },
+    {
+      "id": "COMP-026",
+      "sub_skill": "identical_facade_distinct",
+      "domain": "townhouse row",
+      "scene": "A row of 6 nearly-identical Victorian townhouses. They differ only in: door color (red, blue, green, blue, red, green), window flower box (yes/no/yes/yes/no/no), house number plate font (Roman numerals on house 2 and 5, Arabic on others). All other architectural details are identical.",
+      "question": "Are any two houses INDISTINGUISHABLE (identical in all listed features)?",
+      "answer": "No, all 6 differ in at least one feature",
+      "lever": "Cross-feature comparison; verify each pair has at least one differing feature."
+    },
+    {
+      "id": "COMP-027",
+      "sub_skill": "music_score_identical_phrase",
+      "domain": "sheet music",
+      "scene": "A page of sheet music with 8 numbered measures. Measure 1: notes C-D-E-F (quarter notes). Measure 2: G-A-G-F (quarter notes). Measure 3: C-D-E-F. Measure 4: A-B-C-D. Measure 5: C-D-E-F (identical to 1 and 3). Measure 6: G-A-G-F (identical to 2). Measure 7: F-E-D-C. Measure 8: C-D-E-F.",
+      "question": "How many measures contain the IDENTICAL note sequence as measure 1?",
+      "answer": "3 (measures 3, 5, 8) — total 4 occurrences including measure 1, but excluding 1 → 3 other measures",
+      "lever": "Read music notes per measure; pattern-match identical 4-note sequences."
+    },
+    {
+      "id": "COMP-028",
+      "sub_skill": "compare_via_hidden_axis",
+      "domain": "histogram pair",
+      "scene": "Two histograms side by side titled 'Class A' and 'Class B', showing test score distributions. Both have x-axis from 0-100 in bins of 10. Both visually show similar shapes BUT the y-axis (count) of Class A goes 0-10, Class B goes 0-30 (different scales!). Visible bars: A peaks at 70-80 with 8 students. B peaks at 70-80 with 24 students.",
+      "question": "Which class has MORE students total?",
+      "answer": "Class B",
+      "lever": "Notice y-axis scale difference; reject the visually-similar trap; B has ~3x the count."
+    },
+    {
+      "id": "COMP-029",
+      "sub_skill": "compare_with_unit_conversion",
+      "domain": "international product spec",
+      "scene": "Two product spec cards beside each other. Card A (US): weight 4.5 lb, height 12 in, price $80. Card B (EU): weight 2.2 kg, height 32 cm, price €70. Conversion reference printed below: 1 lb = 0.4536 kg, 1 in = 2.54 cm, 1 USD = 0.92 EUR.",
+      "question": "Which product is HEAVIER?",
+      "answer": "Product B",
+      "lever": "Convert A's weight: 4.5 lb × 0.4536 kg/lb = 2.041 kg. Compare to B = 2.2 kg → B heavier."
+    },
+    {
+      "id": "COMP-030",
+      "sub_skill": "near_duplicate_text_diff",
+      "domain": "legal contract",
+      "scene": "Two paragraphs of a contract printed side by side, otherwise identical except for 3 subtle word changes. Paragraph A: 'The party SHALL deliver the goods within 30 days at the buyer's expense.' Paragraph B: 'The party MAY deliver the goods within 60 days at the seller's expense.'",
+      "question": "How many words differ between the two paragraphs?",
+      "answer": "3",
+      "lever": "Identify word-level diffs in legal text: SHALL→MAY, 30→60, buyer→seller; reject shared word reuse."
+    }
+  ]
+}

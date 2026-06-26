@@ -1,0 +1,47 @@
+Model: claude-sonnet-4-6
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_claude_sonnet_4_6.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (claude-sonnet-4-6): 55 pending, 545 done
+    20/55
+    40/55
+  Done: 55 processed
+
+[Phase 2] Extract & judge: 1 empty, 10 MC + 45 OE
+  MC done: 10
+    OE 20/45
+    OE 40/45
+  OE done: 45
+
+============================================================
+  Overall: 28.6% (171/598)  errors=2
+============================================================
+
+  By Domain:
+    Mathematics                          19.8% (51/257) ███
+    Physics & Engineering                27.1% (26/96) █████
+    Reasoning & Logic                    39.1% (36/92) ███████
+    Perception                           33.0% (30/91) ██████
+    Natural Science                      45.2% (28/62) █████████
+
+  By Subdomain:
+    combinatorial_geometry               16.4% (10/61) ███
+    Biology & Chemistry                  45.2% (28/62) █████████
+    Mechanics                            22.4% (11/49) ████
+    Spatial Reasoning                    28.6% (14/49) █████
+    Logic & Document Knowledge           41.7% (20/48) ████████
+    Counting & Numeracy                  36.4% (16/44) ███████
+    Visual Perception                    38.1% (16/42) ███████
+    metric_geometry                      22.5% (9/40) ████
+    combinatorics_counting               26.3% (10/38) █████
+    descriptive_geometry                 18.8% (6/32) ███
+    solid_geometry                       28.0% (7/25) █████
+    Electromagnetism & Optics            36.0% (9/25) ███████
+    graph_theory                         17.4% (4/23) ███
+    transformation_geometry               4.3% (1/23) 
+    Fluids & Thermodynamics              27.3% (6/22) █████
+    logic_constraints                    26.7% (4/15) █████
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_claude_sonnet_4_6.jsonl

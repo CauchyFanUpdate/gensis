@@ -1,0 +1,186 @@
+{
+  "family_id": "DOM",
+  "family_name": "Domain-Specific",
+  "seeds": [
+    {
+      "id": "DOM-011",
+      "sub_skill": "ecg_interpretation",
+      "domain": "cardiology monitor",
+      "scene": "An ECG strip showing 6 cardiac cycles. The R-R interval is irregular: 0.6s, 0.9s, 0.5s, 1.1s, 0.6s, 0.7s. P waves are absent or chaotic. QRS complexes are narrow.",
+      "question": "Which arrhythmia is most likely shown?",
+      "answer": "Atrial fibrillation",
+      "lever": "Recognize irregular R-R + absent P waves + narrow QRS = AFib pattern."
+    },
+    {
+      "id": "DOM-012",
+      "sub_skill": "geology_rock_classification",
+      "domain": "rock identification",
+      "scene": "Three rock samples on a tray. Sample A: dark, fine-grained, with visible glass-like vesicles (gas bubbles). Sample B: layered pages of mud-like sediment, splits along bedding planes. Sample C: coarse interlocking crystals of pink, white, gray (feldspar, quartz, hornblende).",
+      "question": "Classify each sample as IGNEOUS, SEDIMENTARY, or METAMORPHIC.",
+      "answer": "A = Igneous (vesicular basalt); B = Sedimentary (shale); C = Igneous (granite); no metamorphic sample present.",
+      "lever": "Recognize vesicles → volcanic igneous; bedding planes → sedimentary; coarse interlocking crystals → plutonic igneous; resist forced 1-of-each labeling."
+    },
+    {
+      "id": "DOM-013",
+      "sub_skill": "music_chord_id",
+      "domain": "piano keyboard",
+      "scene": "A piano keyboard with three keys highlighted: C, E, G — all simultaneously pressed.",
+      "question": "What chord is being played?",
+      "answer": "C major",
+      "lever": "C-E-G = root + major third + perfect fifth = C major triad."
+    },
+    {
+      "id": "DOM-014",
+      "sub_skill": "weather_pressure_chart",
+      "domain": "synoptic weather map",
+      "scene": "A synoptic weather map showing isobar lines and pressure values. A center labelled 'L 988 mb' (low pressure) sits to the west; an 'H 1024 mb' (high pressure) center sits to the east. The location of interest is between them.",
+      "question": "From which compass direction will the wind blow at the location of interest (Northern hemisphere)?",
+      "answer": "From the south (or southerly)",
+      "lever": "In Northern hemisphere, wind flows from H to L with Coriolis deflection right; H east, L west → north-component flow becomes 'from south' direction at midpoint."
+    },
+    {
+      "id": "DOM-015",
+      "sub_skill": "linguistics_phonetic_id",
+      "domain": "IPA chart",
+      "scene": "An IPA (International Phonetic Alphabet) chart with three symbols highlighted: /θ/, /ð/, /ʃ/.",
+      "question": "Which two are voiceless?",
+      "answer": "/θ/ and /ʃ/",
+      "lever": "θ is voiceless dental fricative; ð is voiced; ʃ is voiceless postalveolar fricative."
+    },
+    {
+      "id": "DOM-016",
+      "sub_skill": "math_proof_step_validity",
+      "domain": "algebra proof",
+      "scene": "An algebraic 'proof' written on a chalkboard: Step 1: a = b. Step 2: a² = ab. Step 3: a² - b² = ab - b². Step 4: (a-b)(a+b) = b(a-b). Step 5: a + b = b. Step 6: 2b = b. Step 7: 2 = 1.",
+      "question": "Which step contains the error?",
+      "answer": "Step 5 (dividing by (a-b) which equals zero)",
+      "lever": "Identify division by zero (since a=b, a-b=0) — the cancellation in step 4→5 is invalid."
+    },
+    {
+      "id": "DOM-017",
+      "sub_skill": "first_aid_priority",
+      "domain": "emergency triage",
+      "scene": "A photo of a triage scene at an accident: 4 victims with visible conditions. Victim A: conscious, walking, minor scrapes. Victim B: unconscious, breathing slow, pale. Victim C: conscious but bleeding heavily from femoral artery (bright red spurts). Victim D: conscious, complaining of arm pain, normal color.",
+      "question": "Which victim must be treated FIRST?",
+      "answer": "Victim C (uncontrolled arterial bleeding kills fastest)",
+      "lever": "Triage priority: severe bleeding > unconsciousness > minor injuries; arterial femoral bleed → minutes."
+    },
+    {
+      "id": "DOM-018",
+      "sub_skill": "biology_food_chain",
+      "domain": "ecology diagram",
+      "scene": "A food chain diagram: grass → grasshopper → frog → snake → hawk. Question asks about energy flow.",
+      "question": "If hawks are removed from the ecosystem, what happens to the grasshopper population?",
+      "answer": "Increases",
+      "lever": "Trophic cascade across 4 levels: hawk↓ → snake↑ → frog↓ → grasshopper↑."
+    },
+    {
+      "id": "DOM-019",
+      "sub_skill": "moonphase_to_date",
+      "domain": "lunar observation",
+      "scene": "A photograph of the moon showing a Waxing Gibbous phase (~3/4 illuminated, lit on the right side). The next full moon is known to be on May 12, 2026.",
+      "question": "What is the approximate date of the photograph?",
+      "answer": "Around May 8-10, 2026",
+      "lever": "Waxing Gibbous = a few days before full moon."
+    },
+    {
+      "id": "DOM-020",
+      "sub_skill": "computer_logic_gate",
+      "domain": "digital circuit",
+      "scene": "A digital logic circuit with two inputs A and B, feeding into an XOR gate, then ANDed with NOT(A). The truth table values for A=0,B=0 / A=0,B=1 / A=1,B=0 / A=1,B=1 are to be filled.",
+      "question": "What is the output for input (A=0, B=1)?",
+      "answer": "1",
+      "lever": "XOR(0,1)=1; NOT(A)=NOT(0)=1; AND(1,1)=1."
+    },
+    {
+      "id": "DOM-021",
+      "sub_skill": "art_movement_id",
+      "domain": "painting style identification",
+      "scene": "A painting reproduction with thick visible brushstrokes, swirling stars, vibrant blue and yellow, a small village under a turbulent night sky. A museum placard reads 'Late 19th century, Post-Impressionist'.",
+      "question": "Who is the most likely painter?",
+      "answer": "Vincent van Gogh (The Starry Night)",
+      "lever": "Recognize iconic painting + style + era."
+    },
+    {
+      "id": "DOM-022",
+      "sub_skill": "chess_endgame_outcome",
+      "domain": "chess endgame",
+      "scene": "A chess endgame: White has King e5 and Pawn e6. Black has King e8. White to move. The pawn is on e6, two squares from promotion (e8).",
+      "question": "Can White force a win?",
+      "answer": "No — the position is a draw",
+      "lever": "K+P vs K endgame: with the white king behind its pawn and Black holding the opposition (Ke8 vs Ke5), White cannot escort the pawn to promotion — Black forces a draw."
+    },
+    {
+      "id": "DOM-023",
+      "sub_skill": "anatomy_skeleton_count",
+      "domain": "skeletal anatomy",
+      "scene": "A medical diagram of a human hand showing all bones: distal phalanges, intermediate phalanges, proximal phalanges, metacarpals, carpals.",
+      "question": "How many bones are in one human hand?",
+      "answer": "27",
+      "lever": "8 carpals + 5 metacarpals + 14 phalanges = 27."
+    },
+    {
+      "id": "DOM-024",
+      "sub_skill": "currency_recognition",
+      "domain": "banknote identification",
+      "scene": "A photograph of a banknote: dark blue color, portrait of Benjamin Franklin, denomination '100' visible.",
+      "question": "What currency and denomination?",
+      "answer": "$100 USD",
+      "lever": "Franklin appears on US $100 bill."
+    },
+    {
+      "id": "DOM-025",
+      "sub_skill": "sports_rule_score",
+      "domain": "tennis match scoreboard",
+      "scene": "A tennis scoreboard: Player A: 6, 4, ; Player B: 4, 6, . Set 3 score: A 5, B 4. Currently A serving at 40-30.",
+      "question": "If A wins this point, who wins the match?",
+      "answer": "Player A",
+      "lever": "Best of 3 sets; A wins set 3 (6-4) → 2 sets to 1; match over."
+    },
+    {
+      "id": "DOM-026",
+      "sub_skill": "law_traffic_sign",
+      "domain": "road sign recognition",
+      "scene": "Three traffic signs: a red octagon with 'STOP'; a yellow diamond with a black bicycle symbol; an inverted triangle with red border showing 'YIELD'.",
+      "question": "Which sign requires the driver to stop completely before proceeding?",
+      "answer": "STOP sign (red octagon)",
+      "lever": "Yield = slow and stop only if needed; Stop = always come to full stop."
+    },
+    {
+      "id": "DOM-027",
+      "sub_skill": "biology_cell_phase",
+      "domain": "cell division micrograph",
+      "scene": "A microscopy image of a cell undergoing division. Chromosomes are visible aligned along the central plane (equator) of the cell, attached to spindle fibers from both poles.",
+      "question": "Which phase of mitosis is shown?",
+      "answer": "Metaphase",
+      "lever": "Chromosomes aligned at the cell's equator with spindle attachments = metaphase."
+    },
+    {
+      "id": "DOM-028",
+      "sub_skill": "geography_country_outline",
+      "domain": "world map outline quiz",
+      "scene": "A world map with one country highlighted: long thin shape running along the western coast of South America, sandwiched between the Andes and the Pacific.",
+      "question": "Which country is highlighted?",
+      "answer": "Chile",
+      "lever": "Distinctive long-narrow shape on west coast of S. America."
+    },
+    {
+      "id": "DOM-029",
+      "sub_skill": "thermodynamics_phase_diagram",
+      "domain": "P-T phase diagram",
+      "scene": "A pressure-temperature phase diagram of water with three regions (solid, liquid, gas) divided by phase-boundary curves and a triple point. A specific point P is marked at temperature 50°C and pressure 0.1 atm.",
+      "question": "In which phase is water at point P?",
+      "answer": "Gas (vapor)",
+      "lever": "At 50°C and 0.1 atm, water is below its vapor pressure curve at that temperature → vapor phase."
+    },
+    {
+      "id": "DOM-030",
+      "sub_skill": "robotics_kinematics",
+      "domain": "robot arm",
+      "scene": "A 2-link planar robot arm. Link 1 length = 30 cm, link 2 length = 40 cm. Joint angles: shoulder θ1 = 60°, elbow θ2 = -30° (relative to link 1).",
+      "question": "What is the (x, y) position of the end effector? (use cos 60° = 0.5, sin 60° = 0.866, cos 30° = 0.866, sin 30° = 0.5)",
+      "answer": "x ≈ 49.6 cm, y ≈ 46.0 cm",
+      "lever": "End-effector x = L1·cos(θ1) + L2·cos(θ1+θ2) = 30·0.5 + 40·cos(30°) = 15 + 34.64 = 49.64. y = L1·sin(θ1) + L2·sin(θ1+θ2) = 30·0.866 + 40·0.5 = 25.98 + 20 = 45.98."
+    }
+  ]
+}

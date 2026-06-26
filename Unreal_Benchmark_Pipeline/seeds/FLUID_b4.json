@@ -1,0 +1,51 @@
+{
+  "family_id": "FLUID",
+  "family_name": "Fluid Mechanics & Buoyancy",
+  "seeds": [
+    {
+      "id": "FLUID-021",
+      "sub_skill": "three_layer_density_column_trapping",
+      "domain": "layered immiscible fluids with embedded objects",
+      "scene": "A tall clear cylindrical container with three visibly distinct immiscible liquid layers (colored dark blue, green, and pale yellow from bottom to top, clearly separated by interfaces). Three solid balls of different materials: a red ball floats on the top (yellow) layer surface; a white ball rests at the green–blue interface, fully submerged in green; a black ball sits at the bottom (blue) layer.",
+      "question": "From the visible resting positions, order the three balls by their density (low to high).",
+      "answer": "Red (lowest density, floats on top layer), white (intermediate, sinks to green-blue interface), black (highest, sinks to bottom). The white ball's trapping at an interface reveals its density is between the green and blue liquid densities.",
+      "lever": "VLM sees 'balls in liquid' and may answer by object color or size rather than density. T requires inferring density from equilibrium position in a multi-layer fluid, a concept often missed."
+    },
+    {
+      "id": "FLUID-022",
+      "sub_skill": "connected_vessels_pressure_principle",
+      "domain": "U-tube with unequal cross-sections",
+      "scene": "A connected-vessel apparatus: a wide cylindrical glass container on the left and a narrow tube on the right, joined at the bottom by a horizontal pipe. Both filled with blue water; both water levels are clearly at the SAME horizontal height despite dramatically different cross-section areas (left is ~10 cm wide, right is ~2 cm diameter).",
+      "question": "Which vessel has MORE water: the wide one or the narrow one? Why are the heights equal?",
+      "answer": "The wide vessel has more water (larger volume for the same height). Heights are equal because pressure at the bottom depends only on fluid height, not cross-section: P = ρgh applies identically to both sides.",
+      "lever": "VLM caption-shortcut sees 'wide vessel with more water' and may predict 'higher level in wide vessel' (S, volume-based intuition). T requires recognizing hydrostatic pressure is height-dependent only, NOT cross-section-dependent."
+    },
+    {
+      "id": "FLUID-023",
+      "sub_skill": "buoyancy_at_two_fluid_interface",
+      "domain": "wooden block floating between oil and water layers",
+      "scene": "A clear glass container with two immiscible liquid layers: water (clear blue) at the bottom, oil (amber-yellow) on top. A wooden block is positioned at the boundary between the layers: approximately 60% of its volume is submerged in the oil, 40% in the water. The block is in equilibrium, not sinking or floating upward.",
+      "question": "How does the block's equilibrium relate to the densities of oil, water, and wood?",
+      "answer": "Block's weight equals total buoyancy from both fluids: ρ_wood·V·g = ρ_water·(0.4V)·g + ρ_oil·(0.6V)·g. The fraction in each fluid is determined by force balance across two densities, not a single fluid.",
+      "lever": "VLM sees 'block in layered fluids' and may default to single-fluid Archimedes reasoning. T requires two-fluid equilibrium analysis, computing the fractional submersion in each layer."
+    },
+    {
+      "id": "FLUID-024",
+      "sub_skill": "pressure_variation_with_depth",
+      "domain": "underwater pressure gauge array",
+      "scene": "A clear vertical glass tank filled with water. At different depths, four pressure gauges are mounted on the side wall: one at depth 1 m, one at 2 m, one at 3 m, one at 4 m. Gauge needles show increasing pressure readings at greater depths.",
+      "question": "If the gauge at 1 m reads 10 kPa (gauge pressure, above atmospheric), what does the gauge at 4 m read?",
+      "answer": "40 kPa. Gauge pressure P = ρgh increases linearly with depth. At 4 m, P = ρg(4 m) = 4 times the pressure at 1 m.",
+      "lever": "VLM sees 'underwater gauges' and may answer 'pressure increases' (S, correct direction but no quantification). T requires linear proportionality: pressure ∝ depth."
+    },
+    {
+      "id": "FLUID-025",
+      "sub_skill": "buoyancy_saltwater_vs_freshwater",
+      "domain": "floating object in density-different fluids",
+      "scene": "Two clear beakers side-by-side: one filled with fresh water (density 1.0 g/cm³), the other with salt water (density 1.025 g/cm³, visibly labeled 'SALT'). An identical wooden ball is placed in each. The ball in fresh water sinks deeper (less buoyancy); the ball in salt water floats higher (more buoyancy).",
+      "question": "Why does the wooden ball float higher in salt water than in fresh water?",
+      "answer": "Buoyant force depends on the displaced fluid's density: F_buoy = ρ_fluid·V·g. Salt water has higher density, so it provides greater buoyancy for the same volume of wood, causing the ball to float higher.",
+      "lever": "VLM may see 'salt makes things float more' and accept it without explaining the density mechanism. T requires connecting buoyancy to fluid density and applying F_buoy = ρgh."
+    }
+  ]
+}

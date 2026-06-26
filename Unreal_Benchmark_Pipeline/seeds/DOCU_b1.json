@@ -1,0 +1,186 @@
+{
+  "family_id": "DOCU",
+  "family_name": "Document & Table Structure",
+  "seeds": [
+    {
+      "id": "DOCU-011",
+      "sub_skill": "footnote_reference_lookup",
+      "domain": "academic paper",
+      "scene": "An academic paper page with body text containing footnote markers ¹, ², ³. Footnote 1: 'Smith, 2019, p. 45.' Footnote 2: 'Personal communication with Dr. Lee, 2024.' Footnote 3: 'See Appendix B, Table 3.' The body text mentions data 'verified independently²'.",
+      "question": "What is the source of the verified data?",
+      "answer": "Personal communication with Dr. Lee, 2024",
+      "lever": "Match superscript marker to footnote; resolve correct footnote 2."
+    },
+    {
+      "id": "DOCU-012",
+      "sub_skill": "form_dependent_field_validation",
+      "domain": "tax form 1040 style",
+      "scene": "A tax form with Line 1: Wages = $45,000. Line 2: Interest = $1,200. Line 3 (sum): $46,200. Line 4 (deductions, standard): $13,850. Line 5 (Taxable income = Line 3 - Line 4): handwritten $32,350. Line 6 (Tax owed at 12% bracket): handwritten $3,882.",
+      "question": "Is Line 5 calculated correctly?",
+      "answer": "Yes (46,200 - 13,850 = 32,350)",
+      "lever": "Verify dependent field arithmetic."
+    },
+    {
+      "id": "DOCU-013",
+      "sub_skill": "table_pivot_aggregation",
+      "domain": "sales spreadsheet",
+      "scene": "A spreadsheet with columns: Date, Salesperson, Product, Amount. Visible rows: 2026-04-01 Alice WidgetA $200; 2026-04-01 Bob WidgetA $150; 2026-04-02 Alice WidgetB $300; 2026-04-02 Alice WidgetA $100; 2026-04-03 Bob WidgetB $250; 2026-04-03 Alice WidgetA $400.",
+      "question": "What are Alice's TOTAL sales of WidgetA?",
+      "answer": "$700",
+      "lever": "Filter by Alice + WidgetA: 200 + 100 + 400 = 700."
+    },
+    {
+      "id": "DOCU-014",
+      "sub_skill": "page_number_pagination",
+      "domain": "book table of contents",
+      "scene": "A book TOC: Chapter 1 starts page 5, ends page 24. Chapter 2 starts page 25, ends page 67. Chapter 3 starts page 68, ends page 102. Chapter 4 starts page 103, ends page 145. Chapter 5 starts page 146, ends page 200. Index begins page 201.",
+      "question": "Which chapter is the LONGEST?",
+      "answer": "Chapter 5 (55 pages: 146-200)",
+      "lever": "Compute chapter lengths: 20, 43, 35, 43, 55. Pick max."
+    },
+    {
+      "id": "DOCU-015",
+      "sub_skill": "tax_table_bracket_lookup",
+      "domain": "tax bracket table",
+      "scene": "Income tax bracket table: 0-10,000 at 5%; 10,001-30,000 at 12%; 30,001-60,000 at 22%; 60,001+ at 32%. Marginal/cumulative scheme. A taxpayer earned $45,000.",
+      "question": "What is the total tax owed?",
+      "answer": "$6,200",
+      "lever": "Apply marginal brackets: 10,000×5% + 20,000×12% + 15,000×22% = 500 + 2,400 + 3,300 = 6,200."
+    },
+    {
+      "id": "DOCU-016",
+      "sub_skill": "label_alignment_in_form",
+      "domain": "passport form",
+      "scene": "A passport application form with fields. Visible: 'Surname: SMITH', 'Given Name: JANE', 'DOB: 1990-03-15', 'Sex: F', 'Place of Birth: TORONTO', 'Nationality: CANADIAN'. The 'Sex' field has only a single character 'F' written directly in the line.",
+      "question": "What is the applicant's nationality?",
+      "answer": "Canadian",
+      "lever": "Field-label association; pick the correct line."
+    },
+    {
+      "id": "DOCU-017",
+      "sub_skill": "matrix_table_intersection_lookup",
+      "domain": "shipping rate matrix",
+      "scene": "A shipping rate matrix with rows 1-5 lb, 6-10 lb, 11-20 lb, 21-50 lb, and columns Zone 1, Zone 2, Zone 3, Zone 4. Cell values (USD): 1-5lb: 5, 8, 11, 15. 6-10lb: 8, 12, 16, 22. 11-20lb: 12, 17, 23, 31. 21-50lb: 18, 25, 33, 45.",
+      "question": "What is the cost to ship a 9 lb package to Zone 3?",
+      "answer": "$16",
+      "lever": "Identify correct row (6-10) + column (Zone 3) → cell value 16."
+    },
+    {
+      "id": "DOCU-018",
+      "sub_skill": "form_required_signature_check",
+      "domain": "consent form",
+      "scene": "A medical consent form with 4 signature fields: 'Patient' (signed: J.Smith, dated 5/3/2026), 'Witness' (BLANK), 'Doctor' (signed: Dr. Lee, dated 5/3/2026), 'Notary' (signed and stamped, dated 5/3/2026). Footer rule: 'All four signatures required for validity.'",
+      "question": "Is this form VALID?",
+      "answer": "No (Witness signature missing)",
+      "lever": "Verify all required fields signed; identify the empty witness slot."
+    },
+    {
+      "id": "DOCU-019",
+      "sub_skill": "list_indentation_hierarchy",
+      "domain": "outline document",
+      "scene": "A nested outline document: I. Main Topic A; A. Subtopic A1; 1. Detail; 2. Detail; B. Subtopic A2; II. Main Topic B; A. Subtopic B1; III. Main Topic C.",
+      "question": "How many TOP-LEVEL (Roman numeral) topics are there?",
+      "answer": "3",
+      "lever": "Identify Roman-numeral level only; ignore alpha sub-levels."
+    },
+    {
+      "id": "DOCU-020",
+      "sub_skill": "stamp_obscures_critical_field",
+      "domain": "official document with stamp",
+      "scene": "A printed document where a circular red 'APPROVED' stamp partially covers the date line. Visible: '2026-0_-15' with the month digit obscured. The cover letter elsewhere says 'submitted in March 2026, approved within the same month'.",
+      "question": "What is the FULL date of approval?",
+      "answer": "2026-03-15",
+      "lever": "Cross-reference cover letter to recover obscured month digit."
+    },
+    {
+      "id": "DOCU-021",
+      "sub_skill": "subscript_index_in_table",
+      "domain": "chemistry data table",
+      "scene": "A chemistry table of compounds with columns Formula, MW. Rows: H₂O 18; CO₂ 44; NH₃ 17; H₂SO₄ 98; CaCO₃ 100. The user circles the row with formula H₂SO₄.",
+      "question": "What is the molecular weight of the circled compound?",
+      "answer": "98",
+      "lever": "Read subscripted formula correctly + identify in table."
+    },
+    {
+      "id": "DOCU-022",
+      "sub_skill": "checkbox_with_other_field",
+      "domain": "survey form",
+      "scene": "A survey question 'Favorite color': checkboxes [ ] Red [ ] Blue [ ] Green [✓] Other: ___. The 'Other' line has 'turquoise' handwritten.",
+      "question": "What is the respondent's favorite color?",
+      "answer": "Turquoise",
+      "lever": "Identify which checkbox is checked + read the dependent text field."
+    },
+    {
+      "id": "DOCU-023",
+      "sub_skill": "table_total_with_subtotals",
+      "domain": "expense report",
+      "scene": "An expense report table with 3 categories. Travel: $200, $150, $80; subtotal $430. Meals: $40, $25, $35, $20; subtotal $120. Lodging: $300; subtotal $300. Grand total field: blank.",
+      "question": "What is the GRAND TOTAL?",
+      "answer": "$850",
+      "lever": "Sum subtotals: 430+120+300 = 850. Verify by re-summing line items."
+    },
+    {
+      "id": "DOCU-024",
+      "sub_skill": "form_revision_changes_track",
+      "domain": "tracked-changes document",
+      "scene": "A document with track-changes visible: original text 'shall pay $500 by Monday' has 'shall' struck through, 'may' inserted; '$500' struck through, '$700' inserted; 'Monday' unchanged. A reviewer's comment in the margin says 'agreed to all'.",
+      "question": "What is the final accepted text?",
+      "answer": "may pay $700 by Monday",
+      "lever": "Apply track-changes accept-all logic; produce post-edit text."
+    },
+    {
+      "id": "DOCU-025",
+      "sub_skill": "page_break_continuation",
+      "domain": "multi-page form",
+      "scene": "A 2-page form. Page 1 ends with: 'Item 7: Quantity ___'. Page 2 starts with: '5' on its own line at the top, then 'Item 8: Quantity 3'. The page-break occurred mid-field.",
+      "question": "What is the quantity for Item 7?",
+      "answer": "5",
+      "lever": "Recognize that the orphan '5' on page 2 is the answer to Item 7's question split across pages."
+    },
+    {
+      "id": "DOCU-026",
+      "sub_skill": "histogram_axis_estimate",
+      "domain": "histogram chart",
+      "scene": "A bar chart with no exact values labeled. Y-axis ticks at 0, 100, 200, 300, 400. Bar A reaches between 100 and 200, closer to 200. Bar B reaches just above 300. Bar C is half the height of bar B.",
+      "question": "Estimate Bar A's value.",
+      "answer": "Approximately 175 (or between 150-200)",
+      "lever": "Visual interpolation from gridlines."
+    },
+    {
+      "id": "DOCU-027",
+      "sub_skill": "page_navigation_index_lookup",
+      "domain": "back-of-book index",
+      "scene": "An index entry: 'photosynthesis: 12, 45-47, 102; light reactions: 46-47; dark reactions: 47'. The reader wants to learn about light reactions.",
+      "question": "Which pages should they read?",
+      "answer": "Pages 46-47",
+      "lever": "Resolve nested index entry; pick light-reactions specific range, not the parent entry."
+    },
+    {
+      "id": "DOCU-028",
+      "sub_skill": "graph_two_axes_compare",
+      "domain": "dual-axis chart",
+      "scene": "A dual-axis line chart with months Jan-Dec on x-axis. Left y-axis (Sales, $K): goes 0-100. Right y-axis (Customers, count): goes 0-2000. Two lines: Sales (blue) peaks in July at $80K. Customers (red) peaks in November at 1,800.",
+      "question": "In which month is the customer count HIGHEST?",
+      "answer": "November",
+      "lever": "Read correct line + correct axis; resist confusing with sales peak."
+    },
+    {
+      "id": "DOCU-029",
+      "sub_skill": "table_with_strike_through",
+      "domain": "menu with strike-through",
+      "scene": "A printed menu where 4 items are still available and 2 items have been crossed out with red marker (sold out). Visible: Pizza $12, ~~Pasta $10~~, Salad $8, ~~Soup $6~~, Burger $11, Wrap $9. A note at the top says 'sold out items unavailable today'.",
+      "question": "How many items can the customer ORDER?",
+      "answer": "4",
+      "lever": "Count non-struck-through items only."
+    },
+    {
+      "id": "DOCU-030",
+      "sub_skill": "fillable_pdf_required_fields",
+      "domain": "online application",
+      "scene": "An online application showing 6 fields with red asterisks (required): Name*, Email*, Phone*, Address*, Date of Birth*, ID Number*. Optional fields: Middle Name, Occupation. The form is filled with: Name=John, Email=john@x.com, Phone=blank, Address=blank, DOB=1990-01-01, ID=blank, Middle=Q, Occupation=engineer.",
+      "question": "How many REQUIRED fields are still empty?",
+      "answer": "3",
+      "lever": "Count blank required fields: Phone, Address, ID = 3; ignore optional fields filled or blank."
+    }
+  ]
+}

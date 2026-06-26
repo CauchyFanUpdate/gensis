@@ -1,0 +1,186 @@
+{
+  "family_id": "READ",
+  "family_name": "Reading in Scene",
+  "seeds": [
+    {
+      "id": "READ-011",
+      "sub_skill": "stacked_receipts_total",
+      "domain": "office desk",
+      "scene": "Six paper receipts overlapping in a fan arrangement on a desk. Each receipt has a 'TOTAL' line at the bottom. Visible totals: 23.45, 67.10, 12.99, 45.00, 8.75, and the sixth one is partly covered — only the last two characters '...50' are visible, with cents '.50'. A handwritten Post-it on top reads 'Grand total = 218.79'.",
+      "question": "What was the total on the partially-hidden sixth receipt?",
+      "answer": "61.50",
+      "lever": "OCR five visible totals, sum = 157.29, subtract from 218.79 = 61.50; verify ends in .50 matches partial OCR."
+    },
+    {
+      "id": "READ-012",
+      "sub_skill": "embossed_low_contrast_text",
+      "domain": "metal nameplate",
+      "scene": "A polished stainless-steel equipment nameplate with the text deeply EMBOSSED but not painted. Lighting comes from the upper-left, casting subtle shadows in the recessed strokes. Text reads: 'MODEL: KX-7720 / SERIAL: 8839A-2026 / VOLT: 220V'. The reflective glare across the middle nearly washes out one character of the model number.",
+      "question": "What is the SERIAL number?",
+      "answer": "8839A-2026",
+      "lever": "Read embossed low-contrast text relying on shadow direction; identify and return only the serial line, not the model."
+    },
+    {
+      "id": "READ-013",
+      "sub_skill": "text_under_water",
+      "domain": "swimming pool tile",
+      "scene": "An overhead shot of a swimming pool. The pool floor has tiled lane numbers '1' through '8'. Surface ripples and refraction distort the digits. A pool depth marker '1.4m' is painted on the wall above water; another '2.1m' marker is on the wall partly submerged. The lifeguard's clipboard floating nearby (visible above water) lists 'Lane 5 closed for repair'.",
+      "question": "What depth is at the deeper end of the pool, as labeled?",
+      "answer": "2.1m",
+      "lever": "Read partly-submerged text against ripple distortion; ignore the lane closure distractor; pick the larger depth."
+    },
+    {
+      "id": "READ-014",
+      "sub_skill": "vertical_text_dual_orientation",
+      "domain": "japanese restaurant signboard",
+      "scene": "A Japanese restaurant facade has two vertical signboards side by side. The left signboard reads top-to-bottom in Japanese: 寿司の店 まつ. The right signboard has English running TOP-DOWN: 'O P E N' with each letter rotated 90° clockwise so they are individually readable when tilted. Below both, a horizontal sign in romaji reads 'SUSHI NO MISE MATSU'.",
+      "question": "What is the name of the restaurant in romaji?",
+      "answer": "MATSU",
+      "lever": "Recognize 寿司の店 = 'sushi shop'; identify まつ = 'matsu' as the actual name; ignore the OPEN sign."
+    },
+    {
+      "id": "READ-015",
+      "sub_skill": "license_plate_through_dirty_window",
+      "domain": "parking lot through dirty window",
+      "scene": "Photo taken through a rain-streaked, dust-coated office window looking down at a parking lot. A car directly below has license plate visible but with multiple dirt smears partially obscuring characters. The plate reads 'AB-3?71-XK' with one digit obscured by a heavy mud smear. Other clearer plates nearby: 'AB-3271-XK' (no, this is the obscured one), 'CD-7104-LM', 'EF-2255-PP'. A printed parking permit on the dashboard of the obscured car (visible inside) shows 'Permit AB-3471-XK valid'.",
+      "question": "What is the full license plate of the car directly below?",
+      "answer": "AB-3471-XK",
+      "lever": "Cross-reference the dashboard permit (clean text) to recover the obscured plate digit; resist guessing from common patterns."
+    },
+    {
+      "id": "READ-016",
+      "sub_skill": "graffiti_overlap_layered",
+      "domain": "alley wall",
+      "scene": "An urban alley wall with three layers of graffiti: a base layer in red spray paint reads 'PEACE 2019', overlaid with blue spray paint reading 'NO WAR' (covering the '2019' part), with newest neon-green tag 'AURA' covering the 'O' of 'NO' and the 'A' of 'WAR'. Below all this, the original wall has stenciled text 'PROPERTY OF CITY' that is fully visible above the graffiti.",
+      "question": "What is the FULL ORIGINAL text of the OLDEST graffiti layer (red), reading through later overlays?",
+      "answer": "PEACE 2019",
+      "lever": "Layer-order temporal reasoning + OCR through partial obscuration; identify red as oldest, recover the covered '2019'."
+    },
+    {
+      "id": "READ-017",
+      "sub_skill": "led_segment_partial_failure",
+      "domain": "electronic price display",
+      "scene": "A 7-segment LED price display at a gas station shows three prices vertically: REGULAR, MIDGRADE, PREMIUM. Each is a 4-digit decimal price. Display reads (with broken segments): REGULAR shows '?.??9' — most segments dark; MIDGRADE shows '4.249'; PREMIUM shows '4.5?9' with the third digit missing the bottom segment (could be 0, 4, 5, 6, 8, or 9). A printed sticker on the pump base says 'Regular 3.999 today, Premium is exactly 0.40 more than midgrade.'",
+      "question": "What is the PREMIUM price?",
+      "answer": "4.649",
+      "lever": "Cross-reference printed sticker with display; midgrade=4.249, premium=4.249+0.40=4.649; verify '6' matches the partially-broken digit pattern."
+    },
+    {
+      "id": "READ-018",
+      "sub_skill": "dense_packaging_ingredients",
+      "domain": "cereal box back panel",
+      "scene": "Photo of the back of a cereal box. The ingredients list is in tiny font, multi-language: English, French, Spanish stacked. The English list reads: 'Whole grain oats, sugar, corn syrup, salt, almond pieces, vitamin E (mixed tocopherols), iron, niacinamide.' Allergen warning in bold: 'Contains: ALMOND, MAY CONTAIN: PEANUT, TREE NUTS, MILK.' A red 'NEW!' sticker covers part of the French list.",
+      "question": "How many ingredients in the English list are NUTS or contain nut allergens?",
+      "answer": "1",
+      "lever": "OCR small dense ingredient list; only 'almond pieces' is a nut in the actual list; the 'May contain' warning lists potential cross-contaminants, not ingredients."
+    },
+    {
+      "id": "READ-019",
+      "sub_skill": "calligraphy_brush_text",
+      "domain": "chinese calligraphy scroll",
+      "scene": "A vertical Chinese calligraphy scroll hanging on a wall. Brush-stroke characters in cursive style read top-to-bottom: 春 風 又 綠 江 南 岸. A small red seal stamp at the bottom is partially smudged but readable as '王安石' (the poet's name). A printed museum placard beside the scroll says 'Northern Song Dynasty, attributed to W—'.",
+      "question": "Who is the calligrapher (full name)?",
+      "answer": "王安石",
+      "lever": "Recognize cursive Chinese calligraphy + read seal + cross-reference placard partial 'W—'."
+    },
+    {
+      "id": "READ-020",
+      "sub_skill": "torn_warning_label",
+      "domain": "chemical bottle in lab",
+      "scene": "A chemical bottle on a lab bench. The hazard label is partially torn off; visible portions read 'DAN' / 'CORRO' / 'pH < 1' / 'Wear eye p_____'. The bottle's printed product label below reads 'Hydrochloric Acid 37%'. A laminated safety chart on the wall lists: 'Acids → eye-protection + acid-resistant gloves + ventilation hood'.",
+      "question": "Based on the visible label fragments, what is the FULL safety instruction the torn line started with?",
+      "answer": "Wear eye protection",
+      "lever": "Reconstruct torn text from context + safety chart; standard chemistry phrasing."
+    },
+    {
+      "id": "READ-021",
+      "sub_skill": "dot_matrix_thermal_printer",
+      "domain": "store receipt thermal print",
+      "scene": "A thermal-printed receipt on a counter, faded with age. Header: 'GRAND OPEN 2026-03-15'. Dot-matrix style. Visible items: '0001 Bread .... 5.00', '0002 Milk ..... 3.50', '0003 Eggs ..... 4.20', '0004 Coffee ... 12.00 (10% off)', '0005 Tea ..... 6.30'. Subtotal: 31.00. Tax: 2.79. Total: 33.79.",
+      "question": "What was the original (pre-discount) price of Coffee?",
+      "answer": "13.33",
+      "lever": "Reverse a 10% discount: 12.00 / 0.90 = 13.33."
+    },
+    {
+      "id": "READ-022",
+      "sub_skill": "neon_sign_through_rain",
+      "domain": "city street neon",
+      "scene": "Night-time street photo with rain falling, a neon sign on a building reads 'OPEN 24 HRS' in red neon. The wet street reflects the neon as 'SRH 42 NEPO' (mirror-flipped). A blue neon arrow points right and reads 'BAR'. Through the rain, another neon sign across the street is partially visible: 'PHARM_CY' (one letter washed out by rain glare).",
+      "question": "What is the missing letter in the across-the-street sign?",
+      "answer": "A",
+      "lever": "Read neon through rain distortion; complete 'PHARMACY' (English word completion)."
+    },
+    {
+      "id": "READ-023",
+      "sub_skill": "schedule_board_conditional",
+      "domain": "train station departure board",
+      "scene": "A digital train departure board with 8 trains listed by destination, departure time, platform, and status. Visible rows: Berlin 14:05 P3 ON-TIME; Munich 14:12 P5 DELAYED 25min; Hamburg 14:20 P2 CANCELLED; Vienna 14:30 P4 ON-TIME; Prague 14:35 P7 DELAYED 10min; Paris 14:40 P1 BOARDING; Rome 14:45 P6 ON-TIME; Amsterdam 14:55 P3 ON-TIME. Current time clock above board: 14:18.",
+      "question": "What is the actual departure time of the train to Munich?",
+      "answer": "14:37",
+      "lever": "OCR + arithmetic: 14:12 + 25 min = 14:37."
+    },
+    {
+      "id": "READ-024",
+      "sub_skill": "fine_print_subscript_in_formula",
+      "domain": "chemistry chalkboard",
+      "scene": "A blackboard with chalk-written chemistry equation: 'Fe₂O₃ + 3CO → 2Fe + 3CO₂'. Chalk dust slightly blurs subscripts. Below it, a balanced equation calculation: '2 mol Fe₂O₃ produces ___ mol Fe'. The teacher has written in the corner: 'Atomic weights: Fe = 56, O = 16, C = 12'.",
+      "question": "Fill in the blank: 2 mol Fe₂O₃ produces how many mol Fe?",
+      "answer": "4",
+      "lever": "Read subscripted chemistry formula correctly (Fe₂ means 2 atoms); apply stoichiometry: 1 mol Fe₂O₃ → 2 mol Fe, so 2 mol → 4 mol."
+    },
+    {
+      "id": "READ-025",
+      "sub_skill": "barcode_and_human_label_mismatch",
+      "domain": "supermarket shelf",
+      "scene": "A supermarket shelf with 5 product barcodes printed on tags below items. Each tag shows the barcode + human-readable digits + product name. Tag 1: '6901234567890 / Toothpaste'. Tag 2: '6987654321098 / Soap'. Tag 3: '6915555555555 / Shampoo'. Tag 4: '6907777777777 / Detergent'. Tag 5: '6909999999990 / Wipes'. The actual barcode bars on Tag 3 (when scanned) decode to '6915555555556' — a single check-digit mismatch with the printed digits.",
+      "question": "Which tag has a mismatch between the printed digits and the actual barcode bars?",
+      "answer": "Tag 3 (Shampoo)",
+      "lever": "Detect that printed digits and machine-readable barcode disagree on Tag 3 specifically; ignore the other tags' consistent encoding."
+    },
+    {
+      "id": "READ-026",
+      "sub_skill": "menu_pricing_with_combo",
+      "domain": "restaurant menu",
+      "scene": "A bistro menu page lists: Burger 12.50, Fries 4.00, Drink 3.50, Salad 6.00. A combo box at the bottom: 'COMBO A = Burger + Fries + Drink, save 15%. COMBO B = Burger + Salad + Drink, save 10%.' A handwritten waiter ticket reads 'Table 5: 2 × Combo A, 1 × Combo B, 3 × extra Fries.'",
+      "question": "What is the table's total bill?",
+      "answer": "65.80",
+      "lever": "Compute combo prices via percentage discount, multiply by quantities, add à-la-carte fries: 2×17.00 + 19.80 + 3×4.00 = 65.80."
+    },
+    {
+      "id": "READ-027",
+      "sub_skill": "signage_with_arrow_routing",
+      "domain": "airport terminal",
+      "scene": "An overhead airport sign with multiple destinations and arrows: 'Gates A1-A20 ↑', 'Gates B1-B15 →', 'Gates C1-C10 ↘', 'Baggage Claim ←', 'Exit ↓', 'Restrooms ↗'. A boarding pass in foreground shows 'Gate B12, Boarding 14:45'.",
+      "question": "Which direction should the passenger go?",
+      "answer": "Right (→)",
+      "lever": "Match boarding pass gate to the correct sign row and report the arrow direction; reject distractor rows."
+    },
+    {
+      "id": "READ-028",
+      "sub_skill": "shopfront_text_rotated_90",
+      "domain": "convenience store window",
+      "scene": "A convenience store front window has multiple stickers. A vertical sticker on the left side of the window has white text printed sideways (rotated 90° counterclockwise) on a red banner: 'OPEN 24 HOURS'. A separate horizontal banner reads 'SALE 20% OFF'. A handwritten paper sign taped inside reads 'Cash only after midnight'. The store's neon hour sign reads '06:00 - 23:00'.",
+      "question": "Are the store's hours actually 24 hours, or limited?",
+      "answer": "Limited (06:00 - 23:00); the '24 HOURS' sticker is misleading or outdated.",
+      "lever": "Read rotated sticker + neon hours + reconcile contradiction; trust the neon hours over the sticker."
+    },
+    {
+      "id": "READ-029",
+      "sub_skill": "embedded_qr_code_url",
+      "domain": "museum exhibit placard",
+      "scene": "A museum placard for an exhibit titled 'Bronze Age Tools'. Below the title, a QR code with the URL 'museum.org/ex/12B7' encoded (QR is fully readable in image). Below the QR a printed caption reads 'Scan for audio guide: museum.org/ex/12B7'. Underneath, a small 'edited 2023' sticker covers the original URL printed on the placard.",
+      "question": "Does the QR code match the printed URL?",
+      "answer": "Yes — both lead to museum.org/ex/12B7",
+      "lever": "Decode QR + OCR caption + verify they match (deliberate coherent design, no contradiction)."
+    },
+    {
+      "id": "READ-030",
+      "sub_skill": "subscribed_text_in_artwork",
+      "domain": "comic book panel",
+      "scene": "A comic book panel with three speech bubbles and one thought bubble. Speech bubble 1 (from a man): 'I'll meet you at the BRIDGE at noon!' Speech bubble 2 (from a woman): 'Bring the BLUE BOX!' Thought bubble (from the man): 'But what bridge does she mean?' A caption box at the top reads 'CHAPTER 3 — NOON'. The background shows two bridges: a stone bridge and a wooden bridge.",
+      "question": "What does the woman want the man to bring?",
+      "answer": "the blue box",
+      "lever": "Read speech bubbles + identify which character spoke which line; ignore the bridge-ambiguity distractor."
+    }
+  ]
+}

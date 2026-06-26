@@ -1,0 +1,186 @@
+{
+  "family_id": "ATTR",
+  "family_name": "Attribute & State",
+  "seeds": [
+    {
+      "id": "ATTR-011",
+      "sub_skill": "freshness_decay_ordering",
+      "domain": "fruit bowl",
+      "scene": "A fruit bowl with 6 bananas at varying stages of ripeness, photographed under uniform lighting. Banana A: fully green with no yellow. Banana B: green-yellow gradient, mostly green. Banana C: uniformly bright yellow with no spots. Banana D: yellow with 4-5 small brown spots. Banana E: yellow with extensive brown speckling, ~40% brown. Banana F: mostly brown-black with shrinkage. A handwritten note says 'Use most-ripe-but-not-rotten for the smoothie.'",
+      "question": "Which banana should be used for the smoothie?",
+      "answer": "Banana E",
+      "lever": "Order banana ripeness (A<B<C<D<E<F); apply rule 'most ripe but not rotten' → exclude F (rotten), pick E."
+    },
+    {
+      "id": "ATTR-012",
+      "sub_skill": "metallic_vs_painted_distinction",
+      "domain": "model car shelf",
+      "scene": "A shelf with 6 toy cars under directional lighting from the upper-left. Three cars have a true metallic finish (specular hot-spot reflections that move with viewing angle); three have a painted-silver finish (diffuse uniform appearance, no hot-spot). A close-up inset shows: car 1 has a sharp specular highlight on the hood. Car 2 has uniform pale silver shading. Car 3 has a clear hot-spot. Car 4 has uniform shading. Car 5 has a sharp specular highlight. Car 6 has uniform shading.",
+      "question": "Which cars (numbers) are TRUE METALLIC, not just painted to look silver?",
+      "answer": "Cars 1, 3, 5",
+      "lever": "Identify metallic via specular highlight pattern; reject diffuse silver paint."
+    },
+    {
+      "id": "ATTR-013",
+      "sub_skill": "wet_vs_dry_state",
+      "domain": "laundry line",
+      "scene": "A backyard laundry line with 7 garments hanging. Visual cues for wetness: drooping (heavier when wet), darker fabric color, water droplets at hem, stretched/elongated silhouette. Visible: shirt 1 (drooping, dripping, dark fabric), shirt 2 (crisp shape, no drips), shirt 3 (slight droop, hem darker than body), pants 1 (heavy droop, water at cuff), pants 2 (no drips, even color), towel 1 (drooping, ~2x normal weight estimate), towel 2 (light, fluffy, no signs).",
+      "question": "How many garments are still WET?",
+      "answer": "4",
+      "lever": "Count items with droop + dark fabric + drips: shirt 1, shirt 3, pants 1, towel 1 = 4."
+    },
+    {
+      "id": "ATTR-014",
+      "sub_skill": "powder_vs_liquid_consistency",
+      "domain": "kitchen jars",
+      "scene": "Six clear glass jars on a kitchen counter, each containing white substance. Visual cues distinguish powder vs liquid: powder shows angular surface, granular texture, dust on jar walls; liquid shows flat horizontal surface and meniscus at jar walls. Jar 1: clearly granular, peaked surface. Jar 2: flat surface with meniscus. Jar 3: angled surface, dust on walls. Jar 4: flat with meniscus, very slight bubbles. Jar 5: flat, meniscus. Jar 6: granular, peaked.",
+      "question": "How many jars contain a LIQUID?",
+      "answer": "3",
+      "lever": "Distinguish powder vs liquid via surface and meniscus cues; jars 2, 4, 5 = liquid."
+    },
+    {
+      "id": "ATTR-015",
+      "sub_skill": "temperature_via_steam_and_condensation",
+      "domain": "coffee shop counter",
+      "scene": "A coffee shop counter with 5 ceramic mugs of brown beverage. Mug A: visible rising steam, no condensation. Mug B: no steam, no condensation. Mug C: heavy condensation on the outside. Mug D: ice cubes visible at the surface, condensation outside. Mug E: faint steam wisps, no outer condensation. A sign behind says 'Hot ≥ 60°C, Iced ≤ 5°C, Room ~ 22°C'.",
+      "question": "Order the 5 mugs from HOTTEST to COLDEST.",
+      "answer": "A, E, B, C, D",
+      "lever": "Steam = hot; condensation outside = cold contents; ice = coldest. Combine signals to derive ranking."
+    },
+    {
+      "id": "ATTR-016",
+      "sub_skill": "spectrum_position_within_close_hues",
+      "domain": "paint color chart",
+      "scene": "A paint color sample card with 12 swatches of green: from yellow-green at left through pure green to blue-green at right, in 12 evenly-spaced steps. Each swatch is labelled with a code G01-G12. A customer's wall sample has been scotch-taped beside the card, sitting between G07 and G08 in tone — slightly closer to G07.",
+      "question": "Which swatch code best matches the customer's wall sample?",
+      "answer": "G07",
+      "lever": "Fine-grained hue interpolation within a continuous spectrum; pick the closer of two adjacent samples."
+    },
+    {
+      "id": "ATTR-017",
+      "sub_skill": "rust_corrosion_progression",
+      "domain": "metal tools shed",
+      "scene": "Five steel garden tools laid out on a tarp. Tool 1: shiny, no rust. Tool 2: surface oxidation, light orange tint. Tool 3: clear rust patches covering ~30% of surface. Tool 4: deep pitting rust, ~70% surface affected, edge looks weakened. Tool 5: red-brown solid rust covering whole surface, several holes punched through metal. A note: 'replace tools that are no longer structurally sound.'",
+      "question": "Which tools should be REPLACED (structurally compromised)?",
+      "answer": "Tools 4 and 5",
+      "lever": "Distinguish surface oxidation from structural compromise; only Tool 4 (pitting + weakened edge) and Tool 5 (holes) qualify."
+    },
+    {
+      "id": "ATTR-018",
+      "sub_skill": "freshness_via_eye_clarity",
+      "domain": "fish market",
+      "scene": "A fish market display with 6 whole fish on ice. Fish freshness markers: eye clarity (clear vs cloudy), gill color (red vs brown), skin sheen (glossy vs dull). Fish A: clear eyes, red gills, glossy skin. Fish B: cloudy eyes, brown gills, dull. Fish C: clear eyes, red gills, slight dullness on skin. Fish D: cloudy eyes, red gills, glossy. Fish E: very cloudy sunken eyes, brown gills, dry skin. Fish F: clear bright eyes, very red gills, glossy.",
+      "question": "Order the fish from FRESHEST to OLDEST.",
+      "answer": "F, A, C, D, B, E",
+      "lever": "Composite ranking across three cues with conflicts (e.g., D has good gills but bad eyes); weighted aggregation."
+    },
+    {
+      "id": "ATTR-019",
+      "sub_skill": "gem_vs_glass_distinction",
+      "domain": "jewelry display",
+      "scene": "A jewelry display with 5 transparent stones cut as round brilliants. True diamonds show pinpoint sharp white sparkle (high refractive index) and multi-color fire under bright light. Glass and CZ show rainbow flashes but lack the sharp point spark. Stone 1: bright pinpoint sparkles, distinct rainbow fire. Stone 2: only rainbow fire, no sharp pinpoints. Stone 3: dull, no sparkle. Stone 4: bright pinpoint sparkles, fire. Stone 5: faint rainbow only.",
+      "question": "Which stones (numbers) are likely real diamonds?",
+      "answer": "Stones 1 and 4",
+      "lever": "Distinguish diamond's optical signature (pinpoint sparkle + fire) from glass/CZ (only rainbow); reject dull stones."
+    },
+    {
+      "id": "ATTR-020",
+      "sub_skill": "battery_charge_state_inference",
+      "domain": "device charging station",
+      "scene": "A charging station with 6 phones plugged in. Each phone displays a battery icon: phone 1 shows 23% red icon. Phone 2 shows 89% green icon with lightning bolt. Phone 3 shows 100% green icon, no bolt (charging complete, idle). Phone 4 shows 56% yellow icon with bolt. Phone 5 screen is black (powered off, but cable connected). Phone 6 shows '!' battery icon (very low, possibly malfunctioning). A note says 'Disconnect any phone that is fully charged or not actively charging.'",
+      "question": "How many phones should be DISCONNECTED?",
+      "answer": "2",
+      "lever": "Identify states: phone 3 is fully charged → disconnect; phone 5 is off and not charging actively (assume not charging) → disconnect; phone 6 may still be receiving charge. Charge: 3 and 5 = 2."
+    },
+    {
+      "id": "ATTR-021",
+      "sub_skill": "color_under_colored_lighting",
+      "domain": "stage lighting",
+      "scene": "A theater stage under a strong RED stage light illuminating 4 fabric swatches hung on a rack. Visible appearance under red light: swatch A appears bright red, swatch B appears dark gray, swatch C appears bright red, swatch D appears nearly black. A reference card under white-light spotlight in the corner shows the same swatches under neutral light: A=white, B=blue, C=red, D=green.",
+      "question": "Under the red stage light, which two swatches LOOK identical despite being different actual colors?",
+      "answer": "Swatches A (white) and C (red), both appearing bright red",
+      "lever": "Reason about color appearance under monochromatic light: white reflects all (looks red under red), red reflects red (looks red), blue absorbs red (dark), green absorbs red (dark)."
+    },
+    {
+      "id": "ATTR-022",
+      "sub_skill": "edible_vs_inedible_lookalikes",
+      "domain": "mushroom basket",
+      "scene": "A foraging basket with 5 mushrooms photographed alongside an open field guide. Mushrooms: M1 brown cap with white gills, no ring on stem; M2 yellow cap with yellow pores under cap (no gills), white stem; M3 small brown cap with white gills, white veil ring on stem; M4 large white cap with pink/brown gills (mature), thick stem; M5 red cap with white spots. Field guide states: 'Edible: chanterelles (yellow, pores not gills), button mushrooms (white cap, pink-then-brown gills, ring). Toxic: any with white gills + ring (Amanita), red caps with white spots (Amanita muscaria).'",
+      "question": "Which mushrooms (numbers) are SAFE to eat per the field guide?",
+      "answer": "M2 and M4",
+      "lever": "Apply field-guide rules to each: M2 = chanterelle (edible), M4 = button (edible), M3 = Amanita (toxic), M5 = fly agaric (toxic), M1 = white gills no ring (uncertain → not on safe list)."
+    },
+    {
+      "id": "ATTR-023",
+      "sub_skill": "ripeness_via_finger_press_indent",
+      "domain": "avocado display",
+      "scene": "A grocery display with 4 avocados, each with a small finger-press indent visible from a customer's earlier touch. Avocado A: indent springs back fully (firm). Avocado B: indent springs back partially. Avocado C: indent stays slightly depressed. Avocado D: indent leaves a deep dimple, surface mushy. A sign reads 'Best for tonight: yields slightly to firm pressure but not mushy.'",
+      "question": "Which avocado is best for tonight per the sign?",
+      "answer": "Avocado B",
+      "lever": "Map indent spring-back to ripeness; choose 'yields slightly but not mushy' = partial spring (B); reject firm (A), soft (C), mushy (D)."
+    },
+    {
+      "id": "ATTR-024",
+      "sub_skill": "fragility_inference_from_packaging",
+      "domain": "warehouse parcels",
+      "scene": "A row of 5 sealed shipping boxes with various stickers: Box 1 has 'FRAGILE' + 'THIS WAY UP' + glass-icon sticker. Box 2 has only 'HEAVY 30kg' sticker. Box 3 has 'LIQUID' + 'KEEP UPRIGHT'. Box 4 has 'PERISHABLE' + dry-ice symbol. Box 5 has 'BOOKS' label.",
+      "question": "Which boxes can be safely placed UPSIDE DOWN without damage?",
+      "answer": "Boxes 2 and 5 only",
+      "lever": "Box 1 = fragile + this way up (no), Box 3 = liquid keep upright (no), Box 4 = perishable + dry ice (no — dry ice gas vents), Box 2 = heavy but not orientation-sensitive, Box 5 = books (orientation OK)."
+    },
+    {
+      "id": "ATTR-025",
+      "sub_skill": "age_via_handwriting_style_and_paper",
+      "domain": "letter archive",
+      "scene": "Three handwritten letters laid out together. Letter A: yellowed paper, fountain-pen ink (slight bleed-through), elegant cursive, dated 'May 4, 1948'. Letter B: bright white paper, ballpoint blue ink, blocky printing, dated '03/15/2024'. Letter C: cream paper with slight aging, fountain-pen ink, mixed cursive, undated.",
+      "question": "Approximately when was Letter C most likely written? (Same era as A, between A and B, or same era as B?)",
+      "answer": "Same era as A (mid-20th century)",
+      "lever": "Combine paper-aging cues + ink type + handwriting style; fountain-pen + cream paper + cursive places C close to A."
+    },
+    {
+      "id": "ATTR-026",
+      "sub_skill": "translucency_layered_silk",
+      "domain": "fabric store",
+      "scene": "A fabric store displays 4 bolts of fabric. Behind each bolt, a printed pattern test card with the letters 'TEST' is placed. Through bolt 1 the letters are clearly readable. Through bolt 2 the letters are blurry but legible shapes. Through bolt 3 only general shapes are visible, no letters. Bolt 4 is fully opaque.",
+      "question": "Order bolts from MOST translucent to LEAST.",
+      "answer": "Bolt 1, Bolt 2, Bolt 3, Bolt 4",
+      "lever": "Translucency = how much detail passes through; rank by readable detail of background test card."
+    },
+    {
+      "id": "ATTR-027",
+      "sub_skill": "dampness_progression_via_color_gradient",
+      "domain": "wet wall",
+      "scene": "A wall with a water leak shows a damp patch with concentric rings: dark wet center (~20cm radius), medium-dark ring (~30cm radius), light damp ring (~40cm radius), dry wall outside. Three thumbtacks marked T1, T2, T3 are placed at distances 15cm, 35cm, 50cm from the leak center.",
+      "question": "Which thumbtack is in the medium-dark damp zone?",
+      "answer": "T2",
+      "lever": "T1 (15cm) is in dark wet center; T2 (35cm) is in medium-dark ring; T3 (50cm) is in dry zone."
+    },
+    {
+      "id": "ATTR-028",
+      "sub_skill": "color_balance_via_white_reference",
+      "domain": "photography studio",
+      "scene": "A photo of a white card on a table, taken under a tungsten incandescent lamp. The white card appears warm yellow-orange. Beside the card, four colored balls. The image's actual ball appearances: ball A appears orange (looks orange but might be white), ball B appears red (looks red, might actually be red or magenta), ball C appears greenish (might be green or cyan), ball D appears very pale yellow.",
+      "question": "Using the white card as reference, what is ball A's TRUE color (under neutral light)?",
+      "answer": "white",
+      "lever": "White-balance correction: the white card appears yellow-orange under tungsten, so subtract that color cast from all objects. Ball A appearing orange = white shifted by tungsten cast = actually white."
+    },
+    {
+      "id": "ATTR-029",
+      "sub_skill": "purity_visual_inspection",
+      "domain": "chemistry lab solid",
+      "scene": "Five powder samples on watch glasses on a lab bench. Sample 1: uniform pure-white fine powder. Sample 2: white powder with a few visible black specks. Sample 3: light yellow tint, uniform. Sample 4: white powder with clearly mixed-in colored crystals (red, blue). Sample 5: uniform pure-white but with lumps (caking — possibly absorbed moisture). Lab notebook: 'pure NaCl is white, fine, uniform; reject anything visibly contaminated or moisture-affected.'",
+      "question": "Which samples (numbers) pass the purity test?",
+      "answer": "Sample 1 only",
+      "lever": "Sample 2 has specks (contamination), 3 is yellow (impurity or wrong compound), 4 is mixed, 5 is moisture-affected; only 1 passes."
+    },
+    {
+      "id": "ATTR-030",
+      "sub_skill": "patina_age_outdoor_metal",
+      "domain": "outdoor sculpture park",
+      "scene": "Five copper sculptures in a park. Their patina ranges from new bright copper (just-installed) through brown oxidation to deep green verdigris (decades old). S1: bright copper, no patina. S2: brown-orange uniform patina. S3: brown-orange with small green spots starting. S4: mostly green with some brown showing through. S5: full deep green verdigris uniform. A plaque says 'sculptures installed in 2025, 2018, 2010, 2000, 1985 (order unknown).'",
+      "question": "Which sculpture was installed in 2025?",
+      "answer": "S1",
+      "lever": "Order patina age S1<S2<S3<S4<S5; map to install dates 2025>2018>2010>2000>1985; newest = 2025 = S1."
+    }
+  ]
+}

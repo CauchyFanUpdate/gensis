@@ -1,0 +1,186 @@
+{
+  "family_id": "THERMO",
+  "family_name": "Thermodynamics & Heat (concept-drift)",
+  "seeds": [
+    {
+      "id": "THERMO-001",
+      "sub_skill": "bimetallic_rod_temp_gradient",
+      "domain": "lab heating apparatus",
+      "scene": "A horizontal metal rod clamped at both ends, with a heating element at its left end (red glow). A thermal-color overlay shows the LEFT end glowing bright red (hot) and the RIGHT end blue (cool). Two thermometers read 600°C (left), 25°C (right). The rod is straight at the moment of the photo.",
+      "question": "Will the rod remain straight, and what is the average temperature of the rod?",
+      "answer": "It will not remain straight at thermal equilibrium — the hot end expands more, causing buckling or bending if constrained. Average temperature is NOT meaningful as a single number for thermal expansion calculations because expansion depends on the local temperature gradient, not a uniform mean.",
+      "lever": "VLM caption-shortcut sees 'rod between two clamps' and applies uniform thermal-expansion formula with a mean temp (textbook S). Visible color gradient violates uniform-temperature assumption; T requires gradient-aware analysis (buckling/local-expansion)."
+    },
+    {
+      "id": "THERMO-002",
+      "sub_skill": "hot_cold_partitioned_room_avg",
+      "domain": "double-room temperature panel",
+      "scene": "A side cutaway of a single building room with a vertical insulated partition splitting it: left half labeled '5°C', right half labeled '35°C'. A small thermometer in the room labeled 'room average reading' is sitting on the partition.",
+      "question": "What temperature does someone walking from the left half to the right half experience, and is the partition-average a meaningful 'room temperature'?",
+      "answer": "They experience a sudden jump from 5°C to 35°C (not a smooth average); the room is NOT at a uniform 20°C. Reporting a 20°C 'average' is misleading — the room is in two thermal regions, and the partition prevents equilibration on the relevant timescale.",
+      "lever": "VLM sees 'thermometer in room → reading represents room temperature' (S). Visible insulated partition + two temps violate single-temperature-room assumption; T is 'two distinct zones, no meaningful single average'."
+    },
+    {
+      "id": "THERMO-003",
+      "sub_skill": "salt_water_subzero_liquid",
+      "domain": "freezer experiment",
+      "scene": "A clear glass jar inside a freezer labeled '−5°C ambient'. The jar contains salt-water solution (label '20% NaCl by mass'); the liquid is fully liquid (no ice), while a beside-it pure-water jar (label) at the same temperature is fully frozen solid.",
+      "question": "Why is the salt water still liquid at −5°C while the pure water is frozen?",
+      "answer": "Salt depresses the freezing point of water (freezing-point depression). 20% NaCl brine freezes around −16°C, well below −5°C, so it remains liquid. Pure water freezes at 0°C, so it freezes at −5°C.",
+      "lever": "VLM sees 'water at −5°C' → 'frozen' (S, pure-water freezing point). Salt-label violates pure-water assumption; T is 'still liquid because salt lowers freezing point'."
+    },
+    {
+      "id": "THERMO-004",
+      "sub_skill": "boiling_water_high_altitude",
+      "domain": "mountaintop kitchen",
+      "scene": "A pot of boiling water on a stove, vigorously bubbling. A label reads 'altitude 5500 m, ambient pressure ~50 kPa'. A thermometer in the water reads 81°C, NOT 100°C.",
+      "question": "Why is the water boiling at only 81°C?",
+      "answer": "At 5500 m, atmospheric pressure is about half of sea level. Boiling occurs when vapor pressure equals ambient pressure; at 50 kPa water boils at ~81°C, not 100°C. So this is the correct boiling point at that altitude.",
+      "lever": "VLM sees 'water boiling' → '100°C' (S, sea-level assumption). High-altitude label violates 1-atm assumption; T is '81°C is correct at half-atmospheric pressure'."
+    },
+    {
+      "id": "THERMO-005",
+      "sub_skill": "ice_water_temperature_below_zero",
+      "domain": "tabletop science demo",
+      "scene": "A glass of clear water with ice cubes in it, sitting on a counter. A thermometer in the water reads −5°C, and the water is fully liquid (ice cubes still present).",
+      "question": "Is this physically consistent for plain water with ice in it?",
+      "answer": "No — pure water-ice mixture in equilibrium is at exactly 0°C. Liquid pure water at −5°C with ice present is impossible (would freeze). Either the water is salty (depressing freeze point), the system is far from equilibrium, or the thermometer is wrong.",
+      "lever": "VLM sees 'ice water' → '0°C' (S, ice-water equilibrium). Visible −5°C reading violates that; T is 'inconsistent unless water has solute'."
+    },
+    {
+      "id": "THERMO-006",
+      "sub_skill": "metal_wood_same_temperature_touch",
+      "domain": "side-by-side touch test",
+      "scene": "A wooden block and a metal block sitting on the same table; a thermometer on each reads exactly 20°C. A hand is shown touching both.",
+      "question": "Will the two blocks feel the same temperature to the touch?",
+      "answer": "No — even at the same temperature, the metal feels much COLDER because it conducts heat away from the skin much faster than the wood (higher thermal conductivity). The 'feeling' of temperature is heat-flux, not temperature itself.",
+      "lever": "VLM sees 'two blocks, same temp' → 'feel the same' (S, temperature=feel). Material difference violates the conductivity-irrelevant assumption; T is 'metal feels colder due to higher thermal conductivity'."
+    },
+    {
+      "id": "THERMO-007",
+      "sub_skill": "boiling_temperature_pressure_cooker",
+      "domain": "pressure cooker",
+      "scene": "A sealed pressure cooker on a stove with a clearly marked gauge showing 2 atm internal pressure. The water inside is bubbling/boiling. A thermometer reads 120°C.",
+      "question": "Why is the water boiling at 120°C, not 100°C?",
+      "answer": "Higher pressure raises water's boiling point. At 2 atm absolute, water boils around 120°C. The pressure cooker exploits this to cook food faster.",
+      "lever": "VLM sees 'boiling water' → '100°C' (S). Sealed cooker + 2 atm gauge violate 1-atm assumption; T is '120°C is correct at higher pressure'."
+    },
+    {
+      "id": "THERMO-008",
+      "sub_skill": "vacuum_thermos_ice_cube",
+      "domain": "thermos flask",
+      "scene": "A vacuum-insulated thermos with a single ice cube inside, sealed. Ambient room temperature is 25°C. A label states 'vacuum gap, near-perfect insulation'.",
+      "question": "How long until the ice cube melts?",
+      "answer": "Much longer than in a non-insulated cup — vacuum suppresses convection/conduction, leaving only radiation. The ice cube can take many hours or even days to melt, vs. minutes in an open cup.",
+      "lever": "VLM sees 'ice cube in container at room temp' → 'melts in minutes' (S, normal cup). Vacuum-insulation label violates conduction/convection assumption; T is 'melts very slowly via radiation only'."
+    },
+    {
+      "id": "THERMO-009",
+      "sub_skill": "thermal_equilibrium_isolated_objects",
+      "domain": "isolated chamber",
+      "scene": "Two metal blocks at very different initial temperatures (100°C and 0°C) placed inside a sealed insulating chamber, NOT touching each other (separated by an air gap; chamber walls are insulating). Diagram labeled 't = ∞'.",
+      "question": "After a long time, will the two blocks reach the same temperature?",
+      "answer": "Yes — even without direct contact, thermal radiation (and convection through the enclosed air) will gradually equilibrate them. Heat transfer in an enclosure does not require direct contact.",
+      "lever": "VLM sees 'blocks not touching' → 'no heat transfer, stay different temps' (S, contact-only-conduction). Real physics includes radiation; T is 'they DO equilibrate via radiation/convection'."
+    },
+    {
+      "id": "THERMO-010",
+      "sub_skill": "wet_bulb_evaporative_cooling",
+      "domain": "wet-bulb thermometer",
+      "scene": "Two thermometers side by side outdoors at 35°C, low humidity. Left one is dry-bulb, reading 35°C. Right one is wet-bulb (cotton sleeve wetted), reading 22°C.",
+      "question": "Why does the wet-bulb thermometer read significantly cooler than the dry-bulb?",
+      "answer": "Evaporation of water from the wet sleeve absorbs latent heat, cooling the bulb. The wet-bulb temperature reflects cooling by evaporation; the difference between dry- and wet-bulb is greater at low humidity.",
+      "lever": "VLM sees 'two thermometers in same air' → 'should read the same temp' (S). Wet-sleeve evaporation violates the same-air-same-temp assumption for sensors; T is 'wet bulb reads lower due to evaporative cooling'."
+    },
+    {
+      "id": "THERMO-011",
+      "sub_skill": "hot_air_balloon_buoyancy",
+      "domain": "hot air balloon physics",
+      "scene": "A hot-air balloon over a field. Inside the balloon envelope a thermometer reads 90°C; outside ambient is 20°C. The balloon floats stably aloft.",
+      "question": "Why does heating the air inside cause the balloon to rise?",
+      "answer": "Heating the air decreases its density (PV=nRT at constant pressure → higher T → lower density). The hotter, less-dense air inside makes the balloon less dense than the outside air, providing net upward buoyancy.",
+      "lever": "VLM sees 'hot air balloon' → 'hot air rises because hot air rises' (S, tautological). Real explanation requires gas-law density change; T is the buoyancy + density argument."
+    },
+    {
+      "id": "THERMO-012",
+      "sub_skill": "phase_change_constant_temp_during_melt",
+      "domain": "ice-melt time-lapse + thermometer",
+      "scene": "An ice block melting in a cup with a thermometer in the slush. Time labels: t=0 (all ice, −10°C), t=5 min (some water + ice, 0°C), t=15 min (more water + ice, 0°C), t=30 min (all water, 0°C). Continuous heat is added throughout.",
+      "question": "Why does the temperature stay at 0°C between t=5 and t=30 even though heat is being added?",
+      "answer": "During the phase change (melting), added heat goes into latent heat of fusion (breaking the solid bonds), not into raising temperature. Temperature stays at the melting point until all ice has melted, after which temperature rises again.",
+      "lever": "VLM sees 'heat added → temperature should rise' (S, sensible-heat assumption). Constant-temp plateau during melting violates that; T is 'latent heat of fusion absorbs energy without temperature rise'."
+    },
+    {
+      "id": "THERMO-013",
+      "sub_skill": "supercooled_water_below_zero",
+      "domain": "supercooled water demonstration",
+      "scene": "A clear bottle of pure water visibly liquid; a thermometer reads −10°C. Label 'undisturbed; pure distilled water'.",
+      "question": "Is this physically possible?",
+      "answer": "Yes — pure water, undisturbed in a clean container, can be supercooled below 0°C without freezing because freezing requires nucleation. The metastable supercooled state shatters into ice the moment it is disturbed or seeded.",
+      "lever": "VLM sees 'water at −10°C' → 'must be ice' (S). Pure+undisturbed label violates the always-freezes-at-0 assumption; T is 'can exist as supercooled liquid (metastable)'."
+    },
+    {
+      "id": "THERMO-014",
+      "sub_skill": "infrared_thermometer_reflective_surface",
+      "domain": "IR thermometer measurement",
+      "scene": "An IR thermometer aimed at a polished aluminum-foil surface reads 5°C. The aluminum is sitting in a 25°C room. A real contact thermometer touching the foil reads 24°C.",
+      "question": "Which thermometer is correct?",
+      "answer": "The contact thermometer (24°C) is correct — the foil is at room temperature. The IR thermometer reads low because polished aluminum has very low emissivity (~0.05), reflecting cold scene radiation rather than emitting its own thermal IR.",
+      "lever": "VLM sees 'IR thermometer reading' → 'trustworthy, that's the actual temperature' (S, blackbody assumption). Polished-aluminum violates high-emissivity assumption; T is 'IR reading is wrong on shiny metals; contact thermometer is right'."
+    },
+    {
+      "id": "THERMO-015",
+      "sub_skill": "humidity_dewpoint_indoor_glass",
+      "domain": "cold glass condensation",
+      "scene": "A cold glass of ice water (5°C surface) sitting in a warm room (25°C, 60% RH). The outside of the glass is visibly beaded with water droplets (condensation).",
+      "question": "Where does the water on the OUTSIDE of the glass come from?",
+      "answer": "From the air. Warm room air contacting the cold glass surface drops below its dew point, causing humidity in the air to condense on the glass surface. The water did NOT seep through the glass.",
+      "lever": "VLM sees 'wet glass' → 'water leaked from inside' (S, glass-permeable misconception). Cold-glass + humid-air physics violate that; T is 'condensation from air below dew point'."
+    },
+    {
+      "id": "THERMO-016",
+      "sub_skill": "heat_capacity_water_vs_metal",
+      "domain": "two-pot heating comparison",
+      "scene": "Two pots of equal mass on identical burners receiving identical heat input for 60 seconds. Left pot contains 1 kg water (initial 20°C); right pot contains 1 kg iron block (initial 20°C). After 60 s, water reads 35°C, iron reads ~150°C.",
+      "question": "Why does the iron heat up so much faster?",
+      "answer": "Specific heat capacity: water (~4.18 J/g·K) is about 9× higher than iron (~0.45 J/g·K). For the same heat input the lower-heat-capacity material rises in temperature much more.",
+      "lever": "VLM sees 'same heat → same temperature rise' (S, naive). Different specific heats violate that; T is 'iron heats faster because lower specific heat'."
+    },
+    {
+      "id": "THERMO-017",
+      "sub_skill": "endothermic_reaction_cools_environment",
+      "domain": "instant cold pack",
+      "scene": "An instant cold pack just snapped activated; a thermometer touching it reads −2°C, while ambient was 22°C. No external cooling source visible.",
+      "question": "Where did the cooling energy come from?",
+      "answer": "The cold pack contains chemicals (e.g., ammonium nitrate + water) that undergo an endothermic dissolution; the reaction absorbs heat from its surroundings (and from the pack itself), cooling them. Energy came from the chemical-bond reorganization.",
+      "lever": "VLM sees 'cold object without source' → 'must be a battery/cold source' (S, requires external cold). Endothermic chemistry violates external-source requirement; T is 'reaction absorbs heat from surroundings'."
+    },
+    {
+      "id": "THERMO-018",
+      "sub_skill": "boiling_continues_after_heat_off",
+      "domain": "vacuum boiling apparatus",
+      "scene": "A round flask of warm water (60°C) on a benchtop; a vacuum pump is connected and visibly pumping out air. Inside the flask, water is shown vigorously boiling at 60°C (no flame; flask is at room ambient otherwise).",
+      "question": "Why is the water boiling at 60°C without being heated?",
+      "answer": "Lowering the pressure lowers the boiling point. Pumping the air out drops the pressure inside the flask such that 60°C water exceeds the new (lower) saturation vapor pressure → it boils. No additional heat is needed; the energy for vaporization is drawn from the water itself, cooling it as boiling progresses.",
+      "lever": "VLM sees 'boiling water without flame' → 'something must be heating it' (S). Vacuum pump label violates 'boiling requires high temperature' assumption; T is 'reduced pressure lowers boiling point so the warm water boils'."
+    },
+    {
+      "id": "THERMO-019",
+      "sub_skill": "steam_invisible_above_kettle",
+      "domain": "kettle close-up",
+      "scene": "A boiling kettle with the spout pointing right. Immediately at the spout opening (the first ~1 cm) the air looks CLEAR/INVISIBLE; the white cloud of 'steam' starts a few centimeters away from the spout.",
+      "question": "Why is the region right at the spout invisible while the cloud appears further out?",
+      "answer": "Right at the spout is true steam (water vapor) which is INVISIBLE. The visible white cloud further out is condensed water droplets (mist), formed when the hot vapor cools enough to condense in the surrounding air. So 'steam' (vapor) is clear; the visible plume is mist.",
+      "lever": "VLM sees 'visible white cloud' → 'that is steam' (S, common usage). The clear-zone-then-cloud geometry violates vapor=visible assumption; T is 'true vapor is invisible; cloud is condensed mist'."
+    },
+    {
+      "id": "THERMO-020",
+      "sub_skill": "convection_cell_in_pot",
+      "domain": "stovetop water with dye",
+      "scene": "A pot of water heated from below with food coloring tracking flow. The dye clearly shows water rising in the CENTER and sinking along the EDGES, forming convection rolls. Bottom is hottest, top is coolest.",
+      "question": "Why does the water move in this pattern instead of just heating uniformly?",
+      "answer": "Heated water at the bottom expands and becomes less dense, rising via buoyancy; cooler dense water at the top sinks. This forms convection cells. Conduction alone is too slow; gravity-driven convection dominates in a heated-from-below liquid.",
+      "lever": "VLM sees 'hot pot of water' → 'heats by conduction uniformly' (S, conduction-only). Visible convection cells violate conduction-only assumption; T is 'gravity-driven convection cells'."
+    }
+  ]
+}

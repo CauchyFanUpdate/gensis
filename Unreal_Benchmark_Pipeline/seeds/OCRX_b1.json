@@ -1,0 +1,276 @@
+{
+  "family_id": "OCRX",
+  "family_name": "Noisy & Ambiguous OCR",
+  "seeds": [
+    {
+      "id": "OCRX-001",
+      "sub_skill": "handwritten_digit_disambiguation",
+      "domain": "shopping_list",
+      "scene": "A handwritten grocery list on lined notebook paper. Items: 'milk x2', 'eggs x12', 'apples x?', 'bread x1'. The quantity for apples is written sloppily and could be read as either '4' or '9' (the upper loop is open). To the right of the list, the writer added a faint pencil note: 'total items = 19'.",
+      "question": "How many apples are on the list?",
+      "answer": "4",
+      "lever": "The handwritten digit is ambiguous (4 vs 9). The total constraint 19 = 2+12+x+1 forces x=4, requiring the model to combine OCR with arithmetic constraint to disambiguate."
+    },
+    {
+      "id": "OCRX-002",
+      "sub_skill": "low_contrast_text",
+      "domain": "receipt",
+      "scene": "A faded thermal-printer receipt photographed against a white surface. Most of the print has faded to barely-visible gray. Visible legibly: 'STORE 47', 'CASHIER: J.M.', 'TOTAL: $__.85'. The dollar amount before the cents is almost erased — only the silhouette of two digits remains, with the second one having a flat top and vertical stroke (could be '7' or possibly '1') and the first being a curved shape (could be '3', '5', or '8').",
+      "question": "What is the most likely total amount, and is it readable with high confidence?",
+      "answer": "Not readable with high confidence; the digits are too degraded — only the cents portion (.85) is reliable",
+      "lever": "Tests whether VLM honestly admits uncertainty rather than confabulating a plausible-looking number from heavily degraded glyph silhouettes."
+    },
+    {
+      "id": "OCRX-003",
+      "sub_skill": "rotated_text",
+      "domain": "shipping_label",
+      "scene": "A cardboard box photographed from above. A shipping label is affixed sideways on the box: the label is rotated 90° clockwise relative to the camera, so the text reads top-to-bottom. The label says 'FRAGILE — THIS SIDE UP' and an address: '742 Evergreen Terrace, Springfield'. A second smaller sticker on the box, oriented upside-down (180°), reads 'Inspected by #14'.",
+      "question": "What is the inspector number, and what is the street number on the address?",
+      "answer": "Inspector #14; street number 742",
+      "lever": "Two text elements at non-standard rotations (90° and 180°). VLMs often fail to mentally rotate text or misread digit-only elements when orientation cues are stripped."
+    },
+    {
+      "id": "OCRX-004",
+      "sub_skill": "mirror_text",
+      "domain": "ambulance",
+      "scene": "Front view of a parked white ambulance. Across the top of the windshield/hood, large red letters spell 'AMBULANCE' but each letter is mirror-reversed (the word reads correctly only when viewed in a rear-view mirror). Below, on the bumper, a regular (non-mirrored) sticker reads 'Emergency: 911'.",
+      "question": "Reading the large red text on the hood as actual letters in the photo (not as they would appear in a mirror), what does it spell?",
+      "answer": "ECNALUBMA (the mirror-reversed form of AMBULANCE)",
+      "lever": "Tests whether the model reads what is literally there vs auto-correcting to the expected word. Many VLMs silently 'fix' the mirror text to AMBULANCE."
+    },
+    {
+      "id": "OCRX-005",
+      "sub_skill": "torn_paper",
+      "domain": "ransom_note",
+      "scene": "A piece of paper torn diagonally across the middle, lying on a desk. The top half says 'Meet me at the [TEAR]'. The bottom half (placed slightly offset, not aligned) shows '...n at midnight'. Along the torn edge of the top half, partial letters survive: 'fount' is visible, and the next character has a vertical stroke that could be 'a' or 'i'.",
+      "question": "What is the most likely complete sentence?",
+      "answer": "Meet me at the fountain at midnight",
+      "lever": "Requires reconstructing torn text by aligning partial letters across a diagonal tear and inferring the missing characters."
+    },
+    {
+      "id": "OCRX-006",
+      "sub_skill": "multi_script_mixing",
+      "domain": "menu",
+      "scene": "A bilingual restaurant menu photographed at an angle. Each dish is listed first in Japanese kanji/hiragana then in English in smaller text. One dish reads '寿司盛り合わせ — Sushi Assortment — $24'. Another reads '天ぷら — Tempura — $1?' where the last digit is partially covered by a chopstick laid across the menu. A third reads '味噌汁 — Miso Soup — $5'.",
+      "question": "Which dish has its price partially obscured, and what could the obscured digit plausibly be?",
+      "answer": "Tempura's price; the obscured digit could be any single digit (likely 6, 8, or 9 to make a typical tempura price), but cannot be determined from the image alone",
+      "lever": "Mixed-script reading plus identification of which item is occluded; tests honesty about non-recoverable information."
+    },
+    {
+      "id": "OCRX-007",
+      "sub_skill": "glare_on_screen",
+      "domain": "atm",
+      "scene": "A photograph of an ATM screen showing a transaction summary. Bright sunlight glare creates a vertical white stripe across the middle of the screen. Visible: 'Withdrawal Amount: $___' (the dollar amount is in the glare zone). Below glare: 'Account Balance: $1,247.30'. Above glare: 'Previous Balance: $1,447.30'.",
+      "question": "What was the withdrawal amount?",
+      "answer": "$200.00",
+      "lever": "Glare hides the visible amount; arithmetic from before/after balance ($1447.30 - $1247.30 = $200) is needed."
+    },
+    {
+      "id": "OCRX-008",
+      "sub_skill": "graffiti_overwrite",
+      "domain": "street_sign",
+      "scene": "A green rectangular street sign reading 'OAK STREET'. Someone has spray-painted black graffiti over part of it: a thick black 'X' covers the letter 'A', and a black blob covers what was originally an 'E'. So the visible text reads 'O_K STR_ET'. The post number plate below is intact and reads '4400 BLOCK'.",
+      "question": "What was the original full street name, and what is the block number?",
+      "answer": "OAK STREET; 4400 BLOCK",
+      "lever": "Requires recognizing the original word despite character-level occlusion by graffiti, while reading the unaffected metadata correctly."
+    },
+    {
+      "id": "OCRX-009",
+      "sub_skill": "stylized_logo",
+      "domain": "storefront",
+      "scene": "A boutique storefront sign in a heavily stylized cursive script where the letters are connected with flourishes and the dot of the 'i' is replaced with a small heart. The sign reads 'Bijou Boutique' but the cursive makes the 'B' resemble a stylized '13' and the 'j' has no distinguishable dot. A smaller, plain-text sign in the window says 'Established 1998'.",
+      "question": "Read the cursive sign letter-by-letter as a typical English reader would interpret it.",
+      "answer": "Bijou Boutique",
+      "lever": "Stylized fonts often fool naive OCR; requires holistic letter recognition rather than literal stroke parsing."
+    },
+    {
+      "id": "OCRX-010",
+      "sub_skill": "watermark_overlay",
+      "domain": "document",
+      "scene": "A scan of a printed contract page. A diagonal watermark reading 'DRAFT' in large light-gray letters overlays the text. The body text contains: 'The party of the first part agrees to pay $5,250 on or before March 15, 2026.' The 'D' of 'DRAFT' overlaps the dollar amount such that the digit '5' between '$' and ',250' is partly behind the curve of the watermark D.",
+      "question": "What is the dollar amount in the contract?",
+      "answer": "$5,250",
+      "lever": "Watermark overlays partially obscure the digit; comma context and surrounding visible '250' constrains it."
+    },
+    {
+      "id": "OCRX-011",
+      "sub_skill": "license_plate_dirt",
+      "domain": "parking_lot",
+      "scene": "A car's rear license plate is partially covered with mud. The plate format is 3 letters + 4 digits. Visible characters: 'A_C - 7?42' where the second letter is mostly hidden by mud (a thin top-left curve is visible) and the second digit is fully covered by a dirt blob.",
+      "question": "Can the full plate be read with confidence? If not, list the possible readings for the mud-covered characters.",
+      "answer": "Cannot be read with confidence. Second letter could be B, D, O, P, Q (matching the partial top-left curve); second digit is fully obscured (any 0–9).",
+      "lever": "Forces enumeration of plausible characters consistent with partial visual evidence rather than guessing one."
+    },
+    {
+      "id": "OCRX-012",
+      "sub_skill": "wet_ink_smear",
+      "domain": "notebook_page",
+      "scene": "A handwritten note in blue ballpoint ink that has been splashed with water in the lower half. Top half (legible): 'Phone numbers — call back order:'. Below are four entries in two columns: '1. Alice — 555-0142' / '2. Bob — 555-???8' / '3. Carol — 5??-????' / '4. Dave — ??5-04?2'. The middle digits are smeared into blue blurs.",
+      "question": "Which entry's phone number is most completely legible after Alice's?",
+      "answer": "None — only Alice's number (555-0142) is fully legible; Bob, Carol, and Dave all have multiple smeared digits",
+      "lever": "Tests honest reporting of legibility rather than confabulating plausible numbers."
+    },
+    {
+      "id": "OCRX-013",
+      "sub_skill": "letter_number_homoglyph",
+      "domain": "code_screen",
+      "scene": "A monitor showing a one-time-password challenge in a sans-serif monospaced font. The code is 'O0Il1S5' displayed in pure white on a black terminal. Below it, the prompt asks the user to type the code.",
+      "question": "Transcribe the code, distinguishing letter O from digit 0, letter I from digit 1, lowercase l, and letter S from digit 5.",
+      "answer": "Cannot be reliably distinguished from the image alone — the font does not distinguish O/0, I/1/l, or S/5; the literal glyphs are O, 0, I, l, 1, S, 5 in some order matching the visible silhouettes",
+      "lever": "Homoglyphs in sans-serif fonts are genuinely ambiguous; tests whether VLM admits this rather than guessing."
+    },
+    {
+      "id": "OCRX-014",
+      "sub_skill": "old_typewriter_uneven",
+      "domain": "manuscript",
+      "scene": "A page from a 1950s typewritten manuscript. The 'e' key is worn down so every 'e' prints as a partial horizontal bar with the right half missing (looks more like 'c'). A sentence reads 'Thc quick brown fox jumpcd ovcr thc lazy dog.' (i.e., every e renders as c).",
+      "question": "What was the original sentence the typist intended?",
+      "answer": "The quick brown fox jumped over the lazy dog.",
+      "lever": "Systematic glyph corruption; requires recognizing the pattern (every 'c' in unexpected positions corresponds to a worn 'e') and reconstructing intended text."
+    },
+    {
+      "id": "OCRX-015",
+      "sub_skill": "vertical_chinese_misread_as_english",
+      "domain": "billboard",
+      "scene": "A street photo from a city in East Asia. A vertical billboard displays Chinese characters reading top-to-bottom: '北京欢迎你' (Beijing welcomes you). Next to it is a horizontal English sign reading 'Welcome to Beijing'. A small disclaimer below in tiny English print reads 'Sponsored by Tourism Bureau, est. 2008'.",
+      "question": "What does the Chinese vertical text say (in English translation), and what year is given in the disclaimer?",
+      "answer": "Beijing welcomes you; 2008",
+      "lever": "Multi-script + vertical orientation + tiny disclaimer text; requires reading multiple scales and orientations."
+    },
+    {
+      "id": "OCRX-016",
+      "sub_skill": "cursive_signature",
+      "domain": "check",
+      "scene": "A bank check filled out by hand. The 'Pay to the order of' line has a printed name 'John Smith Plumbing'. The amount in numbers reads '$1,250.00'. The amount in words is written in flowing cursive that reads 'One thousand two hundred and fifty dollars'. The signature line at the bottom has an illegible cursive signature — only the first letter 'M' and a final flourish are clear.",
+      "question": "Do the numeric amount and the written-out amount agree, and is the signature legible?",
+      "answer": "Yes, both amounts agree at $1,250.00; the signature is not legible (only initial 'M' is clear)",
+      "lever": "Tests cross-checking two representations and honest reporting of an illegible signature."
+    },
+    {
+      "id": "OCRX-017",
+      "sub_skill": "subscript_superscript",
+      "domain": "chemistry_textbook",
+      "scene": "A page from a chemistry textbook showing balanced equations in clear print. One equation reads: 'H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O'. The subscripts are smaller than baseline text and the coefficient '2' before NaOH is at full baseline size.",
+      "question": "Transcribe the equation, clearly distinguishing subscripts from coefficients.",
+      "answer": "H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O (coefficients: 2 NaOH and 2 H₂O; subscripts: 2 in H₂, 4 in SO₄, 2 in Na₂, 4 in SO₄, 2 in H₂O)",
+      "lever": "Subscript vs coefficient distinction is structurally meaningful; many OCR systems flatten them."
+    },
+    {
+      "id": "OCRX-018",
+      "sub_skill": "fraction_in_recipe",
+      "domain": "cookbook",
+      "scene": "A handwritten recipe card in cursive. Ingredients list: '1½ cups flour', '¾ tsp salt', '⅓ cup sugar', '2¼ cups milk'. The fractions are written with slanted bars (e.g., 1/2 with the slash at 30°). One fraction is smudged: between 'cocoa powder' and 'tbsp', the number reads either '⅛' or '⅜' (the top digit is ambiguous between 1 and 3).",
+      "question": "Which fraction is ambiguous, and between which two values?",
+      "answer": "The cocoa powder fraction; ambiguous between ⅛ and ⅜",
+      "lever": "Requires identifying the specific ambiguous element rather than reading all fractions confidently."
+    },
+    {
+      "id": "OCRX-019",
+      "sub_skill": "rust_on_metal_plate",
+      "domain": "industrial",
+      "scene": "A rusty metal serial-number plate on the side of an old machine. Original engraving: 'MODEL: HX-2400 / SERIAL: 88-A4271-3 / MFG: 1962'. Heavy rust patches obscure several characters. The MODEL line is clearly readable. In the SERIAL line, the dash-separated middle group has rust covering the 4th character — visible: '88-A4_71-3'. The MFG year shows '19_2' with a rust patch over the third digit.",
+      "question": "What is the model number, and which two single characters cannot be read confidently?",
+      "answer": "Model HX-2400; the 4th character of the serial middle group (between A4_71) and the 3rd digit of the manufacture year (19_2) cannot be read",
+      "lever": "Honest enumeration of the unreadable positions, not a guess at full string."
+    },
+    {
+      "id": "OCRX-020",
+      "sub_skill": "reflected_in_water",
+      "domain": "lake_billboard",
+      "scene": "A lakeside scene at dusk. A billboard on a tall pole displays the text 'LAKESIDE INN — VACANCY'. The still lake surface below reflects the billboard, but the reflection is upside-down and the letters appear mirror-flipped vertically. The reflection is partially broken by faint ripples.",
+      "question": "If the model is shown only the reflected image (the upside-down version on the lake surface), what should it read?",
+      "answer": "The reflection literally shows the text upside-down (vertically flipped); when mentally inverted, it reads 'LAKESIDE INN — VACANCY'",
+      "lever": "Distinguishing the literal reflected glyphs from the inferred original text."
+    },
+    {
+      "id": "OCRX-021",
+      "sub_skill": "calligraphy_decorative",
+      "domain": "wedding_invitation",
+      "scene": "A wedding invitation in elaborate copperplate calligraphy with heavy decorative flourishes. Main lines (in calligraphy): 'Margaret & Theodore — June 15, 2026 — Rosewood Manor'. Small print at the bottom in plain serif font reads 'RSVP by May 30 — formal attire'.",
+      "question": "What date is the wedding, and what is the RSVP deadline?",
+      "answer": "Wedding: June 15, 2026; RSVP by May 30",
+      "lever": "Decorative calligraphy challenges letter recognition; small plain text must be read despite scale difference."
+    },
+    {
+      "id": "OCRX-022",
+      "sub_skill": "decimal_vs_thousand_separator",
+      "domain": "european_invoice",
+      "scene": "A printed invoice in European number formatting (comma as decimal separator, period as thousand separator). Line items: 'Widget A: 1.250,00 €', 'Widget B: 750,50 €', 'Subtotal: 2.000,50 €', 'Tax 19%: 380,10 €', 'Total: 2.380,60 €'.",
+      "question": "How much does Widget A cost in standard US dollar-style notation (period as decimal)?",
+      "answer": "$1,250.00 (one thousand two hundred fifty)",
+      "lever": "Testing recognition of locale-specific number conventions, not just glyph reading."
+    },
+    {
+      "id": "OCRX-023",
+      "sub_skill": "blurred_motion_text",
+      "domain": "subway_train",
+      "scene": "A photograph of a subway train arriving at a platform, captured with a slow shutter so the train is motion-blurred horizontally. A digital LED destination sign on the front of the train shows text that is smeared into horizontal streaks. Faintly, the leftmost characters resolve as 'DOW' followed by smear. The platform sign behind (stationary, sharp) reads 'PLATFORM 3 — DOWNTOWN EXPRESS'.",
+      "question": "What is the train's destination sign text most likely showing?",
+      "answer": "DOWNTOWN (consistent with the visible 'DOW' and the platform's 'DOWNTOWN EXPRESS' designation)",
+      "lever": "Combining partial OCR with contextual clue from a sharp adjacent sign."
+    },
+    {
+      "id": "OCRX-024",
+      "sub_skill": "arabic_numerals_eastern",
+      "domain": "international_clock",
+      "scene": "A clock face uses Eastern Arabic numerals (٠١٢٣٤٥٦٧٨٩) instead of Western (0123456789). The hour hand points to ٧ and the minute hand points to ٤ (which is at the 20-minute position).",
+      "question": "What time is it in standard Western notation?",
+      "answer": "7:20",
+      "lever": "Reading numerals from a non-Western script; common point of failure for VLMs trained primarily on Western text."
+    },
+    {
+      "id": "OCRX-025",
+      "sub_skill": "scratched_lottery_ticket",
+      "domain": "lottery",
+      "scene": "A scratch-off lottery ticket. The instruction reads: 'Match 3 numbers to win'. Six scratched-off panels reveal the numbers: 7, 14, 22, 7, 33, 14. Three panels remain unscratched (gray). The 'Winning Numbers' header lists: 7, 14, 22, 33, 41, 50.",
+      "question": "Has the player matched 3 numbers and won?",
+      "answer": "Yes — distinct revealed numbers 7, 14, 22, and 33 are all in the winning list, which exceeds the 3-match threshold",
+      "lever": "OCR plus set-membership logic plus deduplication of repeated revealed numbers."
+    },
+    {
+      "id": "OCRX-026",
+      "sub_skill": "pixelated_lowres",
+      "domain": "screenshot",
+      "scene": "A heavily pixelated screenshot (each character is roughly 5×7 pixels). The visible text shows what appears to be a username and message: 'user_h4xx0r: GG everyone'. The username field has a character that could be either 'h' or 'b' due to limited pixel resolution.",
+      "question": "Is the second character of the username clearly an 'h', clearly a 'b', or ambiguous?",
+      "answer": "Ambiguous at this resolution",
+      "lever": "Tests honest acknowledgement of resolution limits."
+    },
+    {
+      "id": "OCRX-027",
+      "sub_skill": "ligature_old_book",
+      "domain": "antique_book",
+      "scene": "A page from an 18th-century printed book uses the long-s ligature, where 's' inside a word is printed as 'ſ' (looks like an 'f' without the crossbar). A sentence reads: 'In purſuit of happineſs, Congreſs declared independence on July 4th.' Modern footnote at bottom reads '— annotated 1962 reprint'.",
+      "question": "Transcribe the main sentence into modern English orthography.",
+      "answer": "In pursuit of happiness, Congress declared independence on July 4th.",
+      "lever": "Recognition of historical typographic conventions (long-s); not all VLMs handle this."
+    },
+    {
+      "id": "OCRX-028",
+      "sub_skill": "chalkboard_partial_erase",
+      "domain": "classroom",
+      "scene": "A green chalkboard with a math problem written in white chalk. Top of the board: '3x + 7 = 22'. Middle: '3x = 15' (where the '5' is partially erased — looks like a vertical line and a curve, could be '5' or '6'). Bottom: 'x = ?'. To the right, written in blue chalk: 'Hint: x is an integer such that 5 ≤ x ≤ 8'.",
+      "question": "What is x?",
+      "answer": "x = 5 (from 3x = 15; the partial erase is consistent with 5, and 6 would give x = 2 which violates the hint)",
+      "lever": "Combines partial OCR with arithmetic verification and a constraint to disambiguate."
+    },
+    {
+      "id": "OCRX-029",
+      "sub_skill": "shadow_falling_on_text",
+      "domain": "outdoor_menu",
+      "scene": "A printed café menu mounted outdoors. The shadow of a fence with vertical bars falls across the menu, creating regular dark stripes. Each stripe is about 1 cm wide and they are spaced 2 cm apart. A menu line reads 'Espresso ........... $3.50' but the digit '3' is exactly under one shadow stripe, making it appear as a darker shape that could be '3' or '8'.",
+      "question": "What is the price of espresso?",
+      "answer": "Cannot be determined with full confidence from the shadowed digit alone — most plausibly $3.50, but the shadowed digit could also be $8.50",
+      "lever": "Honest uncertainty reporting under partial occlusion."
+    },
+    {
+      "id": "OCRX-030",
+      "sub_skill": "doctor_handwriting_prescription",
+      "domain": "prescription",
+      "scene": "A doctor's handwritten prescription pad. The patient name 'Sarah Wilson' is in clear printing. The drug name is in scrawled handwriting that could read 'Amoxicillin' or 'Ampicillin' (the third character is ambiguous). Dosage is clearly printed: '500 mg, twice daily, 7 days'. Doctor's signature is illegible. License number is stamped clearly: 'License: MD-44721'.",
+      "question": "Which fields are reliably legible vs ambiguous?",
+      "answer": "Reliable: patient name (Sarah Wilson), dosage (500 mg, twice daily, 7 days), license (MD-44721). Ambiguous: drug name (Amoxicillin vs Ampicillin). Illegible: doctor's signature.",
+      "lever": "Triaging legibility per field rather than guessing the ambiguous drug name."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "family_id": "READ",
+  "family_name": "Reading in Scene",
+  "seeds": [
+    {
+      "id": "READ-051",
+      "sub_skill": "license_plate_one_char_occluded",
+      "domain": "parking lot car plate",
+      "scene": "A close-up photo of a vehicle license plate reading 'ABC-12_5' where the underscore represents a single character partially obscured by a smudge of mud. Partial pixels visible suggest a vertical bar with a small horizontal serif at the bottom. Adjacent characters are crisply '12' and '5'. A note plate-format guide on the wall indicates this state's plates are always 'LLL-NNNN' (3 letters + 4 digits).",
+      "question": "What is the most likely full plate string?",
+      "answer": "ABC-1245",
+      "lever": "Combine partial-pixel OCR (vertical bar with serif → likely 1 or 4) with the format constraint (must be a digit) and contextual style; '4' fits the partial shape better than '1'."
+    },
+    {
+      "id": "READ-052",
+      "sub_skill": "rotated_sign_text_read",
+      "domain": "construction warning sign tipped over",
+      "scene": "A diamond-shaped yellow road sign laying on the ground rotated 90° clockwise from upright. The text reads (as photographed) reading top-to-bottom: 'DAOR DESOLC' — but since the sign was originally upright with text reading horizontally and is now lying on its right side, the actual text is 'CLOSED ROAD'.",
+      "question": "What does the sign actually say (when read as if upright)?",
+      "answer": "CLOSED ROAD",
+      "lever": "Mental rotation of text by 90° (or equivalently, recognition that the sign has been rotated and reading order needs to be inverted accordingly)."
+    },
+    {
+      "id": "READ-053",
+      "sub_skill": "multilingual_price_disagreement",
+      "domain": "Chinatown menu board",
+      "scene": "A bilingual restaurant menu shows three dishes. For the dish 'Beef Noodles': English line says '$12.00', Chinese line directly above says '¥80.00'. The other two dishes ($10/$8) match their Chinese ¥-equivalents at a posted exchange of 1 USD = 7 RMB.",
+      "question": "Given the displayed exchange rate, do the English and Chinese prices for Beef Noodles match? If not, what is the discrepancy in USD?",
+      "answer": "They do not match. ¥80 ÷ 7 ≈ $11.43, while the English says $12.00 — a $0.57 discrepancy.",
+      "lever": "OCR two languages + apply exchange rate + numeric comparison; tests cross-script literacy and arithmetic."
+    },
+    {
+      "id": "READ-054",
+      "sub_skill": "creased_receipt_total_recovery",
+      "domain": "crumpled paper receipt",
+      "scene": "A printed receipt from a grocery store, partially crumpled. Visible items: 'Apples 3.50', 'Bread 2.20', 'Milk 4.10', '[crease obscures one line] $X.XX', 'TAX 1.20', 'TOTAL 14.50'.",
+      "question": "What was the value of the obscured item line?",
+      "answer": "$3.50",
+      "lever": "Subtract sum of visible items + tax from total: 14.50 − (3.50+2.20+4.10+1.20) = 14.50 − 11.00 = 3.50."
+    },
+    {
+      "id": "READ-055",
+      "sub_skill": "curved_can_label_concatenation",
+      "domain": "soup can label wrapping around",
+      "scene": "A photograph of a cylindrical soup can taken from straight on. The label text wraps around the can such that visible across the front face is 'CHIC' and farther around the right curve, partially distorted, you can see 'KEN'. The fully wrapped label (provided as a flat reference image alongside) reveals the complete word 'CHICKEN NOODLE'.",
+      "question": "What is the full product name on the can?",
+      "answer": "CHICKEN NOODLE",
+      "lever": "Reconstruct text wrapping around a curved surface + cross-reference with flat reference; tests handling of perspective-distorted text."
+    },
+    {
+      "id": "READ-056",
+      "sub_skill": "graffiti_stylized_font_decoding",
+      "domain": "subway wall stylized graffiti",
+      "scene": "A wall covered in graffiti. One central tag is rendered in a heavily stylized 'wildstyle' font that distorts and connects letters. Despite the distortion, the letters form a recognizable English word. Adjacent helper text in plain marker reads 'PEACE' as a hint above it; the wildstyle tag itself reads 'PEACE' in distorted form.",
+      "question": "What word is written in the stylized graffiti tag?",
+      "answer": "PEACE",
+      "lever": "Reading distorted/stylized typography; helper hint provides confirmation."
+    },
+    {
+      "id": "READ-057",
+      "sub_skill": "menu_strikethrough_replacement_price",
+      "domain": "wall-mounted café menu",
+      "scene": "A chalkboard café menu. Item 'Latte' shows a price '~~$5.50~~ $4.95' where the original is struck through and a new price written next to it. Item 'Mocha' shows simply '$6.00' with no strikethrough. Item 'Espresso' shows '~~$3.50~~ $3.50' (strikethrough but rewritten as the same value).",
+      "question": "What is the CURRENT price of a Latte?",
+      "answer": "$4.95",
+      "lever": "Apply strikethrough rule: take replacement value when struck through; resists returning the struck-out original."
+    },
+    {
+      "id": "READ-058",
+      "sub_skill": "led_segmented_display_partial_failure",
+      "domain": "scoreboard with broken LED segments",
+      "scene": "A 7-segment LED scoreboard display showing the home team's score. Two of the seven segments on the digit are dead (top-right and bottom segments). The lit segments form an incomplete shape that, given which segments are dead, could be a '2' or a '3' or a '7' — but the score must be consistent with a smaller printout below the board reading 'HOME LED 12'.",
+      "question": "What is the home team's actual score?",
+      "answer": "12",
+      "lever": "Cross-reference partial LED visual with the printed text below to disambiguate degraded segments."
+    },
+    {
+      "id": "READ-059",
+      "sub_skill": "watermark_overprint_invoice",
+      "domain": "invoice with red 'PAID' watermark",
+      "scene": "A printed invoice with a large red diagonal 'PAID' watermark across the page. Underneath the watermark, the invoice line items are still legible. The line 'Amount Due: $250.00' is clearly visible. The watermark indicates the invoice has been paid; the 'Amount Due' figure refers to the original pre-payment due amount.",
+      "question": "How much money is currently owed on this invoice?",
+      "answer": "$0",
+      "lever": "Recognize watermark semantics ('PAID') override the printed 'Amount Due' field; tests interpreting overlays not just text."
+    },
+    {
+      "id": "READ-060",
+      "sub_skill": "barcode_human_text_mismatch",
+      "domain": "supermarket product barcode label",
+      "scene": "A product label on a yogurt cup. Visible: a barcode (linear UPC) with 12 digits printed beneath it as '0 12345 67890 5'. Above the barcode, in a separate font, the product code label reads 'SKU: 67891'. The human-readable digits beneath the barcode and the SKU label disagree.",
+      "question": "Which numeric identifier (SKU number or barcode digits) should be trusted as the canonical product identifier?",
+      "answer": "Barcode digits (012345678905) — the SKU label is internal and does not match the scanned barcode; barcode is the canonical machine-read identifier.",
+      "lever": "Recognize that the barcode-human-readable digits ARE the barcode (machine-read identical), versus a separately printed SKU which may be a typo or aged. Tests semantic prioritization of label types."
+    }
+  ]
+}

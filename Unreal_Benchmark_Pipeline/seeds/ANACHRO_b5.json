@@ -1,0 +1,276 @@
+{
+  "family_id": "ANACHRO",
+  "family_name": "Anachronism / Out-of-Place Object",
+  "seeds": [
+    {
+      "id": "ANACHRO-001",
+      "sub_skill": "modern_object_in_medieval",
+      "domain": "medieval_feast",
+      "scene": "A medieval banquet hall, woodcut illustration style. A long wooden table is loaded with roast meats, goblets, candles, and bread. A king sits at the head of the table. On the table near the king's right hand sits a clearly recognizable WHITE AIRPODS CHARGING CASE — out of place in the medieval setting.",
+      "question": "Based on the image, identify the single anachronistic (out-of-place) object on the banquet table.",
+      "answer": "An AirPods charging case",
+      "lever": "Modern tech in a medieval scene; relies on the model truly looking past stylistic cues to spot the foreign object."
+    },
+    {
+      "id": "ANACHRO-002",
+      "sub_skill": "vehicle_anachronism",
+      "domain": "ukiyo_e_battle",
+      "scene": "A Japanese ukiyo-e style print of two samurai dueling on a ridge. Mountains and a temple in the background. In the upper-right of the sky, clearly visible against the clouds, is the silhouette of a modern COMMERCIAL JET AIRPLANE with contrails.",
+      "question": "Based on the image, what object in the sky does not belong to the historical setting?",
+      "answer": "A modern commercial jet airplane (with contrails)",
+      "lever": "Anachronism in a clearly historical art style."
+    },
+    {
+      "id": "ANACHRO-003",
+      "sub_skill": "appliance_in_old_setting",
+      "domain": "viking_ship_deck",
+      "scene": "A Viking longship at sea, painted in saga-illustration style. Vikings row at oars; the captain stands at the bow. On the wooden deck near the mast, conspicuously placed, is a modern white MICROWAVE OVEN with a digital display reading '1:30'.",
+      "question": "Based on the image, identify the modern appliance that doesn't belong on this Viking ship.",
+      "answer": "A microwave oven",
+      "lever": "Modern kitchen appliance in a Viking scene."
+    },
+    {
+      "id": "ANACHRO-004",
+      "sub_skill": "wearable_anachronism",
+      "domain": "egyptian_wall_painting",
+      "scene": "An ancient Egyptian wall-painting style image of a pharaoh enthroned, surrounded by attendants and hieroglyphs. The pharaoh's right wrist clearly shows a modern DIGITAL WRISTWATCH with a rectangular face and visible digits.",
+      "question": "Based on the image, what does the pharaoh wear on his wrist that is anachronistic?",
+      "answer": "A modern digital wristwatch",
+      "lever": "Modern accessory in ancient context."
+    },
+    {
+      "id": "ANACHRO-005",
+      "sub_skill": "modern_label_anachronism",
+      "domain": "renaissance_portrait",
+      "scene": "A Renaissance-style oil portrait of a noble knight in full armor, posed against a draped curtain. Pinned to the front of his breastplate is a clear plastic CONFERENCE BADGE with a printed BARCODE and the word 'GUEST'.",
+      "question": "Based on the image, what modern object is pinned to the knight's armor?",
+      "answer": "A plastic conference badge with a barcode (labeled 'GUEST')",
+      "lever": "Plastic + barcode strongly modern in a Renaissance setting."
+    },
+    {
+      "id": "ANACHRO-006",
+      "sub_skill": "vehicle_in_ancient_battle",
+      "domain": "ancient_greek_battle",
+      "scene": "A vase-painting style depiction of an ancient Greek hoplite battle: warriors with round shields and spears in formation. In the background behind the formation, partially hidden between two soldiers, is a modern bright-yellow EXCAVATOR (construction vehicle) with its bucket raised.",
+      "question": "Based on the image, what construction vehicle is hidden in the background of the battle?",
+      "answer": "A modern yellow excavator",
+      "lever": "Modern construction equipment in an ancient war scene."
+    },
+    {
+      "id": "ANACHRO-007",
+      "sub_skill": "fast_food_anachronism",
+      "domain": "cave_painting",
+      "scene": "A prehistoric cave painting style scene of stick-figure cavemen hunting a mammoth. Among the cave-paint figures of cavemen and animals, one figure clearly holds a modern McDONALD'S RED-AND-YELLOW PAPER FRY CARTON with crinkle fries sticking out the top.",
+      "question": "Based on the image, what modern food item appears in the cave painting?",
+      "answer": "A McDonald's french-fry carton",
+      "lever": "Brand-recognizable modern object in a paleolithic-art scene."
+    },
+    {
+      "id": "ANACHRO-008",
+      "sub_skill": "modern_signage_anachronism",
+      "domain": "wild_west",
+      "scene": "An old-west saloon scene drawn in sepia-tone watercolor: cowboys at a bar, a piano, swinging doors. Above the bar, mounted high, is a clearly visible LED 'EXIT' SIGN with green digital text — completely out of place.",
+      "question": "Based on the image, what modern sign is mounted above the bar?",
+      "answer": "An illuminated LED 'EXIT' sign",
+      "lever": "Modern emergency signage in an old-west setting."
+    },
+    {
+      "id": "ANACHRO-009",
+      "sub_skill": "modern_drink_can",
+      "domain": "fantasy_tavern",
+      "scene": "A fantasy tavern interior in painterly style. Adventurers sit at wooden tables with mugs of ale. On one of the tables, among the mugs, sits a clearly recognizable red-and-white COCA-COLA ALUMINUM CAN.",
+      "question": "Based on the image, what modern drink container is sitting on one of the tavern tables?",
+      "answer": "A Coca-Cola can",
+      "lever": "Branded modern beverage in fantasy tavern."
+    },
+    {
+      "id": "ANACHRO-010",
+      "sub_skill": "modern_flooring_in_castle",
+      "domain": "castle_throne_room",
+      "scene": "A grand fantasy castle throne room in storybook illustration style: high ceilings, stained glass, a king on a stone throne. The floor in front of the throne is laid in stone tiles EXCEPT for a 2×2 area in the center which is clearly modern checkered LINOLEUM (vinyl) flooring with the seams visible.",
+      "question": "Based on the image, what kind of out-of-place flooring patch is in front of the throne?",
+      "answer": "Modern checkered linoleum (vinyl) flooring",
+      "lever": "Mundane modern building material in a fantasy setting."
+    },
+    {
+      "id": "ANACHRO-011",
+      "sub_skill": "modern_book_anachronism",
+      "domain": "monastic_scriptorium",
+      "scene": "A medieval monastic scriptorium illuminated-manuscript style: monks copying scrolls at slanted desks, ink wells and quills around. On one desk, in plain sight, is a modern hardcover book with the title 'PYTHON FOR DUMMIES' visible on the spine.",
+      "question": "Based on the image, what modern book is on the monk's desk? Quote its title.",
+      "answer": "A copy of 'Python for Dummies'",
+      "lever": "Anachronism + readable title test."
+    },
+    {
+      "id": "ANACHRO-012",
+      "sub_skill": "modern_headwear",
+      "domain": "samurai_portrait",
+      "scene": "A traditional samurai woodblock portrait, the warrior in full armor with topknot. On his head, however, sits a backwards-facing modern RED BASEBALL CAP.",
+      "question": "Based on the image, what modern headwear is the samurai wearing?",
+      "answer": "A red baseball cap (worn backwards)",
+      "lever": "Sportswear in samurai art."
+    },
+    {
+      "id": "ANACHRO-013",
+      "sub_skill": "lighting_anachronism",
+      "domain": "gothic_cathedral",
+      "scene": "Interior of a gothic cathedral, painted in chiaroscuro style. Tall arches, candles in wall sconces, robed figures. Hanging from the central ceiling is one large modern IKEA-style PENDANT LAMP with a paper lantern shade and a visible electrical cord — clearly modern.",
+      "question": "Based on the image, what modern light fixture hangs in the cathedral?",
+      "answer": "A modern IKEA-style pendant lamp (paper-lantern style with a visible electrical cord)",
+      "lever": "Modern lighting in a gothic religious setting."
+    },
+    {
+      "id": "ANACHRO-014",
+      "sub_skill": "modern_handheld_device",
+      "domain": "shakespeare_stage",
+      "scene": "A theatrical scene of an Elizabethan stage performance, woodcut style. Two actors in period costume face each other on a wooden stage. The actor on the left holds a clearly modern SMARTPHONE in his outstretched hand, screen facing the audience.",
+      "question": "Based on the image, what modern device is one actor holding?",
+      "answer": "A smartphone",
+      "lever": "Smartphone in Shakespearean setting; relies on shape recognition past stage props."
+    },
+    {
+      "id": "ANACHRO-015",
+      "sub_skill": "modern_sneaker_under_robe",
+      "domain": "ancient_philosopher",
+      "scene": "An ancient Greek philosopher in a flowing toga lecturing in front of marble columns, painted in classical fresco style. Beneath the toga's hem, peeking out, are a pair of bright NIKE AIR JORDAN SNEAKERS with white swoosh visible.",
+      "question": "Based on the image, what modern footwear does the philosopher wear under his toga?",
+      "answer": "Modern Nike sneakers (Air Jordan style with the swoosh visible)",
+      "lever": "Branded modern footwear in classical setting; small detail at the bottom of the figure."
+    },
+    {
+      "id": "ANACHRO-016",
+      "sub_skill": "modern_traffic_sign",
+      "domain": "knights_road",
+      "scene": "A medieval-illuminated-manuscript style scene of two knights jousting on a country path between rolling hills. By the side of the path is a modern octagonal red-and-white STOP SIGN on a metal pole.",
+      "question": "Based on the image, what modern traffic sign is by the side of the road?",
+      "answer": "A modern octagonal STOP sign",
+      "lever": "Modern road sign in medieval landscape."
+    },
+    {
+      "id": "ANACHRO-017",
+      "sub_skill": "modern_recording_equipment",
+      "domain": "ancient_oration",
+      "scene": "An ancient Roman senate scene, fresco-style. A senator in toga gesticulates from the rostrum. Floating in the air in front of him is a clearly modern TELESCOPING BOOM-MICROPHONE on a long pole, of the kind used in film recording, with a fuzzy 'dead-cat' wind-screen.",
+      "question": "Based on the image, what modern audio-recording equipment is present in the senate scene?",
+      "answer": "A boom microphone with a furry 'dead-cat' windscreen",
+      "lever": "Modern film equipment in classical setting."
+    },
+    {
+      "id": "ANACHRO-018",
+      "sub_skill": "modern_eyewear",
+      "domain": "western_outlaw_portrait",
+      "scene": "A wanted poster style drawing of a Wild West outlaw — bandana around the neck, cowboy hat, mean expression. On his face, the outlaw wears modern wraparound POLARIZED SUNGLASSES (mirror-finish lenses, plastic frames) — clearly not 19th-century eyewear.",
+      "question": "Based on the image, what modern eyewear does the outlaw wear?",
+      "answer": "Modern wraparound polarized sunglasses (mirror-finish)",
+      "lever": "Modern eyewear in 19th-century wanted-poster style."
+    },
+    {
+      "id": "ANACHRO-019",
+      "sub_skill": "modern_safety_gear",
+      "domain": "medieval_construction",
+      "scene": "A medieval-illustration-style scene of stonemasons building a castle wall: men with mallets and chisels, scaffolding made of rough wood. One mason on the upper scaffold is wearing a modern FLUORESCENT YELLOW HARD-HAT and high-vis vest, contrasting with the other masons in tunics.",
+      "question": "Based on the image, what modern safety equipment is one of the masons wearing?",
+      "answer": "A fluorescent yellow hard-hat and high-visibility safety vest",
+      "lever": "Modern PPE in a medieval construction scene."
+    },
+    {
+      "id": "ANACHRO-020",
+      "sub_skill": "modern_charger_in_alchemy",
+      "domain": "alchemists_workshop",
+      "scene": "An alchemist's workshop drawn in dark Rembrandt-like chiaroscuro: bubbling beakers, scrolls, a candle. On one bench, a modern WHITE PHONE CHARGER with a coiled USB-C cable is plugged into a wall outlet (also modern).",
+      "question": "Based on the image, what modern electronic accessory is on the alchemist's bench?",
+      "answer": "A modern white phone charger with a USB-C cable plugged into a wall outlet",
+      "lever": "Modern charger + electrical socket in pre-electrical era."
+    },
+    {
+      "id": "ANACHRO-021",
+      "sub_skill": "modern_packaging",
+      "domain": "norse_offering_table",
+      "scene": "A Viking-saga-style illustration of a wooden offering table laid out for a feast: roasted boar, mead horns, bread loaves. Among the offerings sits a clearly recognizable PRINGLES POTATO-CHIP CAN (red cylinder with the mascot face).",
+      "question": "Based on the image, what modern brand-name packaged snack is on the offering table?",
+      "answer": "A can of Pringles potato chips",
+      "lever": "Modern brand snack in Viking offering scene."
+    },
+    {
+      "id": "ANACHRO-022",
+      "sub_skill": "modern_traffic_cone",
+      "domain": "ancient_marketplace",
+      "scene": "A bustling ancient Persian marketplace, stylized miniature painting. Stalls of spices, rugs, pottery. In the middle of the path, between two stalls, stands a modern bright orange TRAFFIC CONE with reflective stripes.",
+      "question": "Based on the image, what modern object is standing in the path of the marketplace?",
+      "answer": "A modern orange traffic cone (with reflective stripes)",
+      "lever": "Modern road safety device in ancient marketplace."
+    },
+    {
+      "id": "ANACHRO-023",
+      "sub_skill": "modern_weapon_in_classical_battle",
+      "domain": "trojan_war",
+      "scene": "A Trojan-War-style relief carving of a battle: warriors with round shields, spears, helmets with horsehair plumes. One warrior in the front rank holds, instead of a spear, a clearly modern AK-47 ASSAULT RIFLE.",
+      "question": "Based on the image, what modern weapon is one warrior carrying instead of a spear?",
+      "answer": "A modern AK-47 assault rifle",
+      "lever": "Modern firearm in classical battle relief."
+    },
+    {
+      "id": "ANACHRO-024",
+      "sub_skill": "modern_drone",
+      "domain": "knight_castle_yard",
+      "scene": "A medieval castle courtyard scene in storybook style: knights training with swords, a maiden by the well. Hovering above the courtyard is a small modern QUADCOPTER DRONE, four propellers spinning, a tiny mounted camera visible.",
+      "question": "Based on the image, what modern flying device hovers over the courtyard?",
+      "answer": "A quadcopter drone (with a small mounted camera)",
+      "lever": "Modern aerial tech in a medieval setting."
+    },
+    {
+      "id": "ANACHRO-025",
+      "sub_skill": "modern_logo_hidden",
+      "domain": "ancient_egyptian_market",
+      "scene": "An ancient Egyptian street market, illustrated in flat papyrus-painting style. Stalls of dates, pottery, fish. One stall has a wooden sign with the unmistakable green STARBUCKS LOGO (siren) painted on it, alongside hieroglyphic-looking text.",
+      "question": "Based on the image, what modern brand logo is painted on one of the market stall's signs?",
+      "answer": "The Starbucks logo (the green siren)",
+      "lever": "Modern coffee chain branding in ancient Egyptian market scene."
+    },
+    {
+      "id": "ANACHRO-026",
+      "sub_skill": "anachronistic_pet",
+      "domain": "victorian_family_portrait",
+      "scene": "A Victorian-era family portrait painting: family in formal Victorian dress, posed in a sitting room. Sitting in the lap of the daughter is a robotic SONY AIBO DOG (clearly mechanical, plastic, with visible joints and LED eyes).",
+      "question": "Based on the image, what modern pet substitute is sitting in the daughter's lap?",
+      "answer": "A robotic Sony Aibo dog (a modern robotic pet)",
+      "lever": "Modern robotic pet in Victorian portrait."
+    },
+    {
+      "id": "ANACHRO-027",
+      "sub_skill": "modern_speaker_in_classical_orchestra",
+      "domain": "classical_orchestra",
+      "scene": "A classical orchestra performing on a stage, painted in the style of a 19th-century concert poster. Violinists in tailcoats, conductor with baton. Behind the conductor, on each side, are two large modern BLUETOOTH SPEAKERS (round, with logo and LED indicators).",
+      "question": "Based on the image, what modern audio equipment flanks the conductor?",
+      "answer": "Two modern Bluetooth speakers (one on each side of the conductor)",
+      "lever": "Modern audio gear in 19th-century orchestra setting."
+    },
+    {
+      "id": "ANACHRO-028",
+      "sub_skill": "modern_pencil_in_hieroglyph",
+      "domain": "scribe_scene",
+      "scene": "An Egyptian scribe scene: the scribe sits cross-legged with a papyrus scroll in his lap. In his hand, instead of a reed pen, he holds a modern bright-yellow #2 HB PENCIL with a pink eraser tip and 'HB' printed on it.",
+      "question": "Based on the image, what modern writing implement does the scribe hold?",
+      "answer": "A modern yellow #2 (HB) pencil with a pink eraser",
+      "lever": "Modern pencil in ancient scribe scene."
+    },
+    {
+      "id": "ANACHRO-029",
+      "sub_skill": "modern_appliance_in_castle_kitchen",
+      "domain": "medieval_kitchen",
+      "scene": "A medieval castle kitchen scene, woodcut-style: cooks roasting meat on a spit over an open fire, copper pots hanging. On a stone counter on the right sits a modern stainless-steel ELECTRIC RICE COOKER with its display lit up showing 'COOK' in red.",
+      "question": "Based on the image, what modern kitchen appliance is on the stone counter?",
+      "answer": "An electric rice cooker (with a 'COOK' indicator display)",
+      "lever": "Modern small appliance in medieval kitchen."
+    },
+    {
+      "id": "ANACHRO-030",
+      "sub_skill": "anachronistic_vehicle_on_horizon",
+      "domain": "wild_west_landscape",
+      "scene": "A wide Wild-West landscape in Frederic-Remington watercolor style: cowboy on horseback in the foreground, mesas in the distance under a wide sky. On the horizon, parked next to one of the mesas, is a modern WHITE TESLA CYBERTRUCK with its angular silhouette unmistakable.",
+      "question": "Based on the image, what modern vehicle is parked at the base of the distant mesa?",
+      "answer": "A Tesla Cybertruck",
+      "lever": "Modern electric truck in Wild West landscape — small but distinctive silhouette."
+    }
+  ]
+}

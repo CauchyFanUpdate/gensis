@@ -1,0 +1,186 @@
+{
+  "family_id": "MECH",
+  "family_name": "Mechanical Cause-Effect Chains",
+  "seeds": [
+    {
+      "id": "MECH-031",
+      "sub_skill": "gear_train_speed_ratio",
+      "domain": "gear chain diagram",
+      "scene": "A diagram of 3 meshed spur gears: Gear A (12 teeth) drives Gear B (36 teeth), which drives Gear C (12 teeth). Gear A spins at 60 rpm clockwise.",
+      "question": "At what rpm and direction does Gear C rotate?",
+      "answer": "60 rpm clockwise",
+      "lever": "Apply gear ratio chain (12:36 then 36:12 = net 1:1); track direction reversals (A CW → B CCW → C CW)."
+    },
+    {
+      "id": "MECH-032",
+      "sub_skill": "pulley_block_advantage",
+      "domain": "block-and-tackle diagram",
+      "scene": "A block-and-tackle diagram with 3 supporting rope segments lifting a 300 N load.",
+      "question": "What pulling force is required at the free end (ideal pulleys)?",
+      "answer": "100 N",
+      "lever": "Mechanical advantage = number of supporting rope segments; force = load / MA."
+    },
+    {
+      "id": "MECH-033",
+      "sub_skill": "lever_force_arm_calc",
+      "domain": "lever diagram",
+      "scene": "A first-class lever with fulcrum 1 m from the load and 3 m from the effort. Load = 600 N.",
+      "question": "What effort force is required to lift the load?",
+      "answer": "200 N",
+      "lever": "Apply lever equation: effort × effort arm = load × load arm; solve for effort."
+    },
+    {
+      "id": "MECH-034",
+      "sub_skill": "rube_goldberg_count_steps",
+      "domain": "complex contraption",
+      "scene": "A Rube-Goldberg style diagram showing: marble released → rolls down ramp → hits domino → topples row of 5 dominos → last domino tips a glass → glass spills water on a paddle → paddle rotates → string pulls a bell. The chain crosses 8 distinct mechanical interactions.",
+      "question": "How many distinct mechanical interactions occur from marble release to bell ring?",
+      "answer": "8",
+      "lever": "Count discrete cause-effect transitions (one toppling row counted as one or as N depending on prompt; per the diagram count of distinct stages)."
+    },
+    {
+      "id": "MECH-035",
+      "sub_skill": "belt_pulley_speed",
+      "domain": "belt drive diagram",
+      "scene": "Two pulleys connected by a belt; driver pulley diameter 10 cm rotating at 120 rpm; driven pulley diameter 30 cm.",
+      "question": "What is the rpm of the driven pulley?",
+      "answer": "40 rpm",
+      "lever": "Apply belt-drive ratio (rpm × diameter constant); compute driven rpm."
+    },
+    {
+      "id": "MECH-036",
+      "sub_skill": "domino_tipping_terminate",
+      "domain": "domino chain layout",
+      "scene": "A row of 12 dominoes on a table; gap between domino 7 and domino 8 is 30 cm (way too far to topple). Domino 1 is pushed.",
+      "question": "How many dominos in total fall before the chain stops?",
+      "answer": "7",
+      "lever": "Identify chain break point and count up to it."
+    },
+    {
+      "id": "MECH-037",
+      "sub_skill": "spring_extension_force",
+      "domain": "spring scale diagram",
+      "scene": "A spring scale with calibration: 5 N stretches the spring 2 cm. A weight hangs causing 7 cm stretch.",
+      "question": "What is the weight in newtons?",
+      "answer": "17.5 N",
+      "lever": "Apply Hooke's law proportion: force ∝ extension."
+    },
+    {
+      "id": "MECH-038",
+      "sub_skill": "inclined_plane_force",
+      "domain": "ramp diagram",
+      "scene": "An inclined plane at 30° angle (frictionless); a 100 N block sits on it.",
+      "question": "What force parallel to the ramp is needed to hold it stationary?",
+      "answer": "50 N",
+      "lever": "Component of gravity along ramp = mg sin θ; sin 30° = 0.5."
+    },
+    {
+      "id": "MECH-039",
+      "sub_skill": "wheel_axle_advantage",
+      "domain": "doorknob mechanism",
+      "scene": "A wheel-and-axle: wheel diameter 12 cm, axle diameter 2 cm, used to lift a load via a string on the axle.",
+      "question": "If 4 N is applied at the wheel rim, what load can be lifted (ideal)?",
+      "answer": "24 N",
+      "lever": "MA = wheel radius / axle radius = 6; load = effort × MA."
+    },
+    {
+      "id": "MECH-040",
+      "sub_skill": "hydraulic_press_force",
+      "domain": "hydraulic press schematic",
+      "scene": "Two hydraulic pistons connected: small piston area 5 cm², large piston area 100 cm². 50 N force applied on small piston.",
+      "question": "What force is exerted at the large piston?",
+      "answer": "1000 N",
+      "lever": "Pascal's principle: pressure equal → F2 = F1 × (A2/A1)."
+    },
+    {
+      "id": "MECH-041",
+      "sub_skill": "screw_jack_turns_to_lift",
+      "domain": "screw jack diagram",
+      "scene": "A screw jack with thread pitch 2 mm; user wants to raise the load 5 cm.",
+      "question": "How many full turns of the handle are required?",
+      "answer": "25",
+      "lever": "Turns = total lift / pitch; convert units."
+    },
+    {
+      "id": "MECH-042",
+      "sub_skill": "linkage_motion_inversion",
+      "domain": "four-bar linkage",
+      "scene": "A four-bar linkage: input crank rotates fully; output rocker oscillates back and forth.",
+      "question": "Does the output complete a full rotation?",
+      "answer": "no — it oscillates as a rocker",
+      "lever": "Recognize Grashof crank-rocker behavior."
+    },
+    {
+      "id": "MECH-043",
+      "sub_skill": "rope_friction_capstan",
+      "domain": "boat capstan",
+      "scene": "A rope wrapped 1.5 turns around a capstan; one end holds a 1000 N load, the other end is held by a sailor with 50 N effort. Coefficient of friction high enough to satisfy capstan equation.",
+      "question": "Can the sailor hold the load with this wrap count and friction?",
+      "answer": "yes — capstan equation gives required wrap less than 1.5 turns for these forces",
+      "lever": "Apply capstan friction equation T1/T2 = e^(μθ) and check feasibility."
+    },
+    {
+      "id": "MECH-044",
+      "sub_skill": "wedge_split_force",
+      "domain": "log-splitting wedge",
+      "scene": "A wedge with included angle 20° driven into a log; force applied at the top is 200 N.",
+      "question": "What is the lateral splitting force exerted on the log?",
+      "answer": "approx 200 / (2 sin 10°) ≈ 575 N (or applicable calculation)",
+      "lever": "Apply wedge mechanical-advantage formula based on angle."
+    },
+    {
+      "id": "MECH-045",
+      "sub_skill": "bicycle_gear_speed",
+      "domain": "bicycle drivetrain",
+      "scene": "A bicycle with front chainring 50 teeth, rear cog 20 teeth; cyclist pedals at 60 rpm.",
+      "question": "What is the rear wheel rpm?",
+      "answer": "150 rpm",
+      "lever": "Wheel rpm = cadence × (chainring/rear cog)."
+    },
+    {
+      "id": "MECH-046",
+      "sub_skill": "chain_break_no_propagation",
+      "domain": "marble run diagram",
+      "scene": "A marble run with multiple parallel paths and a junction; one path is missing a piece (gap), redirecting the marble onto the alternate path.",
+      "question": "Which exit chute does the marble emerge from?",
+      "answer": "the chute reached via the alternate path (since main path is broken)",
+      "lever": "Identify mechanical break and reroute the chain."
+    },
+    {
+      "id": "MECH-047",
+      "sub_skill": "ratchet_pawl_direction",
+      "domain": "ratchet wheel",
+      "scene": "A ratchet-and-pawl mechanism diagram; the pawl is oriented to allow CW rotation only.",
+      "question": "Which direction can the wheel turn?",
+      "answer": "clockwise",
+      "lever": "Read pawl angle to determine permitted rotation direction."
+    },
+    {
+      "id": "MECH-048",
+      "sub_skill": "cam_follower_motion",
+      "domain": "cam mechanism",
+      "scene": "A heart-shaped cam rotating at constant speed; a follower rests on the cam profile.",
+      "question": "What pattern does the follower's vertical motion trace over one rotation?",
+      "answer": "rises smoothly, drops sharply, rises smoothly, drops sharply (or matches actual cam shape)",
+      "lever": "Translate cam profile geometry to follower displacement curve."
+    },
+    {
+      "id": "MECH-049",
+      "sub_skill": "weighing_scale_balance",
+      "domain": "balance scale diagram",
+      "scene": "A balance scale: left pan has a 5 kg weight at 30 cm from pivot; right pan empty. Right pan can hold weights at 20 cm, 50 cm, or 75 cm from pivot.",
+      "question": "What weight at 50 cm balances the scale?",
+      "answer": "3 kg",
+      "lever": "Solve torque equation 5×30 = w×50."
+    },
+    {
+      "id": "MECH-050",
+      "sub_skill": "chain_pull_through_pulley_conservation",
+      "domain": "string-and-pulley puzzle",
+      "scene": "A box hangs from a rope over a single fixed pulley; a person pulls down 1.5 m of rope.",
+      "question": "How high does the box rise?",
+      "answer": "1.5 m",
+      "lever": "Single fixed pulley = 1:1 displacement (and force); pulled length equals box rise."
+    }
+  ]
+}

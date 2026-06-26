@@ -1,0 +1,186 @@
+{
+  "family_id": "OPTI",
+  "family_name": "Transparent Objects & Optical Effects",
+  "seeds": [
+    {
+      "id": "OPTI-011",
+      "sub_skill": "color_through_filter",
+      "domain": "stage lights",
+      "scene": "A stage scene with a dancer wearing a costume that appears YELLOW under a normal white spotlight. The same dancer is now lit only by a BLUE spotlight (no white).",
+      "question": "How does the costume appear under the blue spotlight?",
+      "answer": "Black (or very dark)",
+      "lever": "Yellow reflects red+green wavelengths, absorbs blue. Under pure blue light, no reflection → appears dark."
+    },
+    {
+      "id": "OPTI-012",
+      "sub_skill": "polarized_lens_glare",
+      "domain": "polarized sunglasses",
+      "scene": "Two photos of the same lake scene, one taken without polarized sunglasses (lots of glare on water surface, can't see fish below), one with polarized lens (no glare, fish clearly visible).",
+      "question": "What does polarization remove?",
+      "answer": "Reflected glare from horizontal water surface",
+      "lever": "Polarization filters horizontally polarized reflected light."
+    },
+    {
+      "id": "OPTI-013",
+      "sub_skill": "magnifying_glass_distance",
+      "domain": "magnifier on text",
+      "scene": "A magnifying glass held at varying distances above printed text. At distance d=2cm: text appears enlarged and upright. At d=15cm (focal length 10cm): text appears blurry. At d=25cm: text appears INVERTED and reduced.",
+      "question": "Why does the text appear inverted at d=25cm?",
+      "answer": "The lens is acting as a real-image projector when object is beyond focal length",
+      "lever": "Convex lens: object inside f → virtual upright magnified; object outside f → real inverted image."
+    },
+    {
+      "id": "OPTI-014",
+      "sub_skill": "shadow_color_subtraction",
+      "domain": "two colored lights",
+      "scene": "A scene lit by TWO spotlights: one red and one green, illuminating a white wall with a person's body casting shadows. The body blocks one light at a time, creating overlapping shadows of different colors.",
+      "question": "What colors are the two visible shadows on the wall?",
+      "answer": "One green shadow (where the red light is blocked) and one red shadow (where the green light is blocked)",
+      "lever": "Each shadow shows the color of the unblocked source: red blocked → green-only region (green shadow); green blocked → red-only region (red shadow)."
+    },
+    {
+      "id": "OPTI-015",
+      "sub_skill": "rainbow_position_inference",
+      "domain": "outdoor rainbow",
+      "scene": "A double rainbow visible in the sky. The primary (brighter) rainbow has red on the OUTSIDE and violet on the INSIDE. The secondary (fainter) rainbow above it has the colors REVERSED. The rainbow appears in the eastern sky.",
+      "question": "Which direction is the sun?",
+      "answer": "West (behind the observer)",
+      "lever": "Rainbow forms on the side of sky opposite the sun, antisolar point in middle of bow arc."
+    },
+    {
+      "id": "OPTI-016",
+      "sub_skill": "prism_dispersion_order",
+      "domain": "prism splitting white light",
+      "scene": "A prism splits a beam of white light into a rainbow. The colors emerging are bent at different angles. The red emerges with the LEAST bending, violet with the MOST bending.",
+      "question": "What color appears at the TOP of the spectrum (closest to undeflected beam direction)?",
+      "answer": "Red",
+      "lever": "Red has longest wavelength → least refraction → closest to original beam direction."
+    },
+    {
+      "id": "OPTI-017",
+      "sub_skill": "glow_in_dark_charge",
+      "domain": "phosphorescent toy",
+      "scene": "A glow-in-the-dark toy seen in two states: just removed from sunlight (glows brightly green), and after 4 hours in darkness (glows very faintly).",
+      "question": "What process is responsible for the change?",
+      "answer": "Phosphorescence decay (released energy diminishes over time)",
+      "lever": "Identify phosphorescence physics."
+    },
+    {
+      "id": "OPTI-018",
+      "sub_skill": "concave_mirror_image_size",
+      "domain": "concave shaving mirror",
+      "scene": "A concave shaving mirror with focal length 20 cm. Object distance: 10 cm (inside focal length). The image appears enlarged and upright.",
+      "question": "Is the image REAL or VIRTUAL?",
+      "answer": "Virtual",
+      "lever": "Concave mirror with object inside focal length → virtual upright magnified image."
+    },
+    {
+      "id": "OPTI-019",
+      "sub_skill": "soap_bubble_iridescence",
+      "domain": "soap bubble film",
+      "scene": "A soap film viewed in white light shows swirling rainbow colors that change with the film thickness. Thinner regions appear black (destructive interference), thicker regions show various colors.",
+      "question": "What physical phenomenon causes the colors?",
+      "answer": "Thin-film interference",
+      "lever": "Identify thin-film interference physics."
+    },
+    {
+      "id": "OPTI-020",
+      "sub_skill": "fluorescence_blacklight",
+      "domain": "fluorescent ink under UV",
+      "scene": "Two photos: same dollar bill under normal light (no special markings visible), and under UV blacklight (a hidden security strip glows bright blue).",
+      "question": "What property does the security strip have?",
+      "answer": "Fluorescence (absorbs UV, emits visible light)",
+      "lever": "UV → visible emission = fluorescence."
+    },
+    {
+      "id": "OPTI-021",
+      "sub_skill": "lens_chromatic_aberration",
+      "domain": "telescope eyepiece",
+      "scene": "A photo through a cheap telescope shows the moon with purple and red color fringes around its edges, especially at the limb.",
+      "question": "What is causing the color fringes?",
+      "answer": "Chromatic aberration (different wavelengths focus at different distances)",
+      "lever": "Identify chromatic aberration."
+    },
+    {
+      "id": "OPTI-022",
+      "sub_skill": "kaleidoscope_pattern_count",
+      "domain": "3-mirror kaleidoscope",
+      "scene": "A photo of the view through a 3-mirror kaleidoscope. The original chamber has 4 colored beads. The image shows a 6-fold symmetric pattern with the beads multiplied.",
+      "question": "How many bead images are visible in the symmetric pattern?",
+      "answer": "24 (4 beads × 6-fold symmetry)",
+      "lever": "Multiply original elements by symmetry order."
+    },
+    {
+      "id": "OPTI-023",
+      "sub_skill": "moire_pattern",
+      "domain": "two screens",
+      "scene": "A photo of a computer monitor displayed on a TV screen, viewed from a phone camera. A moiré interference pattern of curves appears on the captured image, despite neither screen having such curves on display.",
+      "question": "Why does the moiré pattern appear?",
+      "answer": "Pixel-grid alignment mismatch creates beat-frequency interference between the two regular grids",
+      "lever": "Identify moiré as interference between two regular periodic patterns."
+    },
+    {
+      "id": "OPTI-024",
+      "sub_skill": "depth_perception_color_blindness",
+      "domain": "color-blind test plate",
+      "scene": "An Ishihara color-blind test plate with red dots arranged to spell '74' inside a field of green dots. A person with red-green color blindness sees uniform color (no number visible).",
+      "question": "What does a color-blind person see?",
+      "answer": "Uniform dots / no discernible number",
+      "lever": "Color-blindness physiology; collapses red-green discrimination."
+    },
+    {
+      "id": "OPTI-025",
+      "sub_skill": "ground_glass_translucency",
+      "domain": "frosted glass",
+      "scene": "A frosted glass shower door with a person standing 5 cm behind. The silhouette is sharp. Same door with person 50 cm behind: silhouette becomes blurry and lighter.",
+      "question": "Why does distance affect the visibility of the silhouette?",
+      "answer": "Frosted glass scatters light; greater object-glass distance increases light spreading before reaching glass",
+      "lever": "Scattering depth physics with frosted glass."
+    },
+    {
+      "id": "OPTI-026",
+      "sub_skill": "polarizer_rotation",
+      "domain": "two polarizers crossed",
+      "scene": "Two polarizing filters held in front of a light source. When their polarization axes are aligned (parallel), maximum light passes. When rotated 90° (crossed), no light passes (black). At 45°, intermediate brightness.",
+      "question": "What law describes this behavior?",
+      "answer": "Malus's law: I = I₀·cos²(θ)",
+      "lever": "Identify Malus's law for crossed polarizers."
+    },
+    {
+      "id": "OPTI-027",
+      "sub_skill": "optical_illusion_size_constancy",
+      "domain": "Ebbinghaus illusion",
+      "scene": "Two identical orange circles. Circle A is surrounded by a ring of LARGE blue circles. Circle B is surrounded by SMALL blue circles. The center circles appear to be different sizes (B looks larger than A despite being identical).",
+      "question": "Are the orange circles ACTUALLY the same size?",
+      "answer": "Yes (Ebbinghaus illusion)",
+      "lever": "Recognize the visual illusion; measure independently."
+    },
+    {
+      "id": "OPTI-028",
+      "sub_skill": "lenticular_3d_card",
+      "domain": "lenticular printing",
+      "scene": "A lenticular print card showing two different images depending on viewing angle: from the left, a smiling face; from the right, a frowning face.",
+      "question": "What technology produces this effect?",
+      "answer": "Lenticular lenses (parallel ridges of plastic each acting as a tiny prism/lens)",
+      "lever": "Identify lenticular printing technology."
+    },
+    {
+      "id": "OPTI-029",
+      "sub_skill": "iridescent_butterfly_wing",
+      "domain": "morpho butterfly",
+      "scene": "A photo of a Morpho butterfly with brilliant blue iridescent wings. The blue is not from pigment; the wings under a microscope show layered nano-structures.",
+      "question": "What physical phenomenon creates the blue color?",
+      "answer": "Structural coloration via thin-film interference / photonic crystal",
+      "lever": "Distinguish structural color from pigment-based color."
+    },
+    {
+      "id": "OPTI-030",
+      "sub_skill": "aquarium_total_internal_reflection",
+      "domain": "aquarium water surface",
+      "scene": "Inside a fish tank, a fish looking upward at the water surface sees its own reflection on the underside of the surface. From a steep angle, the surface looks like a mirror; from straight up, the sky is visible (refracted).",
+      "question": "What angle marks the boundary (Snell's window edge)?",
+      "answer": "About 48.6° from vertical (the critical angle for water-air = arcsin(1/1.33))",
+      "lever": "Total internal reflection critical angle for water."
+    }
+  ]
+}

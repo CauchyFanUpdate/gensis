@@ -1,0 +1,276 @@
+{
+  "family_id": "PUZZ",
+  "family_name": "Abstract Visual Puzzles",
+  "seeds": [
+    {
+      "id": "PUZZ-001",
+      "sub_skill": "raven_3x3_color_progression",
+      "domain": "raven_matrix",
+      "scene": "A 3×3 Raven-style matrix. Row 1: red circle, blue circle, green circle. Row 2: red square, blue square, green square. Row 3: red triangle, blue triangle, [missing — labeled '?']. Below are four answer options labeled A–D: A = green triangle; B = green square; C = blue triangle; D = red triangle.",
+      "question": "Which option correctly fills the missing cell?",
+      "answer": "A — green triangle",
+      "lever": "Two independent attributes vary by row (shape) and column (color); requires factoring out both rules."
+    },
+    {
+      "id": "PUZZ-002",
+      "sub_skill": "raven_3x3_count_increment",
+      "domain": "raven_matrix",
+      "scene": "A 3×3 Raven matrix. Each cell contains identical small black dots. Row 1: 1 dot, 2 dots, 3 dots. Row 2: 2 dots, 3 dots, 4 dots. Row 3: 3 dots, 4 dots, [?]. Options: A=4 dots; B=5 dots; C=6 dots; D=7 dots.",
+      "question": "Which option fills the missing cell?",
+      "answer": "B — 5 dots",
+      "lever": "Pattern: cell value = row_index + column_index. Requires counting and inferring the increment rule."
+    },
+    {
+      "id": "PUZZ-003",
+      "sub_skill": "analogy_a_to_b_as_c_to",
+      "domain": "shape_analogy",
+      "scene": "Top row of an analogy puzzle: a black filled square ::: a black filled square with a white circle inside. Bottom row: a black filled triangle ::: [?]. Options: A = a black filled triangle with a white circle inside; B = a white filled triangle with a black circle inside; C = a black filled triangle with a white square inside; D = a black filled circle.",
+      "question": "Which option completes the analogy A:B :: C:?",
+      "answer": "A — a black filled triangle with a white circle inside",
+      "lever": "Standard A:B::C:D analogy where the transformation is 'add a centered white circle'."
+    },
+    {
+      "id": "PUZZ-004",
+      "sub_skill": "rotation_pattern",
+      "domain": "shape_rotation",
+      "scene": "A row of 5 cells. Cells 1–4 each contain an arrow rotating 45° clockwise from the previous: cell 1 arrow points up (0°), cell 2 points up-right (45°), cell 3 points right (90°), cell 4 points down-right (135°). Cell 5 is blank ('?'). Options: A=arrow pointing down (180°); B=arrow pointing down-left (225°); C=arrow pointing left (270°); D=arrow pointing up-left (315°).",
+      "question": "Which option continues the rotation pattern?",
+      "answer": "A — arrow pointing down (180°)",
+      "lever": "Continuation of a fixed-step rotational sequence."
+    },
+    {
+      "id": "PUZZ-005",
+      "sub_skill": "odd_logic_xor",
+      "domain": "shape_xor",
+      "scene": "A 3-column matrix labeled 'A op B = C'. Row 1: A=square outline, B=circle outline, C=square+circle overlapping outlines. Row 2: A=triangle, B=square, C=triangle+square overlapping. Row 3: A=star, B=circle, C= [?]. Options: A=star+circle overlapping outlines; B=star outline alone; C=circle outline alone; D=star inside circle.",
+      "question": "Which option completes Row 3?",
+      "answer": "A — star and circle overlapping outlines",
+      "lever": "Operation = 'union of outlines'. Requires inducing the operator from two examples."
+    },
+    {
+      "id": "PUZZ-006",
+      "sub_skill": "fibonacci_dot_count",
+      "domain": "number_pattern",
+      "scene": "A row of 6 cells, each containing a cluster of identical small dots. Cells contain: 1 dot, 1 dot, 2 dots, 3 dots, 5 dots, [?]. Options: A=6 dots; B=7 dots; C=8 dots; D=10 dots.",
+      "question": "Which option follows the pattern?",
+      "answer": "C — 8 dots",
+      "lever": "Fibonacci: each term is the sum of the two preceding terms."
+    },
+    {
+      "id": "PUZZ-007",
+      "sub_skill": "color_xor_grid",
+      "domain": "color_logic",
+      "scene": "A 3×3 grid where each cell is shaded either black or white. Row 1: B W B. Row 2: W B W. Row 3: B W [?]. The pattern follows row-XOR-column parity.",
+      "question": "What color should the missing cell be?",
+      "answer": "Black (B) — to complete the alternating checkerboard pattern",
+      "lever": "Pattern induction over a 2D grid with one missing element."
+    },
+    {
+      "id": "PUZZ-008",
+      "sub_skill": "shape_overlap_count",
+      "domain": "venn_overlap",
+      "scene": "A diagram with three overlapping circles labeled A, B, C in a Venn arrangement. Numbers in the regions: only A=4, only B=3, only C=5, A∩B only=2, B∩C only=1, A∩C only=2, A∩B∩C=1.",
+      "question": "How many elements are in set A in total?",
+      "answer": "9 (= 4 + 2 + 2 + 1)",
+      "lever": "Read regions of a Venn diagram and sum correctly."
+    },
+    {
+      "id": "PUZZ-009",
+      "sub_skill": "mirror_symmetry_completion",
+      "domain": "symmetry",
+      "scene": "Half of a symmetric pattern is shown on the left of a vertical dashed line. The left half consists of: a triangle in the top-left, a circle in the middle-left, and two dots in the bottom-left. The right of the dashed line is blank.",
+      "question": "If the full pattern is mirror-symmetric across the dashed line, what should the right half contain?",
+      "answer": "A triangle in the top-right (mirror of top-left), a circle in the middle-right, and two dots in the bottom-right",
+      "lever": "Constructing the mirror image of a given half-figure."
+    },
+    {
+      "id": "PUZZ-010",
+      "sub_skill": "magic_square_completion",
+      "domain": "magic_square",
+      "scene": "A 3×3 magic square grid with numbers: row 1: 2, 7, 6. Row 2: 9, 5, [?]. Row 3: 4, 3, 8.",
+      "question": "What number completes the magic square (every row, column, and diagonal sums to 15)?",
+      "answer": "1",
+      "lever": "Magic-square arithmetic constraint — sum of row 2 = 15 → 9+5+x=15 → x=1."
+    },
+    {
+      "id": "PUZZ-011",
+      "sub_skill": "tile_path_count",
+      "domain": "grid_path",
+      "scene": "A 4×4 grid of squares. Some squares are shaded gray (impassable): (row 1, col 3), (row 2, col 2), (row 3, col 4). White squares are passable. Start marker 'S' is at (row 1, col 1); goal marker 'G' is at (row 4, col 4). Movement is only right or down, one square at a time.",
+      "question": "How many distinct shortest paths exist from S to G that avoid all gray squares?",
+      "answer": "4",
+      "lever": "Combinatorial path counting on a grid with obstacles."
+    },
+    {
+      "id": "PUZZ-012",
+      "sub_skill": "next_in_growing_sequence",
+      "domain": "growth_pattern",
+      "scene": "A row of 4 figures each made of small squares. Figure 1: 1 square. Figure 2: 4 squares (2×2). Figure 3: 9 squares (3×3). Figure 4: 16 squares (4×4). Figure 5 is blank ('?').",
+      "question": "How many squares does figure 5 contain?",
+      "answer": "25 (5×5)",
+      "lever": "Quadratic growth pattern recognition."
+    },
+    {
+      "id": "PUZZ-013",
+      "sub_skill": "gear_chain_direction",
+      "domain": "gears",
+      "scene": "Five interlocked gears arranged in a horizontal chain. Gear 1 on the far left has a yellow arrow showing it rotates clockwise. Each subsequent gear meshes with the previous one.",
+      "question": "Which direction does Gear 5 rotate?",
+      "answer": "Clockwise",
+      "lever": "Each meshed gear rotates opposite to its neighbor; an odd number of gears (5) past the start gear means even number of inversions → same direction. Gear 1 CW → Gear 2 CCW → Gear 3 CW → Gear 4 CCW → Gear 5 CW."
+    },
+    {
+      "id": "PUZZ-014",
+      "sub_skill": "cube_unfolding_face",
+      "domain": "spatial",
+      "scene": "A cross-shaped cube net laid flat. Faces from top to bottom of the cross: top=red, then a horizontal row of four faces (left=blue, center-back=green, right=yellow, far-right=orange), and below the green: white. When folded into a cube, opposite face pairs need to be identified.",
+      "question": "When folded into a cube, which color is opposite the green face?",
+      "answer": "Orange",
+      "lever": "Mental folding of net; opposite-face inference."
+    },
+    {
+      "id": "PUZZ-015",
+      "sub_skill": "shape_subtraction",
+      "domain": "shape_arithmetic",
+      "scene": "Top row: a hexagon containing 4 dots. Middle row: a hexagon containing 2 dots labeled with a minus sign. Bottom row: a hexagon containing [?] dots. The relation is 'top - middle = bottom'.",
+      "question": "How many dots in the bottom hexagon?",
+      "answer": "2",
+      "lever": "Visual subtraction: 4 - 2 = 2."
+    },
+    {
+      "id": "PUZZ-016",
+      "sub_skill": "tangram_match",
+      "domain": "tangram",
+      "scene": "On the left, a target silhouette of a black cat shape (head, body, tail) made of straight-edged pieces. On the right, a tangram set of 7 colored pieces (2 large triangles, 1 medium triangle, 2 small triangles, 1 square, 1 parallelogram).",
+      "question": "Can the target cat silhouette be assembled using exactly all 7 tangram pieces with no overlap?",
+      "answer": "Yes — standard tangram puzzles use exactly 7 pieces with no overlap; this configuration is a known tangram cat",
+      "lever": "Spatial puzzle reasoning about piece coverage."
+    },
+    {
+      "id": "PUZZ-017",
+      "sub_skill": "color_count_pattern",
+      "domain": "frequency_pattern",
+      "scene": "A 3×3 matrix where each cell contains a small cluster of colored dots. Each row uses the same 3 colors (red, blue, green) with different counts. Row 1: 1R, 2B, 3G. Row 2: 2R, 3B, 1G. Row 3: 3R, [?]B, 2G. Each row has a total of 6 dots.",
+      "question": "How many blue dots in the missing cell?",
+      "answer": "1",
+      "lever": "Conservation: each row sums to 6 → 3+x+2=6 → x=1."
+    },
+    {
+      "id": "PUZZ-018",
+      "sub_skill": "rotational_symmetry_order",
+      "domain": "symmetry",
+      "scene": "A figure shaped like a five-pointed star (pentagram) with all five points identical, drawn with no internal coloring distinction.",
+      "question": "What is the order of rotational symmetry of the figure?",
+      "answer": "5",
+      "lever": "Recognition of n-fold rotational symmetry."
+    },
+    {
+      "id": "PUZZ-019",
+      "sub_skill": "iq_3x3_with_2_rules",
+      "domain": "raven_matrix",
+      "scene": "3×3 matrix. Each cell contains a polygon and a number of internal dots. Polygons by row: row 1 all triangles, row 2 all squares, row 3 all pentagons. Dots by column: column 1 always 1 dot, column 2 always 2 dots, column 3 always 3 dots. The cell at row 3 column 3 is missing.",
+      "question": "What should the missing cell contain?",
+      "answer": "A pentagon containing 3 dots",
+      "lever": "Two independent rules (row=shape, col=count); requires factoring."
+    },
+    {
+      "id": "PUZZ-020",
+      "sub_skill": "dominoes_continuation",
+      "domain": "dominoes",
+      "scene": "A row of dominoes where each domino is a tile with a left-half count and right-half count of pips. Tiles: [3|5], [5|2], [2|6], [6|?]. Each tile's left-pip count equals the previous tile's right-pip count (the matching rule).",
+      "question": "Given that the next tile must continue the matching pattern AND that all tiles should follow no other constraint, what is the right half of the 4th tile? Consider any number from 0-6.",
+      "answer": "Cannot be uniquely determined — matching rule constrains only the left half; the right half can be anything from 0–6",
+      "lever": "Tests whether VLM honestly admits the puzzle is underconstrained."
+    },
+    {
+      "id": "PUZZ-021",
+      "sub_skill": "stacked_blocks_count",
+      "domain": "isometric_blocks",
+      "scene": "An isometric drawing of a stack of unit cubes shaped like a staircase: bottom layer is a 4×3 rectangular base of 12 cubes; on top, a 3×2 layer of 6 cubes flush to one corner; on top of that, a 2×1 layer of 2 cubes flush to the same corner; on top, 1 single cube. Total visible from this angle.",
+      "question": "How many unit cubes total in the structure?",
+      "answer": "21 (12 + 6 + 2 + 1)",
+      "lever": "3D counting from isometric projection; must include hidden cubes implied by support."
+    },
+    {
+      "id": "PUZZ-022",
+      "sub_skill": "matrix_addition",
+      "domain": "shape_addition",
+      "scene": "A row showing: [2 black dots] + [3 black dots] = [?]. Below: [4 black dots] + [1 black dot] = [5 black dots] (this acts as an example confirming the operation is addition).",
+      "question": "How many dots in the missing cell?",
+      "answer": "5",
+      "lever": "Visual confirmation of an arithmetic operator; trivial only if the rule is induced."
+    },
+    {
+      "id": "PUZZ-023",
+      "sub_skill": "letter_pattern",
+      "domain": "letter_sequence",
+      "scene": "A row of 6 cells containing letters: A, C, E, G, I, [?]. Letters skip one alphabetic position each step (alternate letters of the alphabet starting at A).",
+      "question": "What letter completes the row?",
+      "answer": "K",
+      "lever": "Alphabetic step pattern; tests letter-as-position reasoning."
+    },
+    {
+      "id": "PUZZ-024",
+      "sub_skill": "shape_count_in_overlap",
+      "domain": "overlap_count",
+      "scene": "Two overlapping rectangles drawn on a plane. The overlap region forms a smaller rectangle in the middle. The image is divided by these two outlines into separate regions.",
+      "question": "How many distinct closed regions are formed by the two overlapping rectangles?",
+      "answer": "3 (left-only, middle overlap, right-only)",
+      "lever": "Region counting in overlapping figures."
+    },
+    {
+      "id": "PUZZ-025",
+      "sub_skill": "tangrams_minimum_pieces",
+      "domain": "tiling",
+      "scene": "A target shape: a 4×4 square divided into 16 unit squares, with 3 unit squares removed from corners (top-left, top-right, bottom-left). The remaining 13 unit squares form an irregular L-like shape. Available tile shapes: 1×1 squares only.",
+      "question": "What is the minimum number of 1×1 tiles needed to cover the target?",
+      "answer": "13",
+      "lever": "Trivial counting under constraint; requires correct shape parsing."
+    },
+    {
+      "id": "PUZZ-026",
+      "sub_skill": "color_position_matrix",
+      "domain": "raven_matrix",
+      "scene": "A 3×3 matrix. Each cell contains a 2×2 sub-grid where one of the four sub-squares is colored black and the others are white. Row 1: black sub-square in top-left of each cell, but the column index also matters: cell (1,1) top-left, (1,2) top-right, (1,3) bottom-right. Row 2: (2,1) top-right, (2,2) bottom-right, (2,3) bottom-left. Row 3: (3,1) bottom-right, (3,2) bottom-left, (3,3) [?].",
+      "question": "Which corner should be black in cell (3,3)?",
+      "answer": "Top-left — the black square advances clockwise by one position each cell, wrapping around (the rotation cycles through TL→TR→BR→BL→TL)",
+      "lever": "Sequence of 9 rotations of a single dark square; requires tracking the rotational state."
+    },
+    {
+      "id": "PUZZ-027",
+      "sub_skill": "max_intersections",
+      "domain": "geometry_count",
+      "scene": "An image of 4 straight lines drawn on a plane such that no two are parallel and no three lines meet at a single point.",
+      "question": "How many intersection points are there?",
+      "answer": "6 (= C(4,2))",
+      "lever": "Combinatorial reasoning about line intersections."
+    },
+    {
+      "id": "PUZZ-028",
+      "sub_skill": "shape_inside_shape",
+      "domain": "containment",
+      "scene": "A diagram showing 5 nested shapes from outside in: a large square, then a circle inside it, then a triangle inside the circle, then a smaller square inside the triangle, then a small black dot in the center.",
+      "question": "Which shape directly contains the small black dot?",
+      "answer": "The smaller square (innermost shape)",
+      "lever": "Tests innermost-vs-all containment relationship."
+    },
+    {
+      "id": "PUZZ-029",
+      "sub_skill": "iq_color_swap_rule",
+      "domain": "raven_matrix",
+      "scene": "A 2×3 matrix. Top row: red star, blue star, green star. Bottom row: blue star, green star, [?]. Pattern: each cell shifts color cyclically (red→blue→green→red).",
+      "question": "What color is the missing star?",
+      "answer": "Red",
+      "lever": "Cyclic color rule across cells."
+    },
+    {
+      "id": "PUZZ-030",
+      "sub_skill": "next_in_fractal",
+      "domain": "fractal",
+      "scene": "Three iterations of a Sierpinski-triangle-like fractal. Iteration 1: a single solid black triangle. Iteration 2: 3 smaller triangles arranged as a triangle (with a white central hole). Iteration 3: each of those 3 triangles has been replaced by 3 even smaller triangles (9 total small black triangles). The image asks for iteration 4.",
+      "question": "How many smallest black triangles are in iteration 4?",
+      "answer": "27",
+      "lever": "Geometric growth: ×3 each iteration; tests inducing the recursive rule."
+    }
+  ]
+}

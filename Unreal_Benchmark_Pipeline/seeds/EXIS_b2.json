@@ -1,0 +1,186 @@
+{
+  "family_id": "EXIS",
+  "family_name": "Existence & Verification",
+  "seeds": [
+    {
+      "id": "EXIS-031",
+      "sub_skill": "rule_violation_count",
+      "domain": "swimming pool deck",
+      "scene": "A pool deck with 8 people; posted rules: 'no glass containers', 'no running', 'children under 12 require adult'. Visible: 1 person with a glass bottle, 2 children running unaccompanied, 1 adult walking with a metal bottle, others within rules.",
+      "question": "How many people violate at least one rule?",
+      "answer": "3",
+      "lever": "Apply each rule to each person and count distinct violators (children running counts both as running and unaccompanied but is one person)."
+    },
+    {
+      "id": "EXIS-032",
+      "sub_skill": "absence_among_complete_inventory",
+      "domain": "garage tool wall",
+      "scene": "A pegboard with hooks containing tools. A printed inventory list at the side names 12 tools that should be present; 11 tools are visible on the board.",
+      "question": "Which tool is MISSING from the wall?",
+      "answer": "the named tool not visible on the wall",
+      "lever": "Cross-reference inventory list with visible items to identify the absent one."
+    },
+    {
+      "id": "EXIS-033",
+      "sub_skill": "physical_impossibility_geometry",
+      "domain": "art exhibit drawing",
+      "scene": "A line drawing of a Penrose triangle on a gallery wall.",
+      "question": "Is this object physically constructible in 3D?",
+      "answer": "no",
+      "lever": "Recognize impossible-figure family and rule out 3D realizability."
+    },
+    {
+      "id": "EXIS-034",
+      "sub_skill": "expired_certificate_check",
+      "domain": "elevator inspection card",
+      "scene": "An elevator inspection certificate posted in the cab; expiry date '2024-03-15'. Today's date stamped overlay: '2026-04-01'.",
+      "question": "Is this elevator's inspection currently valid?",
+      "answer": "no — expired",
+      "lever": "Compare expiry date to current date stamp."
+    },
+    {
+      "id": "EXIS-035",
+      "sub_skill": "missing_required_signage",
+      "domain": "construction site fence",
+      "scene": "A construction site entrance with several signs: 'Hard Hat Area', 'Authorized Personnel', 'Warning High Voltage', and a posted regulation list requires also 'Safety Boots Required' but it is not present.",
+      "question": "Which legally-required sign is missing?",
+      "answer": "Safety Boots Required",
+      "lever": "Compare visible signage set with regulation requirement list to detect omission."
+    },
+    {
+      "id": "EXIS-036",
+      "sub_skill": "extra_unauthorized_object",
+      "domain": "lab biosafety hood",
+      "scene": "A biosafety cabinet workspace with required items: pipette, racks, beaker, ethanol bottle. Among them sits a personal coffee mug.",
+      "question": "Which item should NOT be present in this workspace?",
+      "answer": "the coffee mug (food/drink not allowed in biosafety cabinet)",
+      "lever": "Apply biosafety rule prohibiting food/drink to detect the unauthorized item."
+    },
+    {
+      "id": "EXIS-037",
+      "sub_skill": "no_object_satisfies_predicate",
+      "domain": "fishing tackle box",
+      "scene": "A tackle box with 8 lures and various accessories. Question targets 'pliers'.",
+      "question": "Are there any pliers in the tackle box?",
+      "answer": "no",
+      "lever": "Confirm absence by inventory; resist over-eagerly identifying lookalikes (lure trebles, hook removers) as pliers."
+    },
+    {
+      "id": "EXIS-038",
+      "sub_skill": "exists_at_least_one",
+      "domain": "office desk",
+      "scene": "A desk with many objects: stapler, books, mug, phone, pens, lamp. Question targets a stapler.",
+      "question": "Is there at least one stapler on the desk?",
+      "answer": "yes",
+      "lever": "Confirm presence vs camouflaged identification; report yes/no precisely."
+    },
+    {
+      "id": "EXIS-039",
+      "sub_skill": "duplicate_unique_id",
+      "domain": "ID badge wall",
+      "scene": "A wall of 12 ID badges; each shows a unique 4-digit number printed large. Two badges share the same number due to a clerical error.",
+      "question": "Are all badge numbers unique?",
+      "answer": "no — two badges share the same number",
+      "lever": "Detect duplicate among many; existence test on duplicates."
+    },
+    {
+      "id": "EXIS-040",
+      "sub_skill": "presence_of_obstruction",
+      "domain": "fire exit corridor",
+      "scene": "A corridor with a fire-exit door at the end; a chair has been placed in front of the door blocking egress.",
+      "question": "Is the fire exit obstructed?",
+      "answer": "yes — a chair blocks the door",
+      "lever": "Detect obstruction in safety-critical pathway."
+    },
+    {
+      "id": "EXIS-041",
+      "sub_skill": "missing_spare_parts",
+      "domain": "DIY furniture box",
+      "scene": "A furniture-assembly parts laid out: 4 legs, 12 of the planned 14 screws, 2 of the planned 3 hex keys, all panels present.",
+      "question": "What parts are MISSING from the box?",
+      "answer": "2 screws, 1 hex key",
+      "lever": "Compare expected vs visible counts per part type; report all missing types."
+    },
+    {
+      "id": "EXIS-042",
+      "sub_skill": "rule_satisfaction_min_count",
+      "domain": "playground supervision",
+      "scene": "A playground with 15 children and 1 visible adult supervisor; posted rule 'minimum 1 adult per 10 children'.",
+      "question": "Is the supervision rule satisfied?",
+      "answer": "no — needs 2 adults for 15 children",
+      "lever": "Compute required adults from headcount and rule, compare to visible adults."
+    },
+    {
+      "id": "EXIS-043",
+      "sub_skill": "verify_pair_completeness",
+      "domain": "shoe shop floor",
+      "scene": "A shoe display floor with many shoes. Most are arranged in left/right pairs of the same model. One single right shoe is shown without its left counterpart visible.",
+      "question": "Is there an unpaired shoe?",
+      "answer": "yes — one right shoe lacks its left",
+      "lever": "Match L/R shoes by model; identify the unpaired item."
+    },
+    {
+      "id": "EXIS-044",
+      "sub_skill": "uniqueness_search",
+      "domain": "currency display",
+      "scene": "A glass case with many ancient coins; question targets 'a coin from the year 1923 specifically'.",
+      "question": "Is there a 1923 coin in the case?",
+      "answer": "yes/no based on visible date inscriptions",
+      "lever": "Search for a specific year inscription among many similar coins."
+    },
+    {
+      "id": "EXIS-045",
+      "sub_skill": "occluded_existence_inference",
+      "domain": "kitchen pantry",
+      "scene": "A pantry with many partially-occluded items behind front-row goods. The label of a flour bag peeks out from behind the rice.",
+      "question": "Is there flour in the pantry?",
+      "answer": "yes (label visible behind rice)",
+      "lever": "Infer presence from partially-visible label cue."
+    },
+    {
+      "id": "EXIS-046",
+      "sub_skill": "absent_required_doc_in_stack",
+      "domain": "loan application packet",
+      "scene": "A document checklist marked complete: ID, paystubs, bank statements, tax return. The visible packet has ID, paystubs, bank statements; tax return is not present.",
+      "question": "Is the packet actually complete vs the checklist?",
+      "answer": "no — tax return is missing",
+      "lever": "Compare checked-off items to visible items; flag missing despite check."
+    },
+    {
+      "id": "EXIS-047",
+      "sub_skill": "physically_impossible_water",
+      "domain": "fishbowl scene",
+      "scene": "A photo of a fishbowl tipped on its side with water still completely filling it (no air gap, no spill).",
+      "question": "Is the situation physically possible?",
+      "answer": "no — water should redistribute by gravity",
+      "lever": "Apply physics; flag impossible static state."
+    },
+    {
+      "id": "EXIS-048",
+      "sub_skill": "verify_compliance_count",
+      "domain": "warehouse PPE check",
+      "scene": "A warehouse floor with 6 workers; PPE rule: hard hat + safety vest + steel-toe boots. Visible: W1 all 3, W2 missing vest, W3 all 3, W4 missing hat, W5 all 3, W6 missing boots.",
+      "question": "How many workers are FULLY compliant?",
+      "answer": "3",
+      "lever": "Apply 3-condition AND check per worker; count those meeting all."
+    },
+    {
+      "id": "EXIS-049",
+      "sub_skill": "no_one_satisfies_all_predicates",
+      "domain": "queue at counter",
+      "scene": "A queue of 6 people at a service counter; counter requires 'wearing mask AND holding ticket AND has ID'. Visible: P1 mask+ticket no ID, P2 ticket+ID no mask, P3 mask+ID no ticket, P4 mask+ticket+ID, P5 only ticket, P6 only mask.",
+      "question": "How many people satisfy ALL three requirements?",
+      "answer": "1 (P4)",
+      "lever": "Apply 3-way AND across each person; count exactly those satisfying all."
+    },
+    {
+      "id": "EXIS-050",
+      "sub_skill": "presence_of_specific_color_in_pile",
+      "domain": "lego brick pile",
+      "scene": "A pile of mixed LEGO bricks of many colors. Question targets a single specific element 'a 2x4 lime-green brick'.",
+      "question": "Is there a 2x4 lime-green brick in the pile?",
+      "answer": "yes/no based on careful inspection",
+      "lever": "Search for a specific color × shape conjunction in cluttered pile; resist confounders (4x2 lime, 2x3 lime, 2x4 dark green)."
+    }
+  ]
+}

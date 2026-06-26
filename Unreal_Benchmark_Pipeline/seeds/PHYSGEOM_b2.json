@@ -1,0 +1,186 @@
+{
+  "family_id": "PHYSGEOM",
+  "family_name": "Geometry & Visual Logic (concept-drift, impossible figures)",
+  "seeds": [
+    {
+      "id": "PHYSGEOM-001",
+      "sub_skill": "penrose_triangle_ball_path",
+      "domain": "Penrose triangle illustration",
+      "scene": "A classic Penrose impossible-triangle drawing rendered as if it were a 3D rail; a ball is placed on the triangle's top edge. Arrows along the edges indicate the apparent 'downhill' direction; following the arrows around the triangle returns to the starting point at the same height visually but the rail keeps going 'downhill'.",
+      "question": "Where will the ball end up if released, and is the depicted path physically realizable?",
+      "answer": "The figure is an impossible object — no consistent 3D embedding exists, so the ball cannot follow the depicted closed downhill loop. In any real 3D realization, segments that look continuous are actually not connected; the ball would simply roll off whichever real segment it sits on.",
+      "lever": "VLM caption-shortcut sees 'triangular ramp/track with ball' and predicts 'ball rolls around the loop forever' (textbook S — perpetual motion). The Penrose impossible-figure construction visibly violates 3D-consistency assumption; T is 'no valid 3D path; ball just rolls off a real segment'."
+    },
+    {
+      "id": "PHYSGEOM-002",
+      "sub_skill": "penrose_stairs_walking",
+      "domain": "Penrose stairs",
+      "scene": "Escher's impossible staircase forming a closed loop where each step appears to ascend but the loop closes. A figure is shown standing on one step, climbing in the indicated direction. Step heights are clearly marked '+0.2 m each'.",
+      "question": "If the figure climbs continuously, what altitude do they reach after one full loop?",
+      "answer": "The same altitude they started at — the figure is impossible, no consistent 3D realization exists, so the apparent net climb is a 2D projection artifact, not a physical change in height.",
+      "lever": "VLM sees 'staircase' + 'climbing' → 'gains height linearly forever' (S). The Penrose loop visibly violates global-monotonicity assumption (each segment locally rises but loop closes); T is 'net altitude change = 0; figure cannot actually climb in 3D'."
+    },
+    {
+      "id": "PHYSGEOM-003",
+      "sub_skill": "impossible_cube_axis_alignment",
+      "domain": "Necker / impossible cube",
+      "scene": "A drawn 'impossible cube' (Escher Belvedere style) where two of the rear edges visibly pass IN FRONT of two of the front edges. A ball is shown threaded through the front face's 'opening'.",
+      "question": "Can a real ball physically be threaded through this cube as drawn?",
+      "answer": "No — the cube as drawn cannot be built in 3D; the depicted edge-crossings are inconsistent with any rigid cube. Threading is a 2D illusion only.",
+      "lever": "VLM sees 'cube with ball going through' → 'yes, ball passes through hole' (S). Visible inconsistent edge crossings violate 3D consistency; T is 'impossible figure, no real threading'."
+    },
+    {
+      "id": "PHYSGEOM-004",
+      "sub_skill": "impossible_fork_devils_tuning_fork",
+      "domain": "blivet / devil's fork",
+      "scene": "A devil's-fork drawing: at the handle end there are clearly TWO rectangular prongs, but at the tip end there are clearly THREE round prongs. A label 'count the prongs at each end'.",
+      "question": "How many prongs are there?",
+      "answer": "The figure is impossible; the count is locally 2 at one end and 3 at the other. There is no consistent answer because the object has no valid 3D realization.",
+      "lever": "VLM sees fork → counts at one end → answers '2' or '3' confidently (S). Visible mismatch between the two ends violates the implicit consistent-prong-count assumption; T is 'inconsistent / impossible figure'."
+    },
+    {
+      "id": "PHYSGEOM-005",
+      "sub_skill": "penrose_triangle_water_flow",
+      "domain": "Penrose-triangle waterfall (Escher)",
+      "scene": "Escher's 'Waterfall' style: water flows along an open channel shaped as a Penrose triangle, falls off the end as a waterfall, and lands back at the start, driving a watermill mid-loop.",
+      "question": "Does this waterwheel produce continuous power?",
+      "answer": "No — the closed downhill loop is geometrically impossible; in any real 3D channel, water would flow downhill once and stop. No continuous flow / no perpetual power output.",
+      "lever": "VLM sees 'waterfall + waterwheel + return channel' → 'perpetual motion machine, generates power' (S). Penrose loop violates monotone-elevation assumption; T is 'no perpetual motion, the figure is impossible'."
+    },
+    {
+      "id": "PHYSGEOM-006",
+      "sub_skill": "impossible_arch_load_bearing",
+      "domain": "Penrose-style arch",
+      "scene": "An arch drawn so that its two columns visibly meet at the top in inconsistent perspective: the left column's top connects to the right side's BACK face, and the right column's top connects to the left side's FRONT face. A heavy block is shown resting on top.",
+      "question": "Can this arch actually support the block?",
+      "answer": "No — the arch as drawn is a 2D-only impossible figure; it has no valid 3D embedding, so it cannot exist physically and cannot support anything in reality.",
+      "lever": "VLM sees 'arch with block on top' → 'yes, supports block via compression' (S). Inconsistent column-top connections visibly violate 3D consistency; T is 'figure impossible, cannot exist'."
+    },
+    {
+      "id": "PHYSGEOM-007",
+      "sub_skill": "ambiguous_concave_convex_face",
+      "domain": "hollow-mask illusion",
+      "scene": "A 3D-rendered face mask shown concave (hollow inside) but with shading/lighting that makes it appear convex (sticking out). A ball is shown rolling 'down' the apparent nose.",
+      "question": "Which way does the real ball actually roll?",
+      "answer": "If the mask is truly concave (hollow), a real ball placed on the inside would roll INWARD into the cavity, opposite the apparent convex-down direction.",
+      "lever": "VLM sees 'face with ball on nose' → 'ball rolls down the slope of the nose' (S, treating face as convex). Lighting cue + concave geometry violate convex assumption; T is inverted roll direction."
+    },
+    {
+      "id": "PHYSGEOM-008",
+      "sub_skill": "impossible_shelf_bracket",
+      "domain": "Escher impossible shelf",
+      "scene": "A wall shelf drawn so that the bracket connects to the wall on the LEFT but the shelf board projects out and downward to the RIGHT in a way that the bracket and shelf top are clearly not perpendicular and the shelf appears unsupported on the right end. A heavy book is on the right end.",
+      "question": "Is the book stably supported?",
+      "answer": "No — the depicted geometry is impossible / inconsistent; the right-end support is illusory and in any real construction matching the drawing the book would fall.",
+      "lever": "VLM sees 'book on shelf' → 'supported, stays put' (S). The visibly impossible bracket geometry violates the 'shelf is rigidly attached to wall' assumption; T is 'falls / impossible'."
+    },
+    {
+      "id": "PHYSGEOM-009",
+      "sub_skill": "moebius_strip_sided_paint",
+      "domain": "Möbius strip",
+      "scene": "A Möbius strip clearly twisted once and joined into a loop. A paintbrush is shown starting on one face. Arrows trace continuous painting along the strip.",
+      "question": "After painting continuously without lifting the brush, how many faces of the strip are painted?",
+      "answer": "All of it — a Möbius strip has only one side, so continuous painting covers the entire surface.",
+      "lever": "VLM sees 'strip of paper, paint one side' → 'paints one of two sides, leaving the other unpainted' (S, two-sided assumption). Visible single half-twist violates two-sided assumption; T is 'all surface painted, only one side'."
+    },
+    {
+      "id": "PHYSGEOM-010",
+      "sub_skill": "klein_bottle_inside_outside",
+      "domain": "Klein bottle",
+      "scene": "A 3D-rendered Klein-bottle figure (with the self-intersection visible). Two ants are placed: one labeled 'inside', one 'outside', on what appear to be the inner and outer surfaces respectively.",
+      "question": "Can the 'inside' ant reach the 'outside' ant without crossing an edge?",
+      "answer": "Yes — a true Klein bottle has only one side; 'inside' and 'outside' are not distinct surfaces, so the ants can meet by walking along the continuous surface.",
+      "lever": "VLM sees 'bottle with inside and outside' → 'ants on different sides, must cross rim' (S, two-sided container). Klein-bottle geometry violates inside/outside distinction; T is 'one-sided, ants can meet'."
+    },
+    {
+      "id": "PHYSGEOM-011",
+      "sub_skill": "penrose_triangle_distance_traversal",
+      "domain": "Penrose triangle with marked distances",
+      "scene": "Penrose triangle with each of its three edges labeled '5 m'. Arrows indicate continuous walking along the edges.",
+      "question": "After walking around the triangle once, how far has the walker traveled and how much has their elevation changed?",
+      "answer": "Distance walked is locally well-defined as 15 m of 'apparent path', but elevation change MUST be 0 (closed loop) — contradicting the apparent monotone-uphill arrows. The figure is impossible; no real walker can traverse it.",
+      "lever": "VLM sees 'triangle with edge lengths' → '15 m loop, returns to start' (S, normal closed loop). The apparent monotone elevation arrows on the Penrose figure violate closed-loop conservation; T is 'impossible figure, no real traversal'."
+    },
+    {
+      "id": "PHYSGEOM-012",
+      "sub_skill": "impossible_window_view",
+      "domain": "impossible-frame window",
+      "scene": "A wall-mounted window where the frame is drawn in inconsistent perspective: the LEFT side of the frame is rendered with the right wall behind it, the RIGHT side with the left wall behind it, so the 'view' through the window is internally inconsistent.",
+      "question": "What is on the OTHER side of the wall as seen through this window?",
+      "answer": "Nothing consistent — the depicted window is impossible; no single 3D scene can correspond to the view shown. The 'view' is a 2D illusion, not a real other-side scene.",
+      "lever": "VLM sees 'window with view' → describes the apparent landscape (S). Inconsistent frame perspective violates planar-window assumption; T is 'impossible figure, view does not correspond to any real scene'."
+    },
+    {
+      "id": "PHYSGEOM-013",
+      "sub_skill": "ambiguous_staircase_direction",
+      "domain": "Schroeder staircase / ambiguous stairs",
+      "scene": "An ambiguous reversible-stairs drawing where the stairs can be perceived as going up to the right OR down to the right. A ball labeled 'rolls downhill' is shown on one step.",
+      "question": "Which direction does the ball actually roll?",
+      "answer": "The figure is genuinely ambiguous in 2D; in any real 3D realization there is one definite direction (say, descending right), and the ball rolls that way — but the picture alone does not specify which.",
+      "lever": "VLM sees 'stairs with ball' and confidently picks one direction (S). Ambiguous-figure construction violates the unique-3D assumption; T is 'undetermined from image; needs disambiguating cue'."
+    },
+    {
+      "id": "PHYSGEOM-014",
+      "sub_skill": "impossible_frame_object_passes_through",
+      "domain": "impossible picture frame",
+      "scene": "A picture frame drawn such that one of its bars passes IN FRONT of the bar it is supposed to be glued behind, and another bar weaves through. A pencil is shown pierced through one side.",
+      "question": "If the frame is built as drawn, does the pencil really pass through?",
+      "answer": "No — the frame as drawn cannot exist in 3D; the bar weaving is a 2D illusion. A real attempt to build it would force one bar to be cut, so the pencil's apparent threading is illusory.",
+      "lever": "VLM sees 'pencil through frame' → 'yes, threaded' (S). Inconsistent over/under bar relations violate 3D rigidity; T is 'impossible figure, no real threading'."
+    },
+    {
+      "id": "PHYSGEOM-015",
+      "sub_skill": "ames_room_size_distortion",
+      "domain": "Ames room",
+      "scene": "Standard Ames-room view through the peephole: two people of clearly different apparent sizes stand at the room's two corners; a label notes 'viewed through peephole; room is trapezoidal, not rectangular'.",
+      "question": "Are the two people actually different sizes?",
+      "answer": "No — they are similar in real height. The room's distorted (trapezoidal, with slanted floor and ceiling) shape combined with the single-eye peephole creates an apparent size difference; the 'further' person is actually further AND larger than they look.",
+      "lever": "VLM sees 'two people in room, one giant one tiny' → 'one is much bigger' (S, rectangular-room assumption). Trapezoidal-room label violates rectangular assumption; T is 'similar real sizes, room is distorted'."
+    },
+    {
+      "id": "PHYSGEOM-016",
+      "sub_skill": "shepard_table_perspective",
+      "domain": "Shepard's parallelogram tables",
+      "scene": "Two parallelogram tabletops drawn from above: the left looks like a long narrow table, the right looks like a wide square-ish one. Their actual outlines (shown as dotted overlays) are identical congruent parallelograms.",
+      "question": "Which tabletop is wider?",
+      "answer": "Neither — they are congruent. Perspective foreshortening of the table-leg cues makes them look very different.",
+      "lever": "VLM sees 'two tables of different shapes' → picks one (S, treats apparent outline as real). The dotted-overlay congruence violates apparent-shape assumption; T is 'identical, an illusion'."
+    },
+    {
+      "id": "PHYSGEOM-017",
+      "sub_skill": "impossible_chair_sitting",
+      "domain": "Roger Shepard impossible chair",
+      "scene": "A '4-legged' chair drawn so that its back-left leg is geometrically connected to the front-right corner in an impossible weave. A figure is shown sitting comfortably.",
+      "question": "Is the depicted chair a possible 3D object that someone could really sit in?",
+      "answer": "No — the chair has impossible leg connections; it cannot exist as drawn. The depicted sitting is a 2D illusion.",
+      "lever": "VLM sees 'chair with person' → 'normal chair' (S). Impossible leg weave violates rigid-3D assumption; T is 'impossible figure'."
+    },
+    {
+      "id": "PHYSGEOM-018",
+      "sub_skill": "kanizsa_triangle_illusory",
+      "domain": "Kanizsa triangle",
+      "scene": "Three Pac-Man circles arranged so that an illusory white triangle appears in the center. A ball is drawn 'inside' the illusory triangle's edges.",
+      "question": "What is the actual shape of the figure containing the ball?",
+      "answer": "There is no real triangle drawn — only three notched circles. The 'triangle' is an illusory contour produced by the visual system; the ball is sitting in empty space delimited only by Pac-Man notches.",
+      "lever": "VLM sees 'triangle with ball inside' → 'inside white triangle' (S, real boundary). The illusory-contour construction violates the 'edges are actually drawn' assumption; T is 'no real triangle, illusory contour'."
+    },
+    {
+      "id": "PHYSGEOM-019",
+      "sub_skill": "infinite_corridor_mirror",
+      "domain": "two facing mirrors",
+      "scene": "Two parallel mirrors with a candle between them; the reflections appear to form an infinite corridor of candles.",
+      "question": "How many real candles are in the room?",
+      "answer": "One — the rest are virtual reflections (and reflections of reflections). The 'corridor' is not real candles, just an optical effect of the parallel-mirror geometry.",
+      "lever": "VLM sees 'long line of candles' → counts many or 'infinite' candles (S, treats each apparent candle as real). Parallel-mirror geometry violates the 'each visible candle is a real object' assumption; T is 'one real candle'."
+    },
+    {
+      "id": "PHYSGEOM-020",
+      "sub_skill": "anamorphic_skull_oblique_view",
+      "domain": "Holbein-style anamorphic image",
+      "scene": "A flat painting on a wall with a stretched, distorted shape near the bottom that, viewed from the room's front, looks like an unrecognizable smear. A small marker on the floor labeled 'view from this angle, looking sideways' indicates the correct oblique viewpoint.",
+      "question": "What is the shape, viewed straight-on?",
+      "answer": "From the front it looks like an unintelligible smear. Only from the marked oblique viewpoint (extreme angle along the wall) does it resolve into the intended object (e.g., a skull). The straight-on view does NOT show the true subject.",
+      "lever": "VLM sees the smear → tries to interpret it from default front-on view (S). Anamorphic projection violates the 'viewing angle doesn't matter' assumption; T is 'recognize only from the marked oblique angle'."
+    }
+  ]
+}

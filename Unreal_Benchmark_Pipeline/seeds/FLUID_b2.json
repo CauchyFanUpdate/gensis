@@ -1,0 +1,186 @@
+{
+  "family_id": "FLUID",
+  "family_name": "Concept-Drift Fluid Mechanics",
+  "seeds": [
+    {
+      "id": "FLUID-001",
+      "sub_skill": "buoyancy_three_layer_density_column",
+      "domain": "density column",
+      "scene": "A clear vertical glass cylinder with three immiscible liquid layers: dark blue at the bottom, medium green in the middle, pale yellow on top. A red ball floats on top of the yellow layer; a white ball is trapped at the green-blue boundary; a black ball rests at the very bottom of the cylinder.",
+      "question": "Order the three balls' densities from lowest to highest.",
+      "answer": "Red < white < black; red is below yellow density, white is between green and blue density, black is denser than blue.",
+      "lever": "VLM caption-shortcut sees 'ball in liquid' and applies single-fluid Archimedes ('floats if less dense than water'). Visible 3-layer column violates single-fluid assumption; correct answer derives ball density per its layer position."
+    },
+    {
+      "id": "FLUID-002",
+      "sub_skill": "buoyancy_specific_density_relation",
+      "domain": "density column",
+      "scene": "Same 3-layer column (blue/green/yellow bottom-to-top). A new white ball is placed in; it sinks past the yellow layer, past the green layer, and rests on top of the blue layer.",
+      "question": "What is the white ball's density relative to the three liquids?",
+      "answer": "Greater than yellow and green densities, but less than blue density.",
+      "lever": "Same multi-fluid violation; question rephrased to test bracketing logic across layer interfaces."
+    },
+    {
+      "id": "FLUID-003",
+      "sub_skill": "buoyancy_four_layer_count_floating",
+      "domain": "density column",
+      "scene": "A 4-layer immiscible liquid column (red, orange, yellow, blue from top to bottom) with five balls visible at different heights: one floats on top, two trapped at internal interfaces, one fully sunk to the bottom, and one barely poking above the orange layer.",
+      "question": "How many distinct density bands are present in the system (liquids + balls considered as a density spectrum)?",
+      "answer": "9 distinct density values can be inferred from the visible setup (4 liquids + 5 balls of distinct positions).",
+      "lever": "Compound multi-fluid scene; VLM caption-shortcut won't enumerate density relations layer by layer."
+    },
+    {
+      "id": "FLUID-004",
+      "sub_skill": "connected_vessels_equal_height_unequal_width",
+      "domain": "U-tube with unequal cross-sections",
+      "scene": "A connected-vessel apparatus: a wide cylindrical glass container on the left and a narrow tube on the right joined at the bottom by a horizontal pipe. Both filled with blue water; both water levels are clearly at the same horizontal height despite the dramatic cross-section difference.",
+      "question": "Does the wider vessel hold more water at higher level than the narrow tube?",
+      "answer": "No — the heights are equal in both vessels because hydrostatic pressure balance depends only on height, not cross-section. The wider vessel holds more total volume but at the same level.",
+      "lever": "VLM may caption the wider vessel as 'has more water → higher level' (volume-based intuition). Visible equal-heights setup violates that intuition; hydrostatic principle applies."
+    },
+    {
+      "id": "FLUID-005",
+      "sub_skill": "connected_vessels_three_widths",
+      "domain": "communicating vessels",
+      "scene": "Three vessels of clearly different cross-sections (wide, medium, narrow) connected by a common base pipe; all filled with water at one identical horizontal level.",
+      "question": "Which vessel holds water at the highest level?",
+      "answer": "All three are at the same height — hydrostatic equilibrium depends on height only.",
+      "lever": "Variant of slot fluid-002 with three vessels; reinforces volume-vs-height confusion."
+    },
+    {
+      "id": "FLUID-006",
+      "sub_skill": "connected_vessels_conical",
+      "domain": "communicating vessels",
+      "scene": "Two connected vessels: one straight cylinder, one upward-tapering cone (wide bottom, narrow top). Both contain water at identical horizontal levels.",
+      "question": "Does the conical vessel's water level differ from the cylinder's?",
+      "answer": "No — equal heights regardless of cross-sectional profile.",
+      "lever": "Different geometric variant of communicating-vessel violation."
+    },
+    {
+      "id": "FLUID-007",
+      "sub_skill": "buoyancy_two_fluid_interface_equilibrium",
+      "domain": "object at two-fluid interface",
+      "scene": "A clear glass container with water at the bottom (clear blue) and oil on top (yellow-amber). A wooden block sits in equilibrium with about 40% of its volume in water and 60% in oil.",
+      "question": "Is the block's density equal to water's density?",
+      "answer": "No — it is between oil and water densities; the equilibrium is determined by force balance from buoyancy contributions in BOTH fluids.",
+      "lever": "VLM caption-shortcut applies single-fluid Archimedes (compares to water alone). Visible two-layer setup with the block straddling the interface violates that assumption."
+    },
+    {
+      "id": "FLUID-008",
+      "sub_skill": "two_fluid_partial_submersion_inverse",
+      "domain": "object at two-fluid interface",
+      "scene": "Same oil-on-water setup but a heavier object (e.g., metal cube) sits 90% submerged in water and 10% poking up into the oil layer.",
+      "question": "Compared to water alone, does adding the oil layer raise or lower the equilibrium height of the cube?",
+      "answer": "Raises slightly (the oil contributes additional buoyancy on the cube's submerged-in-oil portion); cube floats higher than it would in water alone.",
+      "lever": "Two-fluid Archimedes nuance; VLM expects 'oil doesn't matter' shortcut."
+    },
+    {
+      "id": "FLUID-009",
+      "sub_skill": "buoyancy_with_thick_lid",
+      "domain": "vessel with rigid lid",
+      "scene": "A glass beaker fully filled with water, then sealed with a rigid lid pressing down. A small wood block is inside the beaker pressed against the underside of the lid.",
+      "question": "Will the wood block rise to the surface if the lid is removed?",
+      "answer": "Yes — once the lid is removed the wood block remains floating at the new surface (Archimedes still applies; the lid was just constraining geometry, not changing density).",
+      "lever": "Caption shortcut might consider 'sealed → no buoyancy' or vice versa; the principle requires careful application."
+    },
+    {
+      "id": "FLUID-010",
+      "sub_skill": "submarine_neutral_buoyancy_layered",
+      "domain": "layered ocean",
+      "scene": "A cross-section of an ocean column with a clear thermocline: cold dense water below, warmer less dense water above. A neutrally buoyant submarine floats steady at the thermocline.",
+      "question": "If the submarine is nudged slightly downward, will it return upward, sink further, or remain stable?",
+      "answer": "Returns upward — at lower depth it enters denser water with higher buoyancy; the thermocline acts as a stable equilibrium.",
+      "lever": "Density-stratified buoyancy stability; VLM may treat as uniform-fluid case."
+    },
+    {
+      "id": "FLUID-011",
+      "sub_skill": "ice_cube_in_oil_water",
+      "domain": "ice in two-fluid",
+      "scene": "A glass with water at the bottom and oil floating on top; an ice cube is placed in. The ice settles at the water-oil interface, mostly submerged in water.",
+      "question": "Will melting the ice raise, lower, or keep the water level the same?",
+      "answer": "Raise the water level slightly — water from the ice goes into the water layer; the original ice was supported partly by oil's buoyancy, so the equivalent water it produces takes up MORE volume in the water layer than the ice's previously water-displaced share.",
+      "lever": "Subtle two-fluid melting effect; default 'water level unchanged' (Archimedes) only holds for single-fluid case."
+    },
+    {
+      "id": "FLUID-012",
+      "sub_skill": "siphon_height_limit",
+      "domain": "siphon",
+      "scene": "A siphon transferring water from an upper bucket to a lower one; the highest point of the siphon tube is over 11 m above the upper water level.",
+      "question": "Will the siphon successfully transfer water?",
+      "answer": "No — atmospheric pressure can only support a water column ~10.3 m; the siphon will break (cavitate) above this height.",
+      "lever": "VLM caption 'siphon' triggers default 'works as long as outlet is below inlet'; visible extreme height violates the implicit ≤10m assumption."
+    },
+    {
+      "id": "FLUID-013",
+      "sub_skill": "manometer_unequal_density_legs",
+      "domain": "U-tube manometer",
+      "scene": "A U-tube manometer with mercury at the bottom and oil added to the left arm. The oil column is much taller than the mercury height difference between the two sides.",
+      "question": "Are the heights on both sides of the mercury equal?",
+      "answer": "No — the heights of mercury on the two sides differ to balance the additional oil column pressure on the left.",
+      "lever": "VLM may default to 'connected vessels = equal heights'; visible different-density columns violate that."
+    },
+    {
+      "id": "FLUID-014",
+      "sub_skill": "buoyant_fish_in_layered_water",
+      "domain": "fish at layer boundary",
+      "scene": "A clear ocean cross-section with a halocline (less salty water above, very salty/dense water below); a fish floats motionless at the halocline boundary.",
+      "question": "Is the fish actively swimming to maintain its position?",
+      "answer": "No — the halocline provides a neutral buoyancy point where the fish's density matches the local water density; it can rest without effort.",
+      "lever": "Fish caption triggers 'fish swims to stay up'; visible layer boundary enables effort-free hovering."
+    },
+    {
+      "id": "FLUID-015",
+      "sub_skill": "balloon_in_layered_atmosphere",
+      "domain": "stratified atmosphere",
+      "scene": "A diagram of a hot-air balloon at altitude in a layered atmosphere (cold dense layer at the surface, warm less-dense layer at higher altitude where the balloon sits, cold dense layer above).",
+      "question": "Is the balloon at a stable altitude?",
+      "answer": "Yes — the warm-air layer is sandwiched between denser layers, creating a stable buoyancy minimum (or an inversion-trapped equilibrium).",
+      "lever": "Visible non-monotone density profile violates uniform-atmosphere assumption."
+    },
+    {
+      "id": "FLUID-016",
+      "sub_skill": "object_partial_submersion_three_fluids",
+      "domain": "object across three fluids",
+      "scene": "A cylinder with three immiscible liquid layers (blue/green/yellow bottom-to-top); a tall thin rod inserted vertically passes through all three layers at its lower portion, with its top sticking out above the yellow surface.",
+      "question": "Is the buoyant force on the rod equal to that from one fluid alone (e.g., only the bottom blue layer)?",
+      "answer": "No — total buoyant force = sum over each fluid layer of (submerged length in that layer) × (cross-sectional area) × (fluid density) × g.",
+      "lever": "VLM applies single-fluid Archimedes; visible multi-layer immersion violates that."
+    },
+    {
+      "id": "FLUID-017",
+      "sub_skill": "deep_sea_pressure_layered",
+      "domain": "pressure at depth",
+      "scene": "A diagram of a deep-sea column with a clearly marked freshwater layer (top 10 m), then saltwater (next 100 m). Question targets pressure at 110 m depth.",
+      "question": "Is the pressure at 110 m equal to ρ_water × g × 110?",
+      "answer": "No — pressure = ρ_fresh × g × 10 + ρ_salt × g × 100, accounting for layered densities.",
+      "lever": "VLM applies single-density hydrostatic formula; visible layered profile violates that."
+    },
+    {
+      "id": "FLUID-018",
+      "sub_skill": "vessel_with_internal_baffle",
+      "domain": "communicating vessels with restriction",
+      "scene": "A wide rectangular tank with a vertical baffle wall extending from the top down to about 80% of the height (leaving a gap at the bottom for water to flow). Water fills both sides at the same height.",
+      "question": "Are the heights on both sides equal?",
+      "answer": "Yes — the bottom gap allows hydrostatic equilibrium even though the top is partially blocked.",
+      "lever": "VLM may treat the baffle as full separation and predict different heights; visible bottom gap restores connectivity."
+    },
+    {
+      "id": "FLUID-019",
+      "sub_skill": "object_in_centrifuge",
+      "domain": "rotating fluid frame",
+      "scene": "A rotating cylindrical container of water with a small ball inside; the water surface visibly forms a parabolic curve (low at center, high at walls) and the ball rests at the center bottom, NOT at the lowest 'visual' part of the curved surface.",
+      "question": "Where would a less-dense ball float in this rotating water?",
+      "answer": "At the center of the cylinder near the surface — in a rotating frame, buoyancy points opposite to effective gravity (outward + downward), so a less-dense object migrates inward and upward.",
+      "lever": "VLM caption 'water with ball' triggers stationary-fluid Archimedes; visible parabolic surface signals rotation, requiring centrifugal-frame analysis."
+    },
+    {
+      "id": "FLUID-020",
+      "sub_skill": "buoyancy_in_non_water_environment",
+      "domain": "object in dense fluid",
+      "scene": "A glass container labeled 'Mercury' (silvery liquid) with a steel ball floating on its surface — clearly visible because mercury (density ~13.5) is denser than steel (~7.8).",
+      "question": "Will the steel ball sink?",
+      "answer": "No — it floats because its density is less than mercury's.",
+      "lever": "VLM caption 'steel ball in liquid' applies water-comparison default; visible dense-fluid (mercury) environment violates the implicit 'liquid = water' assumption."
+    }
+  ]
+}

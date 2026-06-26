@@ -1,0 +1,42 @@
+Model: gemini-3.1-pro-preview
+Output: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_gemini_3_1_pro_preview.jsonl
+Loading benchmark...
+  600 total
+  600 with image
+
+[Phase 1] VL inference (gemini-3.1-pro-preview): 15 pending, 585 done
+  Done: 15 processed
+
+[Phase 2] Extract & judge: 8 empty, 0 MC + 7 OE
+  OE done: 7
+
+============================================================
+  Overall: 37.0% (222/600)  errors=0
+============================================================
+
+  By Domain:
+    Mathematics                          20.5% (53/259) ████
+    Physics & Engineering                54.2% (52/96) ██████████
+    Reasoning & Logic                    48.9% (45/92) █████████
+    Perception                           44.0% (40/91) ████████
+    Natural Science                      51.6% (32/62) ██████████
+
+  By Subdomain:
+    combinatorial_geometry               15.9% (10/63) ███
+    Biology & Chemistry                  51.6% (32/62) ██████████
+    Spatial Reasoning                    44.9% (22/49) ████████
+    Mechanics                            57.1% (28/49) ███████████
+    Logic & Document Knowledge           56.2% (27/48) ███████████
+    Counting & Numeracy                  40.9% (18/44) ████████
+    Visual Perception                    42.9% (18/42) ████████
+    metric_geometry                      25.0% (10/40) █████
+    combinatorics_counting               15.8% (6/38) ███
+    descriptive_geometry                 18.8% (6/32) ███
+    Electromagnetism & Optics            56.0% (14/25) ███████████
+    solid_geometry                       28.0% (7/25) █████
+    transformation_geometry              21.7% (5/23) ████
+    graph_theory                         26.1% (6/23) █████
+    Fluids & Thermodynamics              45.5% (10/22) █████████
+    logic_constraints                    20.0% (3/15) ████
+
+Results: /mnt/tidal-alsh01/dataset/perceptionVLM/wanghan/zerogen/UNREAL_Benchmark/eval/results/close/eval_gemini_3_1_pro_preview.jsonl

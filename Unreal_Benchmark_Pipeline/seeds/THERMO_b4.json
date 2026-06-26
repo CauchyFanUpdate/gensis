@@ -1,0 +1,51 @@
+{
+  "family_id": "THERMO",
+  "family_name": "Thermodynamics & Heat (concept-drift)",
+  "seeds": [
+    {
+      "id": "THERMO-021",
+      "sub_skill": "composite_rod_thermal_conductivity_gradient",
+      "domain": "two-material rod in flame",
+      "scene": "A horizontal rod resting on a stand, made of two clearly distinct materials joined end-to-end: the left half is bright copper-colored metal (high thermal conductivity), the right half is dark brown wood (low thermal conductivity). The left end is held in a flame. The rod shows a visible color gradient from orange-red on the metal half (slow color decay) to dark/cool on the wood half (steep color drop at the join, then stays dark).",
+      "question": "Why does the temperature gradient change slope at the material boundary?",
+      "answer": "Different materials have different thermal conductivities. Heat flows through the high-conductivity metal with less temperature drop per unit length; through the low-conductivity wood, temperature drops steeply. The gradient slope is inversely proportional to conductivity.",
+      "lever": "VLM sees 'rod in flame' and may predict 'uniform temperature gradient' (S, single-material intuition). Visible texture change at the boundary + color gradient slope change violate uniform-conductivity; T requires recognizing material-dependent thermal diffusivity."
+    },
+    {
+      "id": "THERMO-022",
+      "sub_skill": "partitioned_room_thermal_non_equilibrium",
+      "domain": "glass-partitioned room with extreme zones",
+      "scene": "An interior room divided in the middle by a clear glass partition. The LEFT half is visibly extremely hot: heat shimmer visible in the air, a glowing red heat lamp, steam rising. The RIGHT half is visibly freezing: white frost on walls, ice forming on furniture, visible breath from hypothetical observers. A single thermometer placed at the partition reads a moderate temperature (e.g., 10°C).",
+      "question": "Is the room at thermal equilibrium? What does the thermometer reading represent?",
+      "answer": "No, the room is NOT at equilibrium. Each half has a vastly different temperature (left ~60°C, right ~-10°C). The thermometer at the partition shows only the LOCAL temperature at that position, not a room-wide equilibrium. Heat flows from left to right through the glass.",
+      "lever": "VLM may assume the thermometer reading represents the whole room (S, thermodynamic equilibrium assumption). Visible extreme zones (heat + cold) violate equilibrium; T requires recognizing zones have different temperatures and the thermometer is just a local measurement."
+    },
+    {
+      "id": "THERMO-023",
+      "sub_skill": "freezing_point_depression_salt_water",
+      "domain": "salt water with ice at sub-zero temperature",
+      "scene": "A clear glass container of cloudy salt-saturated water (visibly salty) at room temperature with ice cubes floating in it. A thermometer immersed in the liquid reads -5°C. The liquid is clearly flowing and not frozen (not slush). The ice is solid.",
+      "question": "How can liquid water exist at -5°C without freezing?",
+      "answer": "Salt water has a lower freezing point than pure water (freezing-point depression, ΔT_f = K_f × m). At -5°C, salt water remains liquid while pure water would be solid. The dissolved salt lowers the freezing point below 0°C.",
+      "lever": "VLM sees 'water at -5°C' and predicts 'must be frozen' (S, water freezes at 0°C). Visible liquid state at sub-zero temperature violates pure-water assumption; T requires understanding freezing-point depression from solutes."
+    },
+    {
+      "id": "THERMO-024",
+      "sub_skill": "latent_heat_melting_ice_constant_temperature",
+      "domain": "ice-water mixture during melting",
+      "scene": "A glass of ice and water in a sealed insulating container at room temperature. A thermometer shows 0°C. Over time, more ice melts but the temperature remains 0°C (shown by repeated thermometer readings). The container remains sealed and thermally insulated.",
+      "question": "Why does the temperature stay at 0°C while ice is melting, even with energy input?",
+      "answer": "Melting is a phase transition. All added heat (latent heat of fusion) goes into breaking the crystalline structure of ice, not into raising temperature. Temperature stays at 0°C until all ice is melted; only after does temperature rise further.",
+      "lever": "VLM may predict 'ice melting → temperature increases' (S, causality assumption). T requires distinguishing sensible heat (temperature change) from latent heat (phase change at constant temperature)."
+    },
+    {
+      "id": "THERMO-025",
+      "sub_skill": "thermal_conductivity_metal_vs_wood",
+      "domain": "two spoons in hot water",
+      "scene": "A cup of hot water (steam visible). Two identical-length spoons are placed in the water: one metal (aluminum or steel), one wooden. After a short time (< 1 minute), the metal spoon is visibly hot to the touch at its handle end, while the wooden spoon's handle is still cool.",
+      "question": "Why does the metal spoon conduct heat to its handle much faster than the wooden spoon?",
+      "answer": "Metals have much higher thermal conductivity than wood. Heat flows rapidly through the metal via conduction. Wood is an excellent thermal insulator, so heat transfer along its length is slow. The rate of heat conduction is proportional to thermal conductivity.",
+      "lever": "VLM may see 'spoons in hot water' and default to 'both get hot eventually' (S, basic intuition). Visible difference in heat propagation speed requires quantifying thermal conductivity differences."
+    }
+  ]
+}

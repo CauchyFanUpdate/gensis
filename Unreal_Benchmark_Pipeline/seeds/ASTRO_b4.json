@@ -1,0 +1,51 @@
+{
+  "family_id": "ASTRO",
+  "family_name": "Astronomy & Earth Science (concept-drift)",
+  "seeds": [
+    {
+      "id": "ASTRO-021",
+      "sub_skill": "binary_star_double_shadow",
+      "domain": "landscape with two suns",
+      "scene": "A wide daytime outdoor landscape under a clear sky with TWO distinct suns visible at different positions in the sky (one higher, one lower, on opposite sides). A solitary tree stands on the grass and casts two distinct shadows in different directions on the grass. Photorealistic sci-fi style.",
+      "question": "How many shadows does the tree cast, and in how many directions?",
+      "answer": "Two shadows, in two different directions (one toward each sun). Each shadow is cast by a different light source. The total dark area on the ground is the union of both shadow regions.",
+      "lever": "VLM caption-shortcut sees 'tree casting shadow' and defaults to single shadow opposite the sun (S). Two visible suns violate the single-sun assumption; T requires recognizing two light sources produce two shadows."
+    },
+    {
+      "id": "ASTRO-022",
+      "sub_skill": "three_moons_different_phases",
+      "domain": "alien planet night sky",
+      "scene": "A night-sky view from an alien planet's surface with THREE distinct moons clearly visible: a large gibbous moon (~90% illuminated), a medium crescent moon (~25% illuminated), and a small full moon (~100% illuminated), all positioned at different points across the sky. Foreground shows a rocky alien landscape. Photorealistic sci-fi style.",
+      "question": "How many moons does this planet have, and are they in the same phase?",
+      "answer": "Three moons, each in a different phase (gibbous, crescent, full). The tidal effects and night-sky brightness would be radically different from a single-moon system like Earth.",
+      "lever": "VLM may caption 'night sky' but miss multiple moons or treat them as stars. T requires recognizing three distinct moons in different phases and understanding the compound tidal implications."
+    },
+    {
+      "id": "ASTRO-023",
+      "sub_skill": "extreme_axial_tilt_terminator",
+      "domain": "planet view from space with equatorial terminator",
+      "scene": "View of a planet from space, rendered photorealistically. The planet is half-illuminated by a distant sun, but the day-night terminator runs HORIZONTALLY through the EQUATOR (not vertically): the entire northern hemisphere is in daylight, the entire southern hemisphere in darkness. Black space background.",
+      "question": "What is unusual about the day-night terminator on this planet?",
+      "answer": "The terminator runs along the equator (horizontal), indicating an extreme axial tilt (the rotation axis is parallel to the orbital plane, like Uranus). This means one hemisphere has 24-hour daylight and the other 24-hour darkness during this orbital season.",
+      "lever": "VLM defaults to 'vertical day-night terminator' (S, Earth normal). Visible horizontal terminator violates this; T requires recognizing extreme axial tilt and its consequence of pole-to-pole 24-hour illumination patterns."
+    },
+    {
+      "id": "ASTRO-024",
+      "sub_skill": "seasonal_shadow_angle_latitude_latitude",
+      "domain": "shadow length from vertical stick at different seasons",
+      "scene": "A comparison of shadow lengths from the SAME vertical stick at the same location on Earth, photographed at two different times of year: summer (shadow is short, ~0.5 m tall stick casts ~0.3 m shadow) and winter (shadow is long, same stick casts ~1.5 m shadow). Time of day is identical (noon) in both photos.",
+      "question": "Why is the winter shadow much longer than the summer shadow?",
+      "answer": "At higher latitudes, the sun's noon elevation angle is lower in winter and higher in summer. Lower elevation angle → longer shadow. This reflects the seasonal tilt of Earth's rotation axis relative to the orbital plane.",
+      "lever": "VLM may notice 'shadow length varies by season' (S, basic observation) without deriving the elevation angle mechanism. T requires connecting shadow length to solar elevation angle and explaining tilt."
+    },
+    {
+      "id": "ASTRO-025",
+      "sub_skill": "ecliptic_moon_phases_orbital_mechanics",
+      "domain": "moon phase diagram with orbital annotation",
+      "scene": "A diagram showing the moon's orbit around Earth in top-down view, with Earth at center and the sun far to the right (off-diagram). Eight moon positions are labeled around the orbit: new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, waning crescent. For each position, the illuminated portion is shaded to show what an Earth observer sees.",
+      "question": "At the first-quarter phase, what fraction of the moon's visible disk is illuminated?",
+      "answer": "50% (one half). The 'quarter' refers to the moon's position in its orbit (1/4 of the way), NOT the fraction illuminated. At first quarter, exactly half the moon is in sunlight from Earth's perspective.",
+      "lever": "VLM may confuse 'quarter' with 'illuminated fraction = 1/4' (S). T requires recognizing 'quarter' refers to orbital position, and at first-quarter position the illuminated fraction is 1/2."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+*.jsonl
+*.jsonl.bak*
+*.tar
+*.xlsx
+images/
+release/
+release_all/
+eval_results/
+eval_results_old/
+for_humanw/
+__pycache__/
+.ruff_cache/
+.claude/
+*.pyc

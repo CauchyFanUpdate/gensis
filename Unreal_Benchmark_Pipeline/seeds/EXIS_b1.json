@@ -1,0 +1,186 @@
+{
+  "family_id": "EXIS",
+  "family_name": "Existence & Verification",
+  "seeds": [
+    {
+      "id": "EXIS-011",
+      "sub_skill": "rule_violation_among_many",
+      "domain": "loaded conveyor belt",
+      "scene": "A factory conveyor belt with 30 bottles passing by. Quality rule printed above: 'All caps must be RED; all bottles must be UPRIGHT; all labels must FACE the camera.' Visible defects: bottle 7 has a blue cap. Bottle 14 is lying on its side. Bottle 22's label faces away. Bottles 28 has BOTH a blue cap AND lying down. All other bottles conform.",
+      "question": "How many UNIQUE bottles violate at least one rule?",
+      "answer": "4",
+      "lever": "Apply 3 rules to 30 items, count unique violators (bottle 28 violates 2 rules but counts once)."
+    },
+    {
+      "id": "EXIS-012",
+      "sub_skill": "absence_via_complete_inventory",
+      "domain": "tackle box",
+      "scene": "A fishing tackle box opened on a dock, photographed from above. Compartments labeled: hooks (filled with 50 hooks), weights (12 lead weights), bobbers (5 red, 3 white), lures (8 colored fish lures), line (3 spools). The compartments labeled 'pliers' and 'knife' are EMPTY (visible empty molded slots).",
+      "question": "Are there any pliers in the tackle box?",
+      "answer": "No",
+      "lever": "Verify absence by spotting an empty molded slot labeled 'pliers' rather than searching the whole box."
+    },
+    {
+      "id": "EXIS-013",
+      "sub_skill": "physical_impossibility_perspective_trick",
+      "domain": "Penrose stairs sketch",
+      "scene": "A pencil sketch of a 4-flight staircase that loops back on itself in an Escher-like Penrose configuration. Each flight goes 'up' but after 4 flights you arrive at the starting level. A small figure walks up the stairs.",
+      "question": "Is this staircase physically constructible in 3D?",
+      "answer": "No",
+      "lever": "Recognize Penrose-stairs impossible-figure visual."
+    },
+    {
+      "id": "EXIS-014",
+      "sub_skill": "dimension_check_for_fit",
+      "domain": "moving van loading",
+      "scene": "A moving van's interior with dimensions printed on the side: 240 cm wide × 180 cm high × 360 cm deep. A king-size mattress to be loaded measures 198 cm × 203 cm × 30 cm thick. The van's rear door opening is 200 cm wide × 175 cm high.",
+      "question": "Can the mattress fit through the door (in any orientation)?",
+      "answer": "Yes",
+      "lever": "Door is 200×175; mattress in flat orientation needs 30×203 → 30 fits in 175, 203 > 200 → won't fit flat through door horizontally. But sliding diagonally with 30cm thickness: 30×175 = leaves 198×30 cross-section → 198 fits in 200 width? Yes. Push mattress diagonally tilted through 200 wide door, since 30 thick fits height-wise. Verify: standing mattress on edge (203 vertical) — door height only 175, so 203 won't fit upright. Tilt 30°: mattress projection at angle... Check: at angle θ, projected diagonal = 203·cosθ + 30·sinθ ≤ 175 (height) and 198·cosθ + 30·sinθ ≤ 200 (width). At θ=30°, 203·0.866+30·0.5=175.8+15=190.8 > 175. Need θ larger. At θ=45°: 203·0.707+30·0.707=164.7 ≤ 175 ✓; width 198·0.707+30·0.707=161 ≤ 200 ✓. So yes, fits diagonally."
+    },
+    {
+      "id": "EXIS-015",
+      "sub_skill": "presence_via_partial_silhouette",
+      "domain": "behind closet door",
+      "scene": "A bedroom closet with the door slightly ajar (~5 cm gap). Through the gap, only a vertical slice is visible: a striped pattern at hip height (suggesting striped pants/skirt), a hanging white sleeve at shoulder height, a row of shoe toes on the floor (~5 toes visible suggesting at least 1 pair of shoes), a wire hanger top at top of frame.",
+      "question": "Is there at least one pair of shoes in the closet?",
+      "answer": "Yes",
+      "lever": "Infer presence from a 5-toe glimpse: a single shoe shows multiple toe-shape impressions; identify at least one pair."
+    },
+    {
+      "id": "EXIS-016",
+      "sub_skill": "logical_disjunction_across_panels",
+      "domain": "security camera grid",
+      "scene": "A security monitor with 4 camera feeds in a 2x2 grid. Each labeled CAM-1 (entrance), CAM-2 (lobby), CAM-3 (parking lot), CAM-4 (back door). Visible: CAM-1 shows the entrance empty. CAM-2 shows 3 people in lobby. CAM-3 shows the parking lot empty. CAM-4 shows the back door empty. A clock indicates 23:47.",
+      "question": "Is there ANYONE on the premises right now?",
+      "answer": "Yes (3 people in lobby)",
+      "lever": "Logical OR across feeds; presence in any feed = yes."
+    },
+    {
+      "id": "EXIS-017",
+      "sub_skill": "fit_after_disassembly",
+      "domain": "ikea-style flatpack",
+      "scene": "A bookshelf product photo (assembled, 200 cm tall × 80 cm wide × 30 cm deep) plus a doorway photo with measurements 195 cm tall × 75 cm wide. The bookshelf will not fit assembled. A flatpack box for the same shelf is shown with dimensions 90 cm × 35 cm × 12 cm.",
+      "question": "Can the bookshelf be brought through the doorway?",
+      "answer": "Yes — using the flatpack form (90×35×12 fits through 195×75)",
+      "lever": "Recognize flatpack as alternative; verify flatpack dimensions fit doorway."
+    },
+    {
+      "id": "EXIS-018",
+      "sub_skill": "double_negation_existence",
+      "domain": "library policy board",
+      "scene": "A library notice board with the rule: 'No food or drink is permitted EXCEPT bottled water.' A student in the library has a closed bottle of mineral water on their desk and an unopened bag of chips in their backpack (visible through mesh).",
+      "question": "Is the student in violation of the rule?",
+      "answer": "Yes (chips in backpack count as food, water is allowed)",
+      "lever": "Parse double-negation rule (no food except water); identify chips as forbidden food despite being in a backpack."
+    },
+    {
+      "id": "EXIS-019",
+      "sub_skill": "presence_via_indirect_evidence",
+      "domain": "snow tracks",
+      "scene": "A field of fresh snow viewed from above. Visible: two parallel ski tracks running diagonally; small bird footprints scattered in clusters; one set of human boot prints walking from left to right; a single set of dog paw prints alongside the boot prints; a deep gouge with feathers and small drops of red.",
+      "question": "Did a person walk through the field with their dog?",
+      "answer": "Yes",
+      "lever": "Indirect-evidence inference: parallel boot+paw prints across the field = person+dog; ignore other tracks."
+    },
+    {
+      "id": "EXIS-020",
+      "sub_skill": "feasibility_via_resource_constraint",
+      "domain": "campsite setup",
+      "scene": "A campsite with: 1 family of 4 tents in a row (each tent sleeps 2), 6 sleeping bags laid out on the grass, a campfire with logs for 6 portions of food (visible 6 wrapped meal kits), a pile of 4 backpacks. A note from the trip leader: 'We have 8 hikers arriving tonight.'",
+      "question": "Is the campsite ADEQUATELY prepared for all 8 hikers?",
+      "answer": "No — only 6 sleeping bags and 6 meals (need 8 each); tents are sufficient (4 tents × 2 = 8)",
+      "lever": "Resource check across multiple categories; identify bottleneck (sleeping bags + meals)."
+    },
+    {
+      "id": "EXIS-021",
+      "sub_skill": "rare_object_in_clutter",
+      "domain": "yard sale table",
+      "scene": "A yard-sale table piled with ~80 items: books, toys, kitchenware, small electronics, fabric, jewelry boxes. Among them, in the back-left corner under a pile of magazines, a small antique pocket watch is partially visible (chain dangling out).",
+      "question": "Is there a wristwatch on the table?",
+      "answer": "No (only a pocket watch is visible, not a wristwatch)",
+      "lever": "Discriminate pocket watch vs wristwatch despite visual similarity in clutter."
+    },
+    {
+      "id": "EXIS-022",
+      "sub_skill": "uniqueness_check",
+      "domain": "art gallery wall",
+      "scene": "An art gallery wall with 12 framed paintings, each described by a small placard. The placards mention: oil painting (5), watercolor (4), acrylic (3). Among the oils, one painting is a self-portrait by 'M. Morisot, 1885'. The other oils are landscapes. A visitor asks about Morisot's work.",
+      "question": "Is there exactly ONE Morisot painting in the gallery?",
+      "answer": "Yes",
+      "lever": "Count occurrences of a specific attribute; verify uniqueness = 1."
+    },
+    {
+      "id": "EXIS-023",
+      "sub_skill": "rule_passage_with_loophole",
+      "domain": "amusement park entrance",
+      "scene": "Amusement park ride sign: 'You must be 120 cm to ride alone, OR accompanied by an adult if 100-119 cm. Under 100 cm not permitted.' A child of 110 cm stands at the gate alone. Their adult guardian stands inside, having already entered. A friend's parent volunteers to accompany the child.",
+      "question": "Can the child ride?",
+      "answer": "Yes (accompanied by friend's parent satisfies 'an adult')",
+      "lever": "Parse compound rule; recognize 'an adult' is unspecific so any adult companion suffices."
+    },
+    {
+      "id": "EXIS-024",
+      "sub_skill": "consistency_check_text_image",
+      "domain": "product listing",
+      "scene": "An e-commerce product listing for 'Wireless Bluetooth Headphones - WIRED MODEL'. Product image: shows headphones with a clearly visible 3.5mm cable plugged in, no visible wireless components. Specs sidebar: 'Connectivity: Bluetooth 5.0, Battery 30hr, includes 3.5mm cable as backup'.",
+      "question": "Does the product listing have an INTERNAL CONTRADICTION between text and image?",
+      "answer": "No — the title is misleading but the spec sheet says 'wireless with backup wired option', the image shows the wired backup mode, all consistent",
+      "lever": "Parse all three elements (title, image, specs); reconcile that title is informal but specs/image agree."
+    },
+    {
+      "id": "EXIS-025",
+      "sub_skill": "presence_blocked_by_lighting",
+      "domain": "dim alley",
+      "scene": "A dim alley at night with a single lamppost lighting only the central pool. Beyond the lit area, the alley is nearly black except for two small bright spots low to the ground (could be eye reflections of an animal). A movement-blur silhouette suggests something passed through.",
+      "question": "Is there an animal present in the alley?",
+      "answer": "Likely yes (eye-shine reflections + motion blur)",
+      "lever": "Use indirect evidence in low light: eye-shine + motion blur, not direct visibility."
+    },
+    {
+      "id": "EXIS-026",
+      "sub_skill": "verify_pattern_completion",
+      "domain": "set of dominos",
+      "scene": "A complete double-six domino set has 28 unique tiles (combinations of 0-6 on each half, including doubles). A photograph of 27 tiles laid out shows: all doubles present (0-0, 1-1, 2-2, 3-3, 4-4, 5-5, 6-6), all 1-other (1-0, 1-2, 1-3, 1-4, 1-5, 1-6), all 2-other except 2-3, all 3-other (3-0, 3-2, 3-4, 3-5, 3-6), and all combinations involving 4, 5, 6 with smaller numbers as paired up.",
+      "question": "Which domino is MISSING?",
+      "answer": "2-3",
+      "lever": "Combinatorial completeness check; identify gap in pairs."
+    },
+    {
+      "id": "EXIS-027",
+      "sub_skill": "stranger_among_class",
+      "domain": "yearbook page",
+      "scene": "A school yearbook page showing a class photo with 24 students and a side panel with 24 individual portrait photos labeled with names. One portrait (labeled 'Jamie Lee') shows a person whose face does NOT match anyone in the class group photo. The other 23 are matched.",
+      "question": "Is there a discrepancy between the group photo and the individual portraits?",
+      "answer": "Yes (Jamie Lee's portrait does not match anyone in the group)",
+      "lever": "1-to-many face matching; identify the one outlier."
+    },
+    {
+      "id": "EXIS-028",
+      "sub_skill": "no_path_through_obstacle",
+      "domain": "warehouse aisle",
+      "scene": "A warehouse aisle viewed from above. Goal: move a pallet jack from start (S) at left to delivery point (D) at right. The aisle is 8 m long but blocked at the midpoint by a fallen 2-m wide rack that spans the entire aisle width. No alternative paths exist (other aisles closed for cleaning).",
+      "question": "Can the pallet jack reach D?",
+      "answer": "No",
+      "lever": "Path connectivity; rack fully blocks, no alternative."
+    },
+    {
+      "id": "EXIS-029",
+      "sub_skill": "physically_unsupported_object",
+      "domain": "sculpture suspension",
+      "scene": "An indoor scene where a heavy bowling ball appears to float at chest height with no visible support — no string, no shelf, no glass. A small magnetic levitation base is visible directly below the ball with a power cable.",
+      "question": "Is the floating bowling ball a physically possible setup?",
+      "answer": "Yes (magnetic levitation base provides upward force)",
+      "lever": "Identify subtle support mechanism (mag-lev base) that makes the seemingly impossible possible."
+    },
+    {
+      "id": "EXIS-030",
+      "sub_skill": "absence_in_required_set",
+      "domain": "first aid kit checklist",
+      "scene": "A first aid kit opened on a table. A laminated checklist on the lid lists 12 required items: bandages, gauze, adhesive tape, antiseptic, scissors, tweezers, gloves, thermometer, pain reliever, allergy medicine, CPR mask, emergency contact card. Visible inside the kit: bandages (yes), gauze (yes), adhesive tape (yes), antiseptic (yes), scissors (yes), tweezers (yes), gloves (yes), thermometer (NO — empty slot), pain reliever (yes), allergy medicine (NO — empty slot), CPR mask (yes), emergency contact card (yes).",
+      "question": "How many required items are MISSING?",
+      "answer": "2",
+      "lever": "Checklist verification; count empty slots."
+    }
+  ]
+}

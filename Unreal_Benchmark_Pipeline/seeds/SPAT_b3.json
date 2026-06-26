@@ -1,0 +1,96 @@
+{
+  "family_id": "SPAT",
+  "family_name": "Spatial Reasoning",
+  "seeds": [
+    {
+      "id": "SPAT-051",
+      "sub_skill": "occlusion_z_order_inference",
+      "domain": "stack of overlapping cards",
+      "scene": "Five rectangular playing cards lying flat on a table, each partially overlapping at least one neighbor. From the photograph: card A (Hearts) covers part of card B (Spades); card B covers part of card C (Diamonds); card C covers part of card D (Clubs); card D covers part of card E (Joker). No card is fully visible except A.",
+      "question": "Order the cards from TOP (most visible) to BOTTOM (most occluded).",
+      "answer": "A, B, C, D, E (top → bottom)",
+      "lever": "Z-order chain inference from pairwise occlusion; transitive ordering via direct chain."
+    },
+    {
+      "id": "SPAT-052",
+      "sub_skill": "shadow_inferred_relative_height",
+      "domain": "two flag poles on grass",
+      "scene": "Two vertical flag poles stand on flat sunny grass. Pole A casts a shadow 3.0 m long; pole B casts a shadow 4.5 m long. Both shadows point in the EXACT same direction (sun is the same source). A nearby reference: a 2.0 m post casts a 2.0 m shadow.",
+      "question": "What are the heights of poles A and B?",
+      "answer": "Pole A is 3.0 m tall; pole B is 4.5 m tall.",
+      "lever": "Same-instant sun → shadow length proportional to height by ratio 1:1 (from the reference post). Use the reference to set the scale."
+    },
+    {
+      "id": "SPAT-053",
+      "sub_skill": "nested_box_inside_count",
+      "domain": "russian-doll style box puzzle",
+      "scene": "A cross-section diagram showing a series of nested boxes. The outermost box A contains box B, which contains box C, which contains box D. A small marble is shown placed AT THE CENTER, inside box D. A separate marble is placed BETWEEN B and C (i.e., inside B but outside C).",
+      "question": "How many boxes is the FIRST marble (center one) INSIDE?",
+      "answer": "4",
+      "lever": "Count layers of containment from the outermost down to where the marble rests; nested containment counts each box."
+    },
+    {
+      "id": "SPAT-054",
+      "sub_skill": "maze_path_distance_count",
+      "domain": "rectangular grid maze",
+      "scene": "A small 5×5 grid maze with WALLS drawn between certain cells. The Start (S) is at top-left and Goal (G) at bottom-right. The clearly visible path from S to G goes: right 2, down 1, right 1, down 3, right 1 — i.e., 8 steps total. Side branches are dead-ends.",
+      "question": "What is the SHORTEST step count from S to G?",
+      "answer": "8",
+      "lever": "Trace the unique unblocked path through walls and count edges; tests visual maze parsing."
+    },
+    {
+      "id": "SPAT-055",
+      "sub_skill": "stair_step_height_count",
+      "domain": "side view of a staircase",
+      "scene": "A side-view photograph of a wooden staircase. Total visible height (from floor to top landing) = 1.80 m, marked with a measuring tape. Each step's RISER (vertical part) is exactly 0.20 m tall (visibly uniform).",
+      "question": "How many steps does the staircase have?",
+      "answer": "9",
+      "lever": "1.80 / 0.20 = 9 steps; tests proportional reasoning from labeled measurements."
+    },
+    {
+      "id": "SPAT-056",
+      "sub_skill": "interleaved_book_spines_count",
+      "domain": "bookshelf with interleaved spines",
+      "scene": "A close-up of a bookshelf where 12 books stand vertically. 5 books are TALL (40 cm), 7 books are SHORTER (25 cm). They are interleaved roughly in pattern T,S,T,S,T,S,S,T,S,S,T,S (where T=tall, S=short).",
+      "question": "How many TALL books are on the shelf?",
+      "answer": "5",
+      "lever": "Discriminate per-book height in an interleaved pattern; counter to a model that defaults to majority class (would say 7)."
+    },
+    {
+      "id": "SPAT-057",
+      "sub_skill": "above_below_floor_layers",
+      "domain": "cross-section apartment building",
+      "scene": "A cross-section diagram of a 6-floor apartment. Visible from bottom-up: floor 1 (ground), floor 2, floor 3, floor 4, floor 5, floor 6 (top). Tenants: A on floor 6, B on floor 4, C on floor 2, D on floor 5, E on floor 3. (Floor 1 is unoccupied.)",
+      "question": "How many tenants live ABOVE B?",
+      "answer": "2 (A on floor 6 and D on floor 5)",
+      "lever": "Sort tenants by floor and count how many are above the reference; tests strict inequality (does not include B)."
+    },
+    {
+      "id": "SPAT-058",
+      "sub_skill": "compass_navigation_steps",
+      "domain": "park map with marked route",
+      "scene": "A park map with a marked dotted route. Starting from the entrance (S, marked with red dot), the route goes: 50 m NORTH, 30 m EAST, 20 m SOUTH, 40 m EAST. End point G is marked with a green flag. A compass rose is in the corner.",
+      "question": "What is the STRAIGHT-LINE distance (in meters) from S to G?",
+      "answer": "About 76.2 m",
+      "lever": "Net displacement: north = 50 − 20 = 30; east = 30 + 40 = 70. Distance = √(30² + 70²) = √(900+4900) = √5800 ≈ 76.16 m."
+    },
+    {
+      "id": "SPAT-059",
+      "sub_skill": "view_through_doorway_what_is_behind_camera",
+      "domain": "room with mirror behind camera",
+      "scene": "A photo taken inside a living room. A LARGE mirror on the back wall reflects a portion of what is BEHIND the camera. Visible in the mirror reflection: a yellow couch, a coffee table, and a tall floor lamp.",
+      "question": "What is BEHIND the camera (i.e., what objects are in the part of the room not directly visible in the photo)?",
+      "answer": "A yellow couch, a coffee table, and a tall floor lamp.",
+      "lever": "Use the mirror reflection to infer off-camera content; recognize that mirror content represents what's behind/in-front-of the camera."
+    },
+    {
+      "id": "SPAT-060",
+      "sub_skill": "fold_net_face_adjacency",
+      "domain": "tetrahedron unfolded net",
+      "scene": "An unfolded TETRAHEDRON net (a triangle with three triangles attached to its three sides — total 4 triangles). The four triangles are labeled with 4 different colors: center=RED, attached on top=BLUE, attached on left=GREEN, attached on right=YELLOW.",
+      "question": "After folding into a tetrahedron, which face is OPPOSITE the RED face?",
+      "answer": "There is NO opposite face in a tetrahedron — every pair of faces shares an edge (no face is opposite any other).",
+      "lever": "Tetrahedral topology: unlike a cube, every face shares an edge with every other; there is no 'opposite'. Tests recognition that 'opposite' is a polyhedron-specific concept."
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "family_id": "DOM",
+  "family_name": "Domain-Specific",
+  "seeds": [
+    {
+      "id": "DOM-031",
+      "sub_skill": "ekg_rhythm_strip_diagnosis",
+      "domain": "cardiology strip",
+      "scene": "A 6-second EKG rhythm strip with grid; QRS complexes irregular with no visible P waves; rate ~110 bpm.",
+      "question": "Which arrhythmia best fits this strip?",
+      "answer": "atrial fibrillation",
+      "lever": "Combine 'irregularly irregular' rhythm + absent P waves to diagnose AFib."
+    },
+    {
+      "id": "DOM-032",
+      "sub_skill": "chord_diagram_to_name",
+      "domain": "guitar chord diagram",
+      "scene": "A guitar chord diagram showing finger positions on frets 1-3, strings E-A-D-G-B-e: dots at A string fret 2, D string fret 2, G string fret 1; B and high E open; low E muted.",
+      "question": "What chord is shown?",
+      "answer": "A major (or A)",
+      "lever": "Map fret/string positions to standard open-chord shape."
+    },
+    {
+      "id": "DOM-033",
+      "sub_skill": "rock_classification",
+      "domain": "geology specimen tray",
+      "scene": "Three rock samples in a tray. Sample 1: visible fossils embedded in tan sedimentary layers. Sample 2: glassy black with conchoidal fracture. Sample 3: foliated bands of mica.",
+      "question": "Classify each sample as IGNEOUS, SEDIMENTARY, or METAMORPHIC.",
+      "answer": "1=sedimentary, 2=igneous (obsidian), 3=metamorphic",
+      "lever": "Recognize defining feature of each rock class (layers/fossils, glassy texture, foliation)."
+    },
+    {
+      "id": "DOM-034",
+      "sub_skill": "cloud_type_identification",
+      "domain": "sky photograph",
+      "scene": "A sky photo with high wispy white clouds in fibrous strands; no low gray clouds.",
+      "question": "What cloud type is visible?",
+      "answer": "cirrus",
+      "lever": "Identify cloud genus by altitude proxy + texture."
+    },
+    {
+      "id": "DOM-035",
+      "sub_skill": "constellation_id_with_pattern",
+      "domain": "night-sky chart",
+      "scene": "A night-sky photo with the constellation Orion clearly visible: three belt stars in a row, Betelgeuse in upper-left, Rigel lower-right.",
+      "question": "Which constellation is centered in the frame?",
+      "answer": "Orion",
+      "lever": "Recognize 3-star belt pattern + framing stars."
+    },
+    {
+      "id": "DOM-036",
+      "sub_skill": "circuit_diagram_short",
+      "domain": "schematic diagram",
+      "scene": "A simple battery + resistor + LED circuit schematic; one wire bypasses the resistor entirely connecting battery+ to LED+ directly.",
+      "question": "What design fault is present?",
+      "answer": "the resistor is shorted; LED will receive full battery voltage and likely burn out",
+      "lever": "Trace circuit topology and recognize the bypass."
+    },
+    {
+      "id": "DOM-037",
+      "sub_skill": "knit_pattern_chart_row",
+      "domain": "knitting chart",
+      "scene": "A knitting chart with symbols (knit, purl, yarn-over, k2tog) across 6 rows. A printed key explains symbols. Question targets row 4.",
+      "question": "How many stitches are in row 4?",
+      "answer": "count of cells in row 4",
+      "lever": "Read chart symbol-row count to determine stitches in a row."
+    },
+    {
+      "id": "DOM-038",
+      "sub_skill": "music_score_key_signature",
+      "domain": "sheet music",
+      "scene": "A piece of sheet music with treble clef and 3 sharps in the key signature, no accidentals in the visible bars.",
+      "question": "What is the major key of this piece?",
+      "answer": "A major",
+      "lever": "Map number of sharps to major key (3 sharps = A major)."
+    },
+    {
+      "id": "DOM-039",
+      "sub_skill": "weather_map_front_id",
+      "domain": "synoptic weather map",
+      "scene": "A weather map with a line bearing red triangles pointing east and another line bearing blue half-circles pointing south.",
+      "question": "What kind of front is the red-triangle line?",
+      "answer": "warm front",
+      "lever": "Recognize standard meteorological symbology: triangles = cold front, half-circles = warm; but specifically red triangles signify warm front (triangles' direction indicates motion); answer per convention used."
+    },
+    {
+      "id": "DOM-040",
+      "sub_skill": "chess_position_mate_in_one",
+      "domain": "chess board diagram",
+      "scene": "A chess board diagram with a position where White has Q on f7, Black king on h8, no other defenders nearby.",
+      "question": "What is White's mate-in-one move?",
+      "answer": "Qg7# (or Qf8#) per actual position",
+      "lever": "Compute legal moves for the queen and identify the one delivering checkmate."
+    },
+    {
+      "id": "DOM-041",
+      "sub_skill": "blood_type_compatibility",
+      "domain": "transfusion compatibility chart",
+      "scene": "A transfusion compatibility chart with rows = recipient ABO/Rh, columns = donor ABO/Rh; ✓ for compatible, ✗ for incompatible. Question: recipient O+, donor candidates A+, O+, AB-, O-.",
+      "question": "Which donors are compatible for an O+ recipient?",
+      "answer": "O+ and O-",
+      "lever": "Apply blood-type compatibility rules using the chart."
+    },
+    {
+      "id": "DOM-042",
+      "sub_skill": "lab_value_critical_flag",
+      "domain": "blood test result sheet",
+      "scene": "A printed lab report with 8 analytes; reference ranges in adjacent column. Values printed; some are below low end (marked with ↓), some above high (↑). Critical flag rule: any K+ outside 3.0-6.0 mmol/L = critical.",
+      "question": "Is there a CRITICAL potassium value on the sheet?",
+      "answer": "yes/no based on whether K+ value falls outside 3.0-6.0",
+      "lever": "Apply rule on a specific analyte, ignoring other arrows."
+    },
+    {
+      "id": "DOM-043",
+      "sub_skill": "tree_species_via_bark_pattern",
+      "domain": "forestry guide",
+      "scene": "Four tree-bark closeup photos; a guide page beside lists distinguishing bark patterns: white papery (birch), deep furrows (oak), smooth gray (beech), platy red-brown (pine).",
+      "question": "Which photo shows OAK bark?",
+      "answer": "the deep-furrows photo",
+      "lever": "Match bark texture pattern to species via field-guide cues."
+    },
+    {
+      "id": "DOM-044",
+      "sub_skill": "first_aid_burn_severity",
+      "domain": "medical reference card",
+      "scene": "Three skin burn photos beside a first-aid card: 1st degree = red, no blisters; 2nd = blisters; 3rd = white/charred, painless.",
+      "question": "Which photo shows a 2ND-DEGREE burn?",
+      "answer": "the blistered photo",
+      "lever": "Match burn appearance features to severity classification."
+    },
+    {
+      "id": "DOM-045",
+      "sub_skill": "knot_identification",
+      "domain": "rope knot board",
+      "scene": "A board with 5 tied knots labeled K1-K5; reference card names: bowline, square, clove hitch, figure-8, sheet bend.",
+      "question": "Which knot is the BOWLINE?",
+      "answer": "the knot with the characteristic loop and 'rabbit/tree' geometry",
+      "lever": "Identify bowline by its specific loop topology vs other knots."
+    },
+    {
+      "id": "DOM-046",
+      "sub_skill": "punnett_square_outcome",
+      "domain": "biology Punnett square",
+      "scene": "A 2x2 Punnett square with parents Aa × Aa filled in: AA, Aa, Aa, aa.",
+      "question": "What is the probability of the offspring being recessive (aa)?",
+      "answer": "1/4 (or 25%)",
+      "lever": "Read Punnett square cells to compute genotype probability."
+    },
+    {
+      "id": "DOM-047",
+      "sub_skill": "stock_chart_pattern_id",
+      "domain": "candlestick chart",
+      "scene": "A candlestick chart with the last three candles forming a clear 'morning star' pattern: large red candle, small doji, large green candle.",
+      "question": "Which candlestick pattern is shown?",
+      "answer": "morning star",
+      "lever": "Recognize three-candle reversal pattern by candle type and color sequence."
+    },
+    {
+      "id": "DOM-048",
+      "sub_skill": "math_geometry_angle_in_polygon",
+      "domain": "geometry diagram",
+      "scene": "A regular pentagon with one labeled vertex angle θ.",
+      "question": "What is the measure of θ in degrees?",
+      "answer": "108°",
+      "lever": "Apply (n-2)·180/n formula for regular polygon interior angle."
+    },
+    {
+      "id": "DOM-049",
+      "sub_skill": "drug_dose_unit_conversion",
+      "domain": "pediatric dosing card",
+      "scene": "A pediatric dose chart: '15 mg/kg PO q6h, max single dose 500 mg'. A patient weighs 22 kg.",
+      "question": "What is the per-dose amount in mg, applying the cap?",
+      "answer": "330 mg (15 × 22 = 330; under 500 cap)",
+      "lever": "Compute mg/kg dose, compare to maximum cap, return min."
+    },
+    {
+      "id": "DOM-050",
+      "sub_skill": "skin_lesion_abcde_evaluation",
+      "domain": "dermatology reference",
+      "scene": "Four skin-lesion photos; ABCDE rule card: Asymmetry, Border irregular, Color varied, Diameter >6mm, Evolving. Lesion 1 fails A+B+C; lesion 2 fails D only; lesion 3 fails B+C; lesion 4 passes all.",
+      "question": "Which lesions warrant urgent referral (failing 2 or more ABCDE criteria)?",
+      "answer": "lesions 1 and 3",
+      "lever": "Apply rule (≥2 fails → urgent) and count failures per lesion."
+    }
+  ]
+}

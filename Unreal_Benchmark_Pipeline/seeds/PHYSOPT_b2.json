@@ -1,0 +1,186 @@
+{
+  "family_id": "PHYSOPT",
+  "family_name": "Concept-Drift Optics",
+  "seeds": [
+    {
+      "id": "PHYSOPT-001",
+      "sub_skill": "concave_floor_reflection_beyond_focal",
+      "domain": "reflective surface",
+      "scene": "A modern indoor space whose floor is a polished concave dish-shaped reflective surface (curves down into a shallow bowl). A person stands on this concave floor at a distance from the bowl's center clearly greater than the focal length; the floor reflects an inverted, magnified image of the person.",
+      "question": "Is the person's reflection upright and the same size as a regular mirror would show?",
+      "answer": "No — it is a real, inverted, magnified image because the concave reflector with object beyond focal length produces a real inverted image.",
+      "lever": "VLM caption-shortcut sees 'reflection in mirrored surface' and applies plane-mirror defaults (upright, same size). The visible curved bowl shape violates the flat-surface assumption; correct answer requires concave-mirror image-formation rules."
+    },
+    {
+      "id": "PHYSOPT-002",
+      "sub_skill": "concave_wall_reflection_beyond_focal",
+      "domain": "reflective surface",
+      "scene": "A polished concave (inward-bowing) wall section in a hallway; a person stands several meters away, well beyond the wall's focal length. The wall shows an inverted reflection of the person.",
+      "question": "Is this reflection a virtual upright image like a flat mirror's?",
+      "answer": "No — real, inverted, magnified image because object distance > focal length on a concave mirror.",
+      "lever": "Surface-location variant of slot opt-001 (wall instead of floor); same plane-mirror caption shortcut; same concave-mirror correct answer."
+    },
+    {
+      "id": "PHYSOPT-003",
+      "sub_skill": "convex_wall_reflection",
+      "domain": "reflective surface",
+      "scene": "A modern building hallway with one wall section being a polished convex (outward-bulging) reflective surface, like a giant safety mirror. A person stands in front; the reflection appears smaller, upright, with a wide-angle view of the surroundings.",
+      "question": "Is the reflected image the same size as the person?",
+      "answer": "No — it is a smaller, upright, virtual image, because convex mirrors always reduce.",
+      "lever": "VLM treats it as 'mirror reflection' (plane-mirror default = same size); the visible outward-curving surface violates the flat assumption."
+    },
+    {
+      "id": "PHYSOPT-004",
+      "sub_skill": "convex_floor_reflection",
+      "domain": "reflective surface",
+      "scene": "A polished convex (outward-bulging) floor section in a public plaza, like an oversized polished dome embedded in the ground. A person stands on it; the reflection appears smaller and upright.",
+      "question": "Properties of the reflected image — real or virtual, upright or inverted, magnified or reduced?",
+      "answer": "Virtual, upright, reduced (smaller than the person).",
+      "lever": "Variant of slot opt-002 with floor placement; convex-mirror identification still required."
+    },
+    {
+      "id": "PHYSOPT-005",
+      "sub_skill": "convex_lens_object_between_f_and_2f",
+      "domain": "convex lens optical bench",
+      "scene": "An optical bench with a convex lens; a lit candle to the left of the lens is clearly closer to the lens than the 2f position but farther than f. To the right of the lens, a vertical white screen catches a real, inverted, larger-than-the-candle image.",
+      "question": "Is the screen image smaller than the actual candle?",
+      "answer": "No — it is larger than the candle (object between f and 2f produces a real, inverted, magnified image).",
+      "lever": "VLM caption-shortcut for 'convex lens' = 'real inverted reduced image' (textbook 2f default). The visible object position between f and 2f violates that default; correct answer is magnified."
+    },
+    {
+      "id": "PHYSOPT-006",
+      "sub_skill": "convex_lens_object_inside_focal",
+      "domain": "convex lens optical bench",
+      "scene": "An optical bench with a convex lens; a small lit candle is placed clearly inside the lens's focal point (very close). On the right of the lens there is no real image on a screen; instead, looking through the lens at the candle, an enlarged upright virtual image is visible behind the candle.",
+      "question": "Is the image real and inverted?",
+      "answer": "No — virtual, upright, magnified (object inside f → magnifying-glass mode).",
+      "lever": "Same caption shortcut; visible close-up object placement violates the 'object beyond f' default."
+    },
+    {
+      "id": "PHYSOPT-007",
+      "sub_skill": "glass_marble_text_inversion",
+      "domain": "glass sphere on text",
+      "scene": "A close-up photograph of a clear glass marble (~2cm diameter) resting on newsprint with visible text. Through the glass marble, the text appears inverted (upside-down); surrounding text outside the marble is normal and right-side up.",
+      "question": "Why does the text under the marble appear flipped upside-down?",
+      "answer": "The glass sphere acts as a thick converging lens; with text well beyond its focal point, a real inverted image forms — observable through the marble.",
+      "lever": "VLM caption-shortcut for 'refraction through glass' applies flat-interface Snell's-law shifting/magnification, missing the spherical-lens inversion. Visible spherical interface violates the planar-interface assumption."
+    },
+    {
+      "id": "PHYSOPT-008",
+      "sub_skill": "water_drop_lens_inversion",
+      "domain": "water-drop lens",
+      "scene": "A close-up of a transparent dewdrop on a leaf above a piece of newspaper visible through it; through the drop the newspaper text appears inverted.",
+      "question": "Is the inverted text a refractive shift or a real inverted image?",
+      "answer": "Real inverted image — the spherical drop acts as a converging lens.",
+      "lever": "Variant medium of slot opt-004 (water vs glass); same spherical-lens-vs-flat-interface caption mismatch."
+    },
+    {
+      "id": "PHYSOPT-009",
+      "sub_skill": "concave_mirror_object_inside_focal",
+      "domain": "concave mirror close object",
+      "scene": "A close-up photo of a small lit candle placed very close to a polished bowl-shaped concave mirror, well inside the mirror's focal point. The mirror shows an upright, magnified virtual reflection appearing behind the mirror surface.",
+      "question": "Is the reflection real and inverted?",
+      "answer": "No — virtual, upright, magnified (object inside f on a concave mirror = shaving-mirror mode).",
+      "lever": "VLM defaults 'concave mirror' to 'real inverted image' (object-beyond-f case); visible close-up object placement violates that default."
+    },
+    {
+      "id": "PHYSOPT-010",
+      "sub_skill": "concave_mirror_object_at_focal",
+      "domain": "concave mirror at focal",
+      "scene": "An optical setup: a concave mirror with a candle placed exactly at the focal point. Looking at the mirror, no image forms in space; a parallel beam of light emerges from the mirror.",
+      "question": "Where does the image of the candle form?",
+      "answer": "At infinity — no finite image forms; the reflected rays are parallel.",
+      "lever": "Edge case violating the textbook 'concave mirror always makes a real inverted image'; visible setup with object at f."
+    },
+    {
+      "id": "PHYSOPT-011",
+      "sub_skill": "convex_lens_object_at_focal",
+      "domain": "convex lens at focal",
+      "scene": "An optical bench with a convex lens; a small lit candle placed exactly at the focal point. The screen on the other side shows no image — only a parallel-light patch.",
+      "question": "Where is the image formed by the lens?",
+      "answer": "At infinity — no finite real image; rays exit parallel.",
+      "lever": "Boundary case; VLM default 'convex lens makes a real image somewhere' is wrong when object is exactly at f."
+    },
+    {
+      "id": "PHYSOPT-012",
+      "sub_skill": "spherical_air_bubble_in_water_diverges",
+      "domain": "bubble lens",
+      "scene": "A spherical air bubble inside a clear glass tank of water; behind the tank is printed text. Through the bubble the text appears smaller and upright.",
+      "question": "Does the bubble act like a converging or diverging lens?",
+      "answer": "Diverging — air-in-water (lower index inside higher index) gives a diverging spherical lens, opposite to a glass-in-air convex lens.",
+      "lever": "VLM treats 'spherical transparent thing → converging' (glass-marble shortcut). Visible setup is air-in-water; correct answer requires noting the index inversion."
+    },
+    {
+      "id": "PHYSOPT-013",
+      "sub_skill": "polished_floor_two_concave_zones",
+      "domain": "reflective surface composite",
+      "scene": "A polished hallway floor visibly composed of TWO sections: the front half is flat mirrored, the back half is a concave dish. A person stands at the boundary — front foot on flat, back foot on concave dish.",
+      "question": "Are both feet's reflections the same in nature?",
+      "answer": "No — front foot reflection is virtual, upright, same-size (plane mirror); back foot reflection is real, inverted, magnified (concave mirror, foot beyond focal length).",
+      "lever": "Composite scene that explicitly cues both flat (default) and concave (violation) zones; VLM may treat as a single mirror surface."
+    },
+    {
+      "id": "PHYSOPT-014",
+      "sub_skill": "fishbowl_text_inversion",
+      "domain": "fishbowl lens",
+      "scene": "A spherical glass fishbowl filled with water on a table in front of a printed sign with text. Through the fishbowl the sign's text appears inverted (upside-down).",
+      "question": "Through the fishbowl, does the text remain right-side-up but enlarged?",
+      "answer": "No — it is inverted and may also be enlarged, because the water-filled sphere is a thick converging lens with text beyond its focal point.",
+      "lever": "Larger-scale variant of slot opt-004 with water; caption 'fishbowl glass refraction' triggers planar-shift shortcut, missing spherical-lens inversion."
+    },
+    {
+      "id": "PHYSOPT-015",
+      "sub_skill": "convex_mirror_safety_in_corridor",
+      "domain": "safety mirror",
+      "scene": "A wall-mounted convex safety mirror at a hallway corner; a person stands a meter away and the mirror shows them smaller with a wide-angle view of the corridor behind.",
+      "question": "Is the image larger than the person?",
+      "answer": "No — smaller (convex mirrors always produce reduced upright virtual images).",
+      "lever": "Standard convex-mirror trap; caption 'mirror' might still trigger plane-mirror 'same size' default in some VLMs."
+    },
+    {
+      "id": "PHYSOPT-016",
+      "sub_skill": "concave_lens_real_image_attempt",
+      "domain": "concave lens optical bench",
+      "scene": "An optical bench with a concave (diverging) lens and a candle on the left; on the right is a screen but no real image forms on it.",
+      "question": "Where can the screen be placed to catch a real image of the candle?",
+      "answer": "Nowhere — concave (diverging) lenses cannot form a real image of a real object; only a virtual upright reduced image is formed (visible through the lens).",
+      "lever": "VLM may treat 'lens' as 'always projects a real image with a screen', missing the concave/diverging exception."
+    },
+    {
+      "id": "PHYSOPT-017",
+      "sub_skill": "concave_mirror_at_2f",
+      "domain": "concave mirror at 2f",
+      "scene": "A bowl-shaped concave mirror with a candle placed exactly at twice the focal length (at the center of curvature). The image on the other side is the same size as the candle, inverted.",
+      "question": "Is the image larger than the candle?",
+      "answer": "No — same size and inverted, because object is at 2f (center of curvature) for a concave mirror.",
+      "lever": "Specific position case; textbook S 'concave mirror = magnified inverted' is wrong at the 2f / center-of-curvature point."
+    },
+    {
+      "id": "PHYSOPT-018",
+      "sub_skill": "marble_chain_double_inversion",
+      "domain": "two glass marbles in series",
+      "scene": "Two clear glass marbles placed in a line on newsprint, several centimeters apart. Through the first marble, text appears inverted; through the second marble, the already-inverted image appears inverted again (upright).",
+      "question": "Through both marbles in series, is the text inverted?",
+      "answer": "No — double inversion gives back upright (but possibly distorted/magnified) text.",
+      "lever": "Compound spherical-lens setup; VLM may apply marble-inversion rule once but miss the second inversion."
+    },
+    {
+      "id": "PHYSOPT-019",
+      "sub_skill": "convex_lens_object_at_2f",
+      "domain": "convex lens at 2f",
+      "scene": "An optical bench: convex lens with candle exactly at 2f to the left; screen on the right at 2f catches a real inverted image the same size as the candle.",
+      "question": "Is the screen image larger than the candle?",
+      "answer": "No — same size, inverted (object at 2f case).",
+      "lever": "Boundary case violating the 'convex lens reduces' textbook default."
+    },
+    {
+      "id": "PHYSOPT-020",
+      "sub_skill": "two_lens_compound_image",
+      "domain": "two-lens compound system",
+      "scene": "Two convex lenses on the same optical axis, separated by a distance equal to the sum of their focal lengths (telescope-like). A distant object on the left; a screen on the right shows an erect-or-inverted image — the second lens flips the intermediate inverted image.",
+      "question": "Compared to a single convex lens, what is the image orientation?",
+      "answer": "Either further inverted or re-inverted, depending on the lens configuration; not simply 'inverted' as a single-lens shortcut would predict.",
+      "lever": "Compound-lens setup violates the single-lens caption; VLM caption 'convex lenses' triggers single-lens default."
+    }
+  ]
+}

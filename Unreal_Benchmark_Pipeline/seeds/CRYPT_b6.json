@@ -1,0 +1,366 @@
+{
+  "family_id": "CRYPT",
+  "family_name": "Anti-prior Creature Counting (b6)",
+  "seeds": [
+    {
+      "id": "CRYPT-031",
+      "sub_skill": "anomalous_arm_count",
+      "domain": "alien_aquarium",
+      "scene": "An alien aquarium tank seen through clear glass. Twelve octopus-like creatures float in pale blue water, evenly spaced in a 3x4 grid so every body is fully visible and no arms cross. Each octopus is one solid color (orange, purple, or teal). Specifically: 4 octopuses have 6 arms, 5 octopuses have 7 arms, and 3 octopuses have 8 arms. The arms are spread radially like a clock, easy to count.",
+      "question": "Based strictly on what is visible in the image, how many of the octopuses in this tank have exactly 7 visible arms?",
+      "answer": "5",
+      "lever": "Anti-prior on arm count: real octopuses have 8, but the scene mixes 6/7/8. Models default to 'octopus = 8' without per-individual counting."
+    },
+    {
+      "id": "CRYPT-032",
+      "sub_skill": "anomalous_leg_count_with_color_filter",
+      "domain": "fantasy_spider_garden",
+      "scene": "A storybook-style night garden where ten oversized fantasy spiders sit on dewy webs, each web fully separate so legs do not overlap. Each spider is one of two colors: emerald green or ruby red. Leg counts: 3 emerald spiders have 6 legs, 2 emerald spiders have 8 legs, 3 ruby spiders have 6 legs, 2 ruby spiders have 7 legs. All legs are clearly extended outward.",
+      "question": "Based strictly on what is visible in the image, how many emerald-green spiders have exactly 6 legs?",
+      "answer": "3",
+      "lever": "Anti-prior (real spiders have 8) combined with color filter. Two-step: must filter by color first, then count legs per individual."
+    },
+    {
+      "id": "CRYPT-033",
+      "sub_skill": "anomalous_horse_legs",
+      "domain": "centaur_parade",
+      "scene": "A storybook parade of nine centaurs lined up in a single row, each centaur fully visible from the side. Their horse-bodies have varying numbers of clearly visible legs: 4 centaurs have 4 horse legs (canonical), 3 centaurs have 3 horse legs, 2 centaurs have 5 horse legs. All centaurs have a normal humanoid upper body with 2 arms.",
+      "question": "Based strictly on what is visible in the image, how many centaurs have a horse-lower-body with a non-canonical number of legs (i.e., NOT exactly 4)?",
+      "answer": "5",
+      "lever": "Reverse anti-prior: count those that DEVIATE from canonical, not those that match. Forces explicit per-individual leg count of 9 figures."
+    },
+    {
+      "id": "CRYPT-034",
+      "sub_skill": "anomalous_dragon_limbs",
+      "domain": "dragon_rookery",
+      "scene": "A cliffside dragon rookery with eight dragons perched on rock ledges, all viewed from the side, wings spread. A dragon's full limb count is 4 legs + 2 wings = 6 limbs. In this scene: 3 dragons have 5 limbs (4 legs + 1 wing on one side only), 3 dragons have 6 limbs (canonical), 2 dragons have 7 limbs (4 legs + 3 wings). All limbs are fully visible against the sky.",
+      "question": "Based strictly on what is visible in the image, how many dragons have exactly 5 visible limbs in total (counting legs and wings together)?",
+      "answer": "3",
+      "lever": "Anti-prior on dragon limb count; requires summing legs + wings per dragon, not just glancing at silhouettes."
+    },
+    {
+      "id": "CRYPT-035",
+      "sub_skill": "reverse_anti_prior_eyes",
+      "domain": "cyclops_assembly",
+      "scene": "A torchlit hall with twelve cyclops figures seated in a U-shape around a stone table, all facing the viewer. The traditional cyclops has 1 eye. In this hall: 7 cyclops have 1 eye (canonical), 3 cyclops have 2 eyes, 2 cyclops have 3 eyes. All faces are well-lit and clearly visible.",
+      "question": "Based strictly on what is visible in the image, how many cyclops in this hall have MORE than one visible eye?",
+      "answer": "5",
+      "lever": "Reverse anti-prior: cyclops should have 1, scene mixes 1/2/3, question asks for >1. Must count per individual."
+    },
+    {
+      "id": "CRYPT-036",
+      "sub_skill": "anomalous_head_count",
+      "domain": "wolf_pack_fantasy",
+      "scene": "A snowy mountain meadow at dawn with eleven oversized fantasy wolves standing in a loose circle, all facing inward toward the viewer's center. Heads per wolf: 5 wolves have 1 head, 4 wolves have 2 heads, 2 wolves have 3 heads. All heads are clearly above the shoulders, no occlusion. Bodies are uniform dark grey.",
+      "question": "Based strictly on what is visible in the image, how many of the wolves in this pack have exactly 2 visible heads?",
+      "answer": "4",
+      "lever": "Anti-prior (wolves have 1 head). Mixed counts force per-wolf inspection. Models tend to undercount multi-head specimens by treating them as 'one wolf'."
+    },
+    {
+      "id": "CRYPT-037",
+      "sub_skill": "anomalous_tail_with_accessory",
+      "domain": "mermaid_reef",
+      "scene": "A coral reef bathed in sunlight from above. Ten mermaids are arranged across the reef, each fully visible from head to tail tip. Tail counts: 5 mermaids have 1 tail (canonical), 3 mermaids have 2 tails (forked at the waist), 2 mermaids have 3 tails. Independently, exactly 6 mermaids wear a pearl necklace and 4 wear no necklace. Specifically among the 2-tailed mermaids: 2 wear a pearl necklace and 1 wears none.",
+      "question": "Based strictly on what is visible in the image, how many mermaids have exactly 2 tails AND wear a pearl necklace?",
+      "answer": "2",
+      "lever": "Anti-prior on tail count combined with accessory filter. Two-attribute conjunction over 10 figures; models often only check the salient anomaly."
+    },
+    {
+      "id": "CRYPT-038",
+      "sub_skill": "anomalous_antenna_count",
+      "domain": "alien_insect_market",
+      "scene": "A bright daytime alien marketplace with twelve oversized humanoid insect-aliens standing in two rows of six. Each alien has antennae sprouting from the forehead. Antenna counts: 4 aliens have 2 antennae (canonical insect-like), 5 aliens have 3 antennae, 3 aliens have 4 antennae. All antennae stand straight up and are clearly separated.",
+      "question": "Based strictly on what is visible in the image, how many of the insect-aliens have exactly 3 antennae on their forehead?",
+      "answer": "5",
+      "lever": "Anti-prior on antenna count. Antennae are small and easily miscounted; the third antenna is visually subtle."
+    },
+    {
+      "id": "CRYPT-039",
+      "sub_skill": "anomalous_finger_count_filter",
+      "domain": "goblin_market",
+      "scene": "A goblin market stall at twilight. Eight goblins reach forward across the counter with both hands palms-up toward the viewer, all 16 hands fully visible. Finger counts (per hand): some hands have 5 fingers (canonical), some have 6, some have 4. The distribution: 6 hands have 5 fingers, 7 hands have 6 fingers, 3 hands have 4 fingers. (Each goblin's two hands may differ.)",
+      "question": "Based strictly on what is visible in the image, across all 16 visible hands, how many hands have exactly 6 fingers?",
+      "answer": "7",
+      "lever": "Anti-prior on finger count; counted across hands, not goblins. Subtle 5-vs-6 distinction requires close inspection."
+    },
+    {
+      "id": "CRYPT-040",
+      "sub_skill": "anomalous_legged_snake",
+      "domain": "fantasy_serpent_pit",
+      "scene": "A shallow stone pit viewed from above contains nine large fantasy serpents sprawled out without overlapping. In real life snakes have no legs; here, leg counts vary: 3 serpents have 0 legs (canonical), 3 serpents have 2 legs (mid-body), 2 serpents have 4 legs, 1 serpent has 6 legs. All legs are short and clearly visible against the stone.",
+      "question": "Based strictly on what is visible in the image, how many of these serpents have at least one visible leg?",
+      "answer": "6",
+      "lever": "Anti-prior (snakes have 0 legs). Question asks ≥1 — must distinguish legged vs legless across 9 figures."
+    },
+    {
+      "id": "CRYPT-041",
+      "sub_skill": "anomalous_wing_count_birds",
+      "domain": "fantasy_aviary",
+      "scene": "A bright aviary with ten oversized songbirds perched on a single horizontal branch in profile view, wings half-open. Wing counts: 4 birds have 2 wings (canonical), 4 birds have 4 wings (one pair above the other), 2 birds have 6 wings (three pairs). Bodies are uniform yellow, branch is brown.",
+      "question": "Based strictly on what is visible in the image, how many birds have exactly 4 visible wings?",
+      "answer": "4",
+      "lever": "Anti-prior (birds have 2 wings). Stacked-wing arrangement forces explicit per-bird inspection."
+    },
+    {
+      "id": "CRYPT-042",
+      "sub_skill": "anomalous_eye_count_fish",
+      "domain": "deep_sea_alien_school",
+      "scene": "A side-view of a school of twelve oversized fish swimming in a single horizontal line against a deep blue background, all faces turned toward the viewer. Eye counts: 5 fish have 2 eyes (canonical), 4 fish have 3 eyes, 3 fish have 4 eyes. All eyes are bright and clearly distinguishable.",
+      "question": "Based strictly on what is visible in the image, how many fish have exactly 3 visible eyes?",
+      "answer": "4",
+      "lever": "Anti-prior on eye count; the third eye placement (often forehead) requires looking past the canonical pair."
+    },
+    {
+      "id": "CRYPT-043",
+      "sub_skill": "anomalous_cat_tails_with_color",
+      "domain": "fantasy_cat_cafe",
+      "scene": "A whimsical cat cafe with eleven cats sitting on a long bench all facing the viewer with tails curled visibly to one side. Each cat is either pure black or pure white. Tail distribution: 3 black cats with 1 tail, 2 black cats with 2 tails, 1 black cat with 3 tails; 2 white cats with 1 tail, 2 white cats with 2 tails, 1 white cat with 3 tails.",
+      "question": "Based strictly on what is visible in the image, how many BLACK cats have MORE than 1 visible tail?",
+      "answer": "3",
+      "lever": "Anti-prior on tail count, combined with color filter. Two-step counting."
+    },
+    {
+      "id": "CRYPT-044",
+      "sub_skill": "anomalous_frog_legs",
+      "domain": "lily_pad_pond",
+      "scene": "A bright pond viewed from above with ten oversized frogs each sitting on a separate lily pad, well-spaced. Each frog has 2 front legs (always canonical) but the hind-leg count varies: 4 frogs have 2 hind legs (canonical), 4 frogs have 3 hind legs, 2 frogs have 4 hind legs. Hind legs are clearly splayed behind the body.",
+      "question": "Based strictly on what is visible in the image, how many frogs have exactly 3 visible hind legs?",
+      "answer": "4",
+      "lever": "Anti-prior on hind-leg count; canonical front legs are a distractor — must focus only on hind."
+    },
+    {
+      "id": "CRYPT-045",
+      "sub_skill": "anomalous_butterfly_wings",
+      "domain": "fairy_meadow",
+      "scene": "A sunlit meadow with twelve large butterflies hovering at the same height, all viewed from above with wings fully spread. Wing counts: 5 butterflies have 4 wings (canonical), 4 butterflies have 6 wings, 3 butterflies have 8 wings. All wings are vivid blue and not overlapping.",
+      "question": "Based strictly on what is visible in the image, how many butterflies have MORE than 4 wings?",
+      "answer": "7",
+      "lever": "Anti-prior (butterflies have 4 wings). Question requires combining counts of two bins (6-wing + 8-wing)."
+    },
+    {
+      "id": "CRYPT-046",
+      "sub_skill": "anomalous_crab_claws_color_filter",
+      "domain": "tide_pool_fantasy",
+      "scene": "A shallow tide pool viewed from above with ten oversized crabs spread out on wet sand. Each crab is either bright orange or deep purple. Claw counts: orange crabs — 2 have 2 claws (canonical), 2 have 3 claws, 1 has 4 claws; purple crabs — 2 have 2 claws, 2 have 4 claws, 1 has 6 claws. All claws are clearly held out from the body.",
+      "question": "Based strictly on what is visible in the image, how many PURPLE crabs have MORE than 2 visible claws?",
+      "answer": "3",
+      "lever": "Anti-prior + color filter + threshold. Three-step counting."
+    },
+    {
+      "id": "CRYPT-047",
+      "sub_skill": "anomalous_starfish_arms",
+      "domain": "alien_starfish_garden",
+      "scene": "A black sand bed viewed from directly above, with twelve oversized starfish arranged in a 3x4 grid. Arm counts: 3 starfish have 5 arms (canonical), 4 have 6 arms, 3 have 7 arms, 2 have 9 arms. All starfish are bright orange and well-separated.",
+      "question": "Based strictly on what is visible in the image, how many starfish have exactly 7 arms?",
+      "answer": "3",
+      "lever": "Anti-prior on starfish arm count. Mixed counts force per-individual examination."
+    },
+    {
+      "id": "CRYPT-048",
+      "sub_skill": "anomalous_horse_legs_with_rider",
+      "domain": "fantasy_jousting_ground",
+      "scene": "A medieval jousting field with eight horses lined up in profile view, four facing left and four facing right. Each horse may carry a rider. Leg counts per horse: 3 horses have 4 legs (canonical), 3 horses have 5 legs, 2 horses have 6 legs. Riders: exactly 5 horses are ridden (with a knight on top), 3 horses are riderless. Among the 5-legged horses: 2 are ridden, 1 is riderless.",
+      "question": "Based strictly on what is visible in the image, how many horses have exactly 5 legs AND carry a rider?",
+      "answer": "2",
+      "lever": "Anti-prior on horse legs + rider conjunction. Two-attribute filter over 8 horses."
+    },
+    {
+      "id": "CRYPT-049",
+      "sub_skill": "anomalous_owl_eyes",
+      "domain": "moonlit_owl_grove",
+      "scene": "A moonlit grove with ten owls perched on bare branches, all facing the viewer head-on. Eye counts: 4 owls have 2 eyes (canonical), 4 owls have 3 eyes, 2 owls have 4 eyes. All eyes glow pale yellow.",
+      "question": "Based strictly on what is visible in the image, what is the TOTAL number of glowing eyes visible across all owls in this grove?",
+      "answer": "28",
+      "lever": "Anti-prior on owl eye count + summation. Must compute 4*2 + 4*3 + 2*4 = 28."
+    },
+    {
+      "id": "CRYPT-050",
+      "sub_skill": "anomalous_elephant_trunks",
+      "domain": "fantasy_elephant_caravan",
+      "scene": "A desert caravan path viewed from the side with nine large elephants walking single-file, all visible. Trunk counts per elephant: 4 have 1 trunk (canonical), 3 have 2 trunks, 2 have 3 trunks. All trunks hang straight down and are clearly separated.",
+      "question": "Based strictly on what is visible in the image, how many elephants have MORE than 1 visible trunk?",
+      "answer": "5",
+      "lever": "Anti-prior on trunk count; threshold combine. Models default to 'elephant = 1 trunk'."
+    },
+    {
+      "id": "CRYPT-051",
+      "sub_skill": "anomalous_rabbit_ears_color_filter",
+      "domain": "fantasy_rabbit_burrow",
+      "scene": "A grassy hillside burrow with twelve rabbits sitting upright, all facing the viewer. Each rabbit is one of three colors: white, brown, or grey. Ear counts: white rabbits — 2 have 2 ears, 1 has 3 ears, 1 has 4 ears; brown rabbits — 2 have 2 ears, 2 have 3 ears; grey rabbits — 1 has 2 ears, 2 have 3 ears, 1 has 4 ears. All ears stand straight up.",
+      "question": "Based strictly on what is visible in the image, how many rabbits have exactly 3 ears, regardless of color?",
+      "answer": "5",
+      "lever": "Anti-prior + cross-color summation. Must count 3-ear rabbits across all colors: 1 + 2 + 2 = 5."
+    },
+    {
+      "id": "CRYPT-052",
+      "sub_skill": "anomalous_wing_count_bee",
+      "domain": "fantasy_beehive",
+      "scene": "A close-up view of an oversized honeycomb with eight large bees clinging to the surface, all viewed from above with wings flat and spread. Wing counts: 3 bees have 4 wings (canonical), 3 bees have 6 wings, 2 bees have 8 wings. All bees are striped yellow and black.",
+      "question": "Based strictly on what is visible in the image, how many bees have exactly 6 visible wings?",
+      "answer": "3",
+      "lever": "Anti-prior on bee wing count. Wings are translucent and require careful counting."
+    },
+    {
+      "id": "CRYPT-053",
+      "sub_skill": "reverse_anti_prior_squirrel_tails",
+      "domain": "fantasy_oak_tree",
+      "scene": "A tall oak tree with eleven squirrels distributed on different branches, all in profile view with tails fully visible curled upward. Tail counts: 4 squirrels have 1 tail (canonical), 5 squirrels have 2 tails, 2 squirrels have 3 tails. All squirrels are uniform reddish-brown.",
+      "question": "Based strictly on what is visible in the image, how many squirrels have exactly 1 tail (the canonical count)?",
+      "answer": "4",
+      "lever": "Reverse anti-prior: in a population of mostly anomalous specimens, count the 'normal' ones."
+    },
+    {
+      "id": "CRYPT-054",
+      "sub_skill": "anomalous_pegasus_legs",
+      "domain": "celestial_pegasus_field",
+      "scene": "A field of clouds with ten pegasi (winged horses) in profile view, all wings clearly spread above their backs. Leg counts: 4 pegasi have 4 legs (canonical), 4 pegasi have 5 legs, 2 pegasi have 6 legs. All pegasi have exactly 2 wings (canonical) — leg count is the only variable.",
+      "question": "Based strictly on what is visible in the image, how many pegasi have exactly 5 legs?",
+      "answer": "4",
+      "lever": "Anti-prior on horse leg count. Wings act as a distractor — model may focus on wings instead of legs."
+    },
+    {
+      "id": "CRYPT-055",
+      "sub_skill": "anomalous_unicorn_horns",
+      "domain": "fantasy_unicorn_glade",
+      "scene": "A moonlit glade with nine unicorns standing in a semicircle, all facing the viewer. Horn counts: 3 unicorns have 1 horn (canonical), 4 unicorns have 2 horns, 2 unicorns have 3 horns. All horns are clearly straight and clearly separated.",
+      "question": "Based strictly on what is visible in the image, how many unicorns have a non-canonical number of horns (i.e., NOT 1)?",
+      "answer": "6",
+      "lever": "Reverse anti-prior; must count those that violate the canon."
+    },
+    {
+      "id": "CRYPT-056",
+      "sub_skill": "anomalous_troll_fingers",
+      "domain": "troll_council",
+      "scene": "A stone council chamber with eight trolls seated around a round table, each troll holding both hands flat on the tabletop palm-down so all 16 hands are visible. Per-hand finger counts: 6 hands have 4 fingers (canonical for trolls), 7 hands have 5 fingers, 3 hands have 6 fingers. Each troll's two hands may differ.",
+      "question": "Based strictly on what is visible in the image, across all 16 hands, what is the total number of hands with exactly 5 fingers?",
+      "answer": "7",
+      "lever": "Anti-prior + count by hand instead of by troll. Subtle 4-vs-5 distinction."
+    },
+    {
+      "id": "CRYPT-057",
+      "sub_skill": "anomalous_demon_horns_color_filter",
+      "domain": "demon_underworld_court",
+      "scene": "A torchlit underworld court with twelve demons standing in two rows of six, all facing the viewer. Each demon's body is either crimson red or jet black. Horn counts: red demons — 2 have 2 horns (canonical), 2 have 3 horns, 2 have 4 horns; black demons — 2 have 2 horns, 2 have 3 horns, 2 have 5 horns. All horns clearly visible above the head.",
+      "question": "Based strictly on what is visible in the image, how many BLACK demons have exactly 3 horns?",
+      "answer": "2",
+      "lever": "Anti-prior + color filter. Two-step over 12 figures."
+    },
+    {
+      "id": "CRYPT-058",
+      "sub_skill": "anomalous_bat_wings",
+      "domain": "vampire_cave_ceiling",
+      "scene": "A cave ceiling viewed from below with ten oversized bats hanging upside-down, wings half-extended downward and clearly countable. Wing counts: 4 bats have 2 wings (canonical), 4 bats have 3 wings (a third smaller wing on one side), 2 bats have 4 wings. All bodies are uniform dark brown.",
+      "question": "Based strictly on what is visible in the image, how many bats have exactly 3 visible wings?",
+      "answer": "4",
+      "lever": "Anti-prior; the asymmetric third wing is visually subtle and easy to miss."
+    },
+    {
+      "id": "CRYPT-059",
+      "sub_skill": "anomalous_mouse_tails",
+      "domain": "fairy_kitchen",
+      "scene": "A fairy-tale kitchen tabletop viewed from above with twelve mice scattered across the surface, all clearly visible from above with tails fully extended. Tail counts: 5 mice have 1 tail (canonical), 4 mice have 2 tails, 3 mice have 3 tails. All mice are uniform grey.",
+      "question": "Based strictly on what is visible in the image, what is the total number of tails visible across all the mice on this table?",
+      "answer": "22",
+      "lever": "Anti-prior + summation: 5*1 + 4*2 + 3*3 = 22. Per-mouse counting required."
+    },
+    {
+      "id": "CRYPT-060",
+      "sub_skill": "anomalous_sphinx_paws",
+      "domain": "desert_sphinx_temple",
+      "scene": "A sandy temple courtyard with eight sphinx statues lined up in profile view facing left, each fully visible. Each sphinx has 2 front paws (always canonical); the rear-paw count varies: 3 have 2 rear paws (canonical 4 total), 3 have 3 rear paws (5 total), 2 have 4 rear paws (6 total). All paws rest on the ground and are clearly separated.",
+      "question": "Based strictly on what is visible in the image, how many sphinxes have a TOTAL paw count greater than 4?",
+      "answer": "5",
+      "lever": "Anti-prior on rear paws + total summation per sphinx + threshold."
+    },
+    {
+      "id": "CRYPT-061",
+      "sub_skill": "anomalous_phoenix_wings",
+      "domain": "fire_phoenix_aviary",
+      "scene": "A flame-lit aviary with ten phoenixes perched on golden branches, all in profile view with wings fully spread. Wing counts: 4 phoenixes have 2 wings (canonical bird-like), 4 phoenixes have 4 wings, 2 phoenixes have 6 wings. All phoenix bodies are uniform red-orange flame plumage.",
+      "question": "Based strictly on what is visible in the image, how many phoenixes have AT LEAST 4 visible wings?",
+      "answer": "6",
+      "lever": "Anti-prior + threshold combining two bins (4-wing + 6-wing)."
+    },
+    {
+      "id": "CRYPT-062",
+      "sub_skill": "anomalous_kraken_tentacles",
+      "domain": "stormy_sea_kraken",
+      "scene": "A turbulent sea surface viewed from above with eight oversized kraken-creatures spread across the water, tentacles fanned out radially without overlap. Tentacle counts: 3 krakens have 8 tentacles (canonical), 3 krakens have 10 tentacles, 2 krakens have 12 tentacles. All krakens are uniform deep purple.",
+      "question": "Based strictly on what is visible in the image, how many krakens have exactly 10 tentacles?",
+      "answer": "3",
+      "lever": "Anti-prior on tentacle count. Counting many tentacles per individual is error-prone."
+    },
+    {
+      "id": "CRYPT-063",
+      "sub_skill": "anomalous_goblin_fingers_per_hand",
+      "domain": "goblin_workshop",
+      "scene": "A goblin workshop bench viewed from above with seven goblins all reaching forward over the workbench with both hands palms-up, all 14 hands fully visible. Per-hand fingers: 5 hands have 4 fingers, 6 hands have 5 fingers, 3 hands have 6 fingers. Each goblin's two hands may have different counts.",
+      "question": "Based strictly on what is visible in the image, what is the total finger count across all 14 hands?",
+      "answer": "68",
+      "lever": "Anti-prior + summation: 5*4 + 6*5 + 3*6 = 20+30+18 = 68. Tedious cross-hand counting."
+    },
+    {
+      "id": "CRYPT-064",
+      "sub_skill": "multi_head_dragon_count",
+      "domain": "ancient_dragon_council",
+      "scene": "A great cavern hall with ten ancient dragons coiled around a central pillar, all heads clearly raised above the bodies and individually distinguishable. Heads per dragon: 4 dragons have 1 head (canonical), 3 dragons have 2 heads, 2 dragons have 3 heads, 1 dragon has 5 heads. All heads breathe small visible flames making them easy to count.",
+      "question": "Based strictly on what is visible in the image, what is the TOTAL number of dragon heads in this council?",
+      "answer": "19",
+      "lever": "Anti-prior + total summation: 4*1 + 3*2 + 2*3 + 1*5 = 19. Multi-head dragons easy to miscount as one."
+    },
+    {
+      "id": "CRYPT-065",
+      "sub_skill": "anomalous_hydra_heads",
+      "domain": "swamp_hydra_lair",
+      "scene": "A swampy lair with seven hydras emerging from the water, only torsos and necks above the surface. Head counts: 1 hydra has 3 heads, 2 hydras have 5 heads, 2 hydras have 7 heads, 2 hydras have 9 heads. Each head is distinguishable on a separate neck. Hydras are uniform mossy green.",
+      "question": "Based strictly on what is visible in the image, how many hydras have exactly 5 heads?",
+      "answer": "2",
+      "lever": "Anti-prior; canonical hydra is often depicted with varying counts but model may default. Per-individual head count required."
+    },
+    {
+      "id": "CRYPT-066",
+      "sub_skill": "anomalous_centipede_legs",
+      "domain": "alien_centipede_terrarium",
+      "scene": "A terrarium top-down view with six oversized centipede-creatures crawling on sand, well-separated. Each centipede has clearly countable legs along its sides. Leg counts (per centipede): 14, 18, 22, 26, 30, 36. All centipedes are uniform iridescent green.",
+      "question": "Based strictly on what is visible in the image, how many of the centipedes have FEWER than 24 visible legs?",
+      "answer": "3",
+      "lever": "Anti-prior; explicit small-N legs (real centipedes have many more); threshold filter on enumerated counts."
+    },
+    {
+      "id": "CRYPT-067",
+      "sub_skill": "anomalous_slime_eyes",
+      "domain": "fantasy_slime_dungeon",
+      "scene": "A dungeon floor viewed from above with twelve gelatinous slime creatures spread out, well-separated. Each slime is one of two colors: emerald green or sky blue. Eye counts: green slimes (6 total) — 2 have 1 eye, 2 have 2 eyes, 2 have 3 eyes; blue slimes (6 total) — 1 has 1 eye, 3 have 2 eyes, 2 have 4 eyes. All eyes float visibly inside the translucent body.",
+      "question": "Based strictly on what is visible in the image, how many BLUE slimes have AT LEAST 2 eyes?",
+      "answer": "5",
+      "lever": "Anti-prior + color filter + threshold. Three-step over 12 figures."
+    },
+    {
+      "id": "CRYPT-068",
+      "sub_skill": "anomalous_robot_animal_limbs",
+      "domain": "mecha_zoo",
+      "scene": "A clean white showroom with eight mechanical animal robots in a row, each clearly resembling a different real animal: dog, cat, horse, deer, fox, wolf, rabbit, bear. The canonical leg count for each is 4. Actual leg counts in the showroom: dog 4, cat 5, horse 4, deer 6, fox 4, wolf 5, rabbit 4, bear 6. All legs are clearly metallic and separable.",
+      "question": "Based strictly on what is visible in the image, how many of these mecha-animals have a leg count that DEVIATES from the real-world canonical count of 4?",
+      "answer": "4",
+      "lever": "Anti-prior + cross-species comparison. Must check each animal individually against the canonical 4-leg expectation."
+    },
+    {
+      "id": "CRYPT-069",
+      "sub_skill": "anomalous_chimera_components",
+      "domain": "chimera_menagerie",
+      "scene": "A stone menagerie hall with six chimeras in a single row in profile view. Each chimera has a head count and tail count. Counts (head, tail) per chimera: (1,1), (2,1), (1,2), (3,1), (2,3), (1,2). All heads are clearly raised and tails clearly extended.",
+      "question": "Based strictly on what is visible in the image, how many chimeras have MORE heads than tails?",
+      "answer": "1",
+      "lever": "Anti-prior on multi-head/tail; comparative reasoning per individual. Only the (3,1) chimera satisfies heads > tails."
+    },
+    {
+      "id": "CRYPT-070",
+      "sub_skill": "anomalous_arm_count_with_pose",
+      "domain": "alien_dance_troupe",
+      "scene": "A theater stage with ten humanoid aliens performing a dance, in two rows of five facing the viewer. Each alien has a varying number of arms, all clearly extended outward. Arm counts: 3 aliens have 2 arms (canonical), 4 aliens have 4 arms, 3 aliens have 6 arms. Independently: exactly 5 aliens are raising AT LEAST one arm above their head, 5 are not. Among the 4-armed aliens: 3 have at least one arm raised, 1 does not.",
+      "question": "Based strictly on what is visible in the image, how many aliens have exactly 4 arms AND have at least one arm raised above their head?",
+      "answer": "3",
+      "lever": "Anti-prior on arm count + pose attribute conjunction. Two-step filter over 10 figures."
+    }
+  ]
+}

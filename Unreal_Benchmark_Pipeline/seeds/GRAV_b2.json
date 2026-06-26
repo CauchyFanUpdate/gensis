@@ -1,0 +1,186 @@
+{
+  "family_id": "GRAV",
+  "family_name": "Gravity & Reference Frames (concept-drift)",
+  "seeds": [
+    {
+      "id": "GRAV-001",
+      "sub_skill": "four_quadrant_gravity_room",
+      "domain": "physics demo room",
+      "scene": "A square room split into four equal quadrants by a thin cross of beams. In each quadrant the gravity vector arrow is drawn on the wall: top-left points UP, top-right points DOWN, bottom-left points LEFT, bottom-right points RIGHT. A small ball is shown released from rest at the exact center of each quadrant.",
+      "question": "After release, in which direction does each ball travel within its quadrant?",
+      "answer": "TL ball moves up to the ceiling, TR ball moves down to the floor, BL ball moves left to the wall, BR ball moves right to the wall — each follows its quadrant's locally drawn gravity arrow.",
+      "lever": "VLM caption-shortcut sees 'ball released in room' and answers 'falls down' (textbook S, uniform g downward). Visible per-quadrant gravity arrows violate the uniform-gravity assumption A; correct T is the per-quadrant gravity direction stated by the arrow."
+    },
+    {
+      "id": "GRAV-002",
+      "sub_skill": "sideways_gravity_room",
+      "domain": "tilted-physics chamber",
+      "scene": "A normally-oriented room (floor at bottom, ceiling at top, side walls vertical) with a clear sign on the back wall reading 'g = 9.8 m/s² → EAST'. A pendulum hangs in the room and visibly rests pointing horizontally toward the east wall, not downward. A ball is released from rest at the room's center.",
+      "question": "Which surface does the ball land on, and along what trajectory?",
+      "answer": "The ball accelerates horizontally toward the east wall and strikes the east wall along a straight horizontal line.",
+      "lever": "VLM caption-shortcut sees 'room with floor, ball released' and answers 'falls to floor' (S). The pendulum's horizontal rest position and the explicit gravity-direction sign visibly violate the gravity-points-down assumption; T is straight-east impact on the east wall."
+    },
+    {
+      "id": "GRAV-003",
+      "sub_skill": "anti_gravity_bubble_local",
+      "domain": "lab room with anomaly",
+      "scene": "An ordinary lab room with a clearly marked spherical 'anti-gravity bubble' (dashed circle on floor) about 1m in diameter. A label reads 'inside bubble: g points UP, magnitude 9.8 m/s²'. A ball is shown placed at the bubble's center; another identical ball is placed on the floor 2m outside the bubble.",
+      "question": "What does each ball do?",
+      "answer": "Inside-bubble ball accelerates upward and exits the top of the bubble; outside-bubble ball remains resting on the floor.",
+      "lever": "VLM caption-shortcut sees 'two balls on floor' and answers both stay still or both fall (S, uniform-gravity-down). The labeled local anomaly violates spatial-uniformity of g; T requires per-region gravity reasoning."
+    },
+    {
+      "id": "GRAV-004",
+      "sub_skill": "gravity_vector_room_pendulum",
+      "domain": "physics demo with pendulum",
+      "scene": "A room with a wall sign 'gravity vector tilted 45° down-and-to-the-right'. A pendulum hangs from the ceiling and visibly rests at 45° from vertical, leaning right. A small ball is placed on a flat horizontal floor.",
+      "question": "Will the ball remain stationary on the floor?",
+      "answer": "No — it will accelerate to the right along the floor (horizontal component of gravity is unbalanced by the floor's normal force).",
+      "lever": "VLM sees 'ball on floor' and says 'stays put' (S). The 45° pendulum rest angle visibly violates vertical-gravity assumption; T is rightward sliding because only the vertical component is supported."
+    },
+    {
+      "id": "GRAV-005",
+      "sub_skill": "rotating_space_station_floor",
+      "domain": "rotating ring habitat cross-section",
+      "scene": "Cross-section of a rotating ring space station; arrow shows ring spinning. A person stands with feet on the OUTER (curved) wall of the ring, head pointing toward the rotation axis. A label reads 'centripetal acceleration provides apparent gravity'. A ball is dropped from the person's hand.",
+      "question": "Which direction does the ball fall in the rotating frame, and where does it land?",
+      "answer": "The ball appears to fall radially outward (toward the outer wall, i.e., the person's feet) and lands slightly behind their feet due to Coriolis deflection in the rotating frame.",
+      "lever": "VLM sees 'person and ball in room' and says 'ball falls down toward floor' (S, with floor = the wall under their feet, gravity uniform-down). Rotating-frame label violates inertial-frame assumption; T is radial-outward fall plus Coriolis offset."
+    },
+    {
+      "id": "GRAV-006",
+      "sub_skill": "free_fall_elevator_zero_g",
+      "domain": "elevator in free fall",
+      "scene": "An elevator car interior with a clear external label 'cable severed — car in free fall'. Inside, a person and several loose objects (apple, water droplet, pen) are shown floating in mid-air, not resting on the floor.",
+      "question": "If the person releases another ball at chest height, what happens to that ball relative to them?",
+      "answer": "It floats in place (or stays at chest height) relative to the person — no relative motion in the freely-falling frame.",
+      "lever": "VLM sees 'ball released in elevator' and says 'falls to floor' (S). Free-fall label and floating objects violate inertial-ground-frame assumption; in the elevator's accelerating frame, T is no relative motion."
+    },
+    {
+      "id": "GRAV-007",
+      "sub_skill": "accelerating_train_pendulum",
+      "domain": "train car interior",
+      "scene": "Cutaway of a train car with a label 'train accelerating to the right at 5 m/s²'. A ceiling-hung pendulum hangs and visibly tilts BACKWARD (to the left) from vertical. A ball sits on the smooth floor.",
+      "question": "Will the ball remain at rest on the floor (in the train's frame)?",
+      "answer": "No — it will roll backward (to the left) in the train's frame, due to the inertial pseudo-force opposing the train's acceleration.",
+      "lever": "VLM sees 'ball on flat floor' → 'stays still' (S). Pendulum tilt and acceleration label violate inertial-frame assumption; T is leftward roll due to pseudo-force."
+    },
+    {
+      "id": "GRAV-008",
+      "sub_skill": "two_zone_gravity_corridor",
+      "domain": "split corridor",
+      "scene": "A long horizontal corridor with a vertical line painted across the middle. Left half labeled 'g = 9.8 m/s² down'; right half labeled 'g = 9.8 m/s² UP'. A ball is shown rolling rightward across the boundary.",
+      "question": "What is the ball's trajectory after crossing into the right half?",
+      "answer": "It rises (accelerates upward) and impacts the ceiling of the right half.",
+      "lever": "VLM sees 'ball rolling in corridor' → 'continues straight, eventually friction stops it on floor' (S). Painted boundary violates uniform gravity; T is upward arc into right-half ceiling."
+    },
+    {
+      "id": "GRAV-009",
+      "sub_skill": "spinning_bucket_water_surface",
+      "domain": "bucket on rotating turntable",
+      "scene": "A glass bucket sits on a turntable that is spinning at constant angular velocity (motion arrows shown). Water inside the bucket forms a clearly concave (parabolic) surface — low in the center, high at the rim.",
+      "question": "Why is the water surface curved instead of flat?",
+      "answer": "In the rotating frame, centrifugal pseudo-force pushes water outward; equilibrium surface is parabolic with rim higher than center. (Equivalently in inertial frame, surface is normal to net effective gravity = real g + centripetal requirement.)",
+      "lever": "VLM sees 'water in bucket' → 'flat horizontal surface' (S, hydrostatic). Rotating turntable + visibly parabolic meniscus violate stationary-frame assumption; T is parabolic equilibrium surface."
+    },
+    {
+      "id": "GRAV-010",
+      "sub_skill": "asteroid_low_gravity_jump",
+      "domain": "small asteroid surface",
+      "scene": "An astronaut stands on a small irregular asteroid in space. A label reads 'asteroid surface gravity ≈ 0.001 m/s²'. The astronaut is shown crouching to jump.",
+      "question": "After a normal-effort jump (initial vertical speed ≈ 3 m/s), does the astronaut return to the surface within seconds?",
+      "answer": "No — they reach escape velocity (or near it) and either drift away into space or take many minutes to return.",
+      "lever": "VLM sees 'astronaut jumping' → 'comes back down in ~1 second' (S, Earth gravity). Small-asteroid label violates Earth-g assumption; T is escape or extremely slow return."
+    },
+    {
+      "id": "GRAV-011",
+      "sub_skill": "moon_surface_pendulum_period",
+      "domain": "moon-surface lab",
+      "scene": "A pendulum of length 1m swings in a sealed transparent dome on the lunar surface. Background shows gray cratered terrain and Earth in the sky. A label reads 'g_moon ≈ 1.6 m/s²'.",
+      "question": "Approximately what is the pendulum's period?",
+      "answer": "About 5.0 s (T = 2π√(L/g) = 2π√(1/1.6) ≈ 4.97 s), longer than Earth's ~2.0 s.",
+      "lever": "VLM sees 'pendulum length 1m' → '~2 second period' (S, Earth g). Moon scene + label violate Earth-g assumption; T uses moon g for ~5 s period."
+    },
+    {
+      "id": "GRAV-012",
+      "sub_skill": "downward_gravity_three_zones",
+      "domain": "lab with stacked zones",
+      "scene": "A tall lab room divided horizontally into three stacked layers by labeled boundaries: top zone 'g = 9.8 down', middle zone 'g = 0', bottom zone 'g = 9.8 down'. A ball is released from rest at the top of the top zone.",
+      "question": "Describe the ball's motion until it stops or exits the bottom.",
+      "answer": "Accelerates downward through top zone, then enters middle zone moving at constant velocity (no gravity), then accelerates again through bottom zone, hitting bottom floor at higher speed than from top zone alone.",
+      "lever": "VLM sees 'ball falling in room' → 'uniform downward acceleration throughout' (S). Zone labels violate uniform-g assumption; T is piecewise motion with constant-velocity middle segment."
+    },
+    {
+      "id": "GRAV-013",
+      "sub_skill": "wall_mounted_pendulum_sideways_g",
+      "domain": "sideways-gravity lab",
+      "scene": "Same sideways-gravity room as GRAV-002 (sign 'g → EAST'). A pendulum is now mounted with its pivot on the WEST wall (perpendicular to gravity), hanging horizontally toward the east wall.",
+      "question": "Will the pendulum oscillate as a normal pendulum, or just remain pointing east?",
+      "answer": "It oscillates like a normal pendulum, but in the horizontal plane around the east-pointing equilibrium — gravity (east) plays the role gravity normally plays in a vertical pendulum.",
+      "lever": "VLM sees 'horizontal pendulum' → 'just dangles, no oscillation, gravity perpendicular' (S, gravity-down). Sideways-g label violates the down-gravity assumption; T is normal SHM around east-equilibrium."
+    },
+    {
+      "id": "GRAV-014",
+      "sub_skill": "off_axis_gravity_room_balance",
+      "domain": "tilted-g room",
+      "scene": "A room with a sign 'g tilted 30° from vertical, leaning right'. A heavy block sits on a perfectly horizontal floor; a ramp at 30° to floor (ascending to the LEFT) is also shown.",
+      "question": "Is the block on the horizontal floor in stable equilibrium, and what about a block on the leftward-ascending ramp?",
+      "answer": "Block on horizontal floor will slide rightward (gravity has a horizontal-right component unbalanced by floor's normal). Block on the leftward-ascending 30°-ramp can be stationary if and only if its surface normal aligns with effective g — i.e., the ramp face is perpendicular to the tilted g, which is the case here, so the ramp-block has no net tangential force and rests stably.",
+      "lever": "VLM sees 'block on floor' → 'stays still' and 'block on incline' → 'slides down the incline' (S, vertical-down g). Tilted-g sign violates that; T inverts: floor-block slides, ramp-block (perpendicular to true g) is stable."
+    },
+    {
+      "id": "GRAV-015",
+      "sub_skill": "anti_gravity_bubble_water",
+      "domain": "lab tank with bubble",
+      "scene": "An open glass tank of water sits in a normal lab. A clearly labeled spherical 'inverted-gravity bubble' (g UP, 9.8 m/s²) is overlaid covering only the upper half of the tank's water column; the lower half is in normal gravity (g DOWN). A ping-pong ball is shown released from rest at the tank's bottom.",
+      "question": "Does the ball reach the surface?",
+      "answer": "It rises through normal-g lower water by buoyancy as usual, but on entering the upper-half (g-up) region it is no longer buoyant — gravity now points up, so on a less-dense ball, the 'buoyant' force in the inverted region points DOWN; the ball decelerates, may halt at or near the boundary, and not escape the surface.",
+      "lever": "VLM sees 'ping-pong ball in water' → 'floats to top' (S, Archimedes with down-g). Inverted-g bubble in upper half violates uniform-g; T is ball trapped at boundary."
+    },
+    {
+      "id": "GRAV-016",
+      "sub_skill": "centripetal_swing_ride",
+      "domain": "spinning swing ride",
+      "scene": "A vertical pole with chairs attached by chains; the whole ride spins about the vertical axis. The chairs (with seated riders) are clearly seen flying outward at ~45° from vertical. A still pendulum hangs from a stationary frame nearby for reference, perfectly vertical.",
+      "question": "Why are the chains tilted outward instead of hanging vertically like the reference pendulum?",
+      "answer": "In the rotating frame the riders experience an outward centrifugal pseudo-force; the chain tension must balance both gravity (down) and centrifugal (out), so it tilts outward at the angle where these add to align with the chain.",
+      "lever": "VLM sees 'chain hanging from above' → 'should hang vertical' (S, hydrostatic-equivalent). Visible spin and outward tilt violate stationary-frame assumption; T is rotating-frame equilibrium with centrifugal pseudo-force."
+    },
+    {
+      "id": "GRAV-017",
+      "sub_skill": "downward_floor_gravity_inverts",
+      "domain": "ceiling-as-floor room",
+      "scene": "A room interior in which all furniture (table, chairs, lamps) is mounted on the CEILING — visibly hanging stably as if the ceiling were the floor. A sign reads 'g points UP toward ceiling, magnitude 9.8'. A person stands head-up on the ceiling; a ball is dropped from their hand.",
+      "question": "Does the ball fall to the room's floor (the surface labeled 'floor' on the wall below) or to the ceiling?",
+      "answer": "It accelerates UP toward the ceiling (where the person stands) — the labeled g points up, so the 'ceiling' is functionally the floor in this room.",
+      "lever": "VLM sees 'ball dropped in room' → 'falls to bottom floor' (S). Inverted furniture and label violate down-g; T is upward acceleration to ceiling."
+    },
+    {
+      "id": "GRAV-018",
+      "sub_skill": "two_planet_dual_gravity_vehicle",
+      "domain": "rover near Lagrange point",
+      "scene": "A space scene with a small rover positioned roughly between two planet-sized bodies labeled 'mass M' (left) and 'mass 4M' (right). The rover is at a clearly off-center location closer to the smaller planet, with a small label 'L1 Lagrange point'.",
+      "question": "Why does the rover sit closer to the SMALLER planet at the L1 point, and is it in stable equilibrium?",
+      "answer": "L1 lies where pulls from both planets cancel in the rotating frame; because the larger planet pulls harder, the cancellation point lies closer to the SMALLER planet. L1 is unstable along the planet-to-planet axis (small displacement grows) but quasi-stable transversely.",
+      "lever": "VLM sees 'object between two planets' → 'sits at midpoint, stable' (S). Mass labels and visible off-center position violate symmetric-mass assumption; T is closer-to-smaller, unstable longitudinally."
+    },
+    {
+      "id": "GRAV-019",
+      "sub_skill": "gravity_alternating_rooms_corridor",
+      "domain": "checkerboard gravity rooms",
+      "scene": "A row of 4 connected rooms each labeled with its gravity arrow: Room1 'g down', Room2 'g up', Room3 'g down', Room4 'g up'. The connecting doors are along the side walls. A small wheeled cart is rolled from Room1 into Room2.",
+      "question": "What happens to the cart upon entering Room2?",
+      "answer": "Gravity flips upward, so the cart accelerates from the floor toward the ceiling of Room2 and impacts the ceiling.",
+      "lever": "VLM sees 'cart rolling into next room' → 'continues rolling on floor' (S, uniform g). Alternating room labels violate uniform-g; T is cart slamming into Room2's ceiling."
+    },
+    {
+      "id": "GRAV-020",
+      "sub_skill": "centrifuge_test_tube_orientation",
+      "domain": "lab centrifuge cutaway",
+      "scene": "Cutaway of a benchtop centrifuge: rotor spinning at high RPM (motion arrows). Two test tubes are mounted in swing-out buckets; the tubes are visibly horizontal (pointing radially outward), NOT vertical. A label reads 'centrifuge spinning at 10000 rpm; effective g_radial ≫ Earth g'. A heavy pellet inside one tube is shown at the OUTER (radial-far) end of the tube, not the bottom.",
+      "question": "Why does the pellet rest at the outer end of the horizontal tube rather than the bottom?",
+      "answer": "In the rotating frame, the dominant effective gravity is radially outward (centrifugal pseudo-force ≫ Earth g); 'down' inside the tube is along the tube axis toward the outer end, so the pellet settles there.",
+      "lever": "VLM sees 'pellet in horizontal tube' → 'should sit at bottom (Earth-down)' (S). Spinning rotor label and outward-resting pellet violate stationary-frame down-g assumption; T is along-axis settling in rotating frame."
+    }
+  ]
+}

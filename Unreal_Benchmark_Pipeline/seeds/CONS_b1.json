@@ -1,0 +1,186 @@
+{
+  "family_id": "CONS",
+  "family_name": "Semantic Consistency & Contradiction Detection",
+  "seeds": [
+    {
+      "id": "CONS-011",
+      "sub_skill": "weather_clothing_mismatch",
+      "domain": "outdoor scene",
+      "scene": "An outdoor street scene: heavy snow falling, snow piled 30cm on cars, breath visible (cold). One person walking is wearing a thick parka, gloves, boots. Another person beside them wears short sleeves, shorts, and flip-flops.",
+      "question": "Whose clothing is INCONSISTENT with the scene?",
+      "answer": "The person in shorts and flip-flops",
+      "lever": "Detect clothing-environment contradiction."
+    },
+    {
+      "id": "CONS-012",
+      "sub_skill": "shadow_direction_inconsistent",
+      "domain": "outdoor sculpture group",
+      "scene": "A photo of three sculptures on a sunny lawn. Sculpture A casts a shadow pointing northeast. Sculpture B casts a shadow pointing northeast. Sculpture C casts a shadow pointing southwest (opposite). All three are upright; sun position should produce parallel shadows.",
+      "question": "Which sculpture's shadow is INCONSISTENT with the others?",
+      "answer": "Sculpture C",
+      "lever": "Multiple-source-of-truth check; one shadow has inconsistent direction."
+    },
+    {
+      "id": "CONS-013",
+      "sub_skill": "clock_time_consistency",
+      "domain": "office with multiple clocks",
+      "scene": "A office wall has 3 analog clocks labeled 'New York', 'London', 'Tokyo'. NY shows 09:00, London shows 14:00, Tokyo shows 23:00. The actual time-zone offsets are NY=UTC-5, London=UTC+0, Tokyo=UTC+9.",
+      "question": "Which clock(s) show INCORRECT time relative to the others?",
+      "answer": "All three are consistent (NY 09:00 = London 14:00 = Tokyo 23:00)",
+      "lever": "Verify time-zone arithmetic; UTC reference 14:00 → NY UTC-5 = 09:00 ✓; Tokyo UTC+9 = 23:00 ✓. All consistent."
+    },
+    {
+      "id": "CONS-014",
+      "sub_skill": "object_size_inconsistent_with_label",
+      "domain": "lab beaker collection",
+      "scene": "A lab bench with 4 beakers. Each beaker has a printed label showing its volume capacity. Beaker A: labeled 250mL, looks small (~100mL size). Beaker B: labeled 500mL, looks like 500mL. Beaker C: labeled 1L, looks like 1L. Beaker D: labeled 2L, looks like 2L.",
+      "question": "Which beaker label is INCONSISTENT with its visible size?",
+      "answer": "Beaker A",
+      "lever": "Cross-check label vs visual size."
+    },
+    {
+      "id": "CONS-015",
+      "sub_skill": "reflection_should_show_object",
+      "domain": "vampire trope test",
+      "scene": "A scene of a person holding a flower in front of a wall mirror. The mirror reflects the wall behind the person, but the reflection shows the person without the flower in their hand.",
+      "question": "What is INCONSISTENT in the reflection?",
+      "answer": "The flower is missing from the reflected hand",
+      "lever": "Compare object features in the reflection to the real."
+    },
+    {
+      "id": "CONS-016",
+      "sub_skill": "speed_distance_time_inconsistency",
+      "domain": "GPS dashboard",
+      "scene": "A car GPS dashboard shows: Speed = 60 km/h, Time elapsed = 30 min, Distance traveled = 50 km.",
+      "question": "Are these three values mutually consistent?",
+      "answer": "No — at 60 km/h for 30 min, distance should be 30 km, not 50 km",
+      "lever": "Verify d = v · t."
+    },
+    {
+      "id": "CONS-017",
+      "sub_skill": "language_label_translation_mismatch",
+      "domain": "bilingual product label",
+      "scene": "A bilingual food label has English: 'Chocolate Cookies' and Chinese: '草莓饼干' (strawberry cookies). The image shows brown chocolate-chip cookies.",
+      "question": "Which label is INCONSISTENT with the product?",
+      "answer": "The Chinese label (says strawberry, product is chocolate)",
+      "lever": "Cross-language consistency check + image verification."
+    },
+    {
+      "id": "CONS-018",
+      "sub_skill": "branding_inconsistency_logo_text",
+      "domain": "shop sign",
+      "scene": "A shop sign has the McDonald's golden arches logo prominently, but the text below reads 'BURGER KING'.",
+      "question": "What is the inconsistency?",
+      "answer": "The logo (golden arches = McDonald's) does not match the text (Burger King)",
+      "lever": "Brand-identity cross-reference."
+    },
+    {
+      "id": "CONS-019",
+      "sub_skill": "physical_state_text_label",
+      "domain": "ice cream label",
+      "scene": "A photo of a tub labeled 'KEEP FROZEN ICE CREAM' sitting at room temperature, with melted liquid pooling visibly around it.",
+      "question": "Is the ice cream still in the state implied by the label?",
+      "answer": "No — it has melted",
+      "lever": "Verify physical state against label expectation."
+    },
+    {
+      "id": "CONS-020",
+      "sub_skill": "unit_inconsistency_mixed_signs",
+      "domain": "speed limit sign",
+      "scene": "A road sign reads: 'SPEED LIMIT 100' with a small marker below saying 'mph'. Another sign 50m later reads: 'SPEED LIMIT 100' with marker 'km/h'. The road is in the United States (uses mph).",
+      "question": "Are the two signs consistent?",
+      "answer": "No — 100 mph ≠ 100 km/h (100 mph ≈ 161 km/h)",
+      "lever": "Detect unit conflict for the same numeric value."
+    },
+    {
+      "id": "CONS-021",
+      "sub_skill": "season_decoration_mismatch",
+      "domain": "store decor",
+      "scene": "A store front decorated with: pumpkins (autumn/Halloween), a sign 'HAPPY HALLOWEEN', a Christmas tree with lights, and a sign 'MERRY CHRISTMAS'. Both holidays' decor are simultaneously displayed.",
+      "question": "Are the decorations seasonally consistent?",
+      "answer": "No — Halloween and Christmas are different seasons (October vs December)",
+      "lever": "Seasonal coherence check across multiple decor elements."
+    },
+    {
+      "id": "CONS-022",
+      "sub_skill": "anachronism_object_in_period",
+      "domain": "historical re-enactment scene",
+      "scene": "A medieval re-enactment scene: knights in armor, a horse with chain mail, a wooden castle backdrop. In one knight's hand is a modern smartphone clearly visible.",
+      "question": "What is the anachronistic element?",
+      "answer": "The smartphone",
+      "lever": "Identify out-of-period object."
+    },
+    {
+      "id": "CONS-023",
+      "sub_skill": "instrument_reading_mismatch",
+      "domain": "lab thermometer and gauge",
+      "scene": "A lab setup: water in a beaker on a hot plate. A digital thermometer reads 25°C. A second analog thermometer in the same beaker reads 95°C. The water visibly bubbles indicating boiling.",
+      "question": "Which reading is INCONSISTENT with reality?",
+      "answer": "The digital thermometer reading 25°C (water is clearly boiling near 100°C)",
+      "lever": "Cross-instrument + visual evidence reconciliation."
+    },
+    {
+      "id": "CONS-024",
+      "sub_skill": "logo_count_inconsistency",
+      "domain": "team uniform photo",
+      "scene": "A football team photo with 11 players. The team's logo on the chest of jerseys: 10 players have the standard team logo (an eagle); 1 player has a different logo (a tiger).",
+      "question": "How many players are wearing INCORRECT uniforms?",
+      "answer": "1",
+      "lever": "Spot the outlier in a uniformed group."
+    },
+    {
+      "id": "CONS-025",
+      "sub_skill": "physics_implausibility_water",
+      "domain": "physics oddity scene",
+      "scene": "A glass of water tipped at 45° but the water surface inside is also tilted at 45° (parallel to the glass bottom rather than horizontal).",
+      "question": "Is the water surface oriented as expected by physics?",
+      "answer": "No — water surface should be horizontal (parallel to the ground), not parallel to the glass bottom",
+      "lever": "Detect physics violation; gravity dictates horizontal water surface."
+    },
+    {
+      "id": "CONS-026",
+      "sub_skill": "advertised_vs_visible_feature",
+      "domain": "smartphone ad",
+      "scene": "A smartphone ad showing the device. Ad text: 'TRIPLE CAMERA SETUP'. The visible back of the phone in the ad image shows only a SINGLE camera lens.",
+      "question": "Is the ad consistent?",
+      "answer": "No — text claims triple camera, image shows single",
+      "lever": "Text-image fact verification."
+    },
+    {
+      "id": "CONS-027",
+      "sub_skill": "zoo_animal_geographic_signage",
+      "domain": "zoo enclosure sign",
+      "scene": "A zoo enclosure for a polar bear. The signage reads 'POLAR BEAR — Native to the SAHARA DESERT'.",
+      "question": "Is the signage accurate?",
+      "answer": "No — polar bears are native to the Arctic, not the Sahara",
+      "lever": "Common-knowledge fact-check against signage."
+    },
+    {
+      "id": "CONS-028",
+      "sub_skill": "subjects_of_signature_mismatch",
+      "domain": "art gallery placard",
+      "scene": "A painting of a bowl of fruit with a clear signature 'P. PICASSO 1937' in the corner. The placard below reads 'Vincent van Gogh, Sunflowers, 1888'.",
+      "question": "Is the signature consistent with the placard?",
+      "answer": "No — signature is Picasso 1937 vs placard says Van Gogh 1888",
+      "lever": "Cross-reference signature with attribution."
+    },
+    {
+      "id": "CONS-029",
+      "sub_skill": "compound_sign_self_contradiction",
+      "domain": "park rule signs",
+      "scene": "A park gate has two signs side by side. Sign 1: 'NO DOGS ALLOWED'. Sign 2: 'PLEASE LEASH ALL DOGS'.",
+      "question": "Do the two signs contradict?",
+      "answer": "Yes — sign 1 forbids dogs entirely while sign 2 allows them with a leash",
+      "lever": "Multi-rule self-contradiction detection."
+    },
+    {
+      "id": "CONS-030",
+      "sub_skill": "chemical_label_safety_mismatch",
+      "domain": "chemical lab",
+      "scene": "A chemical bottle labeled 'WATER (H₂O)' with safety symbols showing FLAMMABLE and CORROSIVE warnings. Water is neither flammable nor corrosive.",
+      "question": "Which is the inconsistency?",
+      "answer": "The hazard symbols are inconsistent with the labeled chemical (water is neither flammable nor corrosive)",
+      "lever": "Verify hazard symbols against chemical identity."
+    }
+  ]
+}

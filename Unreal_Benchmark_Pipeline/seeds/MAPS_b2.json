@@ -1,0 +1,186 @@
+{
+  "family_id": "MAPS",
+  "family_name": "Maps & Topological Navigation",
+  "seeds": [
+    {
+      "id": "MAPS-031",
+      "sub_skill": "subway_shortest_transfers",
+      "domain": "subway map",
+      "scene": "A schematic subway map with 4 colored lines and several interchange stations. Start = station A on Red, End = station J on Green; multiple possible routes via different transfers.",
+      "question": "What is the MINIMUM number of line transfers needed to go from A to J?",
+      "answer": "the minimum number based on graph traversal",
+      "lever": "Compute shortest path counted by number of color changes (transfers), not stations."
+    },
+    {
+      "id": "MAPS-032",
+      "sub_skill": "compass_orientation_after_turns",
+      "domain": "robot path diagram",
+      "scene": "A grid with a robot at start facing North; printed instructions: 'forward 2, right, forward 3, left, left, forward 1, right'.",
+      "question": "What is the robot's final facing direction?",
+      "answer": "compute via sequence of turns",
+      "lever": "Sequentially apply rotations to a heading; return final cardinal direction."
+    },
+    {
+      "id": "MAPS-033",
+      "sub_skill": "trail_steepness_comparison",
+      "domain": "topographic map",
+      "scene": "A topographic map with two trails A and B both connecting points X and Y; trail A traverses 5 contour lines over 1 km horizontal, trail B traverses 2 contour lines over 0.6 km. Each contour = 20 m elevation.",
+      "question": "Which trail is steeper on average?",
+      "answer": "trail A (steeper gradient)",
+      "lever": "Compute gradient = vertical / horizontal for each, compare magnitudes."
+    },
+    {
+      "id": "MAPS-034",
+      "sub_skill": "river_flow_direction",
+      "domain": "watershed map",
+      "scene": "A topographic map with a river labeled with elevation markers along its course: 320m, 280m, 240m, 200m, 160m from west to east; the labels are positioned along its sinuous path.",
+      "question": "Which direction does the river flow?",
+      "answer": "from west to east (high to low elevation)",
+      "lever": "Use elevation labels to infer downstream direction."
+    },
+    {
+      "id": "MAPS-035",
+      "sub_skill": "city_grid_address_lookup",
+      "domain": "city grid map",
+      "scene": "A simplified grid city map with east-west avenues numbered 1-10 (south to north) and north-south streets named A-J (west to east). A house sits at intersection 7th Ave & E Street.",
+      "question": "How many blocks NORTH and EAST is the house from intersection 1st & A?",
+      "answer": "6 blocks north, 4 blocks east",
+      "lever": "Compute deltas in grid coordinates."
+    },
+    {
+      "id": "MAPS-036",
+      "sub_skill": "graph_min_spanning_walk",
+      "domain": "errands route",
+      "scene": "A small map with 5 errand stops connected by roads with mileage labels; start and end at home. Find the shortest tour visiting all 5 stops.",
+      "question": "What is the minimum total mileage to visit all 5 stops and return home?",
+      "answer": "minimum tour distance via TSP solution on the small graph",
+      "lever": "Solve a small TSP by enumeration; sum mileage along chosen path."
+    },
+    {
+      "id": "MAPS-037",
+      "sub_skill": "elevation_profile_peak_count",
+      "domain": "trail elevation profile",
+      "scene": "A trail elevation profile (x = distance, y = altitude) with 4 distinct peaks of varying heights along its course.",
+      "question": "How many peaks are above 2000 m elevation?",
+      "answer": "count peaks above the threshold",
+      "lever": "Read y-axis at peak local maxima and apply altitude threshold."
+    },
+    {
+      "id": "MAPS-038",
+      "sub_skill": "scale_bar_distance",
+      "domain": "tourist map",
+      "scene": "A tourist street map with a scale bar '1 cm = 200 m'. A point of interest is 4.5 cm from the user's hotel along straight measurement.",
+      "question": "What is the real-world distance to the point of interest?",
+      "answer": "900 m",
+      "lever": "Apply linear scale to map distance."
+    },
+    {
+      "id": "MAPS-039",
+      "sub_skill": "compass_rose_with_angle",
+      "domain": "navigation chart",
+      "scene": "A nautical chart with a compass rose; from harbor a route bearing labeled '120° true' goes to a buoy.",
+      "question": "What cardinal direction is the buoy roughly in?",
+      "answer": "ESE (between East and SE)",
+      "lever": "Map degree bearing to cardinal/intercardinal name."
+    },
+    {
+      "id": "MAPS-040",
+      "sub_skill": "one_way_street_route",
+      "domain": "downtown map with arrows",
+      "scene": "A downtown grid map with arrows showing one-way directions on each street; start at intersection X, end at intersection Y.",
+      "question": "What is the SHORTEST legal route?",
+      "answer": "shortest path obeying one-way arrows",
+      "lever": "Apply directional constraints; reject naive shortest path that violates arrows."
+    },
+    {
+      "id": "MAPS-041",
+      "sub_skill": "floor_plan_room_count",
+      "domain": "house floor plan",
+      "scene": "A floor plan diagram of a 2-story house; ground floor: 4 labeled rooms (kitchen, living, dining, bath); upper: 3 bedrooms + 1 bath. Garage labeled separately.",
+      "question": "How many rooms are in the house excluding bathrooms and garage?",
+      "answer": "6",
+      "lever": "Count rooms with category filtering (exclude bath/garage)."
+    },
+    {
+      "id": "MAPS-042",
+      "sub_skill": "distance_along_curved_path",
+      "domain": "park trail map",
+      "scene": "A park map with a curved trail; user must use a string laid along the trail measured against the scale bar shown.",
+      "question": "How long is the trail in meters?",
+      "answer": "approximate length using scale bar",
+      "lever": "Estimate curved-path length and convert via scale."
+    },
+    {
+      "id": "MAPS-043",
+      "sub_skill": "rendezvous_point_meeting",
+      "domain": "two-traveler map",
+      "scene": "A map with two travelers walking at the same speed: one starts at A heading east on a road, one at B heading north. Roads form a grid.",
+      "question": "At which intersection do they meet (if walking at same speed)?",
+      "answer": "the intersection where their travel times equalize",
+      "lever": "Solve simultaneous equal-time meeting on a grid."
+    },
+    {
+      "id": "MAPS-044",
+      "sub_skill": "elevator_floor_logic",
+      "domain": "office building diagram",
+      "scene": "A building cross-section: elevator A serves floors 1-10, elevator B serves 10-20, elevator C serves only floors 1, 5, 10, 15, 20. Start: floor 3, target: floor 18.",
+      "question": "What is the minimum number of elevator changes needed?",
+      "answer": "2 (A from 3→10, then B from 10→18)",
+      "lever": "Plan path through restricted-service elevators."
+    },
+    {
+      "id": "MAPS-045",
+      "sub_skill": "missing_road_segment",
+      "domain": "broken road map",
+      "scene": "A map with a road that is shown twice on the same map fragment but a 1-block segment is missing between them, only connectable via a diagonal alley.",
+      "question": "Can a car go directly from A to B without using the alley?",
+      "answer": "no — the road segment is missing",
+      "lever": "Detect topological discontinuity in seemingly-connected roads."
+    },
+    {
+      "id": "MAPS-046",
+      "sub_skill": "transit_with_time_table",
+      "domain": "bus schedule + map",
+      "scene": "A bus map with two routes; route 1 runs every 15 min, route 2 every 20 min, sync table shows transfer station X. Start at 9:07 from origin; estimate arrival at destination requiring one transfer.",
+      "question": "What is the earliest arrival time at the destination?",
+      "answer": "compute earliest concatenated travel time",
+      "lever": "Combine bus schedules at transfer point with travel time per leg."
+    },
+    {
+      "id": "MAPS-047",
+      "sub_skill": "compass_north_via_landmark",
+      "domain": "satellite map fragment",
+      "scene": "A satellite-image map fragment with NO compass arrow shown; sun-shadow direction visible on a tall building shadow points to the upper-right of the frame at noon-equivalent latitude.",
+      "question": "Approximately which way is NORTH on the image?",
+      "answer": "opposite of sun direction at solar noon (in northern hemisphere) — depends on hemisphere; specify reasoning",
+      "lever": "Infer cardinal orientation from shadow direction and time-of-day cue."
+    },
+    {
+      "id": "MAPS-048",
+      "sub_skill": "transit_zone_fare",
+      "domain": "transit fare zone map",
+      "scene": "A zone fare map with concentric zones 1-4; fare table: travel within zone = $2, cross zone = $1 per zone crossed. Trip starts in zone 1, ends in zone 3.",
+      "question": "What is the fare?",
+      "answer": "$4 ($2 base + $1 × 2 zones crossed)",
+      "lever": "Count zone boundaries crossed; apply fare formula."
+    },
+    {
+      "id": "MAPS-049",
+      "sub_skill": "watershed_basin_count",
+      "domain": "topographic map",
+      "scene": "A topographic map with several distinct ridge lines dividing the area into separate basins; rivers flow toward the lowest point of each basin.",
+      "question": "How many distinct watersheds (basins) are visible?",
+      "answer": "count of basins separated by ridges",
+      "lever": "Identify ridges that separate flow domains; count basins."
+    },
+    {
+      "id": "MAPS-050",
+      "sub_skill": "no_left_turn_routing",
+      "domain": "city map with restrictions",
+      "scene": "A city downtown map; signs marked at 3 intersections: 'no left turn'. Start to end requires planning a route avoiding those left turns.",
+      "question": "What is the shortest route obeying all turn restrictions?",
+      "answer": "the shortest valid path avoiding the restricted left turns",
+      "lever": "Apply turn-restriction constraints during path planning."
+    }
+  ]
+}

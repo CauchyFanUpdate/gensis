@@ -1,0 +1,186 @@
+{
+  "family_id": "OPTI",
+  "family_name": "Transparent Objects & Optical Effects",
+  "seeds": [
+    {
+      "id": "OPTI-031",
+      "sub_skill": "color_through_filter_combo",
+      "domain": "stage lighting",
+      "scene": "A stage with a yellow shirt illuminated by a magenta spotlight (red+blue light, no green).",
+      "question": "How does the yellow shirt appear under the magenta light?",
+      "answer": "red (yellow reflects red and green; only red is in the light)",
+      "lever": "Subtractive reflection × additive light: yellow pigment passes red+green; magenta light has red+blue → only red survives."
+    },
+    {
+      "id": "OPTI-032",
+      "sub_skill": "polarization_glare_removal",
+      "domain": "fishing pier",
+      "scene": "Two side-by-side photos of a pond surface; left without polarizer (heavy surface glare hides fish), right with polarizer (clear view of fish below).",
+      "question": "What does the polarizer remove?",
+      "answer": "specular surface reflections (glare)",
+      "lever": "Recognize that polarizing filters reduce specular reflection from non-metallic surfaces."
+    },
+    {
+      "id": "OPTI-033",
+      "sub_skill": "magnifying_glass_inversion_distance",
+      "domain": "loupe over text",
+      "scene": "A magnifying glass at distance d=25cm above a printed page; text appears inverted and reduced in the lens, where focal length is 10cm.",
+      "question": "Why does the text appear inverted at d=25cm?",
+      "answer": "object is beyond 2f (focal length 10cm), so a real inverted reduced image forms",
+      "lever": "Apply thin-lens imaging behavior: object > 2f → real, inverted, smaller image."
+    },
+    {
+      "id": "OPTI-034",
+      "sub_skill": "rainbow_position_relative_to_sun",
+      "domain": "sky landscape",
+      "scene": "A sky photo with the sun visible behind the camera at low angle; a rainbow arc visible in front in the spray of a fountain.",
+      "question": "Where must the sun be relative to the photographer for this rainbow geometry?",
+      "answer": "behind the photographer (at 0° azimuth from view direction)",
+      "lever": "Apply rainbow geometry: anti-solar point is at observer's shadow direction."
+    },
+    {
+      "id": "OPTI-035",
+      "sub_skill": "refraction_offset_pencil",
+      "domain": "glass of water with pencil",
+      "scene": "A glass half-filled with water; a pencil rests in it; the pencil appears bent at the air-water interface.",
+      "question": "Why does the submerged portion of the pencil appear shifted?",
+      "answer": "refraction at the air-water boundary (water has higher refractive index)",
+      "lever": "Recognize Snell's-law bending of light at interface."
+    },
+    {
+      "id": "OPTI-036",
+      "sub_skill": "shadow_of_translucent_object",
+      "domain": "frosted glass shadow",
+      "scene": "A frosted glass cube held above a white surface; the shadow shows a soft penumbra and the central area is gray rather than fully dark.",
+      "question": "Why is the shadow not fully dark?",
+      "answer": "translucent material transmits diffuse light through it",
+      "lever": "Distinguish transmittance vs opacity in shadow formation."
+    },
+    {
+      "id": "OPTI-037",
+      "sub_skill": "mirror_left_right_invariance",
+      "domain": "person facing mirror",
+      "scene": "A person standing facing a flat vertical mirror; they raise their left hand.",
+      "question": "Which hand of the mirror image is raised, from the viewer's perspective?",
+      "answer": "the hand on the viewer's right side of the mirror image",
+      "lever": "Mirror reverses front-back, not literally L-R; reasoning about mirror parity."
+    },
+    {
+      "id": "OPTI-038",
+      "sub_skill": "lens_flare_indicates_sun",
+      "domain": "outdoor portrait",
+      "scene": "An outdoor portrait with a circular lens flare arc across the upper-right of the frame.",
+      "question": "Roughly where is the sun in this scene?",
+      "answer": "outside the frame, opposite the flare direction (lower-left of camera)",
+      "lever": "Lens flares appear opposite the actual light source through the optical axis."
+    },
+    {
+      "id": "OPTI-039",
+      "sub_skill": "diffraction_color_in_cd",
+      "domain": "compact disc surface",
+      "scene": "A photo of a CD reflecting white light, showing rainbow color bands radiating from the center.",
+      "question": "Why does the CD display rainbow colors?",
+      "answer": "diffraction from the regularly-spaced track grooves separates wavelengths",
+      "lever": "Recognize diffraction grating effect from periodic surface structure."
+    },
+    {
+      "id": "OPTI-040",
+      "sub_skill": "shadow_color_complementary",
+      "domain": "two-light setup",
+      "scene": "A scene with two colored stage lights (red and green) hitting a white wall; an object between them casts two shadows on the wall: where red is blocked, the shadow appears green; where green is blocked, the shadow appears red.",
+      "question": "Why do the colored shadows appear?",
+      "answer": "each shadow blocks one color, allowing only the other color's light to illuminate that region",
+      "lever": "Reason about color light sources and shadow as light-source occlusion."
+    },
+    {
+      "id": "OPTI-041",
+      "sub_skill": "thin_film_oil_color",
+      "domain": "oil slick on puddle",
+      "scene": "A puddle with a thin oil film showing iridescent rainbow colors that shift as viewing angle changes.",
+      "question": "What causes the changing colors?",
+      "answer": "thin-film interference; color depends on film thickness and viewing angle",
+      "lever": "Recognize thin-film interference as cause of iridescence."
+    },
+    {
+      "id": "OPTI-042",
+      "sub_skill": "mirage_road_explanation",
+      "domain": "highway summer day",
+      "scene": "A long-distance highway photo with a shimmering 'wet' patch on the road far ahead, reflecting sky.",
+      "question": "What causes the apparent water on the road?",
+      "answer": "inferior mirage from light refracting through hot-air layer above the asphalt",
+      "lever": "Recognize hot-air refraction as cause of inferior mirage."
+    },
+    {
+      "id": "OPTI-043",
+      "sub_skill": "concave_mirror_real_image",
+      "domain": "shaving mirror",
+      "scene": "A concave shaving mirror with an object placed beyond its focal point; a real, inverted image forms in space in front of it.",
+      "question": "Where can a card be placed to display this image?",
+      "answer": "between the mirror and the object, at the image distance",
+      "lever": "Apply mirror equation to locate real-image plane."
+    },
+    {
+      "id": "OPTI-044",
+      "sub_skill": "specular_vs_diffuse_surface",
+      "domain": "two ball reflections",
+      "scene": "Two identically-shaped balls under the same light: one polished chrome (sharp environment reflection visible on surface), one matte white (smooth shading, no environment image).",
+      "question": "Which surface is specular?",
+      "answer": "the chrome ball",
+      "lever": "Distinguish reflection types by sharpness of mirrored environment."
+    },
+    {
+      "id": "OPTI-045",
+      "sub_skill": "underwater_size_apparent",
+      "domain": "fish in tank",
+      "scene": "A fish viewed through the side wall of a glass aquarium appears larger than its actual size.",
+      "question": "Why does the fish appear larger than reality?",
+      "answer": "refraction at water-glass-air boundary magnifies the apparent size",
+      "lever": "Recognize underwater objects appear ~33% larger due to index mismatch."
+    },
+    {
+      "id": "OPTI-046",
+      "sub_skill": "moire_pattern_overlap",
+      "domain": "two screen meshes",
+      "scene": "Two fine wire mesh screens overlaid at slight angle; a Moiré pattern of dark and bright bands appears.",
+      "question": "What causes the visible band pattern?",
+      "answer": "Moiré interference between two periodic structures",
+      "lever": "Recognize Moiré as interference between two regular grids."
+    },
+    {
+      "id": "OPTI-047",
+      "sub_skill": "transparent_object_silhouette",
+      "domain": "glass test",
+      "scene": "Three identical-shape spheres on a white background lit from above: glass (visible as faint outline + caustic light spot beneath), translucent plastic (opaque-edge visible, no caustic), opaque plastic (full silhouette + crisp shadow).",
+      "question": "Which sphere is GLASS?",
+      "answer": "the one with the caustic light spot beneath",
+      "lever": "Recognize caustic focusing as fingerprint of high-transparency refractive solid."
+    },
+    {
+      "id": "OPTI-048",
+      "sub_skill": "color_constancy_under_dim_light",
+      "domain": "low-light room",
+      "scene": "A dim room with very low overall illumination; colored objects (blue book, red apple, green plant) appear desaturated and grayish.",
+      "question": "Why do the colors appear washed out?",
+      "answer": "scotopic (rod-dominant) vision lacks color discrimination at low light levels",
+      "lever": "Recognize Purkinje shift / loss of cone function in dim light."
+    },
+    {
+      "id": "OPTI-049",
+      "sub_skill": "split_image_through_glass_door",
+      "domain": "office partition",
+      "scene": "A glass office partition with the door open at 45°; the same wall behind the door is visible as both a direct view and a partial reflection in the glass at 45°.",
+      "question": "Where does the reflected image of the wall appear relative to the actual wall?",
+      "answer": "shifted by mirror geometry across the glass plane",
+      "lever": "Apply mirror reflection geometry to predict reflected image position."
+    },
+    {
+      "id": "OPTI-050",
+      "sub_skill": "halo_around_moon",
+      "domain": "winter night sky",
+      "scene": "A night sky photo of the moon with a clear circular halo (~22° radius).",
+      "question": "What atmospheric phenomenon causes this halo?",
+      "answer": "ice-crystal refraction in cirrostratus clouds (22° halo)",
+      "lever": "Recognize hexagonal ice-crystal refraction as cause of 22° lunar halo."
+    }
+  ]
+}
