@@ -1,0 +1,13 @@
+{
+    "gen_pipeline_babyvision": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_babyvision",
+    "gen_pipeline_DocVQA": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_DocVQA",
+    "gen_pipeline_emma": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_emma",
+    "gen_pipeline_charxiv": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_charxiv",
+    "gen_pipeline_hallusionbench": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_hallusionbench",
+    "gen_pipeline_infoVQA": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_infoVQA",
+    "gen_pipeline_logitVista": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_logitVista",
+    "gen_pipeline_mmmu_pro": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_mmmu_pro",
+    "gen_pipeline_mmstar": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_mmstar",
+    "gen_pipeline_realwordQA": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_pipeline_realwordQA",
+    "gen_zerobench_output_v5": "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/project/benchmark/ZeroGeneration/gen_zerobench_output_v5"
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyVision Stage 2 Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; padding: 20px; }
+        .card { margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .image-container { 
+            height: 300px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background-color: #e9ecef;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s;
+        }
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+        .text-content {
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 250px;
+            overflow-y: auto;
+            background: #f1f3f5;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .section-title { font-weight: bold; color: #495057; margin-bottom: 5px; margin-top: 10px; }
+        
+        /* Modal styles for image zoom */
+        .modal-image { max-width: 100%; max-height: 85vh; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1 class="mb-4 text-center">BabyVision Stage 2 Visualization</h1>
+    
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            {% if page > 1 %}
+            <a href="/?page={{ page - 1 }}" class="btn btn-primary">&laquo; Previous</a>
+            {% endif %}
+        </div>
+        <div class="align-self-center">
+            Page {{ page }} of {{ total_pages }}
+        </div>
+        <div>
+            {% if page < total_pages %}
+            <a href="/?page={{ page + 1 }}" class="btn btn-primary">Next &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% for item in items %}
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Task ID: {{ item.task_id }}
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Left Side: Original -->
+                <div class="col-md-6 border-end">
+                    <h4 class="text-center text-primary mb-3">Original</h4>
+                    
+                    <div class="image-container mb-3" onclick="showImage('/image/original/{{ item.task_id }}')">
+                        <img src="/image/original/{{ item.task_id }}" alt="Original Image">
+                    </div>
+                    
+                    <div class="section-title">Question:</div>
+                    <div class="text-content">{{ item.original.question }}</div>
+                    
+                    {% if item.original.options and item.original.options|length > 0 %}
+                    <div class="section-title">Options:</div>
+                    <div class="text-content">
+                        <ul class="mb-0 ps-3">
+                        {% for opt in item.original.options %}
+                            <li>{{ opt }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="section-title">Answer:</div>
+                    <div class="text-content"><strong>{{ item.original.answer }}</strong></div>
+                    
+                    {% if item.original.cot %}
+                    <div class="section-title">Chain of Thought:</div>
+                    <div class="text-content">{{ item.original.cot }}</div>
+                    {% endif %}
+                </div>
+                
+                <!-- Right Side: Generated -->
+                <div class="col-md-6">
+                    <h4 class="text-center text-success mb-3">Generated</h4>
+                    
+                    <div class="image-container mb-3" onclick="showImage('/image/generated?path={{ item.gen_img_path | urlencode }}')">
+                        <img src="/image/generated?path={{ item.gen_img_path | urlencode }}" alt="Generated Image">
+                    </div>
+                    
+                    <div class="section-title">Generated Question:</div>
+                    <div class="text-content">{{ item.gen_question }}</div>
+                    
+                    <div class="section-title">Generated Answer / Think:</div>
+                    <div class="text-content">{{ item.gen_answer }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-between mt-4 mb-5">
+        <div>
+            {% if page > 1 %}
+            <a href="/?page={{ page - 1 }}" class="btn btn-primary">&laquo; Previous</a>
+            {% endif %}
+        </div>
+        <div class="align-self-center">
+            Page {{ page }} of {{ total_pages }}
+        </div>
+        <div>
+            {% if page < total_pages %}
+            <a href="/?page={{ page + 1 }}" class="btn btn-primary">Next &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Image View</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modalImageSrc" class="modal-image" src="" alt="Full size image">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    
+    function showImage(src) {
+        document.getElementById('modalImageSrc').src = src;
+        imageModal.show();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2652 @@
+diff --git a/requirements.txt b/requirements.txt
+index 11960721..66c61452 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -15,7 +15,7 @@ pre-commit
+ ray[default]
+ tensordict>=0.8.0,<=0.10.0,!=0.9.0
+ torchdata
+-transformers
++#transformers
+ # vllm==0.8.4
+ wandb
+ packaging>=20.0
+diff --git a/verl/experimental/reward_loop/reward_loop.py b/verl/experimental/reward_loop/reward_loop.py
+index dd76ab64..fb56a52a 100644
+--- a/verl/experimental/reward_loop/reward_loop.py
++++ b/verl/experimental/reward_loop/reward_loop.py
+@@ -20,7 +20,7 @@ import aiohttp
+ import numpy as np
+ import ray
+ import torch
+-from omegaconf import DictConfig, open_dict
++from omegaconf import DictConfig, OmegaConf, open_dict
+ from PIL import Image
+ from ray.actor import ActorHandle
+ from tensordict import TensorDict
+@@ -109,14 +109,16 @@ class RewardLoopWorker:
+         -> rm is genrm: raise error (user-costomized reward func must be provided)
+     """
+ 
+-    def __init__(self, config: DictConfig, reward_router_address: str = None):
++    def __init__(self, config: DictConfig, reward_router_address: str = None, reward_kwargs: dict = None):
+         """
+         Args:
+             config: DictConfig, the config for reward loop worker.
+             reward_router_address: str, the address of reward router.
++            reward_kwargs: dict, pre-extracted reward kwargs to avoid serialization issues.
+         """
+         self.config = config
+         self.reward_router_address = reward_router_address
++        self.reward_kwargs = reward_kwargs or {}
+         self._init_reward_fn()
+         self.loop = get_event_loop()
+ 
+@@ -131,11 +133,21 @@ class RewardLoopWorker:
+             reward_model_tokenizer_local_path = copy_to_local(self.config.reward.reward_model.model_path)
+             self.reward_model_tokenizer = hf_tokenizer(reward_model_tokenizer_local_path, trust_remote_code=True)
+ 
++        # Use reward_kwargs passed from RewardLoopManager (extracted before Ray serialization)
++        # Fallback to config if not provided (for backward compatibility)
++        reward_kwargs = self.reward_kwargs.copy() if self.reward_kwargs else {}
++
++        if not reward_kwargs and hasattr(self.config, "reward_model"):
++            # Fallback: try to extract from config if not passed
++            logger.warning("reward_kwargs not provided, attempting to extract from config")
++            reward_kwargs = dict(self.config.reward_model.get("reward_kwargs", {}))
++
++        reward_kwargs["reward_router_address"] = self.reward_router_address
++        reward_kwargs["reward_model_tokenizer"] = self.reward_model_tokenizer
+         self.reward_manager = load_reward_manager(
+             self.config,
+             self.input_tokenizer,
+-            reward_router_address=self.reward_router_address,
+-            reward_model_tokenizer=self.reward_model_tokenizer,
++            **reward_kwargs,
+         )
+ 
+     async def compute_score_batch(self, data: DataProto) -> list[dict]:
+@@ -326,6 +338,10 @@ class RewardLoopManager:
+         num_workers = self.config.reward.num_workers
+         node_ids = [node["NodeID"] for node in ray.nodes() if node["Alive"] and node["Resources"].get("CPU", 0) > 0]
+ 
++        # Extract reward_kwargs from config to pass explicitly to worker
++        # This avoids issues with Hydra struct mode or pickling during Ray serialization
++        reward_kwargs = dict(self.config.reward.get("reward_kwargs", {})) if hasattr(self.config, "reward") else {}
++
+         for i in range(num_workers):
+             # Round-robin scheduling over the all nodes
+             node_id = node_ids[i % len(node_ids)]
+@@ -337,7 +353,7 @@ class RewardLoopManager:
+                         node_id=node_id,
+                         soft=True,
+                     ),
+-                ).remote(self.config, self.reward_router_address)
++                ).remote(self.config, self.reward_router_address, reward_kwargs)
+             )
+ 
+     def compute_rm_score(self, data: DataProto) -> DataProto:
+diff --git a/verl/experimental/reward_loop/reward_manager/__init__.py b/verl/experimental/reward_loop/reward_manager/__init__.py
+index 236620fc..9587ff0e 100644
+--- a/verl/experimental/reward_loop/reward_manager/__init__.py
++++ b/verl/experimental/reward_loop/reward_manager/__init__.py
+@@ -19,6 +19,8 @@ from .naive import NaiveRewardManager
+ from .limited import RateLimitedRewardManager
+ from .remote import RemoteRewardManager
+ from .visual import VisualRewardManager
++from .llm_judge import LLMJudgeRewardManagerAdapter
++from .spatial_consistency import SpatialConsistencyRewardManagerAdapter
+ 
+ __all__ = [
+     "DAPORewardManager",
+@@ -27,6 +29,8 @@ __all__ = [
+     "RateLimitedRewardManager",
+     "RemoteRewardManager",
+     "VisualRewardManager",
++    "LLMJudgeRewardManagerAdapter",
++    "SpatialConsistencyRewardManagerAdapter",
+     "register",
+     "get_reward_manager_cls",
+ ]
+diff --git a/verl/experimental/reward_loop/reward_manager/llm_judge.py b/verl/experimental/reward_loop/reward_manager/llm_judge.py
+new file mode 100644
+index 00000000..210c8b27
+--- /dev/null
++++ b/verl/experimental/reward_loop/reward_manager/llm_judge.py
+@@ -0,0 +1,67 @@
++# Copyright 2025 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++"""LLM Judge reward manager adapter for experimental reward loop."""
++
++import logging
++
++from verl import DataProto
++from verl.experimental.reward_loop.reward_manager import register
++from verl.experimental.reward_loop.reward_manager.base import RewardManagerBase
++from verl.workers.reward_manager.llm_judge import LLMJudgeRewardManager
++
++_LOGGER = logging.getLogger(__name__)
++
++
++@register("llm_judge")
++class LLMJudgeRewardManagerAdapter(RewardManagerBase):
++    """Adapter for LLMJudgeRewardManager to work with experimental reward loop."""
++
++    def __init__(self, config, tokenizer, compute_score, **kwargs):
++        super().__init__(config, tokenizer, compute_score)
++        self.llm_judge_manager = LLMJudgeRewardManager(
++            tokenizer=tokenizer,
++            num_examine=kwargs.get("num_examine", 0),
++            compute_score=compute_score,
++            reward_fn_key=kwargs.get("reward_fn_key", "data_source"),
++            max_resp_len=kwargs.get("max_resp_len", None),
++            llm_judge_kwargs=kwargs.get("llm_judge_kwargs", {}),
++            format_weight=kwargs.get("format_weight"),
++            rubric_weight=kwargs.get("rubric_weight"),
++        )
++
++    async def run_single(self, data: DataProto) -> dict:
++        assert len(data) == 1, "Only support single data item"
++
++        # Directly await the async judge path — no subprocess spawning.
++        # The previous approach (spawning _judge_in_remote_worker via ray.remote
++        # per sample) created one short-lived Ray worker process per sample per
++        # training step. With PID 1 = sleep (no zombie reaping), those processes
++        # accumulated as zombies and eventually exhausted the PID table.
++        reward_dict = await self.llm_judge_manager.call_async(data, return_dict=True)
++
++        reward_tensor = reward_dict["reward_tensor"]
++        reward_extra_info = reward_dict["reward_extra_info"]
++
++        data_item = data[0]
++        response_ids = data_item.batch["responses"]
++        response_length = response_ids.shape[-1]
++        valid_response_length = data_item.batch["attention_mask"][-response_length:].sum()
++
++        reward_score = float(reward_tensor[0, max(0, int(valid_response_length) - 1)])
++
++        return {
++            "reward_score": reward_score,
++            "reward_extra_info": reward_extra_info,
++        }
+diff --git a/verl/experimental/reward_loop/reward_manager/spatial_consistency.py b/verl/experimental/reward_loop/reward_manager/spatial_consistency.py
+new file mode 100644
+index 00000000..156e5644
+--- /dev/null
++++ b/verl/experimental/reward_loop/reward_manager/spatial_consistency.py
+@@ -0,0 +1,61 @@
++"""Spatial consistency reward manager adapter for experimental reward loop."""
++
++import asyncio
++import logging
++
++from verl import DataProto
++from verl.experimental.reward_loop.reward_manager import register
++from verl.experimental.reward_loop.reward_manager.base import RewardManagerBase
++from verl.workers.reward_manager.spatial_consistency import SpatialConsistencyRewardManager
++
++_LOGGER = logging.getLogger(__name__)
++
++
++@register("spatial_consistency")
++class SpatialConsistencyRewardManagerAdapter(RewardManagerBase):
++    """Adapter wrapping SpatialConsistencyRewardManager for the experimental reward loop."""
++
++    def __init__(self, config, tokenizer, compute_score, **kwargs):
++        super().__init__(config, tokenizer, compute_score)
++        self._manager = SpatialConsistencyRewardManager(
++            tokenizer=tokenizer,
++            num_examine=kwargs.get("num_examine", 0),
++            compute_score=compute_score,
++            reward_fn_key=kwargs.get("reward_fn_key", "data_source"),
++            format_weight=kwargs.get("format_weight", 0.1),
++            consistency_weight=kwargs.get("consistency_weight", 0.0),
++            consistency_judge_base_url=kwargs.get("consistency_judge_base_url"),
++            consistency_judge_api_key=kwargs.get("consistency_judge_api_key", "qwen"),
++            consistency_judge_model_name=kwargs.get("consistency_judge_model_name", "qwen"),
++            consistency_judge_timeout=kwargs.get("consistency_judge_timeout", 120.0),
++            consistency_judge_max_concurrent=kwargs.get("consistency_judge_max_concurrent", 16),
++            consistency_judge_max_tokens=kwargs.get("consistency_judge_max_tokens", 64),
++            consistency_judge_sigma=kwargs.get("consistency_judge_sigma", 0.1),
++            consistency_judge_enable_sleep=kwargs.get("consistency_judge_enable_sleep", True),
++            consistency_max_pairs_per_sample=kwargs.get("consistency_max_pairs_per_sample", 4),
++        )
++
++    async def run_single(self, data: DataProto) -> dict:
++        assert len(data) == 1, "Only support single data item"
++
++        # SpatialConsistencyRewardManager.__call__ is synchronous and spawns its own
++        # event loop internally for judge HTTP calls. Run it in a thread executor so
++        # we don't block the outer event loop.
++        loop = asyncio.get_event_loop()
++        reward_dict = await loop.run_in_executor(
++            None, lambda: self._manager(data, return_dict=True)
++        )
++
++        reward_tensor = reward_dict["reward_tensor"]
++        reward_extra_info = reward_dict["reward_extra_info"]
++
++        data_item = data[0]
++        response_ids = data_item.batch["responses"]
++        response_length = response_ids.shape[-1]
++        valid_response_length = data_item.batch["attention_mask"][-response_length:].sum()
++        reward_score = float(reward_tensor[0, max(0, int(valid_response_length) - 1)])
++
++        return {
++            "reward_score": reward_score,
++            "reward_extra_info": reward_extra_info,
++        }
+diff --git a/verl/models/mcore/registry.py b/verl/models/mcore/registry.py
+index 19e65a0f..4e22e769 100644
+--- a/verl/models/mcore/registry.py
++++ b/verl/models/mcore/registry.py
+@@ -32,6 +32,7 @@ class SupportedVLM(Enum):
+     QWEN3_VL = "Qwen3VLForConditionalGeneration"
+     QWEN3_5_MOE_VL = "Qwen3_5MoeForConditionalGeneration"
+     QWEN3_5_VL = "Qwen3_5ForConditionalGeneration"
++    CROSSVIEW_QWEN3_VL = "Qwen3VLForConditionalGenerationWithCrossViewAttn"
+ 
+ 
+ supported_vlm = [member.value for member in SupportedVLM]
+diff --git a/verl/models/transformers/crossview_qwen3_vl.py b/verl/models/transformers/crossview_qwen3_vl.py
+new file mode 100644
+index 00000000..0b7813af
+--- /dev/null
++++ b/verl/models/transformers/crossview_qwen3_vl.py
+@@ -0,0 +1,138 @@
++# CrossView-Qwen3VL monkey-patch functions for verl actor/ref FSDP forward.
++#
++# Mirrors the qwen3_vl.py pattern but adds:
++#   - VGGT encoding per sample
++#   - CrossViewConsistencyModule fusion before scatter
++#   - Dummy pass for FSDP2 gradient sync when no images in batch
++
++from typing import List, Optional
++
++import torch
++
++from verl.models.transformers.qwen3_vl import Qwen3VLCausalLMOutputForPPO
++
++
++def crossview_base_forward(
++    self,
++    input_ids: Optional[torch.LongTensor] = None,
++    attention_mask: Optional[torch.Tensor] = None,
++    position_ids: Optional[torch.LongTensor] = None,
++    past_key_values=None,
++    inputs_embeds: Optional[torch.FloatTensor] = None,
++    pixel_values: Optional[torch.Tensor] = None,
++    pixel_values_videos: Optional[torch.FloatTensor] = None,
++    image_grid_thw: Optional[torch.LongTensor] = None,
++    video_grid_thw: Optional[torch.LongTensor] = None,
++    cache_position: Optional[torch.LongTensor] = None,
++    vggt_features: Optional[List[torch.Tensor]] = None,
++    vggt_camera_tokens: Optional[List[torch.Tensor]] = None,
++    **kwargs,
++):
++    """Patched CrossViewQwen3VLModel.forward for verl.
++
++    verl pre-computes position_ids via get_rope_index, so position_ids is
++    always provided and the RoPE block inside the original forward is skipped.
++    Adds a dummy visual pass when pixel_values is None to keep all parameters
++    in the gradient graph under FSDP2.
++    """
++    if inputs_embeds is None:
++        inputs_embeds = self.get_input_embeddings()(input_ids)
++
++    image_mask = None
++    deepstack_image_embeds = None
++
++    if pixel_values is not None:
++        image_embeds_tuple, deepstack_image_embeds = self.get_image_features(
++            pixel_values, image_grid_thw
++        )
++        if vggt_features is not None and vggt_camera_tokens is not None:
++            fused = self._apply_multiview(
++                list(image_embeds_tuple),
++                vggt_features,
++                vggt_camera_tokens,
++                image_grid_thw=image_grid_thw,
++            )
++        else:
++            fused = torch.cat(image_embeds_tuple, dim=0)
++
++        fused = fused.to(inputs_embeds.device, inputs_embeds.dtype)
++        image_mask, _ = self.get_placeholder_mask(
++            input_ids, inputs_embeds=inputs_embeds, image_features=fused
++        )
++        inputs_embeds = inputs_embeds.masked_scatter(image_mask, fused)
++    else:
++        # Dummy pass: keep visual encoder and crossview module in gradient graph.
++        # Without this, FSDP2 AllReduce will deadlock on unused parameters.
++        cfg = self.config.vision_config
++        patch_dim = cfg.in_channels * cfg.temporal_patch_size * cfg.patch_size ** 2
++        dummy_pv = torch.zeros(
++            (16, patch_dim), dtype=inputs_embeds.dtype, device=inputs_embeds.device
++        )
++        dummy_thw = torch.tensor([[1, 4, 4]], dtype=torch.long, device=inputs_embeds.device)
++        dummy_embeds_tuple, _ = self.get_image_features(dummy_pv, dummy_thw)
++        inputs_embeds = inputs_embeds + 0.0 * torch.cat(dummy_embeds_tuple, dim=0).mean()
++        for p in self.multiview_module.parameters():
++            inputs_embeds = inputs_embeds + 0.0 * p.sum()
++
++    visual_pos_masks = None
++    deepstack_visual_embeds = None
++    if image_mask is not None:
++        visual_pos_masks = image_mask[..., 0]
++        deepstack_visual_embeds = deepstack_image_embeds
++
++    if attention_mask is not None:
++        attention_mask = attention_mask.to(inputs_embeds.device)
++
++    return self.language_model(
++        input_ids=None,
++        position_ids=position_ids,
++        attention_mask=attention_mask,
++        past_key_values=past_key_values,
++        inputs_embeds=inputs_embeds,
++        cache_position=cache_position,
++        visual_pos_masks=visual_pos_masks,
++        deepstack_visual_embeds=deepstack_visual_embeds,
++        **kwargs,
++    )
++
++
++def crossview_forward_with_normal_backend(
++    self,
++    input_ids: Optional[torch.LongTensor] = None,
++    labels: Optional[torch.LongTensor] = None,
++    temperature: float = 1.0,
++    geometry_encoder_inputs: Optional[List[torch.Tensor]] = None,
++    **kwargs,
++) -> "Qwen3VLCausalLMOutputForPPO":
++    """Patched Qwen3VLForConditionalGenerationWithCrossViewAttn.forward for verl.
++
++    Pops geometry_encoder_inputs from the call, runs VGGT encoding per sample,
++    then delegates to the patched CrossViewQwen3VLModel.forward
++    (crossview_base_forward) via self.model().
++    """
++    vggt_features = None
++    vggt_camera_tokens = None
++    if geometry_encoder_inputs is not None and self.model.vggt_encoder is not None:
++        vggt_device = next(self.model.vggt_encoder.parameters()).device
++        vggt_features = []
++        vggt_camera_tokens = []
++        for vggt_inp in geometry_encoder_inputs:
++            if vggt_inp.device != vggt_device:
++                vggt_inp = vggt_inp.to(vggt_device)
++            feats, cams = self.model.vggt_encoder.encode(vggt_inp)
++            vggt_features.append(feats)
++            vggt_camera_tokens.append(cams)
++
++    outputs = self.model(
++        input_ids,
++        vggt_features=vggt_features,
++        vggt_camera_tokens=vggt_camera_tokens,
++        **kwargs,
++    )
++    hidden_states = outputs[0]
++    logits = self.lm_head(hidden_states)
++
++    return Qwen3VLCausalLMOutputForPPO(
++        logits=logits,
++        past_key_values=outputs.past_key_values,
++    )
+diff --git a/verl/models/transformers/monkey_patch.py b/verl/models/transformers/monkey_patch.py
+index a5117d73..371d5e6a 100644
+--- a/verl/models/transformers/monkey_patch.py
++++ b/verl/models/transformers/monkey_patch.py
+@@ -272,6 +272,13 @@ def patch_forward_with_backends(
+ 
+         forward_with_torch_backend_function = forward_with_torch_backend
+         forward_with_triton_backend_function = forward_with_triton_backend
++    elif model.config.model_type == "crossview-qwen3vl":
++        # CrossView model: fused kernels not supported; keep the already-patched forward.
++        print(
++            f"Skipping fused kernel backend for crossview-qwen3vl "
++            f"({model.__class__.__name__}); using normal backend."
++        )
++        return
+     else:
+         from verl.models.transformers.dense_common import forward_with_torch_backend, forward_with_triton_backend
+ 
+@@ -414,14 +421,17 @@ def apply_monkey_patch(
+             Qwen3VLForConditionalGeneration,
+             Qwen3VLModel,
+             Qwen3VLTextModel,
++            Qwen3VLVisionModel,
+         )
+         from transformers.models.qwen3_vl_moe.modeling_qwen3_vl_moe import (
+             Qwen3VLMoeForConditionalGeneration,
+             Qwen3VLMoeModel,
+             Qwen3VLMoeTextModel,
++            Qwen3VLMoeVisionModel,
+         )
+ 
+         from verl.models.transformers.qwen3_vl import (
++            fast_pos_embed_interpolate,
+             forward_with_normal_backend,
+             patch_qwen3_vl_moe_sparse_moe_block_forward,
+             qwen3_vl_base_forward,
+@@ -433,6 +443,14 @@ def apply_monkey_patch(
+         Qwen3VLMoeForConditionalGeneration.forward = forward_with_normal_backend
+         print(f"Monkey patch {model.__class__.__name__} model forward")
+ 
++        # Step 1.5: fix fast_pos_embed_interpolate to use grid_thw.device instead of
++        # self.pos_embed.weight.device. Under FSDP2 CPUOffloadPolicy (ref/forward_only),
++        # pos_embed is individually sharded on CPU; the all-gather fires only when
++        # self.pos_embed() is called, so idx_tensor ends up on CPU while weight lands
++        # on CUDA. See verl-project/verl#3686.
++        Qwen3VLVisionModel.fast_pos_embed_interpolate = fast_pos_embed_interpolate
++        Qwen3VLMoeVisionModel.fast_pos_embed_interpolate = fast_pos_embed_interpolate
++
+         # Step 1.5: patch Qwen3VLMoeTextSparseMoeBlock to fix transformers 4.57.3 bug
+         if model.config.model_type == "qwen3_vl_moe" and is_transformers_version_in_range(max_version="4.57.3"):
+             patch_qwen3_vl_moe_sparse_moe_block_forward()
+@@ -442,6 +460,24 @@ def apply_monkey_patch(
+             patch_vlm_for_ulysses_input_slicing(Qwen3VLTextModel)
+             patch_vlm_for_ulysses_input_slicing(Qwen3VLMoeTextModel)
+ 
++    elif model.config.model_type == "crossview-qwen3vl":
++        from naive_cross_vlm.model.qwenvl3.modeling_qwen3_vl_crossview import (
++            CrossViewQwen3VLModel,
++            Qwen3VLForConditionalGenerationWithCrossViewAttn,
++        )
++        from transformers.models.qwen3_vl.modeling_qwen3_vl import Qwen3VLVisionModel
++
++        from verl.models.transformers.crossview_qwen3_vl import (
++            crossview_base_forward,
++            crossview_forward_with_normal_backend,
++        )
++        from verl.models.transformers.qwen3_vl import fast_pos_embed_interpolate
++
++        CrossViewQwen3VLModel.forward = crossview_base_forward
++        Qwen3VLForConditionalGenerationWithCrossViewAttn.forward = crossview_forward_with_normal_backend
++        Qwen3VLVisionModel.fast_pos_embed_interpolate = fast_pos_embed_interpolate
++        print(f"Monkey patch {model.__class__.__name__} model forward")
++
+     elif model.config.model_type == "glm4v":
+         # Step 1: patch model to support image-text mixed data
+ 
+diff --git a/verl/models/transformers/qwen3_vl.py b/verl/models/transformers/qwen3_vl.py
+index f385d716..1e0f5a18 100644
+--- a/verl/models/transformers/qwen3_vl.py
++++ b/verl/models/transformers/qwen3_vl.py
+@@ -30,6 +30,77 @@ logger = logging.getLogger(__file__)
+ logger.setLevel(os.getenv("VERL_LOGGING_LEVEL", "WARN"))
+ 
+ 
++def fast_pos_embed_interpolate(self, grid_thw):
++    """Fixed version: use grid_thw.device to avoid CPU/CUDA mismatch under FSDP2 CPUOffloadPolicy.
++
++    Under FSDP2 with CPUOffloadPolicy, self.pos_embed is individually sharded on CPU.
++    The all-gather fires only when self.pos_embed() is called, so creating idx_tensor
++    from self.pos_embed.weight.device (CPU) causes a device mismatch when the embedding
++    call moves weights to CUDA. Using grid_thw.device avoids this. See verl#3686.
++    """
++    grid_thw_list = grid_thw.tolist()
++    grid_ts = [row[0] for row in grid_thw_list]
++    grid_hs = [row[1] for row in grid_thw_list]
++    grid_ws = [row[2] for row in grid_thw_list]
++    device = grid_thw.device
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for t, h, w in grid_thw_list:
++        h_idxs = torch.linspace(0, self.num_grid_per_side - 1, h)
++        w_idxs = torch.linspace(0, self.num_grid_per_side - 1, w)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs.int() + 1).clip(max=self.num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs.int() + 1).clip(max=self.num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * self.num_grid_per_side
++        base_h_ceil = h_idxs_ceil * self.num_grid_per_side
++
++        indices = [
++            (base_h[None].T + w_idxs_floor[None]).flatten(),
++            (base_h[None].T + w_idxs_ceil[None]).flatten(),
++            (base_h_ceil[None].T + w_idxs_floor[None]).flatten(),
++            (base_h_ceil[None].T + w_idxs_ceil[None]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[None].T * (1 - dw)[None]).flatten(),
++            ((1 - dh)[None].T * dw[None]).flatten(),
++            (dh[None].T * (1 - dw)[None]).flatten(),
++            (dh[None].T * dw[None]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.tensor(weight_list, dtype=self.pos_embed.weight.dtype, device=device)
++    pos_embeds = self.pos_embed(idx_tensor).to(device) * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    patch_pos_embeds = patch_pos_embeds.split([h * w for h, w in zip(grid_hs, grid_ws, strict=False)])
++
++    patch_pos_embeds_permute = []
++    merge_size = self.config.spatial_merge_size
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        pos_embed = pos_embed.repeat(t, 1)
++        pos_embed = (
++            pos_embed.view(t, h // merge_size, merge_size, w // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++    patch_pos_embeds = torch.cat(patch_pos_embeds_permute)
++    return patch_pos_embeds
++
++
+ def get_rope_index(
+     processor,
+     input_ids: torch.Tensor,
+@@ -149,6 +220,8 @@ def _get_input_embeds(
+     image_mask, video_mask = None, None
+     if pixel_values is not None:
+         pixel_values = pixel_values.type(model.visual.dtype)
++        if image_grid_thw is not None:
++            image_grid_thw = image_grid_thw.to(pixel_values.device)
+         image_embeds, deepstack_image_embeds = unpack_visual_output(model.visual(pixel_values, grid_thw=image_grid_thw))
+         n_image_tokens = (input_ids == model.config.image_token_id).sum().item()
+         n_image_features = image_embeds.shape[0]
+@@ -167,6 +240,8 @@ def _get_input_embeds(
+ 
+     if pixel_values_videos is not None:
+         pixel_values_videos = pixel_values_videos.type(model.visual.dtype)
++        if video_grid_thw is not None:
++            video_grid_thw = video_grid_thw.to(pixel_values_videos.device)
+         video_embeds, deepstack_video_embeds = unpack_visual_output(
+             model.visual(pixel_values_videos, grid_thw=video_grid_thw)
+         )
+diff --git a/verl/trainer/constants_ppo.py b/verl/trainer/constants_ppo.py
+index 56cd957e..a2505652 100644
+--- a/verl/trainer/constants_ppo.py
++++ b/verl/trainer/constants_ppo.py
+@@ -32,6 +32,10 @@ PPO_RAY_RUNTIME_ENV = {
+         "HCCL_HOST_SOCKET_PORT_RANGE": "auto",
+         "HCCL_NPU_SOCKET_PORT_RANGE": "auto",
+         "HSA_NO_SCRATCH_RECLAIM": "1",
++        # Propagate MASTER_ADDR/PORT to remote workers so K8s-injected values
++        # (e.g. a pod hostname or WORLD_SIZE=1) don't override the correct ones.
++        "MASTER_ADDR": "127.0.0.1",  # overridden by os.environ at runtime
++        "MASTER_PORT": "29500",      # overridden by os.environ at runtime
+     },
+ }
+ 
+@@ -49,7 +53,19 @@ def get_ppo_ray_runtime_env():
+         "env_vars": PPO_RAY_RUNTIME_ENV["env_vars"].copy(),
+         **({"working_dir": None} if working_dir is None else {}),
+     }
++    # For each key, prefer the value from os.environ (set by the caller/job) over the
++    # hardcoded default.  Do NOT remove the key — remote Ray actors on other nodes do
++    # not inherit os.environ, so the key must stay in runtime_env to be propagated.
+     for key in list(runtime_env["env_vars"].keys()):
+-        if os.environ.get(key) is not None:
+-            runtime_env["env_vars"].pop(key, None)
++        env_val = os.environ.get(key)
++        if env_val is not None:
++            runtime_env["env_vars"][key] = env_val
++
++    # Propagate LD_LIBRARY_PATH so all remote actors load the same NCCL binary.
++    # Without this, workers on nodes with system torch paths in LD_LIBRARY_PATH
++    # may load a different libnccl.so.2 version, causing bootstrap size mismatch.
++    ld_library_path = os.environ.get("LD_LIBRARY_PATH", "")
++    if ld_library_path:
++        runtime_env["env_vars"]["LD_LIBRARY_PATH"] = ld_library_path
++
+     return runtime_env
+diff --git a/verl/trainer/ppo/ray_trainer.py b/verl/trainer/ppo/ray_trainer.py
+index bd1ae21c..b8810781 100644
+--- a/verl/trainer/ppo/ray_trainer.py
++++ b/verl/trainer/ppo/ray_trainer.py
+@@ -1426,6 +1426,33 @@ class RayPPOTrainer:
+                         # extract reward_tensor and reward_extra_infos_dict for training
+                         reward_tensor, reward_extra_infos_dict = extract_reward(batch)
+ 
++                        # Log reward components to metrics
++                        if reward_extra_infos_dict:
++                            if "format_reward" in reward_extra_infos_dict:
++                                fmt_rewards = [x for x in reward_extra_infos_dict["format_reward"] if x is not None]
++                                if fmt_rewards:
++                                    metrics["reward/format_reward_mean"] = float(np.mean(fmt_rewards))
++                                    metrics["reward/format_reward_max"] = float(np.max(fmt_rewards))
++                                    metrics["reward/format_reward_min"] = float(np.min(fmt_rewards))
++                            if "result_reward" in reward_extra_infos_dict:
++                                res_rewards = [x for x in reward_extra_infos_dict["result_reward"] if x is not None]
++                                if res_rewards:
++                                    metrics["reward/result_reward_mean"] = float(np.mean(res_rewards))
++                                    metrics["reward/result_reward_max"] = float(np.max(res_rewards))
++                                    metrics["reward/result_reward_min"] = float(np.min(res_rewards))
++                            if "rubric_reward" in reward_extra_infos_dict:
++                                rubric_rewards = [x for x in reward_extra_infos_dict["rubric_reward"] if x is not None]
++                                if rubric_rewards:
++                                    metrics["reward/rubric_reward_mean"] = float(np.mean(rubric_rewards))
++                                    metrics["reward/rubric_reward_max"] = float(np.max(rubric_rewards))
++                                    metrics["reward/rubric_reward_min"] = float(np.min(rubric_rewards))
++                            if "reward" in reward_extra_infos_dict:
++                                final_rewards = [x for x in reward_extra_infos_dict["reward"] if x is not None]
++                                if final_rewards:
++                                    metrics["reward/final_reward_mean"] = float(np.mean(final_rewards))
++                                    metrics["reward/final_reward_max"] = float(np.max(final_rewards))
++                                    metrics["reward/final_reward_min"] = float(np.min(final_rewards))
++
+                     # Operating Mode Selection:
+                     # - Bypass mode: Sets old_log_probs = rollout_log_probs (2 policies: π_rollout, π_θ)
+                     # - Decoupled mode: Recomputes old_log_probs as proximal anchor (3 policies: π_rollout, π_old, π_θ)
+diff --git a/verl/utils/dataset/rl_dataset.py b/verl/utils/dataset/rl_dataset.py
+index a0195347..53799123 100644
+--- a/verl/utils/dataset/rl_dataset.py
++++ b/verl/utils/dataset/rl_dataset.py
+@@ -272,10 +272,14 @@ class RLHFDataset(Dataset):
+                         traceback.print_exc()
+                         return self.max_prompt_length + 1
+ 
++            import hashlib
++            _fp_src = f"{sorted(self.data_files)}|{self.max_prompt_length}|{self.image_patch_size}"
++            _stable_fp = hashlib.md5(_fp_src.encode()).hexdigest()
+             dataframe = dataframe.filter(
+                 lambda doc: doc2len(doc) <= self.max_prompt_length,
+                 num_proc=self.num_workers,
+                 desc=f"Filtering prompts longer than {self.max_prompt_length} tokens",
++                new_fingerprint=_stable_fp,
+             )
+ 
+             print(f"filter dataset len: {len(dataframe)}")
+@@ -362,10 +366,57 @@ class RLHFDataset(Dataset):
+     def __getitem__(self, item):
+         """For rollout, apply_chat_template has been moved to AgentLoop, so we only return raw_prompt here."""
+         row_dict: dict = self.dataframe[item]
++        # Extract question text BEFORE _build_messages modifies content in-place
++        # (it replaces string content with a list of typed segments for the processor).
++        # Reward managers use (image_path, question_text) as a composite rubric lookup key.
++        _orig_turns = row_dict.get(self.prompt_key) or []
++        _question_text = ""
++        for _turn in _orig_turns:
++            if isinstance(_turn, dict) and _turn.get("role") == "user":
++                _c = _turn.get("content", "")
++                if isinstance(_c, str):
++                    _question_text = _c.strip()
++                break
++        row_dict["question_text"] = _question_text
++
+         row_dict["raw_prompt"] = self._build_messages(row_dict, key=self.prompt_key)
+         if self.negative_prompt_key in row_dict:
+             row_dict["raw_negative_prompt"] = self._build_messages(row_dict, key=self.negative_prompt_key)
+ 
++        # Preserve image file paths before dropping the images column, so reward
++        # managers that need per-sample rubric lookup can use (image_path, question)
++        # as a composite key to match against an external rubric JSONL.
++        _raw_images = row_dict.get(self.image_key) or []
++        row_dict["image_paths"] = [
++            img["path"] for img in _raw_images
++            if isinstance(img, dict) and img.get("path")
++        ]
++
++        # VGGT preprocessing for CrossView model (model_type="crossview-qwen3vl").
++        # Extract PIL images and build [n_img, 3, H_vggt, W_vggt] tensor for each sample.
++        # Stored in non_tensor_batch (variable spatial dims — cannot be stacked across samples).
++        if _raw_images:
++            _pil_images = []
++            for img in _raw_images:
++                if isinstance(img, Image.Image):
++                    _pil_images.append(img.convert("RGB") if img.mode != "RGB" else img)
++                elif isinstance(img, dict):
++                    if "image" in img and isinstance(img["image"], Image.Image):
++                        _pil = img["image"]
++                        _pil_images.append(_pil.convert("RGB") if _pil.mode != "RGB" else _pil)
++                    elif "bytes" in img:
++                        from io import BytesIO as _BytesIO
++                        _pil = Image.open(_BytesIO(img["bytes"])).convert("RGB")
++                        _pil_images.append(_pil)
++                    elif "path" in img:
++                        _pil_images.append(Image.open(img["path"]).convert("RGB"))
++            if _pil_images:
++                try:
++                    from naive_cross_vlm.data.utils import load_and_preprocess_images as _load_vggt
++                    row_dict["geometry_encoder_inputs"] = _load_vggt(_pil_images, mode="scale")
++                except ImportError:
++                    pass  # CrossView package not in PYTHONPATH — skip silently
++
+         row_dict.pop(self.image_key, None)
+         row_dict.pop(self.video_key, None)
+ 
+@@ -378,11 +429,13 @@ class RLHFDataset(Dataset):
+             row_dict["extra_info"] = dict()
+         index = row_dict.get("extra_info", {}).get("index", 0)
+         tools_kwargs = row_dict.get("extra_info", {}).get("tools_kwargs", {})
++        interaction_kwargs = row_dict.get("extra_info", {}).get("interaction_kwargs", {})
+         need_tools_kwargs = row_dict.get("extra_info", {}).get("need_tools_kwargs", self.need_tools_kwargs)
+         if need_tools_kwargs and not tools_kwargs:
+             logger.warning("tools_kwargs is empty for index %s, data source: %s", index, row_dict["data_source"])
+         row_dict["index"] = index
+         row_dict["tools_kwargs"] = tools_kwargs
++        row_dict["interaction_kwargs"] = interaction_kwargs
+         return row_dict
+ 
+     @classmethod
+diff --git a/verl/utils/distributed.py b/verl/utils/distributed.py
+index b0274452..921fa539 100644
+--- a/verl/utils/distributed.py
++++ b/verl/utils/distributed.py
+@@ -57,7 +57,26 @@ def set_numa_affinity():
+             pynvml.nvmlShutdown()
+ 
+ 
++def _force_socket_nccl_transport():
++    """Force NCCL to use Socket transport regardless of node hardware.
++
++    Ray's runtime_env env_vars do NOT propagate from job → actor in all cases
++    (especially with RAY_OVERRIDE_JOB_RUNTIME_ENV=1). Setting these here from
++    inside the actor process guarantees they're applied before NCCL plugin/
++    transport selection, which happens at init_process_group time."""
++    os.environ["NCCL_NET_PLUGIN"] = "none"
++    os.environ["NCCL_IB_DISABLE"] = "1"
++    os.environ["NCCL_NET"] = "Socket"
++    os.environ["NCCL_SOCKET_IFNAME"] = "eth0"
++    os.environ["GLOO_SOCKET_IFNAME"] = "eth0"
++    # NCCL_MIN_NCHANNELS must be identical on all nodes.
++    # If one node has it set (e.g. inherited from system env) and another doesn't,
++    # the lazy-connect bootstrap message sizes differ → "Message truncated" error.
++    os.environ.pop("NCCL_MIN_NCHANNELS", None)
++
++
+ def initialize_global_process_group(timeout_second=36000):
++    _force_socket_nccl_transport()
+     torch.distributed.init_process_group(
+         get_nccl_backend(),
+         timeout=timedelta(seconds=timeout_second),
+@@ -82,6 +101,15 @@ def initialize_global_process_group_ray(timeout_second=None, backend=None):
+ 
+     import torch.distributed
+ 
++    from verl.utils.device import set_expandable_segments
++
++    _force_socket_nccl_transport()
++    # FSDP training workers benefit from expandable segments to avoid OOM from
++    # fragmentation. Set it here (in-process) rather than via the Ray daemon
++    # environment, so vLLM subprocess workers — which never call this function —
++    # are unaffected and CuMemAllocator (sleep mode) remains compatible.
++    set_expandable_segments(True)
++
+     timeout = timedelta(seconds=timeout_second) if timeout_second is not None else None
+     backend = backend or f"cpu:gloo,{get_device_name()}:{get_nccl_backend()}"
+     if not torch.distributed.is_initialized():
+diff --git a/verl/utils/model.py b/verl/utils/model.py
+index d4f1939a..8872349a 100644
+--- a/verl/utils/model.py
++++ b/verl/utils/model.py
+@@ -698,6 +698,12 @@ def get_hf_auto_model_class(hf_config):
+                 actor_module_class = AutoModel
+     else:
+         actor_module_class = AutoModel
++        # CrossView model: not registered in HuggingFace AutoModel, must special-case.
++        if "CrossViewAttn" in (hf_config.architectures or [""])[0]:
++            from naive_cross_vlm.model.qwenvl3.modeling_qwen3_vl_crossview import (
++                Qwen3VLForConditionalGenerationWithCrossViewAttn,
++            )
++            return Qwen3VLForConditionalGenerationWithCrossViewAttn
+         # For VLM models, we use type to check instead of architecture
+         if type(hf_config) in AutoModelForImageTextToText._model_mapping.keys():
+             actor_module_class = AutoModelForImageTextToText
+diff --git a/verl/utils/reward_score/__init__.py b/verl/utils/reward_score/__init__.py
+index c4026139..f8b63a46 100644
+--- a/verl/utils/reward_score/__init__.py
++++ b/verl/utils/reward_score/__init__.py
+@@ -90,6 +90,18 @@ def default_compute_score(
+         from . import geo3k
+ 
+         res = geo3k.compute_score(solution_str, ground_truth)
++    elif data_source in ["crosspoint", "mindcube", "spar", "unknown"]:
++        from . import spatial
++
++        res = spatial.compute_score(solution_str, ground_truth)
++    elif data_source in ["llava:multiple-choice", "llava:number", "llava:ocrtext", "llava:bbox"]:
++        from . import llava
++
++        res = llava.compute_score(solution_str, ground_truth, data_source=data_source)
++    elif data_source == "zerobench":
++        from . import zerobench
++
++        res = zerobench.compute_score(solution_str, ground_truth)
+     elif data_source in [
+         "searchR1_nq",
+         "searchR1_triviaqa",
+diff --git a/verl/utils/reward_score/llava.py b/verl/utils/reward_score/llava.py
+new file mode 100644
+index 00000000..29182fe9
+--- /dev/null
++++ b/verl/utils/reward_score/llava.py
+@@ -0,0 +1,178 @@
++"""
++Rule-based reward for llava-format VLM tasks.
++
++data_source → answer type:
++  llava:multiple-choice  → single letter GT ("A") → letter extraction + exact match
++  llava:number           → integer/float string    → numeric MRA
++  llava:ocrtext          → free text               → case-insensitive exact / substring
++  llava:bbox             → "[x1,y1,x2,y2]" (0-1)  → IoU
++
++Score = 0.1 * format_reward + 0.9 * result_reward
++format_reward:
++  1.0  → both <think>...</think> AND <answer>...</answer> present
++  0.5  → only <think>...</think> present
++  0.0  → neither
++"""
++
++import json
++import re
++
++import numpy as np
++
++FORMAT_SCORE = 0.1
++
++_THINK_RE  = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
++_ANSWER_RE = re.compile(r"<answer>.*?</answer>", re.DOTALL | re.IGNORECASE)
++_FLOAT_RE  = re.compile(r"-?\d+\.?\d*")
++_CONFS     = np.linspace(0.5, 0.95, int((0.95 - 0.5) / 0.05) + 2)
++
++
++# ── helpers ──────────────────────────────────────────────────────────────────
++
++def _format_reward(text: str) -> float:
++    has_think  = bool(_THINK_RE.search(text))
++    has_answer = bool(_ANSWER_RE.search(text))
++    if has_think and has_answer:
++        return 1.0
++    if has_think:
++        return 0.5
++    return 0.0
++
++
++def _strip_think(text: str) -> str:
++    stripped = _THINK_RE.sub("", text).strip()
++    return stripped or text.strip()
++
++
++def _mra(pred: float, gt: float) -> float:
++    rel_err = abs(pred - gt) if gt == 0 else abs(pred - gt) / abs(gt)
++    return float(np.mean(rel_err <= (1.0 - _CONFS)))
++
++
++def _extract_float(text: str):
++    m = _FLOAT_RE.search(text)
++    return float(m.group()) if m else None
++
++
++def _extract_choice(text: str):
++    """Extract final answer letter from model response."""
++    # <answer>A</answer>
++    m = re.findall(r"<answer>\s*([A-F])\s*</answer>", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    # \boxed{A}
++    m = re.findall(r"\\boxed\{([A-F])\}", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    # (A)
++    m = re.findall(r"\(([A-F])\)", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    # "answer is A" / "答案是A"
++    m = re.findall(
++        r"(?:answer\s+is\s*:?\s*|答案[是为：:]\s*|选择?[：:]\s*)([A-F])\b",
++        text, re.IGNORECASE,
++    )
++    if m:
++        return m[-1].upper()
++    # last non-empty line starting with a letter
++    for line in reversed(text.strip().split("\n")):
++        line = line.strip()
++        if not line:
++            continue
++        m2 = re.match(r"^([A-F])[.\s）)]", line, re.IGNORECASE)
++        if m2:
++            return m2.group(1).upper()
++        if re.fullmatch(r"[A-F]", line, re.IGNORECASE):
++            return line.upper()
++        break
++    # fallback: last "A." style occurrence
++    m = re.findall(r"\b([A-F])\.", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    return None
++
++
++def _parse_bbox(text: str):
++    """Parse [x1,y1,x2,y2] from text (normalized 0-1 coords)."""
++    text = text.strip()
++    # try JSON array
++    try:
++        obj = json.loads(text)
++        if isinstance(obj, list) and len(obj) == 4:
++            return [float(v) for v in obj]
++    except Exception:
++        pass
++    # fallback: grab four floats
++    nums = re.findall(r"-?\d+\.?\d*", text)
++    if len(nums) >= 4:
++        return [float(n) for n in nums[:4]]
++    return None
++
++
++def _bbox_iou(b1, b2) -> float:
++    x1 = max(b1[0], b2[0]); y1 = max(b1[1], b2[1])
++    x2 = min(b1[2], b2[2]); y2 = min(b1[3], b2[3])
++    inter = max(0.0, x2 - x1) * max(0.0, y2 - y1)
++    a1 = (b1[2] - b1[0]) * (b1[3] - b1[1])
++    a2 = (b2[2] - b2[0]) * (b2[3] - b2[1])
++    union = a1 + a2 - inter
++    return inter / union if union > 0 else 0.0
++
++
++# ── per-type result rewards ───────────────────────────────────────────────────
++
++def _result_mc(resp: str, gt: str) -> float:
++    gt_letter = gt.strip().upper()
++    pred = _extract_choice(resp)
++    return 1.0 if (pred is not None and pred == gt_letter) else 0.0
++
++
++def _result_number(resp: str, gt: str) -> float:
++    try:
++        gt_val = float(gt.strip())
++    except ValueError:
++        return 0.0
++    pred_val = _extract_float(resp)
++    if pred_val is None:
++        return 0.0
++    return _mra(pred_val, gt_val)
++
++
++def _result_ocrtext(resp: str, gt: str) -> float:
++    gt_norm  = gt.strip().lower()
++    resp_norm = resp.lower()
++    # exact match first, then substring
++    if gt_norm == resp_norm.strip():
++        return 1.0
++    return 1.0 if gt_norm in resp_norm else 0.0
++
++
++def _result_bbox(resp: str, gt: str) -> float:
++    gt_box   = _parse_bbox(gt)
++    pred_box = _parse_bbox(resp)
++    if gt_box is None or pred_box is None:
++        return 0.0
++    return _bbox_iou(pred_box, gt_box)
++
++
++# ── public API ────────────────────────────────────────────────────────────────
++
++_RESULT_FN = {
++    "llava:multiple-choice": _result_mc,
++    "llava:number":          _result_number,
++    "llava:ocrtext":         _result_ocrtext,
++    "llava:bbox":            _result_bbox,
++}
++
++
++def compute_score(solution_str: str, ground_truth: str,
++                  data_source: str = "", extra_info=None) -> float:
++    fmt  = _format_reward(solution_str)
++    resp = _strip_think(solution_str)
++    gt   = ground_truth.strip()
++
++    result_fn = _RESULT_FN.get(data_source, _result_ocrtext)
++    res = result_fn(resp, gt)
++
++    return FORMAT_SCORE * fmt + (1.0 - FORMAT_SCORE) * res
+diff --git a/verl/utils/reward_score/spatial.py b/verl/utils/reward_score/spatial.py
+new file mode 100644
+index 00000000..30d0c79c
+--- /dev/null
++++ b/verl/utils/reward_score/spatial.py
+@@ -0,0 +1,253 @@
++"""
++Rule-based reward for spatial VLM tasks (crosspoint / mindcube / spar).
++
++Scoring:
++  Backward compatible: compute_score() = 0.1 * format_reward + 0.9 * result_reward
++
++  For LLM judge integration:
++    format_reward(solution_str) → float [0, 1]
++      1.0 if both <think> and <answer> present
++      0.5 if only <think> present
++      0.0 otherwise
++
++    result_reward(solution_str, ground_truth) → float [0, 1]
++      Routes by answer type:
++        MC               → exact match of letter [A-F]
++        Movement instr.  → 5-dim MRA for move/rotate commands
++        JSON bbox        → IoU between predicted and ground truth boxes
++        Pure number      → single-value MRA
++        Distance         → extract float and compute MRA
++        Fallback (text)  → case-insensitive substring match
++"""
++
++import json
++import re
++import numpy as np
++
++_CONFS = np.linspace(0.5, 0.95, int((0.95 - 0.5) / 0.05) + 2)
++
++_MC_GT_RE    = re.compile(r"^([A-F])\.", re.IGNORECASE)
++_PURE_NUM_RE = re.compile(r"^-?\d+(\.\d+)?$")
++_FLOAT_RE    = re.compile(r"-?\d+\.?\d*")
++_MOVE_KEY_RE = re.compile(r"^(move|rotate)_\w+$")
++_THINK_RE    = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
++_ANSWER_RE   = re.compile(r"<answer>(.*?)</answer>", re.DOTALL | re.IGNORECASE)
++
++_MOVE_DIMS = [
++    ("move_right",   "move_left"),
++    ("move_up",      "move_down"),
++    ("move_forward", "move_backward"),
++    ("rotate_right", "rotate_left"),
++    ("rotate_up",    "rotate_down"),
++]
++
++_DIR_WORDS = {"left", "right", "up", "down", "forward", "backward"}
++
++FORMAT_SCORE = 0.1
++
++
++def _format_reward(text: str) -> float:
++    has_think = bool(_THINK_RE.search(text))
++    has_answer = bool(_ANSWER_RE.search(text))
++    if has_think and has_answer:
++        return 1.0
++    if has_think:
++        return 0.5
++    return 0.0
++
++
++def _mra(pred: float, gt: float) -> float:
++    rel_err = abs(pred - gt) if gt == 0 else abs(pred - gt) / abs(gt)
++    return float(np.mean(rel_err <= (1.0 - _CONFS)))
++
++
++def _mra_dims(pred_vec, gt_vec):
++    if not pred_vec or not gt_vec:
++        return 0.0
++    return float(np.mean([_mra(p, g) for p, g in zip(pred_vec, gt_vec)]))
++
++
++def _extract_answer_tag(text: str) -> str | None:
++    """Extract content from <answer>...</answer> tag (prefer last occurrence)"""
++    m = _ANSWER_RE.findall(text)
++    return m[-1].strip() if m else None
++
++
++def _extract_float(text):
++    m = _FLOAT_RE.search(text)
++    return float(m.group()) if m else None
++
++
++def _parse_move_instruction(text):
++    result = {}
++    for token in text.split(","):
++        token = token.strip()
++        if not token:
++            continue
++        parts = token.split(":")
++        if len(parts) != 2:
++            return None
++        key, val = parts[0].strip(), parts[1].strip()
++        if not _MOVE_KEY_RE.match(key):
++            return None
++        try:
++            result[key] = float(val)
++        except ValueError:
++            return None
++    return result if result else None
++
++
++def _move_to_vec(d):
++    return [d.get(pos, 0.0) - d.get(neg, 0.0) for pos, neg in _MOVE_DIMS]
++
++
++def _parse_bbox(text):
++    try:
++        obj = json.loads(text)
++        box = obj.get("bbox_2d")
++        if box and len(box) == 4:
++            return [int(v) for v in box]
++    except Exception:
++        pass
++    nums = re.findall(r"-?\d+", text)
++    if len(nums) >= 4:
++        return [int(n) for n in nums[:4]]
++    return None
++
++
++def _bbox_iou(b1, b2):
++    x1 = max(b1[0], b2[0]); y1 = max(b1[1], b2[1])
++    x2 = min(b1[2], b2[2]); y2 = min(b1[3], b2[3])
++    inter = max(0, x2 - x1) * max(0, y2 - y1)
++    a1 = (b1[2] - b1[0]) * (b1[3] - b1[1])
++    a2 = (b2[2] - b2[0]) * (b2[3] - b2[1])
++    union = a1 + a2 - inter
++    return inter / union if union > 0 else 0.0
++
++
++def _extract_choice(text):
++    m = re.findall(r"<answer>\s*([A-F])\s*</answer>", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    m = re.findall(r"\\boxed\{([A-F])\}", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    m = re.findall(r"\(([A-F])\)", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    m = re.findall(
++        r"(?:answer\s+is\s*:?\s*|答案[是为：:]\s*|选择?[：:]\s*)([A-F])\b",
++        text, re.IGNORECASE,
++    )
++    if m:
++        return m[-1].upper()
++    for line in reversed(text.strip().split("\n")):
++        line = line.strip()
++        if not line:
++            continue
++        m2 = re.match(r"^([A-F])[.\s）)]", line, re.IGNORECASE)
++        if m2:
++            return m2.group(1).upper()
++        if re.fullmatch(r"[A-F]", line, re.IGNORECASE):
++            return line.upper()
++        break
++    m = re.findall(r"\b([A-F])\.", text, re.IGNORECASE)
++    if m:
++        return m[-1].upper()
++    return None
++
++
++_DIR_NORMALIZE = {"leftward": "left", "rightward": "right", "upward": "up", "downward": "down"}
++
++def _extract_dirs(text: str) -> set[str]:
++    words = re.findall(r"\b\w+\b", text.lower())
++    return {_DIR_NORMALIZE.get(w, w) for w in words if w in _DIR_WORDS or w in _DIR_NORMALIZE}
++
++
++def _gt_type(gt):
++    if _MC_GT_RE.match(gt):
++        return "mc"
++    if _parse_move_instruction(gt) is not None:
++        return "move"
++    if gt.lstrip().startswith("{"):
++        return "bbox"
++    if _PURE_NUM_RE.match(gt):
++        return "number"
++    if re.search(r"\d", gt) and "meter" in gt.lower():
++        return "distance"
++    if not re.search(r"\d", gt) and _extract_dirs(gt):
++        return "direction"
++    return "text"
++
++
++def _result_reward(solution_str: str, ground_truth: str) -> float:
++    gt = ground_truth.strip()
++    resp_full = solution_str.strip()
++    resp = _THINK_RE.sub("", resp_full).strip() or resp_full
++
++    # Prefer content inside <answer> tag if present
++    tagged = _extract_answer_tag(resp)
++    resp = tagged if tagged is not None else resp
++
++    kind = _gt_type(gt)
++
++    if kind == "mc":
++        gt_letter = _MC_GT_RE.match(gt).group(1).upper()
++        return 1.0 if (_extract_choice(resp) == gt_letter) else 0.0
++
++    if kind == "move":
++        gt_dict = _parse_move_instruction(gt)
++        pred_dict = _parse_move_instruction(resp)
++        if pred_dict is None:
++            pred_dict = _parse_move_instruction(resp.strip().split("\n")[-1])
++        if pred_dict is None:
++            return 0.0
++        return _mra_dims(_move_to_vec(pred_dict), _move_to_vec(gt_dict))
++
++    if kind == "bbox":
++        gt_box = _parse_bbox(gt)
++        pred_box = _parse_bbox(resp)
++        if gt_box is None or pred_box is None:
++            return 0.0
++        return _bbox_iou(pred_box, gt_box)
++
++    if kind == "number":
++        pred_val = _extract_float(resp)
++        if pred_val is None:
++            return 0.0
++        return _mra(pred_val, float(gt))
++
++    if kind == "distance":
++        gt_val = _extract_float(gt)
++        pred_val = _extract_float(resp)
++        if gt_val is None or pred_val is None:
++            return 0.0
++        return _mra(pred_val, gt_val)
++
++    if kind == "direction":
++        gt_dirs = _extract_dirs(gt)
++        pred_dirs = _extract_dirs(resp)
++        if not pred_dirs:
++            return 0.0
++        union = gt_dirs | pred_dirs
++        return len(gt_dirs & pred_dirs) / len(union)
++
++    gt_norm = gt.lower().rstrip(".")
++    return 1.0 if gt_norm in resp.lower() else 0.0
++
++
++def format_reward(solution_str: str) -> float:
++    """Public API: return only format reward [0, 1]"""
++    return _format_reward(solution_str)
++
++
++def result_reward(solution_str: str, ground_truth: str) -> float:
++    """Public API: return only result reward [0, 1]"""
++    return _result_reward(solution_str, ground_truth)
++
++
++def compute_score(solution_str: str, ground_truth: str) -> float:
++    """Backward compatible: returns fused score"""
++    fmt = _format_reward(solution_str)
++    res = _result_reward(solution_str, ground_truth)
++    return FORMAT_SCORE * fmt + (1.0 - FORMAT_SCORE) * res
+diff --git a/verl/utils/reward_score/zerobench.py b/verl/utils/reward_score/zerobench.py
+new file mode 100644
+index 00000000..2d70c5b8
+--- /dev/null
++++ b/verl/utils/reward_score/zerobench.py
+@@ -0,0 +1,102 @@
++"""
++Rule-based reward for zerobench data.
++
++Scoring:
++  Backward compatible: compute_score() = 0.1 * format_reward + 0.9 * result_reward
++
++  For LLM judge integration:
++    format_reward(solution_str) → float [0, 1]
++      1.0 if both <think> and <answer> present
++      0.5 if only <think> present
++      0.0 otherwise
++
++    result_reward(solution_str, ground_truth) → float [0, 1]
++      Routes by answer type:
++        numeric       → MRA (Mean Relative Accuracy)
++        other (text)  → case-insensitive exact match (prefer <answer> tag content)
++"""
++
++import re
++
++import numpy as np
++
++FORMAT_SCORE = 0.1
++
++_THINK_RE  = re.compile(r"<think>\s*(\S.*?)\s*</think>", re.DOTALL | re.IGNORECASE)
++_ANSWER_RE = re.compile(r"<answer>\s*(\S.*?)\s*</answer>", re.DOTALL | re.IGNORECASE)
++_FLOAT_RE  = re.compile(r"-?\d+\.?\d*")
++_PURE_NUM  = re.compile(r"^-?\d+(\.\d+)?$")
++_CONFS     = np.linspace(0.5, 0.95, int((0.95 - 0.5) / 0.05) + 2)
++
++
++def _format_reward(text: str) -> float:
++    has_think  = bool(_THINK_RE.search(text))
++    has_answer = bool(_ANSWER_RE.search(text))
++    if has_think and has_answer:
++        return 1.0
++    if has_think:
++        return 0.5
++    return 0.0
++
++
++def _strip_think(text: str) -> str:
++    stripped = _THINK_RE.sub("", text).strip()
++    return stripped or text.strip()
++
++
++def _extract_answer_tag(text: str) -> str | None:
++    m = _ANSWER_RE.findall(text)
++    return m[-1].strip() if m else None
++
++
++def _mra(pred: float, gt: float) -> float:
++    rel_err = abs(pred - gt) if gt == 0 else abs(pred - gt) / abs(gt)
++    return float(np.mean(rel_err <= (1.0 - _CONFS)))
++
++
++def _extract_float(text: str) -> float | None:
++    m = _FLOAT_RE.search(text)
++    return float(m.group()) if m else None
++
++
++def _result_reward(resp: str, gt: str) -> float:
++    # prefer content inside <answer> tag if present
++    tagged = _extract_answer_tag(resp)
++    answer_text = tagged if tagged is not None else resp
++
++    if _PURE_NUM.match(gt):
++        pred = _extract_float(answer_text)
++        if pred is None:
++            return 0.0
++        return _mra(pred, float(gt))
++
++    gt_l = gt.lower()
++    ans_l = answer_text.lower()
++    if gt_l == ans_l:
++        return 1.0
++    # partial credit: gt appears as a whole word in the answer
++    # e.g. gt="left", answer="the left side" → 0.5
++    if re.search(r"\b" + re.escape(gt_l) + r"\b", ans_l):
++        return 0.5
++    return 0.0
++
++
++def format_reward(solution_str: str) -> float:
++    """Public API: return only format reward [0, 1]"""
++    return _format_reward(solution_str)
++
++
++def result_reward(solution_str: str, ground_truth: str) -> float:
++    """Public API: return only result reward [0, 1]"""
++    resp = _strip_think(solution_str)
++    gt = ground_truth.strip()
++    return _result_reward(resp, gt)
++
++
++def compute_score(solution_str: str, ground_truth: str) -> float:
++    """Backward compatible: returns fused score"""
++    fmt  = _format_reward(solution_str)
++    resp = _strip_think(solution_str)
++    gt   = ground_truth.strip()
++    res  = _result_reward(resp, gt)
++    return FORMAT_SCORE * fmt + (1.0 - FORMAT_SCORE) * res
+diff --git a/verl/workers/config/model.py b/verl/workers/config/model.py
+index 830d82a2..86c41d65 100644
+--- a/verl/workers/config/model.py
++++ b/verl/workers/config/model.py
+@@ -184,9 +184,28 @@ class HFModelConfig(BaseConfig):
+ 
+         # construct hf_config
+         attn_implementation = self.override_config.get("attn_implementation", "flash_attention_2")
+-        self.hf_config = AutoConfig.from_pretrained(
+-            self.local_hf_config_path, trust_remote_code=self.trust_remote_code, attn_implementation=attn_implementation
+-        )
++
++        # crossview-qwen3vl is not registered in transformers AutoConfig; patch it manually.
++        _raw_config_file = os.path.join(self.local_hf_config_path, "config.json")
++        _is_crossview = False
++        if os.path.isfile(_raw_config_file):
++            import json as _json
++            with open(_raw_config_file) as _f:
++                _raw_cfg = _json.load(_f)
++            if _raw_cfg.get("model_type") == "crossview-qwen3vl":
++                _is_crossview = True
++
++        if _is_crossview:
++            from transformers.models.qwen3_vl.configuration_qwen3_vl import Qwen3VLConfig
++            _patched = dict(_raw_cfg)
++            _patched["model_type"] = "qwen3_vl"
++            self.hf_config = Qwen3VLConfig.from_dict(_patched)
++            self.hf_config.architectures = ["Qwen3VLForConditionalGenerationWithCrossViewAttn"]
++            self.hf_config._attn_implementation = attn_implementation
++        else:
++            self.hf_config = AutoConfig.from_pretrained(
++                self.local_hf_config_path, trust_remote_code=self.trust_remote_code, attn_implementation=attn_implementation
++            )
+ 
+         override_config_kwargs = {}
+ 
+diff --git a/verl/workers/engine/fsdp/transformer_impl.py b/verl/workers/engine/fsdp/transformer_impl.py
+index f966814c..b76fe4e4 100644
+--- a/verl/workers/engine/fsdp/transformer_impl.py
++++ b/verl/workers/engine/fsdp/transformer_impl.py
+@@ -1008,6 +1008,14 @@ class FSDPEngineWithLMHead(FSDPEngine):
+         model_inputs.update(multi_modal_inputs)
+         model_inputs.update(extra_args)
+ 
++        # CrossView model: pass geometry_encoder_inputs as a list of per-sample tensors.
++        # Cannot use extract_multi_modal_inputs (variable spatial dims — cannot cat).
++        geo_inputs = tu.get_non_tensor_data(data=micro_batch, key="geometry_encoder_inputs", default=None)
++        if geo_inputs is not None:
++            if hasattr(geo_inputs, "tolist"):
++                geo_inputs = list(geo_inputs)  # numpy object array → python list
++            model_inputs["geometry_encoder_inputs"] = geo_inputs
++
+         return model_inputs, output_args
+ 
+     def prepare_model_outputs(self, output, output_args, micro_batch: TensorDict, logits_processor_func):
+diff --git a/verl/workers/engine_workers.py b/verl/workers/engine_workers.py
+index 74ecb711..7296a7c3 100644
+--- a/verl/workers/engine_workers.py
++++ b/verl/workers/engine_workers.py
+@@ -680,6 +680,7 @@ class ActorRolloutRefWorker(Worker, DistProfilerExtension):
+             return
+ 
+         set_expandable_segments(False)
++        aggressive_empty_cache(force_sync=True)
+         log_gpu_memory_usage("Before resume weights", logger=logger)
+ 
+         # 1. resume rollout memory (weights were released during sleep)
+diff --git a/verl/workers/reward_manager/__init__.py b/verl/workers/reward_manager/__init__.py
+index 06b69369..41aebe9d 100644
+--- a/verl/workers/reward_manager/__init__.py
++++ b/verl/workers/reward_manager/__init__.py
+@@ -17,6 +17,8 @@ from .batch import BatchRewardManager
+ from .dapo import DAPORewardManager
+ from .naive import NaiveRewardManager
+ from .prime import PrimeRewardManager
++from .llm_judge import LLMJudgeRewardManager  # noqa: F401
++from .spatial_consistency import SpatialConsistencyRewardManager  # noqa: F401
+ 
+ # Note(haibin.lin): no need to include all reward managers here in case of complicated dependencies
+ __all__ = [
+@@ -24,6 +26,8 @@ __all__ = [
+     "DAPORewardManager",
+     "NaiveRewardManager",
+     "PrimeRewardManager",
++    "LLMJudgeRewardManager",
++    "SpatialConsistencyRewardManager",
+     "register",
+     "get_reward_manager_cls",
+ ]
+diff --git a/verl/workers/reward_manager/llm_judge.py b/verl/workers/reward_manager/llm_judge.py
+new file mode 100644
+index 00000000..096e8f16
+--- /dev/null
++++ b/verl/workers/reward_manager/llm_judge.py
+@@ -0,0 +1,754 @@
++"""LLM judge reward manager using vLLM backend for scoring model responses."""
++
++from __future__ import annotations
++
++import asyncio
++import json
++import logging
++import os
++import re
++import time
++import urllib.parse
++import urllib.request
++from collections import defaultdict
++from typing import Any
++
++import torch
++
++from verl import DataProto
++from verl.utils.reward_score import default_compute_score
++from verl.workers.reward_manager import register
++from verl.workers.reward_manager.abstract import AbstractRewardManager
++
++_LLM_JUDGE_REWARD_TYPES = {"llm_judge", "instruction_following_llm_judge"}
++_ONLINE_JUDGE_BACKENDS = {"openai", "openai_api", "openai_server", "vllm_server", "server"}
++_LOCAL_JUDGE_BACKENDS = {"vllm_engine", "vllm", "local_vllm", "engine"}
++_LOGGER = logging.getLogger(__name__)
++
++
++@register("llm_judge")
++class LLMJudgeRewardManager(AbstractRewardManager):
++    """Reward manager with vLLM-based LLM judge for scoring."""
++
++    def __init__(
++        self,
++        tokenizer,
++        num_examine,
++        compute_score=None,
++        reward_fn_key="data_source",
++        max_resp_len=None,
++        llm_judge_kwargs: dict | None = None,
++        format_weight: float | None = None,
++        rubric_weight: float | None = None,
++    ) -> None:
++        self.tokenizer = tokenizer
++        self.num_examine = num_examine
++        self.compute_score = compute_score or default_compute_score
++        self.reward_fn_key = reward_fn_key
++        self.max_resp_len = max_resp_len
++
++        self.llm_judge_kwargs = llm_judge_kwargs or {}
++        self._client = None
++        self._async_client = None
++        self._sampling_params: dict[str, Any] | None = None
++        self._vllm_engine = None
++        self._vllm_sampling_params = None
++        self._vllm_tokenizer = None
++
++        self._judge_model_name = self.llm_judge_kwargs.get("model_name", "qwen_vllm")
++        self._judge_model_path = self.llm_judge_kwargs.get("model_path") or os.environ.get("VLLM_JUDGE_MODEL_PATH")
++
++        raw_backend = self.llm_judge_kwargs.get("backend")
++        if raw_backend is None and bool(self.llm_judge_kwargs.get("use_vllm_engine", False)):
++            raw_backend = "vllm_engine"
++        if raw_backend is None:
++            raw_backend = "openai_server"
++        self._judge_backend = str(raw_backend).strip().lower()
++        if self._judge_backend in _ONLINE_JUDGE_BACKENDS:
++            self._judge_backend = "openai_server"
++        elif self._judge_backend in _LOCAL_JUDGE_BACKENDS:
++            self._judge_backend = "vllm_engine"
++        else:
++            raise ValueError(
++                f"Unsupported llm_judge_kwargs.backend={raw_backend!r}. "
++                f"Supported: {sorted(_ONLINE_JUDGE_BACKENDS | _LOCAL_JUDGE_BACKENDS)}"
++            )
++
++        self._judge_api_key = self.llm_judge_kwargs.get("api_key") or os.environ.get("VLLM_API_KEY", "qwen")
++        self._judge_base_url = (
++            self.llm_judge_kwargs.get("base_url") or os.environ.get("VLLM_JUDGE_BASE_URL")
++        )
++        if self._judge_base_url is None:
++            port = (
++                self.llm_judge_kwargs.get("port")
++                or os.environ.get("VLLM_JUDGE_PORT")
++                or os.environ.get("VLLM_PORT")
++                or "8000"
++            )
++            self._judge_base_url = f"http://localhost:{port}/v1"
++        self._judge_timeout = float(self.llm_judge_kwargs.get("timeout", 120))
++
++        self._judge_prompt_path = self.llm_judge_kwargs.get("prompt_path")
++        self._judge_prompt_template = self.llm_judge_kwargs.get("prompt_template")
++
++        # Load rubric-specific prompt if provided
++        self._rubric_prompt_path = self.llm_judge_kwargs.get("rubric_prompt_path")
++        self._rubric_prompt_template = None
++        if self._rubric_prompt_path:
++            if not os.path.exists(self._rubric_prompt_path):
++                raise FileNotFoundError(f"rubric prompt not found: {self._rubric_prompt_path}")
++            with open(self._rubric_prompt_path, "r", encoding="utf-8") as f:
++                self._rubric_prompt_template = f.read()
++
++        # rubric_mode: "general" uses rubric_prompt_template for all samples;
++        # "sample" uses rubric_sample_prompt_path with per-sample {rubric} substitution.
++        self._rubric_mode = str(self.llm_judge_kwargs.get("rubric_mode", "general")).lower()
++        self._sample_rubric_prompt_template = None
++        if self._rubric_mode == "sample":
++            sample_path = self.llm_judge_kwargs.get("rubric_sample_prompt_path")
++            if not sample_path:
++                raise ValueError("rubric_mode=sample requires llm_judge_kwargs.rubric_sample_prompt_path")
++            if not os.path.exists(sample_path):
++                raise FileNotFoundError(f"rubric_sample_prompt not found: {sample_path}")
++            with open(sample_path, "r", encoding="utf-8") as f:
++                self._sample_rubric_prompt_template = f.read()
++
++        # External rubric lookup: keyed by (first_image_path, question_text).
++        # Training parquet has no stable id field; composite key is the only reliable match.
++        self._rubric_lookup: dict[tuple[str, str], Any] = {}
++        rubric_data_path = self.llm_judge_kwargs.get("rubric_data_path")
++        if rubric_data_path:
++            if not os.path.exists(rubric_data_path):
++                raise FileNotFoundError(f"rubric_data_path not found: {rubric_data_path}")
++            loaded, skipped = 0, 0
++            with open(rubric_data_path, "r", encoding="utf-8") as _f:
++                for _line in _f:
++                    _line = _line.strip()
++                    if not _line:
++                        continue
++                    try:
++                        _rec = json.loads(_line)
++                        _rubric = _rec.get("rubric")
++                        if _rubric is None:
++                            skipped += 1
++                            continue
++                        _imgs = _rec.get("images", [])
++                        _img_path = _imgs[0].get("path", "") if _imgs else ""
++                        _question = ""
++                        for _turn in _rec.get("prompt", []):
++                            if isinstance(_turn, dict) and _turn.get("role") == "user":
++                                _c = _turn.get("content", "")
++                                if isinstance(_c, str):
++                                    _question = _c.strip()
++                                break
++                        _key = (_img_path, _question)
++                        if _key not in self._rubric_lookup:
++                            self._rubric_lookup[_key] = _rubric
++                            loaded += 1
++                        else:
++                            skipped += 1
++                    except Exception:
++                        skipped += 1
++            _LOGGER.info(
++                "Loaded rubric_data_path=%s: %d entries, %d skipped/dup",
++                rubric_data_path, loaded, skipped,
++            )
++
++        # Load default prompt for backward compatibility
++        if self._judge_prompt_template is None:
++            if self._judge_prompt_path is None:
++                raise ValueError("llm_judge_kwargs.prompt_path or prompt_template must be provided")
++            if not os.path.exists(self._judge_prompt_path):
++                raise FileNotFoundError(f"LLM judge prompt not found: {self._judge_prompt_path}")
++            with open(self._judge_prompt_path, "r", encoding="utf-8") as f:
++                self._judge_prompt_template = f.read()
++
++        self._judge_score_scale = self.llm_judge_kwargs.get("score_scale", "minus1_to_1")
++        self._judge_enable_sleep = bool(self.llm_judge_kwargs.get("enable_sleep_mode", True))
++        self._judge_sleep_level = int(self.llm_judge_kwargs.get("sleep_level", 1))
++
++        if format_weight is None:
++            raise ValueError("format_weight must be provided")
++        try:
++            self._format_weight = float(format_weight)
++        except (TypeError, ValueError) as exc:
++            raise ValueError(f"Invalid format_weight={format_weight!r}") from exc
++        if not 0.0 <= self._format_weight <= 1.0:
++            raise ValueError(f"format_weight must be in [0, 1], got {self._format_weight}")
++
++        if rubric_weight is None:
++            raise ValueError("rubric_weight must be provided")
++        try:
++            self._rubric_weight = float(rubric_weight)
++        except (TypeError, ValueError) as exc:
++            raise ValueError(f"Invalid rubric_weight={rubric_weight!r}") from exc
++        if not 0.0 <= self._rubric_weight <= 1.0:
++            raise ValueError(f"rubric_weight must be in [0, 1], got {self._rubric_weight}")
++
++        _LOGGER.info(
++            "Initialized LLM judge backend=%s model=%s base_url=%s format_weight=%.2f rubric_weight=%.2f",
++            self._judge_backend,
++            self._judge_model_name,
++            self._judge_base_url,
++            self._format_weight,
++            self._rubric_weight,
++        )
++
++    def _ensure_client(self) -> None:
++        if self._judge_backend != "openai_server":
++            return
++        if self._client is not None:
++            return
++        try:
++            from openai import AsyncOpenAI, OpenAI
++        except Exception:
++            try:
++                from openai import OpenAI
++            except Exception as exc:
++                raise RuntimeError("openai python client is required") from exc
++            AsyncOpenAI = None
++
++
++        _LOGGER.info("Initializing OpenAI client for LLM judge")
++        self._client = OpenAI(
++            api_key=self._judge_api_key, base_url=self._judge_base_url, timeout=self._judge_timeout
++        )
++        if AsyncOpenAI is not None:
++            self._async_client = AsyncOpenAI(
++                api_key=self._judge_api_key, base_url=self._judge_base_url, timeout=self._judge_timeout
++            )
++        self._sampling_params = {
++            "temperature": float(self.llm_judge_kwargs.get("temperature", 0.7)),
++            "top_p": float(self.llm_judge_kwargs.get("top_p", 0.8)),
++            "max_tokens": int(self.llm_judge_kwargs.get("max_tokens", 1024)),
++            "presence_penalty": float(self.llm_judge_kwargs.get("presence_penalty", 1.5)),
++            "frequency_penalty": float(self.llm_judge_kwargs.get("frequency_penalty", 1.0)),
++        }
++
++    def _ensure_vllm_engine(self) -> None:
++        if self._judge_backend != "vllm_engine":
++            return
++        if self._vllm_engine is not None:
++            return
++
++        if not self._judge_model_path:
++            raise ValueError("model_path must be set when backend=vllm_engine")
++
++        try:
++            from vllm import LLM, SamplingParams
++        except Exception as exc:
++            raise RuntimeError("vllm package is required when backend=vllm_engine") from exc
++
++        tensor_parallel_size = int(
++            self.llm_judge_kwargs.get("tensor_parallel_size", os.environ.get("VLLM_JUDGE_TENSOR_PARALLEL_SIZE", "1"))
++        )
++        dtype = self.llm_judge_kwargs.get("dtype", os.environ.get("VLLM_JUDGE_DTYPE", "bfloat16"))
++        gpu_memory_utilization = float(
++            self.llm_judge_kwargs.get("gpu_memory_utilization", os.environ.get("VLLM_JUDGE_GPU_MEMORY_UTILIZATION", "0.9"))
++        )
++
++        llm_kwargs = {
++            "model": self._judge_model_path,
++            "tensor_parallel_size": tensor_parallel_size,
++            "dtype": dtype,
++            "gpu_memory_utilization": gpu_memory_utilization,
++            "trust_remote_code": bool(self.llm_judge_kwargs.get("trust_remote_code", False)),
++        }
++        if self._judge_enable_sleep:
++            llm_kwargs["enable_sleep_mode"] = True
++
++        _LOGGER.info("Initializing local vLLM engine kwargs=%s", llm_kwargs)
++        self._vllm_engine = LLM(**llm_kwargs)
++        self._vllm_tokenizer = self._vllm_engine.get_tokenizer()
++
++        sampling_kwargs: dict[str, Any] = {
++            "temperature": float(self.llm_judge_kwargs.get("temperature", 0.0)),
++            "top_p": float(self.llm_judge_kwargs.get("top_p", 1.0)),
++            "max_tokens": int(self.llm_judge_kwargs.get("max_tokens", 2048)),
++        }
++        self._vllm_sampling_params = SamplingParams(**sampling_kwargs)
++
++    def _build_local_chat_prompt(self, prompt: str) -> str:
++        if self._vllm_tokenizer is None:
++            raise RuntimeError("vLLM tokenizer not initialized")
++        messages = [{"role": "user", "content": prompt}]
++        return self._vllm_tokenizer.apply_chat_template(
++            messages, tokenize=False, add_generation_prompt=True
++        )
++
++    def _judge_batch_local(self, prompts: list[str]) -> tuple[list[float], list[str]]:
++        self._ensure_vllm_engine()
++        if not prompts:
++            return [], []
++        assert self._vllm_engine is not None
++
++        chat_prompts = [self._build_local_chat_prompt(p) for p in prompts]
++        _LOGGER.info("LLM judge generating for %d prompts", len(prompts))
++
++        try:
++            if self._judge_enable_sleep:
++                self._vllm_engine.wake_up()
++            outputs = self._vllm_engine.generate(chat_prompts, sampling_params=self._vllm_sampling_params, use_tqdm=False)
++        finally:
++            if self._judge_enable_sleep:
++                self._vllm_engine.sleep(level=self._judge_sleep_level)
++
++        scaled_scores = []
++        texts = []
++        for output in outputs:
++            text = ""
++            if output.outputs:
++                text = (output.outputs[0].text or "").strip()
++            raw = self._extract_score(text)
++            scaled = self._scale_score(raw)
++            scaled_scores.append(scaled)
++            texts.append(text)
++
++        return scaled_scores, texts
++
++    async def _judge_one(self, prompt: str, semaphore: asyncio.Semaphore) -> tuple[float, str]:
++        async with semaphore:
++            request_messages = [{"role": "user", "content": prompt}]
++            try:
++                if self._async_client is not None:
++                    response = await self._async_client.chat.completions.create(
++                        model=self._judge_model_name,
++                        messages=request_messages,
++                        **self._sampling_params,
++                    )
++                else:
++                    response = await asyncio.to_thread(
++                        self._client.chat.completions.create,
++                        model=self._judge_model_name,
++                        messages=request_messages,
++                        **self._sampling_params,
++                    )
++            except Exception as exc:
++                _LOGGER.warning("LLM judge API error: %s", exc, exc_info=True)
++                return 0.0, ""
++
++        text = response.choices[0].message.content or ""
++        raw_score = self._extract_score(text)
++        scaled_score = self._scale_score(raw_score)
++        return scaled_score, text
++
++    async def _judge_batch_async(self, prompts: list[str]) -> tuple[list[float], list[str]]:
++        self._ensure_client()
++        _LOGGER.info("LLM judge generating for %d prompts via API", len(prompts))
++
++        max_concurrent = int(self.llm_judge_kwargs.get("max_concurrent_requests", 8))
++        semaphore = asyncio.Semaphore(max(1, max_concurrent))
++
++        results = await asyncio.gather(*(self._judge_one(p, semaphore) for p in prompts))
++        scaled_scores, texts = zip(*results) if results else ([], [])
++        return list(scaled_scores), list(texts)
++
++    def _judge_batch(self, prompts: list[str]) -> tuple[list[float], list[str]]:
++        if self._judge_backend == "vllm_engine":
++            return self._judge_batch_local(prompts)
++
++        loop = asyncio.new_event_loop()
++        asyncio.set_event_loop(loop)
++        try:
++            return loop.run_until_complete(self._judge_batch_async(prompts))
++        finally:
++            loop.close()
++
++    def _get_format_reward(self, solution_str: str, data_source: str) -> float:
++        """Get format reward from the corresponding reward module."""
++        try:
++            if data_source in ["crosspoint", "mindcube", "spar"]:
++                from verl.utils.reward_score import spatial
++                return spatial.format_reward(solution_str)
++            elif data_source in ["zerobench"]:
++                from verl.utils.reward_score import zerobench
++                return zerobench.format_reward(solution_str)
++            else:
++                return 0.0
++        except Exception as e:
++            _LOGGER.warning("Failed to get format reward for data_source=%s: %s", data_source, e)
++            return 0.0
++
++    def _should_use_llm_for_zerobench(self, ground_truth: str) -> bool:
++        """Check if ground truth answer is simple (can use rules) or complex (needs LLM)."""
++        try:
++            gt = ground_truth.strip()
++
++            # MC choice: "A.", "B.", etc.
++            if re.match(r"^[A-F]\.", gt, re.IGNORECASE):
++                return False
++
++            # Pure number: "3.14", "-5", etc.
++            if re.match(r"^-?\d+(\.\d+)?$", gt):
++                return False
++
++            # Simple text: short (< 50 chars), no special structure
++            if len(gt) < 10 and not any(c in gt for c in ["<", ">", "{", "}"]):
++                return False
++
++            # Complex answer: use LLM judge
++            return True
++        except Exception as e:
++            _LOGGER.warning("Error checking if zerobench needs LLM: %s", e)
++            return True
++
++    def _get_zerobench_result_reward_with_llm(self, solution_str: str, ground_truth: str, prompt_str: str) -> float:
++        """For complex zerobench answers, use LLM to calculate result reward."""
++        try:
++            judge_prompt = self._judge_prompt_template
++            judge_prompt = judge_prompt.replace("{question}", str(prompt_str))
++            judge_prompt = judge_prompt.replace("{reference_answer}", str(ground_truth))
++            judge_prompt = judge_prompt.replace("{model_answer}", str(solution_str))
++
++            scaled_scores, _ = self._judge_batch([judge_prompt])
++            if scaled_scores:
++                return scaled_scores[0]
++            return 0.0
++        except Exception as e:
++            _LOGGER.warning("Failed to get zerobench result reward with LLM: %s", e)
++            return 0.0
++
++    async def _get_zerobench_result_reward_with_llm_async(self, solution_str: str, ground_truth: str, prompt_str: str) -> float:
++        """Async version for use inside a running event loop (avoids nested loop conflict)."""
++        try:
++            judge_prompt = self._judge_prompt_template
++            judge_prompt = judge_prompt.replace("{question}", str(prompt_str))
++            judge_prompt = judge_prompt.replace("{reference_answer}", str(ground_truth))
++            judge_prompt = judge_prompt.replace("{model_answer}", str(solution_str))
++
++            self._ensure_client()
++            scaled_scores, _ = await self._judge_batch_async([judge_prompt])
++            if scaled_scores:
++                return scaled_scores[0]
++            return 0.0
++        except Exception as e:
++            _LOGGER.warning("Failed to get zerobench result reward with LLM (async): %s", e)
++            return 0.0
++
++    def _get_result_reward(self, solution_str: str, ground_truth: str, data_source: str, prompt_str: str = "") -> float:
++        """Get result reward from the corresponding reward module.
++
++        For zerobench: uses rules for simple answers, LLM for complex ones.
++        For spatial/crosspoint/etc: always uses rules.
++        """
++        try:
++            if data_source in ["crosspoint", "mindcube", "spar"]:
++                from verl.utils.reward_score import spatial
++                return spatial.result_reward(solution_str, ground_truth)
++            elif data_source in ["zerobench"]:
++                # For zerobench, check if answer is simple or complex
++                if not self._should_use_llm_for_zerobench(ground_truth):
++                    # Simple answer: use rule-based
++                    from verl.utils.reward_score import zerobench
++                    return zerobench.result_reward(solution_str, ground_truth)
++                else:
++                    # Complex answer: use LLM judge
++                    return self._get_zerobench_result_reward_with_llm(solution_str, ground_truth, prompt_str)
++            else:
++                return 0.0
++        except Exception as e:
++            _LOGGER.warning("Failed to get result reward for data_source=%s: %s", data_source, e)
++            return 0.0
++
++    def _format_rubric(self, rubric) -> str:
++        """Convert a rubric dict (or JSON string) to human-readable text for the prompt."""
++        if isinstance(rubric, str):
++            try:
++                rubric = json.loads(rubric)
++            except Exception:
++                return rubric
++        if not isinstance(rubric, dict):
++            return str(rubric)
++        parts = []
++        for key, criteria in rubric.items():
++            label = key.replace("_", " ").title()
++            parts.append(f"{label}:")
++            for i, c in enumerate(criteria, 1):
++                desc = c.get("description", "")
++                weight = c.get("weight", "")
++                parts.append(f"  {i}. {desc} (weight: {weight})")
++        return "\n".join(parts)
++
++    def _build_judge_prompt(self, conversation: str, output: str, label: str, sample_rubric=None) -> str:
++        """Build judge prompt for rubric_reward.
++
++        rubric_mode=general: uses rubric_prompt_template (or default prompt) for all samples.
++        rubric_mode=sample:  uses sample_rubric_prompt_template with per-sample {rubric} fill.
++        Falls back to general when sample_rubric is None or template is missing.
++        """
++        if self._rubric_mode == "sample" and sample_rubric is not None and self._sample_rubric_prompt_template:
++            prompt = self._sample_rubric_prompt_template
++            prompt = prompt.replace("{rubric}", self._format_rubric(sample_rubric))
++        else:
++            prompt = self._rubric_prompt_template or self._judge_prompt_template
++        prompt = prompt.replace("{input}", str(conversation))
++        prompt = prompt.replace("{output}", str(output))
++        prompt = prompt.replace("{label}", str(label))
++        return prompt
++
++    def _extract_score(self, text: str) -> float | None:
++        match = re.search(r"\{.*\}", text, re.DOTALL)
++        if match:
++            try:
++                data = json.loads(match.group(0))
++                score = data.get("SCORE") or data.get("score") or data.get("average_score")
++                if score is not None:
++                    return float(score)
++            except Exception:
++                pass
++
++        match = re.search(r"\"?(?:SCORE|average_score)\"?\s*:\s*\"?([0-9]+(?:\.[0-9]+)?)\"?", text, re.IGNORECASE)
++        if match:
++            return float(match.group(1))
++
++        match = re.search(r"\b(10|[1-9])(?:\.\d+)?\b", text)
++        if match:
++            return float(match.group(1))
++
++        return None
++
++    def _extract_rubric_score(self, text: str, rubric: dict) -> float | None:
++        """Parse criterion_scores from LLM output and compute weighted average using rubric weights."""
++        all_criteria = (rubric.get("factual_criteria") or []) + (rubric.get("process_criteria") or [])
++        weights = [c.get("weight", 0.0) for c in all_criteria]
++        total_w = sum(weights)
++        if not all_criteria or total_w <= 0:
++            return None
++        m = re.search(r"\{.*\}", text, re.DOTALL)
++        if m:
++            try:
++                data = json.loads(m.group(0))
++                scores_list = data.get("criterion_scores", [])
++                if isinstance(scores_list, list) and len(scores_list) == len(weights):
++                    scores = [max(1.0, min(10.0, float(item.get("score", 1)))) for item in scores_list]
++                    weighted_avg = sum(s * w for s, w in zip(scores, weights)) / total_w
++                    return round(weighted_avg)
++            except Exception:
++                pass
++        return None
++
++    def _scale_score(self, raw_score: float | None) -> float:
++        if raw_score is None:
++            return 0.0
++        raw_score = float(raw_score)
++
++        # If score is already in [0, 1] range (both prompts return 0-1), use directly
++        if 0.0 <= raw_score <= 1.0:
++            return raw_score
++
++        # If score is in [1, 10] range (backward compatibility), convert based on scale config
++        raw_score = max(1.0, min(10.0, raw_score))
++        scale = str(self._judge_score_scale).lower()
++        if scale in {"raw", "none"}:
++            return raw_score
++        if scale in {"0-1", "0_to_1"}:
++            return (raw_score - 1.0) / 9.0
++        if scale in {"-1-1", "-1_to_1", "minus1_to_1"}:
++            return (raw_score - 5.5) / 4.5
++        return (raw_score - 1.0) / 9.0
++
++    def __call__(self, data: DataProto, return_dict: bool = False):
++        reward_tensor = torch.zeros_like(data.batch["responses"], dtype=torch.float32)
++        reward_extra_info = defaultdict(list)
++
++        batch_size = len(data)
++        reward_extra_info["format_reward"] = [None] * batch_size
++        reward_extra_info["result_reward"] = [None] * batch_size
++        reward_extra_info["rubric_reward"] = [None] * batch_size
++        reward_extra_info["rubric_judge_output"] = [None] * batch_size
++        reward_extra_info["reward"] = [None] * batch_size
++
++        llm_indices = []
++        llm_prompts = []
++        llm_meta = []
++
++        for i in range(len(data)):
++            data_item = data[i]
++            prompt_ids = data_item.batch["prompts"]
++            prompt_length = prompt_ids.shape[-1]
++            valid_prompt_length = data_item.batch["attention_mask"][:prompt_length].sum()
++
++            response_ids = data_item.batch["responses"]
++            valid_response_length = data_item.batch["attention_mask"][prompt_length:].sum()
++            valid_response_ids = response_ids[:int(valid_response_length)]
++
++            valid_prompt_len = int(valid_prompt_length)
++            prompt_str = self.tokenizer.decode(prompt_ids[-valid_prompt_len:] if valid_prompt_len > 0 else [], skip_special_tokens=True)
++            response_str = self.tokenizer.decode(valid_response_ids, skip_special_tokens=True)
++
++            ground_truth = data_item.non_tensor_batch["reward_model"]["ground_truth"]
++            data_source = data_item.non_tensor_batch.get(self.reward_fn_key, "unknown")
++            extra_info = data_item.non_tensor_batch.get("extra_info", {})
++            sample_rubric = data_item.non_tensor_batch.get("rubric", None)
++            if sample_rubric is None and self._rubric_lookup:
++                _img_paths = data_item.non_tensor_batch.get("image_paths")
++                _img_path = _img_paths[0] if _img_paths is not None and len(_img_paths) > 0 else ""
++                _question = data_item.non_tensor_batch.get("question_text") or ""
++                sample_rubric = self._rubric_lookup.get((_img_path, _question))
++
++            # Get format and result rewards separately
++            fmt_reward = self._get_format_reward(response_str, data_source)
++            res_reward = self._get_result_reward(response_str, ground_truth, data_source, prompt_str)
++
++            reward_extra_info["format_reward"][i] = fmt_reward
++            reward_extra_info["result_reward"][i] = res_reward
++
++            need_judge = self._rubric_weight > 0.0
++
++            if need_judge:
++                judge_prompt = self._build_judge_prompt(
++                    conversation=prompt_str,
++                    output=response_str,
++                    label=ground_truth,
++                    sample_rubric=sample_rubric,
++                )
++                llm_indices.append(i)
++                llm_prompts.append(judge_prompt)
++                llm_meta.append({
++                    "fmt_reward": fmt_reward,
++                    "res_reward": res_reward,
++                    "valid_response_length": int(valid_response_length),
++                    "sample_rubric": sample_rubric,
++                })
++            else:
++                # Pure rule-based: no judge needed
++                # final = format_weight * fmt + (1 - format_weight) * res
++                final_reward = self._format_weight * fmt_reward + (1.0 - self._format_weight) * res_reward
++                reward_tensor[i, max(0, int(valid_response_length) - 1)] = final_reward
++                reward_extra_info["rubric_reward"][i] = 0.0
++                reward_extra_info["reward"][i] = final_reward
++
++        if llm_prompts:
++            _LOGGER.info("Scoring %d items with LLM judge", len(llm_prompts))
++            scaled_scores, outputs = self._judge_batch(llm_prompts)
++            for pos, (idx, scaled_score, meta) in enumerate(zip(llm_indices, scaled_scores, llm_meta)):
++                output_text = outputs[pos]
++                # For rubric_sample mode, recompute weighted score from criterion_scores.
++                rubric_dict = meta.get("sample_rubric")
++                if rubric_dict is not None:
++                    computed = self._extract_rubric_score(output_text, rubric_dict)
++                    if computed is not None:
++                        scaled_score = self._scale_score(computed)
++
++                fmt_reward = meta.get("fmt_reward") or 0.0
++                res_reward = meta.get("res_reward") or 0.0
++                rule_weight = 1.0 - self._rubric_weight
++                rule_fused = rule_weight * res_reward + self._rubric_weight * scaled_score
++                final_reward = self._format_weight * fmt_reward + (1.0 - self._format_weight) * rule_fused
++
++                reward_tensor[idx, max(0, meta["valid_response_length"] - 1)] = final_reward
++                reward_extra_info["rubric_reward"][idx] = scaled_score
++                reward_extra_info["rubric_judge_output"][idx] = output_text
++                reward_extra_info["reward"][idx] = final_reward
++
++        if return_dict:
++            return {"reward_tensor": reward_tensor, "reward_extra_info": reward_extra_info}
++        return reward_tensor
++
++    async def call_async(self, data: DataProto, return_dict: bool = False):
++        """Async version of __call__ for use within a running asyncio event loop.
++
++        Identical to __call__ but awaits _judge_batch_async instead of calling
++        _judge_batch (which would create a nested event loop and fail).
++        """
++        reward_tensor = torch.zeros_like(data.batch["responses"], dtype=torch.float32)
++        reward_extra_info = defaultdict(list)
++
++        batch_size = len(data)
++        reward_extra_info["format_reward"] = [None] * batch_size
++        reward_extra_info["result_reward"] = [None] * batch_size
++        reward_extra_info["rubric_reward"] = [None] * batch_size
++        reward_extra_info["rubric_judge_output"] = [None] * batch_size
++        reward_extra_info["reward"] = [None] * batch_size
++
++        llm_indices = []
++        llm_prompts = []
++        llm_meta = []
++
++        for i in range(len(data)):
++            data_item = data[i]
++            prompt_ids = data_item.batch["prompts"]
++            prompt_length = prompt_ids.shape[-1]
++            valid_prompt_length = data_item.batch["attention_mask"][:prompt_length].sum()
++
++            response_ids = data_item.batch["responses"]
++            valid_response_length = data_item.batch["attention_mask"][prompt_length:].sum()
++            valid_response_ids = response_ids[:int(valid_response_length)]
++
++            valid_prompt_len = int(valid_prompt_length)
++            prompt_str = self.tokenizer.decode(
++                prompt_ids[-valid_prompt_len:] if valid_prompt_len > 0 else [],
++                skip_special_tokens=True,
++            )
++            response_str = self.tokenizer.decode(valid_response_ids, skip_special_tokens=True)
++
++            ground_truth = data_item.non_tensor_batch["reward_model"]["ground_truth"]
++            data_source = data_item.non_tensor_batch.get(self.reward_fn_key, "unknown")
++            sample_rubric = data_item.non_tensor_batch.get("rubric", None)
++            if sample_rubric is None and self._rubric_lookup:
++                _img_paths = data_item.non_tensor_batch.get("image_paths")
++                _img_path = _img_paths[0] if _img_paths is not None and len(_img_paths) > 0 else ""
++                _question = data_item.non_tensor_batch.get("question_text") or ""
++                sample_rubric = self._rubric_lookup.get((_img_path, _question))
++
++            fmt_reward = self._get_format_reward(response_str, data_source)
++            # For zerobench complex answers, use the async LLM path directly to
++            # avoid _judge_batch creating a nested event loop (which conflicts with
++            # the already-running loop in call_async). All other data sources use
++            # sync rule-based scoring and are safe to call directly.
++            if data_source == "zerobench" and self._should_use_llm_for_zerobench(ground_truth):
++                res_reward = await self._get_zerobench_result_reward_with_llm_async(
++                    response_str, ground_truth, prompt_str
++                )
++            else:
++                res_reward = self._get_result_reward(response_str, ground_truth, data_source, prompt_str)
++
++            reward_extra_info["format_reward"][i] = fmt_reward
++            reward_extra_info["result_reward"][i] = res_reward
++
++            if self._rubric_weight > 0.0:
++                judge_prompt = self._build_judge_prompt(
++                    conversation=prompt_str,
++                    output=response_str,
++                    label=ground_truth,
++                    sample_rubric=sample_rubric,
++                )
++                llm_indices.append(i)
++                llm_prompts.append(judge_prompt)
++                llm_meta.append({
++                    "fmt_reward": fmt_reward,
++                    "res_reward": res_reward,
++                    "valid_response_length": int(valid_response_length),
++                    "sample_rubric": sample_rubric,
++                })
++            else:
++                final_reward = self._format_weight * fmt_reward + (1.0 - self._format_weight) * res_reward
++                reward_tensor[i, max(0, int(valid_response_length) - 1)] = final_reward
++                reward_extra_info["rubric_reward"][i] = 0.0
++                reward_extra_info["reward"][i] = final_reward
++
++        if llm_prompts:
++            _LOGGER.info("Scoring %d items with LLM judge (async)", len(llm_prompts))
++            self._ensure_client()
++            scaled_scores, outputs = await self._judge_batch_async(llm_prompts)
++            for pos, (idx, scaled_score, meta) in enumerate(zip(llm_indices, scaled_scores, llm_meta)):
++                output_text = outputs[pos]
++                rubric_dict = meta.get("sample_rubric")
++                if rubric_dict is not None:
++                    computed = self._extract_rubric_score(output_text, rubric_dict)
++                    if computed is not None:
++                        scaled_score = self._scale_score(computed)
++
++                fmt_reward = meta.get("fmt_reward") or 0.0
++                res_reward = meta.get("res_reward") or 0.0
++                rule_weight = 1.0 - self._rubric_weight
++                rule_fused = rule_weight * res_reward + self._rubric_weight * scaled_score
++                final_reward = self._format_weight * fmt_reward + (1.0 - self._format_weight) * rule_fused
++                reward_tensor[idx, max(0, meta["valid_response_length"] - 1)] = final_reward
++                reward_extra_info["rubric_reward"][idx] = scaled_score
++                reward_extra_info["rubric_judge_output"][idx] = outputs[pos]
++                reward_extra_info["reward"][idx] = final_reward
++
++        if return_dict:
++            return {"reward_tensor": reward_tensor, "reward_extra_info": reward_extra_info}
++        return reward_tensor
+diff --git a/verl/workers/reward_manager/spatial_consistency.py b/verl/workers/reward_manager/spatial_consistency.py
+new file mode 100644
+index 00000000..48fa6a16
+--- /dev/null
++++ b/verl/workers/reward_manager/spatial_consistency.py
+@@ -0,0 +1,411 @@
++"""
++Spatial consistency reward manager.
++
++Verifies cross-view correspondence claims in the model's <think> block using
++a multimodal VLM judge. For every "X is at [x1,y1] in image1 → [x2,y2] in
++image2" statement the model makes, it asks the judge the same question and
++measures the distance between the model's claim and the judge's answer.
++
++Final reward formula
++--------------------
++  consistency enabled (consistency_weight > 0):
++      format_weight * fmt + (1 - format_weight - consistency_weight) * res
++      + consistency_weight * consistency
++
++  disabled (consistency_weight == 0):
++      format_weight * fmt + (1 - format_weight) * res
++"""
++
++from __future__ import annotations
++
++import asyncio
++import base64
++import io
++import logging
++import math
++import os
++import random
++import re
++import urllib.request
++from collections import defaultdict
++from typing import Any
++
++import torch
++from PIL import Image
++
++from verl import DataProto
++from verl.utils.reward_score import default_compute_score
++from verl.workers.reward_manager import register
++from verl.workers.reward_manager.abstract import AbstractRewardManager
++
++_LOGGER = logging.getLogger(__name__)
++
++# ── Regex patterns ────────────────────────────────────────────────────────────
++
++_THINK_RE = re.compile(r"<think>(.*?)</think>", re.DOTALL | re.IGNORECASE)
++
++# "located at [x, y] in image N" — captures x, y, image-number
++_IMG_SRC_RE = re.compile(
++    r"located at \[(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\] in image[\s_]?(\d+)",
++    re.IGNORECASE,
++)
++
++# "corresponds to [x, y] in image N" — captures x, y, image-number
++_IMG_DST_RE = re.compile(
++    r"corresponds? to \[(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\] in image[\s_]?(\d+)",
++    re.IGNORECASE,
++)
++
++# {"point_2d": [x, y]} in judge output
++_POINT2D_RE = re.compile(
++    r'"point_2d"\s*:\s*\[(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\]'
++)
++
++
++# ── Helpers ───────────────────────────────────────────────────────────────────
++
++def _extract_think(text: str) -> str:
++    m = _THINK_RE.search(text)
++    return m.group(1) if m else ""
++
++
++def _parse_pairs(
++    think_text: str,
++) -> list[tuple[int, float, float, int, float, float]]:
++    """
++    Return (src_img_idx, x1, y1, dst_img_idx, x2, y2) for each
++    (src, dst) combination found in each 'Viewpoint Consistency Analysis' section.
++    Image indices are 1-based. One section may yield multiple pairs when an
++    object is tracked across more than two views.
++    """
++    sections = re.split(r"Viewpoint Consistency Analysis \d+[:.]?", think_text, flags=re.IGNORECASE)
++    pairs: list[tuple[int, float, float, int, float, float]] = []
++    for sec in sections:
++        m_src = _IMG_SRC_RE.search(sec)
++        if m_src is None:
++            continue
++        src_idx = int(m_src.group(3))
++        x1, y1  = float(m_src.group(1)), float(m_src.group(2))
++        for m_dst in _IMG_DST_RE.finditer(sec):
++            dst_idx = int(m_dst.group(3))
++            x2, y2  = float(m_dst.group(1)), float(m_dst.group(2))
++            pairs.append((src_idx, x1, y1, dst_idx, x2, y2))
++    return pairs
++
++
++def _pil_to_b64(img: Image.Image) -> str:
++    buf = io.BytesIO()
++    img.save(buf, format="JPEG")
++    return base64.b64encode(buf.getvalue()).decode("utf-8")
++
++
++def _pair_reward(mx2: float, my2: float, px: float, py: float, sigma: float) -> float:
++    """exp(-normalised_dist / sigma), coordinates in [0, 1000]."""
++    dist = math.sqrt(((mx2 - px) / 1000) ** 2 + ((my2 - py) / 1000) ** 2)
++    return math.exp(-dist / sigma)
++
++
++# ── Manager ───────────────────────────────────────────────────────────────────
++
++@register("spatial_consistency")
++class SpatialConsistencyRewardManager(AbstractRewardManager):
++    """Rule-based reward augmented with cross-view consistency from a VLM judge."""
++
++    def __init__(
++        self,
++        tokenizer,
++        num_examine: int,
++        compute_score=None,
++        reward_fn_key: str = "data_source",
++        format_weight: float = 0.1,
++        consistency_weight: float = 0.0,
++        consistency_judge_base_url: str | None = None,
++        consistency_judge_api_key: str = "qwen",
++        consistency_judge_model_name: str = "qwen",
++        consistency_judge_timeout: float = 120.0,
++        consistency_judge_max_concurrent: int = 16,
++        consistency_judge_max_tokens: int = 64,
++        consistency_judge_sigma: float = 0.1,
++        consistency_judge_enable_sleep: bool = True,
++        consistency_max_pairs_per_sample: int = 4,
++        **kwargs,
++    ) -> None:
++        self.tokenizer = tokenizer
++        self.num_examine = num_examine
++        self.compute_score = compute_score or default_compute_score
++        self.reward_fn_key = reward_fn_key
++
++        self._format_weight = float(format_weight)
++        self._consistency_weight = float(consistency_weight)
++        self._sigma = float(consistency_judge_sigma)
++        self._max_pairs = int(consistency_max_pairs_per_sample)
++        self._max_concurrent = int(consistency_judge_max_concurrent)
++        self._timeout = float(consistency_judge_timeout)
++        self._enable_sleep = bool(consistency_judge_enable_sleep)
++        self._judge_model_name = consistency_judge_model_name
++        self._judge_max_tokens = int(consistency_judge_max_tokens)
++
++        self._judge_base_url = (
++            consistency_judge_base_url
++            or os.environ.get("CONSISTENCY_JUDGE_BASE_URL", "http://localhost:51002/v1")
++        )
++        self._judge_api_key = consistency_judge_api_key
++
++        # Lazy-initialised OpenAI clients
++        self._client = None
++        self._async_client = None
++
++        _LOGGER.info(
++            "SpatialConsistencyRewardManager: consistency_weight=%.2f format_weight=%.2f "
++            "sigma=%.3f max_concurrent=%d judge_url=%s",
++            self._consistency_weight, self._format_weight,
++            self._sigma, self._max_concurrent, self._judge_base_url,
++        )
++
++    # ── Client setup ──────────────────────────────────────────────────────────
++
++    def _ensure_client(self) -> None:
++        if self._client is not None:
++            return
++        from openai import AsyncOpenAI, OpenAI
++        self._client = OpenAI(
++            api_key=self._judge_api_key,
++            base_url=self._judge_base_url,
++            timeout=self._timeout,
++        )
++        self._async_client = AsyncOpenAI(
++            api_key=self._judge_api_key,
++            base_url=self._judge_base_url,
++            timeout=self._timeout,
++        )
++
++    def _server_root(self) -> str:
++        """http://host:port (strip /v1 suffix)."""
++        url = self._judge_base_url.rstrip("/")
++        return url[:-3] if url.endswith("/v1") else url
++
++    def _wake(self) -> None:
++        try:
++            urllib.request.urlopen(f"{self._server_root()}/wake_up", timeout=10)
++        except Exception:
++            pass
++
++    def _sleep(self) -> None:
++        try:
++            urllib.request.urlopen(f"{self._server_root()}/sleep?level=1", timeout=10)
++        except Exception:
++            pass
++
++    # ── Async judge call ──────────────────────────────────────────────────────
++
++    async def _call_one(
++        self,
++        img1: Image.Image,
++        img2: Image.Image,
++        x1: float,
++        y1: float,
++        semaphore: asyncio.Semaphore,
++    ) -> tuple[float, float] | None:
++        img1_b64 = _pil_to_b64(img1)
++        img2_b64 = _pil_to_b64(img2)
++        messages = [{
++            "role": "user",
++            "content": [
++                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img1_b64}"}},
++                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img2_b64}"}},
++                {"type": "text", "text": (
++                    "I am providing you with two images of the same scene from different viewpoints. "
++                    f"In image2, where is the corresponding point for the coordinate "
++                    f"[{int(x1)},{int(y1)}] in image1?"
++                )},
++            ],
++        }]
++        async with semaphore:
++            try:
++                resp = await self._async_client.chat.completions.create(
++                    model=self._judge_model_name,
++                    messages=messages,
++                    max_tokens=self._judge_max_tokens,
++                    temperature=0.0,
++                )
++                text = (resp.choices[0].message.content or "").strip()
++                m = _POINT2D_RE.search(text)
++                if m:
++                    return float(m.group(1)), float(m.group(2))
++            except Exception as exc:
++                _LOGGER.warning("Consistency judge call failed: %s", exc)
++        return None
++
++    async def _batch_async(
++        self,
++        requests: list[tuple[Image.Image, Image.Image, float, float]],
++    ) -> list[tuple[float, float] | None]:
++        if not requests:
++            return []
++        self._ensure_client()
++        if self._enable_sleep:
++            self._wake()
++        semaphore = asyncio.Semaphore(self._max_concurrent)
++        results = await asyncio.gather(*[
++            self._call_one(img1, img2, x1, y1, semaphore)
++            for img1, img2, x1, y1 in requests
++        ])
++        if self._enable_sleep:
++            self._sleep()
++        return list(results)
++
++    def _batch_judge(
++        self,
++        requests: list[tuple[Image.Image, Image.Image, float, float]],
++    ) -> list[tuple[float, float] | None]:
++        loop = asyncio.new_event_loop()
++        asyncio.set_event_loop(loop)
++        try:
++            return loop.run_until_complete(self._batch_async(requests))
++        finally:
++            loop.close()
++
++    # ── Main call ─────────────────────────────────────────────────────────────
++
++    def __call__(self, data: DataProto, return_dict: bool = False) -> torch.Tensor | dict[str, Any]:
++        reward_tensor = torch.zeros_like(data.batch["responses"], dtype=torch.float32)
++        reward_extra_info: dict[str, list] = defaultdict(list)
++        already_print: dict[str, int] = {}
++
++        use_consistency = self._consistency_weight > 0.0
++
++        # ── Pass 1: decode, rule score, parse pairs ──────────────────────────
++        sample_meta: list[dict] = []
++        # Flat judge-request list: (img1, img2, x1, y1)
++        judge_requests: list[tuple[Image.Image, Image.Image, float, float]] = []
++        # model_x2/y2 for each request (to compare with judge output)
++        model_claimed: list[tuple[float, float]] = []
++
++        for i in range(len(data)):
++            data_item = data[i]
++
++            prompt_ids = data_item.batch["prompts"]
++            prompt_length = prompt_ids.shape[-1]
++            valid_prompt_len = int(data_item.batch["attention_mask"][:prompt_length].sum())
++            valid_prompt_ids = prompt_ids[-valid_prompt_len:] if valid_prompt_len > 0 else prompt_ids[:0]
++
++            response_ids = data_item.batch["responses"]
++            valid_resp_len = int(data_item.batch["attention_mask"][prompt_length:].sum())
++            valid_response_ids = response_ids[:valid_resp_len]
++
++            prompt_str = self.tokenizer.decode(valid_prompt_ids, skip_special_tokens=True)
++            response_str = self.tokenizer.decode(valid_response_ids, skip_special_tokens=True)
++
++            ground_truth = data_item.non_tensor_batch["reward_model"]["ground_truth"]
++            data_source = data_item.non_tensor_batch[self.reward_fn_key]
++            extra_info = data_item.non_tensor_batch.get("extra_info", {})
++
++            # Rule-based score — try to get fmt/result separately
++            fmt_reward = res_reward = 0.0
++            try:
++                from verl.utils.reward_score import spatial as _spatial
++                fmt_reward = _spatial.format_reward(response_str)
++                res_reward = _spatial.result_reward(response_str, ground_truth)
++            except Exception:
++                score = self.compute_score(
++                    data_source=data_source,
++                    solution_str=response_str,
++                    ground_truth=ground_truth,
++                    extra_info=extra_info,
++                )
++                fmt_reward = res_reward = float(score) if not isinstance(score, dict) else float(score.get("score", 0.0))
++
++            # Parse think-block pairs
++            pair_start = len(judge_requests)
++            if use_consistency:
++                think = _extract_think(response_str)
++                pairs = _parse_pairs(think)
++                if len(pairs) > self._max_pairs:
++                    pairs = random.sample(pairs, self._max_pairs)
++
++                images = data_item.non_tensor_batch.get("images")
++                n_images = len(images) if images is not None else 0
++
++                for src_idx, x1, y1, dst_idx, mx2, my2 in pairs:
++                    # Convert 1-based image number to 0-based list index
++                    i_src = src_idx - 1
++                    i_dst = dst_idx - 1
++                    if i_src == i_dst:
++                        continue  # same image, no cross-view correspondence
++                    if i_src < 0 or i_src >= n_images or i_dst < 0 or i_dst >= n_images:
++                        continue
++                    img_src = images[i_src] if isinstance(images[i_src], Image.Image) else None
++                    img_dst = images[i_dst] if isinstance(images[i_dst], Image.Image) else None
++                    if img_src is None or img_dst is None:
++                        continue
++                    judge_requests.append((img_src, img_dst, x1, y1))
++                    model_claimed.append((mx2, my2))
++
++            sample_meta.append({
++                "fmt_reward": fmt_reward,
++                "res_reward": res_reward,
++                "valid_resp_len": valid_resp_len,
++                "data_source": data_source,
++                "prompt_str": prompt_str,
++                "response_str": response_str,
++                "ground_truth": ground_truth,
++                "pair_start": pair_start,
++                "pair_end": len(judge_requests),
++            })
++
++        # ── Batch judge call ─────────────────────────────────────────────────
++        judge_results: list[tuple[float, float] | None] = []
++        if use_consistency and judge_requests:
++            _LOGGER.info("Calling consistency judge for %d pairs", len(judge_requests))
++            judge_results = self._batch_judge(judge_requests)
++
++        # ── Pass 2: compute final rewards ────────────────────────────────────
++        for i, meta in enumerate(sample_meta):
++            fmt = meta["fmt_reward"]
++            res = meta["res_reward"]
++
++            consistency = 0.0
++            if use_consistency:
++                pair_scores: list[float] = []
++                for req_idx in range(meta["pair_start"], meta["pair_end"]):
++                    result = judge_results[req_idx] if req_idx < len(judge_results) else None
++                    if result is not None:
++                        mx2, my2 = model_claimed[req_idx]
++                        px, py = result
++                        pair_scores.append(_pair_reward(mx2, my2, px, py, self._sigma))
++                if pair_scores:
++                    consistency = sum(pair_scores) / len(pair_scores)
++
++            if use_consistency:
++                result_w = 1.0 - self._format_weight - self._consistency_weight
++                final = (
++                    self._format_weight * fmt
++                    + result_w * res
++                    + self._consistency_weight * consistency
++                )
++            else:
++                final = self._format_weight * fmt + (1.0 - self._format_weight) * res
++
++            vrl = max(0, meta["valid_resp_len"] - 1)
++            reward_tensor[i, vrl] = final
++
++            reward_extra_info["format_reward"].append(fmt)
++            reward_extra_info["result_reward"].append(res)
++            reward_extra_info["consistency_reward"].append(consistency)
++            reward_extra_info["reward"].append(final)
++
++            ds = meta["data_source"]
++            already_print.setdefault(ds, 0)
++            if already_print[ds] < self.num_examine:
++                already_print[ds] += 1
++                print("[prompt]", meta["prompt_str"])
++                print("[response]", meta["response_str"])
++                print("[ground_truth]", meta["ground_truth"])
++                print("[format_reward]", fmt)
++                print("[result_reward]", res)
++                print("[consistency_reward]", consistency)
++                print("[reward]", final)
++
++        if return_dict:
++            return {"reward_tensor": reward_tensor, "reward_extra_info": reward_extra_info}
++        return reward_tensor
