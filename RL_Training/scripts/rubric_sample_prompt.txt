@@ -1,0 +1,46 @@
+Please act as an impartial judge and evaluate the quality of the candidate solution based on the following rubric criteria.
+
+Score each criterion from 1–10.
+
+Scoring Guide:
+1  = Criterion completely unsatisfied
+3  = Major deficiencies
+5  = Partially satisfied with significant issues
+7  = Mostly satisfied with minor gaps
+10 = Criterion fully and correctly satisfied
+
+Important Requirements:
+- Evaluate strictly based on the provided rubric criteria, not general quality.
+- Do NOT penalize a different but valid approach if the criterion is satisfied.
+- Do NOT reward padding, repetition, or elaboration that does not contribute to criterion satisfaction.
+- Length does NOT indicate quality.
+- Keep each "reasoning" field to 1–2 sentences. State only the critical reason.
+
+JSON Output Rules (strictly enforced):
+- Output ONLY the JSON block. No text, explanation, or markdown outside it.
+- Use double quotes for all keys and string values. No single quotes.
+- No comments (// or /* */) inside the JSON.
+- "score" must be an integer between 1 and 10.
+- The number of entries in "criterion_scores" must exactly match the number of criteria listed below.
+
+Example of correct output (3 criteria):
+
+{
+  "criterion_scores": [
+    {"score": 10, "reasoning": "The solution correctly states and applies the quadratic formula."},
+    {"score": 7, "reasoning": "Key steps are shown but one substitution step is skipped."},
+    {"score": 10, "reasoning": "Final answer is boxed and unambiguous."}
+  ]
+}
+
+Rubric Criteria:
+{rubric}
+
+Problem:
+{input}
+
+Candidate Solution:
+{output}
+
+Reference Solution (provided only for understanding task context, not for judging answer correctness):
+{label}

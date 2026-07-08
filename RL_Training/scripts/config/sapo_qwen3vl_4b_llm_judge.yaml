@@ -1,0 +1,125 @@
+# SAPO training with LLM judge for Qwen3-VL-4B-Instruct
+# Smoothed adaptive preference optimization: soft tau-based PPO
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+hydra:
+  searchpath:
+    - file:///mnt/tidal-alsh01/dataset/perceptionVLM/wangyipu/naive_cross_vlm/workspace/verl/verl/trainer/config
+
+algorithm:
+  adv_estimator: grpo
+  use_kl_in_reward: false
+  kl_ctrl:
+    kl_coef: 0
+
+data:
+  train_files: "${oc.env:TRAIN_FILE}"
+  val_files: "${oc.env:VAL_FILE}"
+  system_prompt: null
+  train_batch_size: 16
+  val_batch_size: 32
+  max_prompt_length: 2048
+  max_response_length: 8192
+  filter_overlong_prompts: true
+  truncation: error
+  image_key: images
+  prompt_key: prompt
+  image_patch_size: 16
+
+actor_rollout_ref:
+  model:
+    path: "${oc.env:MODEL_PATH}"
+    use_remove_padding: true
+    use_fused_kernels: true
+    enable_gradient_checkpointing: true
+
+  actor:
+    optim:
+      lr: 1e-6
+    ppo_mini_batch_size: 16
+    ppo_micro_batch_size_per_gpu: 4
+    use_kl_loss: true
+    kl_loss_coef: 0.01
+    kl_loss_type: low_var_kl
+    entropy_coeff: 0
+    strategy: fsdp2
+    fsdp_config:
+      fsdp_size: 8
+      reshard_after_forward: true
+      entropy_checkpointing: true
+      param_offload: false
+      optimizer_offload: false
+      forward_prefetch: true
+    # SAPO-specific
+    policy_loss:
+      loss_mode: sapo
+    tau_pos: 1.0
+    tau_neg: 1.05
+
+  rollout:
+    name: vllm
+    n: 8
+    tensor_model_parallel_size: 1
+    gpu_memory_utilization: 0.45
+    max_model_len: 12288
+    max_num_batched_tokens: 20000
+    log_prob_micro_batch_size_per_gpu: 2
+    enable_chunked_prefill: true
+    enforce_eager: true
+    free_cache_engine: true
+    engine_kwargs:
+      vllm:
+        mm_processor_cache_gb: 0
+
+  ref:
+    log_prob_micro_batch_size_per_gpu: 2
+    fsdp_config:
+      reshard_after_forward: true
+      param_offload: true
+      forward_prefetch: true
+
+reward:
+  num_workers: 2
+  reward_manager:
+    name: llm_judge
+  reward_model:
+    enable: false
+  reward_kwargs:
+    format_weight: 0.1
+    rubric_weight: 0.7
+    llm_judge_kwargs:
+      base_url: "http://localhost:51001/v1"
+      api_key: "qwen"
+      model_name: "qwen"
+      prompt_path: null
+      rubric_prompt_path: null
+      rubric_mode: general
+      temperature: 0.7
+      max_tokens: 1024
+      top_p: 0.8
+      top_k: 20
+      presence_penalty: 1.5
+      frequency_penalty: 1.0
+      score_scale: 0_to_1
+      enable_sleep_mode: true
+      sleep_level: 1
+      timeout: 150
+      max_concurrent_requests: 8
+      debug_enabled: false
+      log_outputs: false
+
+trainer:
+  critic_warmup: 0
+  n_gpus_per_node: 8
+  nnodes: 1
+  default_local_dir: "${oc.env:CKPTS_DIR}"
+  experiment_name: "${oc.env:EXPERIMENT_NAME}"
+  total_epochs: 1
+  save_freq: 60
+  test_freq: -1
+  val_before_train: false
+  logger: ["console", "wandb"]
+  project_name: "zerovision"

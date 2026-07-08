@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyVision Dataset Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="babyvision_data.js"></script>
+    <style>
+        .sidebar { height: 100vh; overflow-y: auto; }
+        .main-content { height: 100vh; overflow-y: auto; }
+        .img-container img { max-height: 70vh; object-fit: contain; }
+        .card { @apply bg-white p-4 rounded-lg shadow mb-4 border border-gray-200; }
+        .section-title { @apply text-lg font-bold border-b pb-2 mb-3 text-gray-800; }
+        .field-label { @apply font-semibold text-gray-700 text-sm; }
+        .field-value { @apply text-gray-600 text-sm mt-1 mb-3; }
+        .badge-processed { @apply bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded; }
+        .badge-skipped { @apply bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-1/4 bg-white shadow-lg sidebar p-4 flex flex-col">
+            <h1 class="text-xl font-bold mb-4">BabyVision Viewer</h1>
+            
+            <div class="mb-4">
+                <input v-model="searchQuery" type="text" placeholder="Search ID, task type..." class="w-full p-2 border rounded">
+            </div>
+            
+            <div class="mb-4 flex gap-2">
+                <label class="flex items-center text-sm">
+                    <input type="checkbox" v-model="showProcessed" class="mr-1"> Processed
+                </label>
+                <label class="flex items-center text-sm">
+                    <input type="checkbox" v-model="showSkipped" class="mr-1"> Skipped
+                </label>
+            </div>
+            
+            <div class="text-sm text-gray-500 mb-2">Showing {{ filteredData.length }} items</div>
+            
+            <div class="flex-1 overflow-y-auto">
+                <div v-for="item in filteredData" :key="item.sample_id" 
+                     @click="selectItem(item)"
+                     :class="['p-3 border-b cursor-pointer hover:bg-blue-50 transition-colors', selectedItem && selectedItem.sample_id === item.sample_id ? 'bg-blue-100 border-blue-500' : '']">
+                    <div class="flex justify-between items-start">
+                        <div class="font-medium text-sm">{{ item.sample_id }}</div>
+                        <span :class="item.status === 'processed' ? 'badge-processed' : 'badge-skipped'">
+                            {{ item.status }}
+                        </span>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1 truncate" v-if="item.task_type">{{ item.task_type }} - {{ item.task_subtype }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="w-3/4 main-content p-6" v-if="selectedItem">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">{{ selectedItem.sample_id }}</h2>
+                <div class="flex gap-2">
+                    <span :class="selectedItem.status === 'processed' ? 'badge-processed' : 'badge-skipped'" class="text-sm px-3 py-1">
+                        {{ selectedItem.status.toUpperCase() }}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="flex flex-col xl:flex-row gap-6">
+                <!-- Left Column: Image & Basic Info -->
+                <div class="xl:w-1/2 flex flex-col gap-4">
+                    <div class="img-container bg-white p-4 rounded-lg shadow flex items-center justify-center relative min-h-[300px]">
+                        <img :src="selectedItem.figure_path" alt="BabyVision Image" class="max-w-full" @error="handleImageError">
+                        <div v-if="imageError" class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 rounded-lg">
+                            Image not found: {{ selectedItem.original_image }}
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="section-title">Original Task</h3>
+                        <div v-if="selectedItem.task_type">
+                            <div class="field-label">Task Type:</div>
+                            <div class="field-value">{{ selectedItem.task_type }} > {{ selectedItem.task_subtype }}</div>
+                        </div>
+                        
+                        <div class="field-label">Original Question:</div>
+                        <div class="field-value bg-gray-50 p-2 rounded">{{ selectedItem.original_question }}</div>
+                        
+                        <div v-if="selectedItem.original_answer">
+                            <div class="field-label">Original Answer:</div>
+                            <div class="field-value text-green-700 font-bold">{{ selectedItem.original_answer }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card border-red-200 bg-red-50" v-if="selectedItem.status === 'skipped'">
+                        <h3 class="section-title text-red-800 border-red-200">Skip Reason</h3>
+                        <div class="text-red-700 text-sm">{{ selectedItem.reason }}</div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Captions Data -->
+                <div class="xl:w-1/2 flex flex-col gap-4 h-[80vh] overflow-y-auto pr-2" v-if="selectedItem.status === 'processed' && selectedItem.captions">
+                    
+                    <div class="card">
+                        <h3 class="section-title">Generation Prompt</h3>
+                        <div class="whitespace-pre-wrap text-sm text-gray-800 bg-gray-50 p-3 rounded border border-gray-200">{{ selectedItem.captions.generation_prompt }}</div>
+                    </div>
+                    
+                    <div class="card" v-if="selectedItem.captions.scene_caption">
+                        <h3 class="section-title">Scene Caption</h3>
+                        <div class="field-label">Overview:</div>
+                        <div class="field-value">{{ selectedItem.captions.scene_caption.overview }}</div>
+                        
+                        <div class="field-label">Camera:</div>
+                        <div class="field-value">{{ selectedItem.captions.scene_caption.camera }}</div>
+                        
+                        <div class="field-label">Spatial Layout:</div>
+                        <div class="field-value">{{ selectedItem.captions.scene_caption.spatial_layout }}</div>
+                        
+                        <div class="field-label">Objects:</div>
+                        <div class="field-value">
+                            <ul class="list-disc pl-5">
+                                <li v-for="(obj, idx) in selectedItem.captions.scene_caption.objects" :key="idx" class="mb-1">
+                                    <strong>{{ obj.name }}</strong> (Count: {{ obj.count }}): {{ obj.appearance }}
+                                    <span v-if="obj.position" class="text-gray-500 italic">- {{ obj.position }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="field-label">Lighting & Shadows:</div>
+                        <div class="field-value">{{ selectedItem.captions.scene_caption.lighting_and_shadows }}</div>
+                        
+                        <div class="field-label">Difficulty Sources:</div>
+                        <div class="field-value">{{ selectedItem.captions.scene_caption.difficulty_sources }}</div>
+                    </div>
+                    
+                    <div class="card" v-if="selectedItem.captions.question_requirements">
+                        <h3 class="section-title">Question Requirements</h3>
+                        <div class="field-label">Element:</div>
+                        <div class="field-value">{{ selectedItem.captions.question_requirements.element }}</div>
+                        
+                        <div class="field-label">Location:</div>
+                        <div class="field-value">{{ selectedItem.captions.question_requirements.location }}</div>
+                        
+                        <div class="field-label">Critical Attribute:</div>
+                        <div class="field-value">{{ selectedItem.captions.question_requirements.critical_attribute }}</div>
+                        
+                        <div class="field-label">Difficulty:</div>
+                        <div class="field-value">{{ selectedItem.captions.question_requirements.difficulty }}</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div v-else class="w-3/4 flex items-center justify-center text-gray-500">
+            <p class="text-xl">Select an item from the sidebar to view details.</p>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, watch } = Vue;
+        
+        createApp({
+            setup() {
+                const data = ref(window.dataset || []);
+                const selectedItem = ref(data.value[0]);
+                const searchQuery = ref('');
+                const showProcessed = ref(true);
+                const showSkipped = ref(true);
+                const imageError = ref(false);
+                
+                const filteredData = computed(() => {
+                    return data.value.filter(item => {
+                        // Filter by status
+                        if (item.status === 'processed' && !showProcessed.value) return false;
+                        if (item.status === 'skipped' && !showSkipped.value) return false;
+                        
+                        // Filter by search query
+                        if (!searchQuery.value) return true;
+                        const q = searchQuery.value.toLowerCase();
+                        
+                        return (
+                            (item.sample_id && item.sample_id.toLowerCase().includes(q)) ||
+                            (item.task_type && item.task_type.toLowerCase().includes(q)) ||
+                            (item.task_subtype && item.task_subtype.toLowerCase().includes(q)) ||
+                            (item.original_question && item.original_question.toLowerCase().includes(q))
+                        );
+                    });
+                });
+                
+                const selectItem = (item) => {
+                    selectedItem.value = item;
+                    imageError.value = false;
+                };
+                
+                const handleImageError = () => {
+                    imageError.value = true;
+                };
+                
+                // Automatically select first item if selection becomes invalid due to filtering
+                watch(filteredData, (newData) => {
+                    if (selectedItem.value && !newData.includes(selectedItem.value) && newData.length > 0) {
+                        selectItem(newData[0]);
+                    }
+                });
+                
+                return {
+                    data,
+                    selectedItem,
+                    searchQuery,
+                    showProcessed,
+                    showSkipped,
+                    filteredData,
+                    selectItem,
+                    imageError,
+                    handleImageError
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

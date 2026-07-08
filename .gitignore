@@ -12,3 +12,12 @@ __pycache__/
 .ruff_cache/
 .claude/
 *.pyc
+
+# secrets / envs (keep .env.example, ignore real .env)
+.env
+.env.*
+!.env.example
+
+# python venvs
+venv/
+.venv/

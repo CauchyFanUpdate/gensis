@@ -1,0 +1,807 @@
+{
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/12_0.png": [
+    "text",
+    "number",
+    "button",
+    "icon",
+    "grid",
+    "cell",
+    "legend",
+    "link"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/14_0.png": [
+    "arrow",
+    "music"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/10_0.png": [
+    "number",
+    "grid",
+    "cell",
+    "line",
+    "box"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/15_0.png": [
+    "circle",
+    "arrow",
+    "number",
+    "letter"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/16_0.png": [
+    "maze",
+    "star",
+    "square",
+    "oval",
+    "hexagon",
+    "text"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/11_0.png": [
+    "chessboard",
+    "chess piece",
+    "carpet"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/19_0.png": [
+    "paper",
+    "text",
+    "hole",
+    "line"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/17_0.png": [
+    "building",
+    "city",
+    "cow",
+    "grass",
+    "tree",
+    "water"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/20_0.png": [
+    "hand",
+    "paper",
+    "plastic",
+    "qr code",
+    "text",
+    "table",
+    "shoe",
+    "leg"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/100_0.png": [
+    "kettlebell",
+    "dumbbell",
+    "rack",
+    "mirror",
+    "light",
+    "pillar",
+    "exercise machine",
+    "trash can"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/21_0.png": [
+    "book",
+    "shelf"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/21_2.png": [
+    "book",
+    "shelf"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/21_1.png": [
+    "book",
+    "shelf"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/20_1.png": [
+    "hand",
+    "watch",
+    "sign",
+    "passport",
+    "payment terminal",
+    "box",
+    "label",
+    "counter"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/1_0.png": [
+    "bottle",
+    "shelf",
+    "refrigerator",
+    "box",
+    "price tag",
+    "sign",
+    "door",
+    "handle"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/24_0.png": [
+    "number",
+    "text",
+    "grid"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/22_0.png": [
+    "chair",
+    "screen",
+    "curtain",
+    "light",
+    "door",
+    "carpet",
+    "podium",
+    "projector",
+    "speaker",
+    "person",
+    "sign",
+    "stage"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/18_0.png": [
+    "number",
+    "river",
+    "lake",
+    "house",
+    "battery",
+    "cactus",
+    "saw blade",
+    "tiger",
+    "rook",
+    "pawn"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/13_0.png": [
+    "text",
+    "icon",
+    "scrollbar",
+    "tab",
+    "diagram",
+    "node",
+    "line",
+    "toolbar",
+    "status bar"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/28_0.png": [
+    "circle",
+    "dot"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/2_0.png": [
+    "screw"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/27_0.png": [
+    "showerhead",
+    "hose",
+    "faucet",
+    "glass",
+    "tile",
+    "drain",
+    "radiator",
+    "valve"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/25_0.png": [
+    "nut",
+    "box",
+    "ruler",
+    "paper"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/26_0.png": [
+    "light fixture",
+    "clipboard",
+    "paper",
+    "security camera",
+    "door",
+    "door handle",
+    "window",
+    "card reader",
+    "baseboard",
+    "radiator"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/31_0.png": [
+    "arrow",
+    "calligraphy",
+    "star"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/32_0.png": [
+    "circle",
+    "arrow",
+    "number"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/34_0.png": [
+    "dash",
+    "line"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/33_0.png": [
+    "paddle",
+    "ball",
+    "score",
+    "net"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/35_0.png": [
+    "bread",
+    "blanket",
+    "pillow",
+    "couch"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/29_0.png": [
+    "bead",
+    "pegboard",
+    "table"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/2_1.png": [
+    "screw"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/36_0.png": [
+    "circle",
+    "letter"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/23_0.png": [
+    "hand",
+    "clothing",
+    "plant",
+    "dirt",
+    "ring",
+    "building",
+    "bracelet"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/30_0.png": [
+    "rug",
+    "mirror",
+    "column",
+    "vent",
+    "light",
+    "bench",
+    "exercise ball",
+    "medicine ball",
+    "resistance band",
+    "foam roller",
+    "mat",
+    "basket"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/37_0.png": [
+    "cloud",
+    "sun",
+    "building",
+    "tree",
+    "water",
+    "bird",
+    "bridge"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/39_0.png": [
+    "building",
+    "tree",
+    "window",
+    "logo",
+    "antenna"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/44_0.png": [
+    "map",
+    "text",
+    "icon"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/40_0.png": [
+    "monitor",
+    "person",
+    "shirt",
+    "soccer ball",
+    "desk",
+    "cable",
+    "envelope",
+    "pencil",
+    "snack bar"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/41_0.png": [
+    "blister pack",
+    "table"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/42_0.png": [
+    "book",
+    "shelf",
+    "box",
+    "paper",
+    "folder",
+    "envelope",
+    "tin",
+    "stapler",
+    "desk"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/38_0.png": [
+    "cat",
+    "cat scratcher",
+    "pen",
+    "pencil",
+    "cup",
+    "windowsill",
+    "window"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/3_0.png": [
+    "face",
+    "box",
+    "square",
+    "line"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/48_0.png": [
+    "circle"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/49_0.png": [
+    "square",
+    "arrow"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/46_0.png": [
+    "lightbulb",
+    "box",
+    "banner",
+    "bamboo",
+    "pot",
+    "character",
+    "watering can",
+    "drop"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/43_0.png": [
+    "door",
+    "hinge",
+    "door closer",
+    "sign",
+    "light",
+    "smoke detector",
+    "fire alarm",
+    "carpet",
+    "trash can",
+    "dispenser",
+    "fire extinguisher",
+    "handle"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/44_1.png": [
+    "tree",
+    "sign",
+    "building",
+    "netting",
+    "pole",
+    "rock",
+    "dirt",
+    "trash",
+    "leaf",
+    "post"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/45_0.png": [
+    "triangle",
+    "arrow",
+    "letter",
+    "number",
+    "shape"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/51_0.png": [
+    "letter"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/54_0.png": [
+    "number"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/56_0.png": [
+    "flag"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/4_0.png": [
+    "cat",
+    "plant",
+    "pot",
+    "candle",
+    "pen",
+    "cat scratcher",
+    "window",
+    "windowsill",
+    "grass",
+    "road"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/55_0.png": [
+    "fish",
+    "tree",
+    "bush",
+    "bridge",
+    "lily pad",
+    "pond"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/58_0.png": [
+    "card",
+    "chip",
+    "table"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/50_0.png": [
+    "watch",
+    "clock",
+    "label"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/47_0.png": [
+    "food",
+    "menu",
+    "person",
+    "table",
+    "text",
+    "wood"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/52_0.png": [
+    "cartoon character",
+    "bubble",
+    "towel",
+    "bow",
+    "heart",
+    "acorn",
+    "fish",
+    "branch",
+    "leaf",
+    "club",
+    "pool float",
+    "water"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/62_0.png": [
+    "text",
+    "line",
+    "circle",
+    "arrow"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/57_0.png": [
+    "stair",
+    "handrail",
+    "shoe",
+    "window"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/5_0.png": [
+    "barbell",
+    "weight plate",
+    "weight bench",
+    "weight rack",
+    "barbell collar",
+    "mirror",
+    "door",
+    "sign",
+    "electrical outlet",
+    "water bottle",
+    "barbell jack"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/60_0.png": [
+    "clock"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/64_0.png": [
+    "headphones",
+    "marker",
+    "pen",
+    "box",
+    "mouse",
+    "sunglasses",
+    "cable"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/65_1.png": [
+    "building",
+    "window",
+    "light",
+    "scale bar",
+    "number",
+    "splatter"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/63_0.png": [
+    "recipe",
+    "banknote",
+    "coin",
+    "receipt",
+    "barcode"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/53_0.png": [
+    "globe",
+    "paper",
+    "pen",
+    "desk"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/66_0.png": [
+    "chessboard",
+    "king",
+    "queen",
+    "rook",
+    "bishop",
+    "knight",
+    "pawn"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/65_0.png": [
+    "building",
+    "window",
+    "window frame",
+    "arch",
+    "tree",
+    "street lamp",
+    "splatter",
+    "scale bar",
+    "text"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/71_0.png": [
+    "circle",
+    "dot"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/68_0.png": [
+    "pie chart",
+    "text"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/59_0.png": [
+    "ant",
+    "arrow",
+    "text",
+    "rectangle"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/72_0.png": [
+    "person",
+    "sweater",
+    "guitar",
+    "capo"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/61_0.png": [],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/67_0.png": [
+    "table",
+    "toy",
+    "frog",
+    "flower"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/73_0.png": [
+    "person",
+    "hand",
+    "makeup brush",
+    "earring",
+    "necklace",
+    "clothing",
+    "cotton pad",
+    "makeup pencil",
+    "mascara",
+    "hair accessory"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/78_0.png": [
+    "seat",
+    "train"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/76_0.png": [
+    "box",
+    "power bank",
+    "cable",
+    "charger",
+    "earphones",
+    "price tag",
+    "hook",
+    "display rack",
+    "security tag"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/74_0.png": [
+    "container",
+    "patch",
+    "table",
+    "cable"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/75_0.png": [
+    "airplane",
+    "map",
+    "text",
+    "button",
+    "video"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/7_0.png": [
+    "lego",
+    "toy",
+    "building",
+    "window",
+    "rock",
+    "tree",
+    "plant"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/77_0.png": [
+    "banana",
+    "apple",
+    "pasta",
+    "blender",
+    "cutting board",
+    "jar",
+    "table"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/70_0.png": [
+    "pen",
+    "toy snake",
+    "table"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/6_0.png": [
+    "glass",
+    "water",
+    "carpet",
+    "baseboard"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/83_0.png": [
+    "logic gate",
+    "input node",
+    "output node",
+    "wire",
+    "connection point",
+    "label"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/85_0.png": [
+    "grid",
+    "number",
+    "letter",
+    "line",
+    "shape"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/80_0.png": [
+    "christmas tree",
+    "ornament",
+    "gnome",
+    "stand",
+    "doorway",
+    "stairs",
+    "light switch",
+    "electrical outlet",
+    "sensor",
+    "baseboard"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/69_0.png": [
+    "dice"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/79_0.png": [
+    "lamp",
+    "table",
+    "box",
+    "figurine",
+    "pushpin",
+    "thumbtack",
+    "chess piece"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/87_0.png": [
+    "laptop",
+    "keyboard",
+    "touchpad",
+    "tape dispenser",
+    "sticker"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/86_0.png": [
+    "toilet",
+    "toilet paper",
+    "toilet paper holder",
+    "toilet brush holder",
+    "shelf",
+    "tile",
+    "counter",
+    "leg"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/84_0.png": [
+    "drying rack",
+    "sock",
+    "towel",
+    "sweatpants",
+    "rug",
+    "plant",
+    "flowerpot",
+    "window",
+    "cabinet"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/82_0.png": [
+    "book",
+    "bookmark"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/81_0.png": [
+    "circle",
+    "dot",
+    "line",
+    "square"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/91_0.png": [
+    "slide",
+    "climbing wall",
+    "climbing holds",
+    "person",
+    "plants",
+    "glass railing",
+    "wooden handrail",
+    "metal pole",
+    "floor tiles",
+    "sign",
+    "door",
+    "exit sign"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/88_0.png": [
+    "number",
+    "square"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/94_0.png": [
+    "puzzle piece"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/8_0.png": [
+    "figurine",
+    "baseplate",
+    "brick",
+    "statue",
+    "door"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/96_0.png": [
+    "text"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/89_1.png": [
+    "drying rack",
+    "shirt",
+    "pants",
+    "jacket",
+    "sock",
+    "towel",
+    "blanket",
+    "door",
+    "bed",
+    "dresser",
+    "radiator"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/90_0.png": [
+    "road",
+    "crosswalk",
+    "traffic light",
+    "street sign",
+    "utility pole",
+    "power line",
+    "fence",
+    "utility box",
+    "car",
+    "van",
+    "truck",
+    "person"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/99_0.png": [
+    "number",
+    "dot"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/92_0.png": [
+    "giraffe",
+    "dog",
+    "ostrich",
+    "rabbit",
+    "bear",
+    "bird",
+    "cat",
+    "butterfly",
+    "boy",
+    "girl",
+    "flower",
+    "leaf"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/97_0.png": [
+    "table",
+    "glass",
+    "card",
+    "tile",
+    "token",
+    "game piece",
+    "dice",
+    "box",
+    "plastic bag",
+    "person"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/93_0.png": [
+    "board",
+    "piece"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/95_0.png": [
+    "person",
+    "seat",
+    "screen",
+    "ice",
+    "net",
+    "sign",
+    "railing",
+    "light",
+    "stair",
+    "stick",
+    "helmet",
+    "board"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/98_0.png": [
+    "building",
+    "sign",
+    "person",
+    "railing",
+    "lamppost",
+    "tree",
+    "telescope",
+    "booth",
+    "backpack",
+    "poster"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/89_0.png": [
+    "shirt",
+    "pants",
+    "sweater",
+    "bedsheet"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/98_1.png": [
+    "text",
+    "person",
+    "building"
+  ],
+  "/mnt/tidal-alsh01/dataset/perceptionVLM/yangfan/datasets/zerobench/images/9_0.png": [
+    "paper",
+    "handwriting",
+    "electrical outlet",
+    "desk",
+    "fabric",
+    "sticky note"
+  ]
+}

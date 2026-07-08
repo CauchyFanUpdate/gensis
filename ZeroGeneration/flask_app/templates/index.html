@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title|default('Generation Visualization') }}</title>
+    <link href="https://cdn.staticfile.net/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .img-container {
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 200px; /* Provides a base height even if images are loading */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .img-container img {
+            max-width: 100%;
+            max-height: 400px;
+            height: auto;
+            cursor: pointer;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 4px;
+            background-color: white;
+            transition: transform 0.2s;
+        }
+        .img-container img:hover {
+            transform: scale(1.02);
+            border-color: #0d6efd;
+        }
+        .qa-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            height: 100%;
+            border: 1px solid #e9ecef;
+        }
+        .think-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            white-space: pre-wrap;
+            margin-top: 10px;
+            border-left: 4px solid #6c757d;
+        }
+        .data-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .data-column > .qa-box {
+            flex-grow: 1;
+        }
+        .card-header {
+            background-color: #f1f3f5;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-4 mb-5 px-4">
+    <h2 class="mb-4 text-center fw-bold">{{ title|default('Generation Visualization') }}</h2>
+    
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center mb-4">
+        <ul class="pagination">
+            {% if page > 1 %}
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1 }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link" href="#">Page {{ page }} of {{ total_pages }}</a></li>
+            {% if page < total_pages %}
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% for item in items %}
+    <div class="card mb-5 shadow-sm">
+        <div class="card-header py-3">
+            <span class="badge bg-secondary me-2">Item ID: {{ item.id }}</span>
+            <span class="badge bg-primary">Original ID: {{ item.orig_id }}</span>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                
+                <!-- Left Column: Original Data -->
+                <div class="col-md-6 data-column">
+                    <h4 class="text-center text-primary mb-3">Original Data</h4>
+                    
+                    <div class="img-container">
+                        {% for img in item.orig_images %}
+                        <img src="/image?path={{ img }}" onclick="openModal(this.src)" alt="Original Image" title="Click to enlarge">
+                        {% else %}
+                        <div class="text-muted fst-italic">No original images found</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="qa-box shadow-sm">
+                        <h5 class="border-bottom pb-2 mb-3">Original Question & Answer</h5>
+                        <div class="mb-3">
+                            <strong class="text-primary">Question:</strong>
+                            <p class="mt-2" style="white-space: pre-wrap;">{{ item.orig_question }}</p>
+                        </div>
+                        <div>
+                            <strong class="text-success">Answer:</strong>
+                            <p class="mt-2" style="white-space: pre-wrap;">{{ item.orig_answer }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Generated Data -->
+                <div class="col-md-6 data-column">
+                    <h4 class="text-center text-success mb-3">Generated Data</h4>
+                    
+                    <div class="img-container">
+                        {% for img in item.gen_images %}
+                        <img src="/image?path={{ img }}" onclick="openModal(this.src)" alt="Generated Image" title="Click to enlarge">
+                        {% else %}
+                        <div class="text-muted fst-italic">No generated images found</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="qa-box shadow-sm">
+                        <h5 class="border-bottom pb-2 mb-3">Generated Question & Answer</h5>
+                        <div class="mb-3">
+                            <strong class="text-primary">New Question:</strong>
+                            <p class="mt-2" style="white-space: pre-wrap;">{{ item.gen_question }}</p>
+                        </div>
+                        <div>
+                            <strong class="text-success">New Answer & Thinking Process:</strong>
+                            <div class="think-box mt-2">{{ item.gen_answer }}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+            {% if page > 1 %}
+            <li class="page-item"><a class="page-link" href="?page={{ page - 1 }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link" href="#">Page {{ page }} of {{ total_pages }}</a></li>
+            {% if page < total_pages %}
+            <li class="page-item"><a class="page-link" href="?page={{ page + 1 }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<!-- Modal for image zoom -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 bg-transparent">
+      <div class="modal-header border-0 pb-0">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="background-color: white; border-radius: 50%; opacity: 1; padding: 10px; margin-right: 10px;"></button>
+      </div>
+      <div class="modal-body text-center pt-0">
+        <img id="modalImage" src="" class="img-fluid rounded shadow-lg" style="max-height: 90vh; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.staticfile.net/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    function openModal(src) {
+        document.getElementById('modalImage').src = src;
+        var myModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        myModal.show();
+    }
+</script>
+</body>
+</html>

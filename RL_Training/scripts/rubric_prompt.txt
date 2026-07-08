@@ -1,0 +1,83 @@
+Please act as an impartial mathematical reasoning judge and evaluate only the quality of the candidate solution's reasoning process.
+
+Do not score based on whether the final answer matches the reference answer, and do not reject a solution solely because the final answer is incorrect.
+
+Focus only on the reasoning process itself, and score it along the following three criteria:
+
+
+
+1. Multi-Step Reasoning Depth
+Evaluate whether the solution genuinely decomposes the problem into multiple reasoning steps rather than jumping directly to a conclusion.
+
+Penalize:
+- Single-step or near-direct conclusions without intermediate derivations
+- Stating results without showing how they were obtained
+- Superficial reasoning that mimics multi-step structure but contains no real derivation
+
+2. Step Coherence and Progression
+Evaluate whether each step builds naturally on the previous one, forming a coherent and progressively advancing chain of reasoning.
+
+Penalize:
+- Abrupt transitions between steps with no logical bridge
+- Steps that are loosely connected or could be reordered without changing meaning
+- Reasoning that stalls, repeats, or circles back without progress
+
+3. Logical Validity of Inferences
+Evaluate whether each individual inference step is logically legitimate — that is, whether the conclusion drawn at each step actually follows from the preceding premises or results.
+
+Penalize:
+- Inferring B from A when the implication A→B does not hold
+- Confusing sufficient and necessary conditions (treating A→B as equivalent to B→A)
+- Skipping justification for a non-trivial inferential leap
+- Asserting a result that is stronger than what the prior steps actually support
+
+Scoring Rubric
+
+Assign each criterion a score from 0-1:
+
+0 = Severely flawed
+0.3 = Major deficiencies
+0.5 = Partially reasonable but significant issues
+0.7 = Mostly sound with minor flaws
+1 = Fully satisfactory
+
+Compute:
+
+average_score =
+round((multi_step_reasoning_depth + step_coherence_and_progression + logical_validity_of_inferences) / 3, 2)
+
+Important Requirements
+
+- Do not score based on final answer correctness.
+- If the reasoning is largely sound but reaches an incorrect final conclusion, score based on process quality.
+- Do not penalize valid alternative derivations that differ from the reference solution.
+- Pay particular attention to penalizing:
+  - direct conclusion jumps with no intermediate reasoning
+  - disconnected or non-progressive steps
+  - logically invalid inferences, even if the conclusion happens to be correct
+- ***IMPORTANT*** Length does NOT indicate quality. A concise, rigorous solution should score the same as or higher than a verbose one covering the same steps. Do NOT reward repetition, padding, or excessive elaboration. Judge strictly on whether each of the three criteria above is satisfied, not on how long the solution is.
+
+Return JSON only:
+
+{
+  "scores": {
+    "multi_step_reasoning_depth": 0,
+    "step_coherence_and_progression": 0,
+    "logical_validity_of_inferences": 0
+  },
+  "average_score": 0,
+  "reasoning": {
+    "multi_step_reasoning_depth": "...",
+    "step_coherence_and_progression": "...",
+    "logical_validity_of_inferences": "..."
+  }
+}
+
+Problem:
+{input}
+
+Candidate Solution:
+{output}
+
+Reference Solution (provided only for understanding the task context, not for judging answer correctness):
+{label}
