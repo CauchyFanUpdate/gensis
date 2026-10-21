@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="370" viewBox="0 0 1280 370" role="img" aria-labelledby="title desc">
+  <title id="title">The Genesis research stack</title>
+  <desc id="desc">Three modules for visual reasoning: ZeroGeneration creates verified synthetic data, Unreal Benchmark Pipeline builds visual benchmarks, and RL Training supports model post-training.</desc>
+  <rect width="1280" height="370" rx="24" fill="#F6F5EF"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="44" y="40" fill="#648770" font-size="11" font-weight="700" letter-spacing="2.5">THE GENESIS RESEARCH STACK</text>
+    <text x="44" y="80" fill="#243B35" font-size="30" font-weight="700">Three building blocks. One visual reasoning workflow.</text>
+
+    <rect x="44" y="114" width="376" height="210" rx="18" fill="#FFFFFF" stroke="#DDE2D7"/>
+    <path d="M64 115H400" stroke="#94B879" stroke-width="3"/>
+    <rect x="68" y="138" width="48" height="48" rx="13" fill="#EDF3E7"/>
+    <g fill="none" stroke="#4E7454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="79" y="154" width="22" height="19" rx="3"/>
+      <path d="M85 149H106V167"/>
+      <path d="M82 168L88 162L92 166L97 160"/>
+      <circle cx="86" cy="159" r="1" fill="#4E7454"/>
+    </g>
+    <text x="369" y="167" fill="#8B9A86" font-size="13" font-weight="700">01</text>
+    <text x="68" y="222" fill="#243B35" font-size="26" font-weight="700">Generate the data</text>
+    <text x="68" y="251" fill="#66736B" font-size="15">Edit, diversify, and verify visual samples.</text>
+    <path d="M68 272H396" stroke="#E8ECE4"/>
+    <text x="68" y="301" fill="#4E7454" font-size="12" font-weight="700" letter-spacing="1">ZEROGENERATION</text>
+
+    <rect x="452" y="114" width="376" height="210" rx="18" fill="#FFFFFF" stroke="#E5DFD2"/>
+    <path d="M472 115H808" stroke="#D6A34A" stroke-width="3"/>
+    <rect x="476" y="138" width="48" height="48" rx="13" fill="#FAF1DF"/>
+    <g fill="none" stroke="#A27735" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="499" cy="161" r="12"/>
+      <circle cx="499" cy="161" r="6"/>
+      <path d="M499 146V150M499 172V176M484 161H488M510 161H514"/>
+      <circle cx="499" cy="161" r="1.5" fill="#A27735"/>
+    </g>
+    <text x="777" y="167" fill="#AE9A78" font-size="13" font-weight="700">02</text>
+    <text x="476" y="222" fill="#243B35" font-size="26" font-weight="700">Test the reasoning</text>
+    <text x="476" y="251" fill="#66736B" font-size="15">Build and evaluate challenging visual tasks.</text>
+    <path d="M476 272H804" stroke="#EDE8DE"/>
+    <text x="476" y="301" fill="#A27735" font-size="12" font-weight="700" letter-spacing="1">UNREAL BENCHMARK PIPELINE</text>
+
+    <rect x="860" y="114" width="376" height="210" rx="18" fill="#FFFFFF" stroke="#D9E0E6"/>
+    <path d="M880 115H1216" stroke="#89A7C0" stroke-width="3"/>
+    <rect x="884" y="138" width="48" height="48" rx="13" fill="#ECF1F7"/>
+    <g fill="none" stroke="#56758F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M896 149V174H921"/>
+      <path d="M902 166L908 160L913 163L921 153"/>
+      <path d="M916 153H921V158"/>
+    </g>
+    <text x="1185" y="167" fill="#8A9CAA" font-size="13" font-weight="700">03</text>
+    <text x="884" y="222" fill="#243B35" font-size="26" font-weight="700">Post-train the model</text>
+    <text x="884" y="251" fill="#66736B" font-size="15">Use rules, rubrics, and LLM judge rewards.</text>
+    <path d="M884 272H1212" stroke="#E5EBF0"/>
+    <text x="884" y="301" fill="#56758F" font-size="12" font-weight="700" letter-spacing="1">RL TRAINING</text>
+
+    <text x="44" y="353" fill="#7D877C" font-size="11" letter-spacing="1.5">SYNTHETIC DATA</text>
+    <text x="640" y="353" text-anchor="middle" fill="#7D877C" font-size="11" letter-spacing="1.5">VISUAL REASONING</text>
+    <text x="1236" y="353" text-anchor="end" fill="#7D877C" font-size="11" letter-spacing="1.5">REINFORCEMENT LEARNING</text>
+  </g>
+</svg>

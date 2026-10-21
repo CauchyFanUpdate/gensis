@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Genesis</title>
+  <desc id="desc">An eye and a growing spark, representing visual understanding and new ideas.</desc>
+  <rect x="3" y="3" width="122" height="122" rx="34" fill="#EDF1E7"/>
+  <path d="M27 70C36 52 49 43 64 43S92 52 101 70C92 88 79 97 64 97S36 88 27 70Z" fill="none" stroke="#243B35" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="64" cy="70" r="15" fill="#BEDA83"/>
+  <circle cx="64" cy="70" r="6" fill="#243B35"/>
+  <g stroke="#648770" stroke-width="5" stroke-linecap="round">
+    <path d="M64 21V30"/>
+    <path d="M40 28L45 35"/>
+    <path d="M88 28L83 35"/>
+  </g>
+</svg>
