@@ -4,85 +4,129 @@
 
 # Genesis
 
-**Data generation · Visual benchmarks · Reinforcement learning**
+### Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning
 
-从合成视觉数据到模型后训练，构建面向视觉推理的完整研究链路。
+**🎉 Accepted to the EMNLP 2026 Main Conference**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Code-243B35?style=flat-square&logo=github&logoColor=white)](https://github.com/CauchyFanUpdate/gensis)
+Fan Yang<sup>*</sup> · Lifeng Chen<sup>*</sup> · Yipu Wang<sup>*</sup> · Han Wang<sup>*</sup> · Feilong Chen<sup>†</sup> · Yidong Ma<br>
+Zhiyang Chen · Chaoyang Zhao<sup>†</sup> · Lingxiang Wu · Hanqi Jiang · Yibo Chen · Xu Tang<br>
+Yao Hu · Ming Tang · Xiaojie Jin · Xiaolong Zheng · Jinqiao Wang<sup>†</sup>
+
+<sub>* Equal contribution &nbsp; † Corresponding authors</sub>
+
+[![Paper](https://img.shields.io/badge/arXiv-2610.15565-B31B1B?style=flat-square&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.15565)
+[![EMNLP](https://img.shields.io/badge/EMNLP_2026-Main_Conference-243B35?style=flat-square)](https://arxiv.org/html/2610.15565v1)
 [![Models](https://img.shields.io/badge/Hugging_Face-Models-D6A34A?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/CauchyFan)
 [![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-648770?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
 
-[Overview](#overview) · [Models](#models) · [Datasets](#datasets) · [Quick Start](#quick-start) · [Documentation](#documentation)
+[**📄 Paper**](https://arxiv.org/abs/2610.15565) · [**🤗 Models**](#models) · [**📊 Data**](#dataset) · [**🌀 Usage**](#get-started) · [**📚 Citation**](#citation)
 
 </div>
 
-<br>
+---
 
-## Overview
+Welcome to the official repository of **Genesis**. This work studies how to connect visual observations with intermediate reasoning. It combines controlled image augmentation, supervision over reasoning steps, and evaluation on scenes that challenge language priors.
 
-**Genesis** 将视觉语言模型（VLM）的数据构建、基准评测与强化学习后训练整合在一个工作台中。
-以公开 benchmark 或场景 seed 为起点，生成并校验视觉推理样本，再通过规则奖励与 LLM judge 支持模型后训练。
+[News](#news) · [Method](#method) · [Results](#results) · [Models](#models) · [Dataset](#dataset) · [Get Started](#get-started) · [Citation](#citation)
+
+## News
+
+- [x] **EMNLP 2026:** Genesis is accepted to the **Main Conference**.
+- [x] **Paper:** The [arXiv preprint](https://arxiv.org/abs/2610.15565) is available, submitted on October 11, 2026.
+- [x] **Models:** Five [Genesis checkpoints](#models) are available on Hugging Face.
+- [x] **Benchmark:** [UNREAL Benchmark](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark) is available with images, questions, and reference answers.
+- [x] **Code:** Data construction, benchmark evaluation, and RL training workflows are included in this repository.
+
+## Method
+
+Genesis has three components:
+
+1. **Visual Augmentation Primitives (VAP).** Controlled edits change answers; a second stage varies other visual attributes while preserving the task and adding reasoning annotations.
+2. **Multimodal CoT rubric-based RL.** Rewards assess intermediate visual reasoning alongside final answers.
+3. **UNREAL Benchmark.** An independent evaluation suite tests reasoning on generated scenes that challenge everyday expectations.
 
 <p align="center">
-  <img src="assets/genesis-overview.svg" width="100%" alt="Genesis 的三个模块：合成数据构建、视觉推理基准与强化学习后训练">
+  <a href="assets/genesis-vap-pipeline.png">
+    <img src="assets/genesis-vap-pipeline.png" width="100%" alt="The paper's two-stage VAP pipeline: answer-changing edits, verification, visual diversification, and chain-of-thought annotation">
+  </a><br>
+  <sub>VAP pipeline, Figure 2 of <a href="https://arxiv.org/html/2610.15565v1#S3.F2">Yang et al., 2026</a>. Original figure, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</sub>
 </p>
 
-| Module | What it does | Explore |
+| Component | Code | Guide |
 | --- | --- | --- |
-| **ZeroGeneration** | 图像编辑、考点保持的多样化、自动校验与 CoT 生成，产出训练样本。 | [数据构建文档](ZeroGeneration/README.md) |
-| **Unreal Benchmark Pipeline** | 从场景 seed 生成高难度视觉推理题，经独立 VLM 校验后发布与评测。 | [基准构建文档](Unreal_Benchmark_Pipeline/README.md) |
-| **RL Training** | 基于自定义 verl 的 GRPO / RLVR 后训练，支持 LLM-as-judge 与 rubric 奖励。 | [训练文档](RL_Training/README.md) |
+| **Visual data construction** | [`ZeroGeneration/`](ZeroGeneration) | [Pipeline design and configuration](ZeroGeneration/README.md) |
+| **Benchmark construction & evaluation** | [`Unreal_Benchmark_Pipeline/`](Unreal_Benchmark_Pipeline) | [Benchmark workflow](Unreal_Benchmark_Pipeline/README.md) |
+| **Rubric-based RL training** | [`RL_Training/`](RL_Training) | [Training and reward configuration](RL_Training/README.md) |
+
+## Results
+
+Selected results from the paper's [Table 1](https://arxiv.org/html/2610.15565v1#S6.T1) and [Table 3](https://arxiv.org/html/2610.15565v1#S6.T3). Scores are accuracy (%); the rows pair each Genesis model with its corresponding Qwen3-VL baseline.
+
+| Model | MathVista | MMMU | MMMU-Pro | EMMA | LogicVista | BabyVision | UNREAL |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Qwen3-VL-4B | 74.3 | 63.3 | 36.0 | 30.5 | 50.3 | 15.0 | 12.8 |
+| **Genesis-4B** | 77.6 | 63.4 | 53.9 | 32.8 | 60.0 | 16.8 | 14.2 |
+| Qwen3-VL-8B | 78.2 | 63.6 | 41.4 | 31.0 | 55.9 | 10.8 | 17.5 |
+| **Genesis-8B** | 78.8 | 66.0 | 56.7 | 35.8 | 59.7 | 15.2 | 19.1 |
+| Qwen3-VL-32B | 82.9 | 68.2 | 47.9 | 38.1 | 63.5 | 16.0 | 24.3 |
+| **Genesis-32B** | 82.4 | 75.4 | 66.5 | 46.5 | 68.5 | 14.4 | 25.7 |
+
+Full results, domain breakdowns, and ablations are in the [paper](https://arxiv.org/abs/2610.15565). These are paper-reported results for the Qwen3-VL variants.
 
 ## Models
 
-已发布的 Genesis 模型权重均托管于 [Hugging Face · CauchyFan](https://huggingface.co/CauchyFan)。
+### Models evaluated in the paper
 
-| Model | Family | Scale |
-| --- | --- | ---: |
-| [**Genesis-Qwen3vl-4B**](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-4B) | Qwen3-VL | 4B |
-| [**Genesis-Qwen3vl-8B**](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-8B) | Qwen3-VL | 8B |
-| [**Genesis-Qwen3vl-32B**](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-32B) | Qwen3-VL | 32B |
-| [**Genesis-Qwen3.5-9B**](https://huggingface.co/CauchyFan/Genesis-Qwen3.5-9B) | Qwen3.5 | 9B |
-| [**Genesis-Qwen3.6-27B**](https://huggingface.co/CauchyFan/Genesis-Qwen3.6-27B) | Qwen3.6 | 27B |
+| Model | Base family | Scale | Download |
+| --- | --- | ---: | --- |
+| **Genesis-4B** | Qwen3-VL | 4B | [🤗 Genesis-Qwen3vl-4B](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-4B) |
+| **Genesis-8B** | Qwen3-VL | 8B | [🤗 Genesis-Qwen3vl-8B](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-8B) |
+| **Genesis-32B** | Qwen3-VL | 32B | [🤗 Genesis-Qwen3vl-32B](https://huggingface.co/CauchyFan/Genesis-Qwen3vl-32B) |
 
-下载示例：
+### Additional released checkpoints
+
+| Model | Base family | Scale | Download |
+| --- | --- | ---: | --- |
+| **Genesis-Qwen3.5-9B** | Qwen3.5 | 9B | [🤗 Hugging Face](https://huggingface.co/CauchyFan/Genesis-Qwen3.5-9B) |
+| **Genesis-Qwen3.6-27B** | Qwen3.6 | 27B | [🤗 Hugging Face](https://huggingface.co/CauchyFan/Genesis-Qwen3.6-27B) |
+
+Download a checkpoint:
 
 ```bash
 hf download CauchyFan/Genesis-Qwen3vl-4B \
   --local-dir checkpoints/Genesis-Qwen3vl-4B
 ```
 
-## Datasets
+## Dataset
 
 ### [UNREAL Benchmark ↗](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
 
-**600 道视觉推理题 · 5 个领域 · 英文题目 · 内嵌图像**
+**600 questions · 5 domains · Embedded images · English**
 
-面向陌生场景中的视觉问答，覆盖数学、自然科学、感知、物理与工程、推理与逻辑。
-包含 458 道开放式问题与 142 道选择题，每条样本提供图像、问题与参考答案。
+The released benchmark covers mathematics, natural science, perception, physics and engineering, and reasoning and logic. It contains **458 open-ended** and **142 multiple-choice** questions, each paired with an image and reference answer.
 
 <table>
 <tr>
 <td align="center" width="33%">
   <a href="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark">
-    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/PHYS_0001.png" height="160" alt="UNREAL Benchmark 物理与工程样本：局部重力推理">
+    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/PHYS_0001.png" height="160" alt="UNREAL physics example: reasoning about local gravity">
   </a><br>
   <strong>Physics &amp; Engineering</strong><br>
-  <sub>从场景中推理物理规律</sub>
+  <sub>Reason about physical rules</sub>
 </td>
 <td align="center" width="33%">
   <a href="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark">
-    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/MATH_0001.png" height="160" alt="UNREAL Benchmark 数学样本：视觉场景中的几何问题">
+    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/MATH_0001.png" height="160" alt="UNREAL mathematics example: geometry in a visual scene">
   </a><br>
   <strong>Mathematics</strong><br>
-  <sub>理解图像中的数学关系</sub>
+  <sub>Read mathematical relationships</sub>
 </td>
 <td align="center" width="33%">
   <a href="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark">
-    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/REAS_0001.png" height="160" alt="UNREAL Benchmark 推理与逻辑样本：识别场景中的时代矛盾">
+    <img src="https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark/resolve/main/assets/examples/REAS_0001.png" height="160" alt="UNREAL reasoning example: recognizing anachronisms">
   </a><br>
   <strong>Reasoning &amp; Logic</strong><br>
-  <sub>识别细节与语义中的矛盾</sub>
+  <sub>Detect contradictions in a scene</sub>
 </td>
 </tr>
 </table>
@@ -95,65 +139,92 @@ sample = benchmark[0]
 image, question = sample["image"], sample["question"]
 ```
 
-发布文件沿用 `train` split 命名，内容用于基准评测。完整字段说明、领域分布与更多样例见 [dataset card](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)。
+The release uses the split name `train`, but its intended role is **evaluation**. See the [dataset card](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark) for fields, domain counts, and additional examples.
 
-## Quick Start
+## Get Started
 
-### 1. Get the code
+### 1. Clone the repository
 
 ```bash
 git clone git@github.com:CauchyFanUpdate/gensis.git
 cd gensis
 ```
 
-### 2. Choose your workflow
+### 2. Data construction
 
-各模块有独立的环境与输入配置，按目标选择对应入口：
-
-| Goal | Start here |
-| --- | --- |
-| **构建合成数据** | [ZeroGeneration 快速开始](ZeroGeneration/README.md#3-快速开始)：配置模型 API 和原始数据，运行两阶段生成流程。 |
-| **生成与评测 benchmark** | [Unreal Benchmark Pipeline](Unreal_Benchmark_Pipeline/README.md)：场景生成 → 生图 → 独立校验 → 发布与多模型评测。 |
-| **运行强化学习后训练** | [RL Training 快速开始](RL_Training/README.md#3-快速开始)：准备 verl、自定义奖励、模型权重与训练配置。 |
-
-以数据构建为例，按照模块文档准备依赖、API 配置与输入数据后，可先运行 10 条样本：
+Follow the [ZeroGeneration guide](ZeroGeneration/README.md#3-快速开始) to prepare dependencies, API configuration, and input data. Then run a small Stage 1 job:
 
 ```bash
 cd ZeroGeneration
 cp .env.example .env
-# 配置 .env，并按模块文档加载环境变量与设置输入数据路径。
+# Configure and load the environment, and set input data paths as described in the guide.
 LIMIT=10 STAGE=1 bash gen_pipeline_emma/run_pipeline_v5.sh
 ```
 
-### 3. Use the releases
+### 3. Training
 
-从上方 [Models](#models) 获取模型权重，或从 [UNREAL Benchmark](#datasets) 开始评测。
-数据构建、模型训练与评测的详细参数保留在各模块文档中。
+Start with the [RL Training guide](RL_Training/README.md#3-快速开始) and [custom verl integration](RL_Training/verl_custom/APPLY.md). The training module includes GRPO / SAPO configurations, rubric and LLM-judge rewards, single-node and multi-node launchers, and checkpoint conversion scripts.
 
-## Documentation
+### 4. Evaluation
+
+Use the released [UNREAL Benchmark](#dataset) with the [evaluation scripts](Unreal_Benchmark_Pipeline/UNREAL_Benchmark/eval):
+
+- [`eval_vllm.py`](Unreal_Benchmark_Pipeline/UNREAL_Benchmark/eval/eval_vllm.py) for local model evaluation.
+- [`eval_api.py`](Unreal_Benchmark_Pipeline/UNREAL_Benchmark/eval/eval_api.py) for API-based models.
+- [Benchmark construction guide](Unreal_Benchmark_Pipeline/README.md) for scene generation, verification, and release workflows.
+
+Module guides are currently written in Chinese.
+
+<details>
+<summary><strong>Repository structure and additional documentation</strong></summary>
 
 ```text
 gensis/
-├── ZeroGeneration/                 # 合成数据：编辑、多样化、校验与 CoT
-├── Unreal_Benchmark_Pipeline/      # 视觉推理基准：构建、发布与评测
-├── RL_Training/                    # 强化学习：脚本、配置与 verl 自定义代码
-│   ├── scripts/                    # 训练、转换、奖励与评测入口
-│   └── verl_custom/                # 自定义模块及接入说明
-└── assets/                         # 项目标识与流程图
+├── ZeroGeneration/                 # Synthetic data and CoT generation
+├── Unreal_Benchmark_Pipeline/      # Benchmark construction and evaluation
+├── RL_Training/                    # Training scripts and custom verl modules
+│   ├── scripts/                    # Training, conversion, and evaluation
+│   └── verl_custom/                # Custom rewards and integration guide
+├── assets/                         # Project artwork and paper figure
+└── CITATION.cff                    # Machine-readable paper citation
 ```
 
-- [数据构建：设计、数据集 pipeline 与输入格式](ZeroGeneration/README.md)
-- [Benchmark：生成流程与评测入口](Unreal_Benchmark_Pipeline/README.md)
-- [强化学习：算法、奖励与启动方式](RL_Training/README.md)
-- [自定义 verl：代码接入说明](RL_Training/verl_custom/APPLY.md)
-- [SAPO：训练配置说明](RL_Training/scripts/README_SAPO.md)
+- [ZeroGeneration](ZeroGeneration/README.md)
+- [Unreal Benchmark Pipeline](Unreal_Benchmark_Pipeline/README.md)
+- [RL Training](RL_Training/README.md)
+- [Custom verl integration](RL_Training/verl_custom/APPLY.md)
+- [SAPO configurations](RL_Training/scripts/README_SAPO.md)
+
+</details>
+
+## Citation
+
+If Genesis, its models, or UNREAL Benchmark help your research, please cite:
+
+```bibtex
+@misc{yang2026genesisvisualaugmentationprimitives,
+      title={Genesis: Visual Augmentation Primitives for Multimodal Chain-of-Thought Reasoning},
+      author={Fan Yang and Lifeng Chen and Yipu Wang and Han Wang and Feilong Chen and Yidong Ma and Zhiyang Chen and Chaoyang Zhao and Lingxiang Wu and Hanqi Jiang and Yibo Chen and Xu Tang and Yao Hu and Ming Tang and Xiaojie Jin and Xiaolong Zheng and Jinqiao Wang},
+      year={2026},
+      eprint={2610.15565},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2610.15565},
+}
+```
+
+Citation metadata is also available in [`CITATION.cff`](CITATION.cff).
+
+## Acknowledgements
+
+We thank the [Qwen](https://github.com/QwenLM/Qwen3-VL), [verl](https://github.com/verl-project/verl), and [Hugging Face](https://huggingface.co/) communities for their models and tools.
 
 ---
 
 <div align="center">
 
-**Genesis** · Data, benchmarks, and training for visual reasoning.
+**Genesis · EMNLP 2026 Main Conference**
 
-[Code](https://github.com/CauchyFanUpdate/gensis) · [Model Weights](https://huggingface.co/CauchyFan) · [UNREAL Benchmark](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
+[Paper](https://arxiv.org/abs/2610.15565) · [Models](https://huggingface.co/CauchyFan) · [UNREAL Benchmark](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
 
 </div>

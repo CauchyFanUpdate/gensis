@@ -1,0 +1,87 @@
+cff-version: 1.2.0
+message: If you use Genesis, its models, or the UNREAL benchmark, please cite the paper below.
+type: software
+title: 'Genesis: Visual Augmentation Primitives for Multimodal Chain-of-Thought Reasoning'
+authors:
+- family-names: Yang
+  given-names: Fan
+- family-names: Chen
+  given-names: Lifeng
+- family-names: Wang
+  given-names: Yipu
+- family-names: Wang
+  given-names: Han
+- family-names: Chen
+  given-names: Feilong
+- family-names: Ma
+  given-names: Yidong
+- family-names: Chen
+  given-names: Zhiyang
+- family-names: Zhao
+  given-names: Chaoyang
+- family-names: Wu
+  given-names: Lingxiang
+- family-names: Jiang
+  given-names: Hanqi
+- family-names: Chen
+  given-names: Yibo
+- family-names: Tang
+  given-names: Xu
+- family-names: Hu
+  given-names: Yao
+- family-names: Tang
+  given-names: Ming
+- family-names: Jin
+  given-names: Xiaojie
+- family-names: Zheng
+  given-names: Xiaolong
+- family-names: Wang
+  given-names: Jinqiao
+repository-code: https://github.com/CauchyFanUpdate/gensis
+url: https://arxiv.org/abs/2610.15565
+keywords:
+- visual reasoning
+- visual augmentation
+- multimodal chain-of-thought
+- reinforcement learning
+preferred-citation:
+  type: article
+  title: 'Genesis: Visual Augmentation Primitives for Multimodal Chain-of-Thought Reasoning'
+  authors:
+  - family-names: Yang
+    given-names: Fan
+  - family-names: Chen
+    given-names: Lifeng
+  - family-names: Wang
+    given-names: Yipu
+  - family-names: Wang
+    given-names: Han
+  - family-names: Chen
+    given-names: Feilong
+  - family-names: Ma
+    given-names: Yidong
+  - family-names: Chen
+    given-names: Zhiyang
+  - family-names: Zhao
+    given-names: Chaoyang
+  - family-names: Wu
+    given-names: Lingxiang
+  - family-names: Jiang
+    given-names: Hanqi
+  - family-names: Chen
+    given-names: Yibo
+  - family-names: Tang
+    given-names: Xu
+  - family-names: Hu
+    given-names: Yao
+  - family-names: Tang
+    given-names: Ming
+  - family-names: Jin
+    given-names: Xiaojie
+  - family-names: Zheng
+    given-names: Xiaolong
+  - family-names: Wang
+    given-names: Jinqiao
+  year: 2026
+  doi: 10.48550/arXiv.2610.15565
+  url: https://arxiv.org/abs/2610.15565
