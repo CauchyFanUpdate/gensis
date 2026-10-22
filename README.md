@@ -16,12 +16,11 @@ Yao Hu · Ming Tang · Xiaojie Jin · Xiaolong Zheng · Jinqiao Wang<sup>†</su
 
 <img src="assets/genesis-affiliations.jpg" width="820" alt="Institution logos from the paper: UCAS, Zidong Taichu, the State Key Laboratory of Multimodal Artificial Intelligence Systems, CASIA, Beijing Jiaotong University, and Xiaohongshu">
 
-[![Paper](https://img.shields.io/badge/arXiv-2610.15565-B31B1B?style=flat-square&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.15565)
-[![EMNLP](https://img.shields.io/badge/EMNLP_2026-Main_Conference-7C3AED?style=flat-square)](https://arxiv.org/html/2610.15565v1)
-[![Models](https://img.shields.io/badge/Hugging_Face-Models-D6A34A?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/CauchyFan)
-[![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-7563B2?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
-
-[**📄 Paper**](https://arxiv.org/abs/2610.15565) · [**🤗 Models**](#models) · [**📊 Data**](#dataset) · [**🌀 Usage**](#get-started) · [**📚 Citation**](#citation)
+[![Read Paper](https://img.shields.io/badge/Paper-7C3AED?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.15565)
+[![Model Weights](https://img.shields.io/badge/Models-4B4563?style=for-the-badge&logo=huggingface&logoColor=white)](#models)
+[![Dataset](https://img.shields.io/badge/Dataset-4B4563?style=for-the-badge&logo=huggingface&logoColor=white)](#dataset)
+[![Get Started](https://img.shields.io/badge/Get_Started-4B4563?style=for-the-badge&logo=github&logoColor=white)](#get-started)
+[![Citation](https://img.shields.io/badge/Citation-4B4563?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
 
 </div>
 
@@ -35,8 +34,6 @@ Welcome to the official repository of **Genesis**. This work studies how to conn
   </a><br>
   <sub>Figure 1. Motivation for Visual Augmentation Primitives. From the <a href="https://arxiv.org/abs/2610.15565">Genesis paper</a>; click to view the full-resolution figure.</sub>
 </p>
-
-[News](#news) · [Method](#method) · [Results](#results) · [Models](#models) · [Dataset](#dataset) · [Get Started](#get-started) · [Citation](#citation)
 
 ## News
 
