@@ -1,10 +1,8 @@
 <div align="center">
 
-<img src="assets/genesis-mascot.png" width="144" height="144" alt="Genesis paper mascot: an alpaca holding a paintbrush">
+<h1><img src="assets/genesis-mascot.png" width="56" height="56" alt="" align="middle"> Genesis</h1>
 
-# Genesis
-
-### *Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning*
+<p><strong><em>Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning</em></strong></p>
 
 **🎉 Accepted to the EMNLP 2026 Main Conference**
 
@@ -14,7 +12,7 @@ Yao Hu · Ming Tang · Xiaojie Jin · Xiaolong Zheng · Jinqiao Wang<sup>†</su
 
 <sub>* Equal contribution &nbsp; † Corresponding authors</sub>
 
-<img src="assets/genesis-affiliations.jpg" width="820" alt="Institution logos from the paper: UCAS, Zidong Taichu, the State Key Laboratory of Multimodal Artificial Intelligence Systems, CASIA, Beijing Jiaotong University, and Xiaohongshu">
+<img src="assets/genesis-affiliations.jpg" width="680" alt="Participating institutions">
 
 [![Read Paper](https://img.shields.io/badge/Paper-7C3AED?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.15565)
 [![Model Weights](https://img.shields.io/badge/Models-4B4563?style=for-the-badge&logo=huggingface&logoColor=white)](#models)
