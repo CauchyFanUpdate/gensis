@@ -29,6 +29,13 @@ Yao Hu · Ming Tang · Xiaojie Jin · Xiaolong Zheng · Jinqiao Wang<sup>†</su
 
 Welcome to the official repository of **Genesis**. This work studies how to connect visual observations with intermediate reasoning. It combines controlled image augmentation, supervision over reasoning steps, and evaluation on scenes that challenge language priors.
 
+<p align="center">
+  <a href="assets/genesis-motivation.png">
+    <img src="assets/genesis-motivation.png" width="100%" alt="Figure 1: structured visual reasoning, failure cases in complex real-world scenes, and visual augmentation primitives that connect scene edits with reasoning chains">
+  </a><br>
+  <sub>Figure 1. Motivation for Visual Augmentation Primitives. From the <a href="https://arxiv.org/abs/2610.15565">Genesis paper</a>; click to view the full-resolution figure.</sub>
+</p>
+
 [News](#news) · [Method](#method) · [Results](#results) · [Models](#models) · [Dataset](#dataset) · [Get Started](#get-started) · [Citation](#citation)
 
 ## News
