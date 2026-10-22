@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="assets/genesis-mark.svg" width="88" height="88" alt="Genesis logo">
+<img src="assets/genesis-mascot.png" width="144" height="144" alt="Genesis paper mascot: an alpaca holding a paintbrush">
 
 # Genesis
 
-### Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning
+### *Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning*
 
 **🎉 Accepted to the EMNLP 2026 Main Conference**
 
@@ -14,10 +14,12 @@ Yao Hu · Ming Tang · Xiaojie Jin · Xiaolong Zheng · Jinqiao Wang<sup>†</su
 
 <sub>* Equal contribution &nbsp; † Corresponding authors</sub>
 
+<img src="assets/genesis-affiliations.jpg" width="820" alt="Institution logos from the paper: UCAS, Zidong Taichu, the State Key Laboratory of Multimodal Artificial Intelligence Systems, CASIA, Beijing Jiaotong University, and Xiaohongshu">
+
 [![Paper](https://img.shields.io/badge/arXiv-2610.15565-B31B1B?style=flat-square&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.15565)
-[![EMNLP](https://img.shields.io/badge/EMNLP_2026-Main_Conference-243B35?style=flat-square)](https://arxiv.org/html/2610.15565v1)
+[![EMNLP](https://img.shields.io/badge/EMNLP_2026-Main_Conference-7C3AED?style=flat-square)](https://arxiv.org/html/2610.15565v1)
 [![Models](https://img.shields.io/badge/Hugging_Face-Models-D6A34A?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/CauchyFan)
-[![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-648770?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
+[![Dataset](https://img.shields.io/badge/Hugging_Face-Dataset-7563B2?style=flat-square&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/CauchyFan/UNREAL_Benchmark)
 
 [**📄 Paper**](https://arxiv.org/abs/2610.15565) · [**🤗 Models**](#models) · [**📊 Data**](#dataset) · [**🌀 Usage**](#get-started) · [**📚 Citation**](#citation)
 
