@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1><img src="assets/genesis-mascot.png" width="56" height="56" alt="" align="middle"> <em>Genesis</em></h1>
+<h1><img src="assets/genesis-mascot.png" width="72" height="72" alt="" align="middle"> <img src="assets/genesis-wordmark.svg" width="210" height="72" alt="Genesis" align="middle"></h1>
 
 <p><strong><em>Visual Augmentation Primitives for<br>Multimodal Chain-of-Thought Reasoning</em></strong></p>
 
